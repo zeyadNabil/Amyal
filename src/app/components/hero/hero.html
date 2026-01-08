@@ -1,0 +1,42 @@
+<!-- Hero Section -->
+<section id="home" class="hero-section">
+  <div class="container">
+    <div class="hero-content">
+      <!-- Logo -->
+      <div class="hero-logo fade-in">
+        <img src="assets/images/logo.jpeg" alt="Amyal" class="hero-logo-img">
+      </div>
+
+      <!-- Main Heading -->
+      <h1 class="hero-title fade-in-up">
+        {{ langService.t('hero.title') }}
+      </h1>
+      <h1 class="hero-title-gradient fade-in-up">
+        {{ langService.t('hero.titleGradient') }}
+      </h1>
+
+      <!-- Subtext -->
+      <p class="hero-subtitle fade-in-up">
+        {{ langService.t('hero.subtitle') }}
+      </p>
+
+      <!-- CTA Button -->
+      <div class="hero-cta fade-in-up">
+        <a (click)="scrollToContact()" class="btn-glow" role="button">
+          <span class="btn-text">{{ langService.t('hero.cta') }}</span>
+        </a>
+      </div>
+
+      <!-- Hero Image -->
+      <div class="hero-image fade-in-up">
+        <img src="assets/images/homepage.jpeg" alt="Exhibition Stands" class="img-fluid">
+      </div>
+    </div>
+  </div>
+
+  <!-- Scroll Indicator -->
+  <div class="scroll-indicator">
+    <div class="scroll-line"></div>
+  </div>
+</section>
+

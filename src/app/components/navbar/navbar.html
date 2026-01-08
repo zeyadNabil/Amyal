@@ -1,0 +1,67 @@
+<nav class="navbar navbar-expand-lg navbar-dark" id="mainNav" [class.scrolled]="isScrolled()">
+  <div class="container-fluid">
+    <!-- Mobile Toggle -->
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent" aria-controls="navbarContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <!-- Navbar Content -->
+    <div class="collapse navbar-collapse" id="navbarContent">
+      <!-- Left Menu -->
+      <ul class="navbar-nav m-auto">
+        <li class="nav-item">
+          <a class="nav-link" 
+             [class.active]="activeSection() === 'home'"
+             (click)="scrollToSection('home')"
+             role="button">
+            {{ langService.t('nav.home') }}
+          </a>
+        </li>
+      </ul>
+
+      <!-- Right Menu -->
+      <ul class="navbar-nav m-auto">
+        <li class="nav-item">
+          <a class="nav-link" 
+             [class.active]="activeSection() === 'about'"
+             (click)="scrollToSection('about')"
+             role="button">
+            {{ langService.t('nav.about') }}
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" 
+             [class.active]="activeSection() === 'gallery'"
+             (click)="scrollToSection('gallery')"
+             role="button">
+            {{ langService.t('nav.gallery') }}
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" 
+             [class.active]="activeSection() === 'contact'"
+             (click)="scrollToSection('contact')"
+             role="button">
+            {{ langService.t('nav.contact') }}
+          </a>
+        </li>
+        <li class="nav-item">
+          <button class="search-btn" aria-label="Search">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="11" cy="11" r="8"></circle>
+              <path d="m21 21-4.35-4.35"></path>
+            </svg>
+          </button>
+        </li>
+        <li class="nav-item">
+          <button class="lang-toggle-btn" 
+                  (click)="toggleLanguage()" 
+                  aria-label="Toggle Language">
+            {{ langService.languageButtonText() }}
+          </button>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+

@@ -1,0 +1,66 @@
+﻿{
+  "nav": {
+    "home": "Home",
+    "about": "About Us",
+    "gallery": "Gallery",
+    "contact": "Contact"
+  },
+  "hero": {
+    "title": "Building Stands for",
+    "titleGradient": "Extraordinary Events",
+    "subtitle": "Innovative and impactful exhibition stand solutions.",
+    "cta": "Learn More"
+  },
+  "about": {
+    "title": "About Us",
+    "subtitle": "Transforming visions into extraordinary exhibition experiences",
+    "heading": "Creating Immersive Brand Experiences",
+    "text1": "At Amyal, we specialize in designing and building innovative exhibition stands that captivate audiences and elevate your brand presence. With years of expertise in the industry, we bring creativity, precision, and passion to every project.",
+    "text2": "Our team of talented designers and craftsmen work collaboratively to transform your vision into reality, ensuring every detail reflects your brand's unique identity and values.",
+    "stat1": "Projects Completed",
+    "stat2": "Years Experience",
+    "stat3": "Client Satisfaction",
+    "feature1Title": "Innovative Design",
+    "feature1Text": "Cutting-edge designs that push boundaries and capture attention.",
+    "feature2Title": "On-Time Delivery",
+    "feature2Text": "Reliable execution with guaranteed timelines for your events.",
+    "feature3Title": "Expert Team",
+    "feature3Text": "Skilled professionals dedicated to bringing your vision to life.",
+    "feature4Title": "Quality Materials",
+    "feature4Text": "Premium materials ensuring durability and stunning finishes."
+  },
+  "gallery": {
+    "title": "Our Gallery",
+    "subtitle": "Explore our portfolio of exceptional exhibition stands",
+    "project1": "Modern Exhibition Stand",
+    "project2": "Interactive Display",
+    "project3": "Luxury Brand Booth",
+    "project4": "Innovation Hub",
+    "project5": "Minimalist Design",
+    "project6": "Grand Pavilion",
+    "category1": "Corporate Event",
+    "category2": "Tech Expo",
+    "category3": "Fashion Show",
+    "category4": "Trade Fair",
+    "category5": "Art Gallery",
+    "category6": "International Expo"
+  },
+  "contact": {
+    "title": "Get In Touch",
+    "subtitle": "Let's create something extraordinary together",
+    "heading": "Let's Talk",
+    "text": "Have a project in mind? We'd love to hear from you. Send us a message and we'll respond as soon as possible.",
+    "phone": "Phone",
+    "email": "Email",
+    "location": "Location",
+    "address": "Riyadh, Saudi Arabia",
+    "namePlaceholder": "Your Name",
+    "emailPlaceholder": "Your Email",
+    "phonePlaceholder": "Your Phone",
+    "messagePlaceholder": "Your Message",
+    "submit": "Send Message"
+  },
+  "footer": {
+    "text": "Building stands for extraordinary events"
+  }
+}
