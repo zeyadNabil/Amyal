@@ -11,6 +11,7 @@ import { LanguageService } from '../../services/language.service';
 export class Navbar {
   isScrolled = signal(false);
   activeSection = signal('home');
+  isDropdownOpen = signal(false);
 
   constructor(public langService: LanguageService) {}
 
@@ -20,9 +21,18 @@ export class Navbar {
     this.updateActiveSection();
   }
 
+  @HostListener('document:click', ['$event'])
+  onDocumentClick(event: Event): void {
+    const target = event.target as HTMLElement;
+    const dropdown = target.closest('.nav-item.dropdown');
+    if (!dropdown) {
+      this.isDropdownOpen.set(false);
+    }
+  }
+
   updateActiveSection(): void {
-    const sections = ['home', 'about', 'gallery', 'contact'];
-    
+    const sections = ['home', 'about', 'contact', 'gallery', 'partners'];
+
     for (const section of sections) {
       const element = document.getElementById(section);
       if (element) {
@@ -45,13 +55,21 @@ export class Navbar {
         behavior: 'smooth'
       });
       this.activeSection.set(sectionId);
-      
+
       // Close mobile menu if open
       const navbarCollapse = document.querySelector('.navbar-collapse.show');
       if (navbarCollapse) {
         navbarCollapse.classList.remove('show');
       }
     }
+  }
+
+  toggleDropdown(): void {
+    this.isDropdownOpen.set(!this.isDropdownOpen());
+  }
+
+  closeDropdown(): void {
+    this.isDropdownOpen.set(false);
   }
 
   toggleLanguage(): void {

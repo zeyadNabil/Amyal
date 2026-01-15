@@ -1,9 +1,21 @@
-﻿{
+{
   "nav": {
     "home": "Home",
-    "about": "About Us",
+    "productsServices": "Products & Services",
+    "exhibitionStand": "Exhibition Stand",
+    "exhibitionBoothDesign": "Exhibition Booth Design",
+    "displayUnitsMallKiosk": "Display Units and Mall Kiosk",
+    "eventManagement": "Event Management",
+    "brandAmbassadorsEventHosts": "Brand Ambassadors & Event Hosts",
+    "avService": "AV Service",
+    "vehicleBrandingWrapping": "Vehicle Branding & Wrapping",
+    "stickersCustomPrints": "Stickers & Custom Prints",
+    "fabricationManufacturing": "Fabrication & Manufacturing",
     "gallery": "Gallery",
-    "contact": "Contact"
+    "contact": "Contact Us",
+    "about": "About Us",
+    "partners": "Our Partners",
+    "getQuote": "Get Quote"
   },
   "hero": {
     "title": "Building Stands for",
@@ -61,6 +73,23 @@
     "submit": "Send Message"
   },
   "footer": {
-    "text": "Building stands for extraordinary events"
+    "text": "Amyal designs and produces some of the region's spectacular events. Whatever your budget, we guarantee you an event to be proud of.",
+    "aboutUs": "About Us",
+    "usefulLinks": "Useful Links",
+    "ourServices": "Our Services",
+    "socialMedia": "Social Media",
+    "companyProfile": "Company Profile",
+    "services": "Services",
+    "ourWork": "Our Work",
+    "blog": "Blog",
+    "contactUs": "Contact Us",
+    "phone": "Phone",
+    "email": "Email",
+    "address": "Riyadh, Saudi Arabia",
+    "copyright": "All rights reserved.",
+    "facebook": "Facebook",
+    "instagram": "Instagram",
+    "twitter": "Twitter",
+    "linkedin": "LinkedIn"
   }
 }
