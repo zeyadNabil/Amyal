@@ -1,10 +1,7 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Navbar } from './components/navbar/navbar';
-import { Hero } from './components/hero/hero';
-import { About } from './components/about/about';
-import { Gallery } from './components/gallery/gallery';
-import { Contact } from './components/contact/contact';
+import { Home } from './components/home/home';
 import { Footer } from './components/footer/footer';
 
 @Component({
@@ -12,10 +9,7 @@ import { Footer } from './components/footer/footer';
   imports: [
     CommonModule,
     Navbar,
-    Hero,
-    About,
-    Gallery,
-    Contact,
+    Home,
     Footer
   ],
   templateUrl: './app.html',

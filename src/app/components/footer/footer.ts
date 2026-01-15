@@ -12,5 +12,12 @@ export class Footer {
   currentYear = new Date().getFullYear();
 
   constructor(public langService: LanguageService) {}
+
+  scrollToSection(sectionId: string): void {
+    const element = document.getElementById(sectionId);
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  }
 }
 

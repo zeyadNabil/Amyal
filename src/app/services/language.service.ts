@@ -4,9 +4,21 @@ import { HttpClient } from '@angular/common/http';
 export interface Translations {
   nav: {
     home: string;
-    about: string;
+    productsServices: string;
+    exhibitionStand: string;
+    exhibitionBoothDesign: string;
+    displayUnitsMallKiosk: string;
+    eventManagement: string;
+    brandAmbassadorsEventHosts: string;
+    avService: string;
+    vehicleBrandingWrapping: string;
+    stickersCustomPrints: string;
+    fabricationManufacturing: string;
     gallery: string;
     contact: string;
+    about: string;
+    partners: string;
+    getQuote: string;
   };
   hero: {
     title: string;
@@ -65,6 +77,23 @@ export interface Translations {
   };
   footer: {
     text: string;
+    aboutUs: string;
+    usefulLinks: string;
+    ourServices: string;
+    socialMedia: string;
+    companyProfile: string;
+    services: string;
+    ourWork: string;
+    blog: string;
+    contactUs: string;
+    phone: string;
+    email: string;
+    address: string;
+    copyright: string;
+    facebook: string;
+    instagram: string;
+    twitter: string;
+    linkedin: string;
   };
 }
 

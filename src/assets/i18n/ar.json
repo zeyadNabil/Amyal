@@ -1,9 +1,21 @@
-﻿{
+{
   "nav": {
     "home": "الرئيسية",
-    "about": "من نحن",
+    "productsServices": "المنتجات والخدمات",
+    "exhibitionStand": "جناح المعرض",
+    "exhibitionBoothDesign": "تصميم جناح المعرض",
+    "displayUnitsMallKiosk": "وحدات العرض وكشك المول",
+    "eventManagement": "إدارة الفعاليات",
+    "brandAmbassadorsEventHosts": "سفراء العلامة التجارية ومضيفي الفعاليات",
+    "avService": "خدمة الصوت والصور",
+    "vehicleBrandingWrapping": "تغليف وتصميم المركبات",
+    "stickersCustomPrints": "الملصقات والطباعة المخصصة",
+    "fabricationManufacturing": "التصنيع والتصنيع",
     "gallery": "المعرض",
-    "contact": "اتصل بنا"
+    "contact": "اتصل بنا",
+    "about": "من نحن",
+    "partners": "شركاؤنا",
+    "getQuote": "احصل على عرض سعر"
   },
   "hero": {
     "title": "بناء الأجنحة من أجل",
@@ -61,6 +73,23 @@
     "submit": "إرسال الرسالة"
   },
   "footer": {
-    "text": "بناء الأجنحة من أجل فعاليات استثنائية"
+    "text": "تصمم وتنتج آميال بعضًا من أكثر الفعاليات إثارة في المنطقة. مهما كان ميزانيتك، نضمن لك فعالية تفخر بها.",
+    "aboutUs": "من نحن",
+    "usefulLinks": "روابط مفيدة",
+    "ourServices": "خدماتنا",
+    "socialMedia": "وسائل التواصل الاجتماعي",
+    "companyProfile": "ملف الشركة",
+    "services": "الخدمات",
+    "ourWork": "أعمالنا",
+    "blog": "المدونة",
+    "contactUs": "اتصل بنا",
+    "phone": "الهاتف",
+    "email": "البريد الإلكتروني",
+    "address": "الرياض، المملكة العربية السعودية",
+    "copyright": "جميع الحقوق محفوظة.",
+    "facebook": "فيسبوك",
+    "instagram": "إنستغرام",
+    "twitter": "تويتر",
+    "linkedin": "لينكد إن"
   }
 }
