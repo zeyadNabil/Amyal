@@ -41,6 +41,66 @@
     "feature4Title": "Quality Materials",
     "feature4Text": "Premium materials ensuring durability and stunning finishes."
   },
+  "aboutUs": {
+    "title": "About Us",
+    "whoWeAre": {
+      "title": "Who We Are",
+      "subtitle": "Welcome to a Leading Exhibition & Event Management Company in the UAE",
+      "text1": "We are a full-service exhibition and branding company based in the UAE, specializing in exhibition stand design, build, and turnkey solutions. With a strong focus on creativity, functionality, and quality execution, we help brands present themselves with confidence at exhibitions, trade shows, and corporate events.",
+      "text2": "Our expertise spans custom exhibition stands, modular and portable displays, interior branding, and event environments. By combining strategic design thinking with in-house production capabilities, we deliver bespoke solutions that are visually striking, cost-effective, and tailored to each client's objectives.",
+      "text3": "From concept to completion, we manage every detail — ensuring a seamless experience and a strong, professional presence on the exhibition floor."
+    },
+    "whyChooseUs": {
+      "title": "Why Choose Us",
+      "feature1": {
+        "title": "Creative Design & In-House Production",
+        "text": "Our in-house design, production, and assembly allow us to customize every project and maintain full control over quality and delivery."
+      },
+      "feature2": {
+        "title": "Flexible Booth Solutions",
+        "text": "From custom-built stands to modular and portable systems, we offer flexible designs that adapt to different venues and exhibition requirements."
+      },
+      "feature3": {
+        "title": "Quality Construction",
+        "text": "All our projects — exhibition stands, kiosks, signage, and outdoor structures — are crafted using premium materials and precise workmanship to ensure durability and a superior finish."
+      },
+      "feature4": {
+        "title": "Transparent & Competitive Pricing",
+        "text": "We offer clear, comprehensive pricing packages designed to simplify the exhibiting process while delivering excellent value."
+      },
+      "feature5": {
+        "title": "Client Satisfaction First",
+        "text": "A project is only complete when our client is fully satisfied. Continuous communication and collaboration ensure expectations are met — and exceeded."
+      }
+    },
+    "mission": {
+      "title": "Mission",
+      "text": "To deliver high-quality exhibition and branding solutions through creative design, professional execution, and reliable service — building long-term partnerships with our clients."
+    },
+    "vision": {
+      "title": "Vision",
+      "text": "To become a trusted and recognized exhibition and event solutions provider in the UAE and the wider region, known for innovation, craftsmanship, and client satisfaction."
+    },
+    "howWeWork": {
+      "title": "How We Work",
+      "step1": {
+        "title": "Consultation & Requirements Review",
+        "text": "We start by understanding your brand, objectives, and exhibition goals through detailed consultation."
+      },
+      "step2": {
+        "title": "Design & Client Approval",
+        "text": "Our creative team develops custom designs and 3D visualizations for your review and approval."
+      },
+      "step3": {
+        "title": "Printing & Fabrication",
+        "text": "Once approved, we move to production with our in-house fabrication capabilities ensuring quality and precision."
+      },
+      "step4": {
+        "title": "Delivery, Installation & Handover",
+        "text": "We handle logistics, on-site installation, and ensure everything is ready for your event, followed by smooth dismantling."
+      }
+    }
+  },
   "gallery": {
     "title": "Gallery",
     "description": "Discover our work in action. This gallery showcases a curated selection of exhibitions, event productions, branding solutions, and custom fabrications delivered across the region. From concept to execution, every project demonstrates our attention to detail, innovation, and commitment to excellence.",

@@ -49,6 +49,9 @@ export class Navbar implements OnInit, OnDestroy {
     } else if (url.startsWith('/gallery')) {
       this.activeServiceRoute.set('');
       this.activeSection.set('gallery');
+    } else if (url.startsWith('/about-us')) {
+      this.activeServiceRoute.set('');
+      this.activeSection.set('about');
     } else {
       this.activeServiceRoute.set('');
       // Only update activeSection if not on home page sections

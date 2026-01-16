@@ -150,8 +150,10 @@
         <!-- About Us -->
         <li class="nav-item">
           <a class="nav-link"
-             [class.active]="activeSection() === 'about'"
-             (click)="handleNavClick('about')"
+             routerLink="/about-us"
+             routerLinkActive="active"
+             [routerLinkActiveOptions]="{exact: false}"
+             (click)="handleNavClick()"
              role="button">
             {{ langService.t('nav.about') }}
           </a>

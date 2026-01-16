@@ -44,6 +44,33 @@ export interface Translations {
     feature4Title: string;
     feature4Text: string;
   };
+  aboutUs: {
+    title: string;
+    whoWeAre: {
+      title: string;
+      subtitle: string;
+      text1: string;
+      text2: string;
+      text3: string;
+    };
+    whyChooseUs: {
+      title: string;
+      feature1: { title: string; text: string; };
+      feature2: { title: string; text: string; };
+      feature3: { title: string; text: string; };
+      feature4: { title: string; text: string; };
+      feature5: { title: string; text: string; };
+    };
+    mission: { title: string; text: string; };
+    vision: { title: string; text: string; };
+    howWeWork: {
+      title: string;
+      step1: { title: string; text: string; };
+      step2: { title: string; text: string; };
+      step3: { title: string; text: string; };
+      step4: { title: string; text: string; };
+    };
+  };
   gallery: {
     title: string;
     subtitle: string;
