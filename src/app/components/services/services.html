@@ -1,0 +1,197 @@
+<!-- Service Content -->
+<div class="service-page" *ngIf="isLoaded()">
+  <div class="container">
+    <!-- Header Section -->
+    <div class="service-header">
+      <h1 class="service-title typing-title">
+        <span class="typed-text">{{ typedTitle() || langService.t('nav.' + getServiceKey()) || serviceType() }}</span>
+        <span class="typing-cursor" *ngIf="isTyping()">|</span>
+      </h1>
+      <div class="service-breadcrumb">
+        <a routerLink="/" class="breadcrumb-link">{{ langService.t('nav.home') }}</a>
+        <span class="breadcrumb-separator">/</span>
+        <span class="breadcrumb-current">{{ langService.t('nav.' + getServiceKey()) }}</span>
+      </div>
+    </div>
+
+    <!-- Image Slider Section -->
+    <div class="service-section scroll-reveal" *ngIf="getServiceImages().length > 0">
+      <div class="row">
+        <div class="col-12">
+          <div id="serviceCarousel" #carousel class="carousel slide carousel-fade service-carousel" data-bs-ride="carousel" data-bs-interval="4000">
+            <div class="carousel-indicators">
+              <button type="button"
+                      *ngFor="let img of getServiceImages(); let i = index"
+                      [attr.data-bs-target]="'#serviceCarousel'"
+                      [attr.data-bs-slide-to]="i"
+                      [class.active]="i === 0"
+                      [attr.aria-label]="'Slide ' + (i + 1)">
+              </button>
+            </div>
+            <div class="carousel-inner">
+              <div class="carousel-item"
+                   *ngFor="let image of getServiceImages(); let i = index"
+                   [class.active]="i === 0">
+                <div class="slider-image-wrapper">
+                  <img [src]="image"
+                       class="d-block w-100 service-slider-image"
+                       [alt]="langService.t('nav.' + getServiceKey()) + ' - Image ' + (i + 1)">
+                  <div class="galaxy-overlay"></div>
+                </div>
+                <div class="carousel-caption d-none d-md-block">
+                  <h3>{{ langService.t('nav.' + getServiceKey()) }}</h3>
+                </div>
+              </div>
+            </div>
+            <button class="carousel-control-prev" type="button" data-bs-target="#serviceCarousel" data-bs-slide="prev">
+              <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+              <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#serviceCarousel" data-bs-slide="next">
+              <span class="carousel-control-next-icon" aria-hidden="true"></span>
+              <span class="visually-hidden">Next</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Overview Section with Image -->
+    <div class="service-section scroll-reveal" *ngIf="getOverview() && hasContent()">
+      <div class="row g-4 align-items-start">
+        <div class="col-lg-6" [class.offset-lg-6]="getServiceImages().length === 0">
+          <div class="service-card overview-card">
+            <h2 class="section-title">{{ langService.t('services.sections.overview') }}</h2>
+            <p class="section-text">{{ getOverview() }}</p>
+          </div>
+        </div>
+        <div class="col-lg-6" *ngIf="getServiceImages().length > 0">
+          <div class="service-image-wrapper animate-float">
+            <img [src]="getServiceImages()[0]"
+                 class="img-fluid service-content-image"
+                 [alt]="langService.t('nav.' + getServiceKey())">
+            <div class="image-overlay"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Features Section with Icons -->
+    <div class="service-section scroll-reveal" *ngIf="getFeatures().length > 0">
+      <h2 class="section-main-title">{{ langService.t('services.sections.features') }}</h2>
+      <div class="row g-4">
+        <div class="col-md-6 col-lg-4" *ngFor="let feature of getFeatures(); let i = index">
+          <div class="service-card feature-card card-hover animate-card" [style.--i]="i">
+            <div class="card-content">
+              <div class="card-icon">
+                <i [class]="'fas ' + getFeatureIcon(i)"></i>
+              </div>
+              <p class="card-text">{{ feature }}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- What Makes Different Section with Icons -->
+    <div class="service-section scroll-reveal" *ngIf="getWhatMakesDifferent().length > 0">
+      <h2 class="section-main-title">{{ langService.t('services.sections.whatMakesDifferent') }}</h2>
+      <div class="row g-4">
+        <div class="col-md-6 col-lg-4" *ngFor="let item of getWhatMakesDifferent(); let i = index">
+          <div class="service-card different-card card-hover animate-card" [style.--i]="i">
+            <div class="card-content">
+              <div class="card-icon">
+                <i [class]="'fas ' + getDifferentIcon(i)"></i>
+              </div>
+              <p class="card-text">{{ item }}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Benefits Section with Icons -->
+    <div class="service-section scroll-reveal" *ngIf="getBenefits().length > 0">
+      <h2 class="section-main-title">{{ langService.t('services.sections.benefits') }}</h2>
+      <div class="row g-4">
+        <div class="col-md-6 col-lg-4" *ngFor="let benefit of getBenefits(); let i = index">
+          <div class="service-card benefit-card card-hover animate-card" [style.--i]="i">
+            <div class="card-content">
+              <div class="card-icon">
+                <i [class]="'fas ' + getBenefitIcon(i)"></i>
+              </div>
+              <p class="card-text">{{ benefit }}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- What We Deliver & Why Choose Side by Side -->
+    <div class="service-section scroll-reveal" *ngIf="getWhatWeDeliver().length > 0 || getWhyChoose().length > 0">
+      <div class="row g-4">
+        <!-- What We Deliver -->
+        <div class="col-12 col-lg-6" *ngIf="getWhatWeDeliver().length > 0">
+          <div class="service-card info-card deliver-card">
+            <div class="info-card-header">
+              <div class="info-card-icon">
+                <i class="fas fa-box"></i>
+              </div>
+              <h2 class="section-title">{{ langService.t('services.sections.whatWeDeliver') }}</h2>
+            </div>
+            <ul class="info-list">
+              <li *ngFor="let item of getWhatWeDeliver()">
+                <span class="list-icon">
+                  <i class="fas fa-check-circle"></i>
+                </span>
+                <span>{{ item }}</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Why Choose -->
+        <div class="col-12 col-lg-6" *ngIf="getWhyChoose().length > 0">
+          <div class="service-card info-card choose-card">
+            <div class="info-card-header">
+              <div class="info-card-icon">
+                <i class="fas fa-star"></i>
+              </div>
+              <h2 class="section-title">{{ langService.t('services.sections.whyChoose') }}</h2>
+            </div>
+            <ul class="info-list">
+              <li *ngFor="let item of getWhyChoose(); let i = index">
+                <span class="list-icon">
+                  <i [class]="'fas ' + getChooseIcon(i)"></i>
+                </span>
+                <span>{{ item }}</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Closing Text Section -->
+    <div class="service-section scroll-reveal" *ngIf="getClosingText() && getClosingText().length > 0 && !getClosingText().startsWith('services.')">
+      <div class="row">
+        <div class="col-lg-10 mx-auto">
+          <div class="service-card overview-card closing-card">
+            <p class="section-text">{{ getClosingText() }}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Placeholder if no content -->
+    <div class="service-section scroll-reveal" *ngIf="!hasContent()">
+      <div class="row">
+        <div class="col-lg-8 mx-auto">
+          <div class="service-card overview-card">
+            <p class="section-text">Content for {{ getServiceKey() }} will be added here</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

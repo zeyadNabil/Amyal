@@ -91,5 +91,55 @@
     "instagram": "Instagram",
     "twitter": "Twitter",
     "linkedin": "LinkedIn"
+  },
+  "services": {
+    "sections": {
+      "overview": "Overview",
+      "features": "Features & Capabilities",
+      "benefits": "Benefits",
+      "whatMakesDifferent": "What Makes Our Solutions Different",
+      "whatWeDeliver": "What We Deliver",
+      "whyChoose": "Why Choose Our Services"
+    },
+    "exhibitionStand": {
+      "overview": "We specialize in designing and building custom exhibition stands that are visually striking, structurally sound, and aligned with your brand objectives. Our team manages the entire process—from initial concept, 3D design, and material selection to fabrication, logistics, installation, and dismantling. Every stand is engineered to maximize visitor flow, brand exposure, and engagement while complying with venue regulations and timelines.",
+      "features": "Custom Exhibition Stand Design & Build|Modular Exhibition Stands|Event Booth Design & Fabrication|Pop-Up Stands & Display Counters|Backdrops, LED Walls & Branding Panels|3D Letters, Lighted Logos & Product Displays|Event Setup, Installation & Dismantling|Temporary & Reusable Stand Solutions",
+      "whatMakesDifferent": "Brand-Driven Concept Development|Innovative & Functional Design|Tailored to Your Needs|Quality Craftsmanship & Materials|Seamless Project Execution",
+      "whatWeDeliver": "Concept sketches & design development|3D visualisations & mock-ups|Custom-built exhibition stands|Modular & ready-made stand systems|Shell scheme branding upgrades|Technical detailing & structural planning|Logistics, installation & on-site coordination|Post-event support and stand reuse planning",
+      "whyChoose": "End-to-end support from design to delivery|Creative solutions with measurable impact|In-house production and quality control|Flexible options for all budgets and stand sizes|Professional installation and on-site supervision",
+      "closingText": "Our approach combines strategic thinking, creative design, and precise execution to deliver exhibition stands that perform as well as they look. Whether you are launching a new product, entering a new market, or strengthening customer relationships, we help you create spaces that resonate with your audience and elevate your brand experience."
+    },
+    "exhibitionBoothDesign": {
+      "overview": "We design and build high-impact exhibition stands that bring brands to life. Combining creative design, in-house production, and expert installation, we deliver exhibition solutions that command attention and drive results across the UAE.",
+      "features": "2D/3D Concept Design & Rendering|Layout Planning & Space Optimization|Custom Booth Fabrication|Counter Units, Shelving & Display Zones|LED Screens / Product Highlight Areas|Material Selection & Finishing Options|Installation, Dismantling & Logistics"
+    },
+    "displayUnitsMallKiosk": {
+      "overview": "We design and manufacture custom display units and mall kiosks that attract attention in high-traffic retail and public spaces. Our solutions are built to be durable, visually appealing, and easy to operate, ensuring long-term performance. Whether for product launches, promotions, or permanent retail presence, we create display units that enhance customer interaction and sales visibility.",
+      "features": "Custom Kiosk Design & Fabrication|Product Display Units & Gondolas|Pop-up Counters & Sampling Stations|Backlit Display Units|Retail Branding & Signage Integration|Installation & Maintenance Support|Modular / Reusable Display Systems"
+    },
+    "eventManagement": {
+      "overview": "We offer full-service event management, covering planning, coordination, production, and on-site execution. Our team handles logistics, scheduling, vendor coordination, staffing, and technical setup to ensure smooth and successful events. From corporate events and product launches to exhibitions and brand activations, we deliver seamless experiences that reflect professionalism and attention to detail.",
+      "features": "Event Planning & Coordination|Vendor & Supplier Management|Venue Setup & Production Oversight|Staffing & On-Ground Operations|Stage, Lighting & Show Flow Management|Event Branding & Signage Setup|Post-Event Wrap-Up & Reporting"
+    },
+    "brandAmbassadorsEventHosts": {
+      "overview": "We provide professional brand ambassadors and event hosts to represent your brand with confidence, professionalism, and impact.",
+      "features": "Professional male and female brand ambassadors|Trained event hosts for exhibitions, launches, and activations|Guest, registration, and visitor engagement|Product presentation and brand communication support|Multilingual hosts (Arabic / English and more upon request)|Hosts styled and briefed to match brand identity|Support for sales teams and on-site coordination"
+    },
+    "avService": {
+      "overview": "Our AV services provide complete audio, visual, and lighting solutions tailored to your event requirements.",
+      "features": "High-quality sound systems for clear and powerful audio|LED screens and visual displays for maximum impact|Projection systems for presentations and branding|Professional stage and ambient lighting solutions|Centralized control systems for seamless operation|Experienced technicians for setup, live operation, and on-site support"
+    },
+    "vehicleBrandingWrapping": {
+      "overview": "We transform vehicles into powerful mobile advertising platforms through high-quality branding and wrapping solutions.",
+      "features": "Full vehicle wraps for cars, vans, buses, and fleets|Partial wraps and decals for targeted branding|Custom graphic design aligned with brand identity|High-quality, durable vinyl material|Precision installation for a clean, professional finish|Weather-resistant and long-lasting solutions|Fleet branding for consistent brand visibility"
+    },
+    "stickersCustomPrints": {
+      "overview": "We provide a wide range of stickers and custom printing services, tailored to branding, marketing, and promotional needs. From small-format stickers and labels to large-scale banners, wall graphics, and exhibition prints, we focus on color accuracy, material quality, and finishing. Our printing solutions ensure consistency and a professional look across all brand touchpoints.",
+      "features": "Vinyl Stickers|Die-Cut Stickers|Floor Stickers|Glass Stickers|Promotional Stickers|Custom Shapes & Sizes"
+    },
+    "fabricationManufacturing": {
+      "overview": "Our fabrication and manufacturing capabilities allow us to produce custom-built structures, stands, displays, and event components with precision and reliability. Using high-quality materials and skilled craftsmanship, we handle metal, wood, acrylic, and mixed-material fabrication. This in-house capability ensures quality control, timely delivery, and cost-effective solutions for all your project needs.",
+      "features": "Hoarding Structures|Hoarding Branding|Street Lamppost Branding|Fence Branding|Custom Metal & Acrylic Fabrication|Event Structures & Frames"
+    }
   }
 }

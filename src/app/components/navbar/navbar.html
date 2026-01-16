@@ -1,7 +1,7 @@
 <nav class="navbar navbar-expand-lg navbar-dark" id="mainNav" [class.scrolled]="isScrolled()">
   <div class="container-fluid">
     <!-- Logo -->
-    <a class="navbar-brand" (click)="scrollToSection('home')" role="button">
+    <a class="navbar-brand" routerLink="/" (click)="handleNavClick('home')" role="button">
       <img src="assets/images/logo.png" alt="Amyal" class="navbar-logo">
     </a>
 
@@ -17,8 +17,10 @@
         <!-- Home -->
         <li class="nav-item">
           <a class="nav-link"
-             [class.active]="activeSection() === 'home'"
-             (click)="scrollToSection('home')"
+             routerLink="/"
+             routerLinkActive="active"
+             [routerLinkActiveOptions]="{exact: true}"
+             (click)="handleNavClick('home')"
              role="button">
             {{ langService.t('nav.home') }}
           </a>
@@ -27,7 +29,7 @@
         <!-- Products & Services Dropdown -->
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle"
-             [class.active]="activeSection() === 'services'"
+             [class.active]="isServicesDropdownActive()"
              (click)="toggleDropdown(); $event.stopPropagation()"
              role="button"
              [attr.aria-expanded]="isDropdownOpen()">
@@ -40,47 +42,83 @@
           </a>
           <ul class="dropdown-menu" [class.show]="isDropdownOpen()">
             <li>
-              <a class="dropdown-item" (click)="closeDropdown()">
+              <a class="dropdown-item"
+                 [class.active]="isServiceActive('exhibition-stand')"
+                 routerLink="/services/exhibition-stand"
+                 routerLinkActive="active"
+                 (click)="handleNavClick()">
                 {{ langService.t('nav.exhibitionStand') }}
               </a>
             </li>
             <li>
-              <a class="dropdown-item" (click)="closeDropdown()">
+              <a class="dropdown-item"
+                 [class.active]="isServiceActive('exhibition-booth-design')"
+                 routerLink="/services/exhibition-booth-design"
+                 routerLinkActive="active"
+                 (click)="handleNavClick()">
                 {{ langService.t('nav.exhibitionBoothDesign') }}
               </a>
             </li>
             <li>
-              <a class="dropdown-item" (click)="closeDropdown()">
+              <a class="dropdown-item"
+                 [class.active]="isServiceActive('display-units-mall-kiosk')"
+                 routerLink="/services/display-units-mall-kiosk"
+                 routerLinkActive="active"
+                 (click)="handleNavClick()">
                 {{ langService.t('nav.displayUnitsMallKiosk') }}
               </a>
             </li>
             <li>
-              <a class="dropdown-item" (click)="closeDropdown()">
+              <a class="dropdown-item"
+                 [class.active]="isServiceActive('event-management')"
+                 routerLink="/services/event-management"
+                 routerLinkActive="active"
+                 (click)="handleNavClick()">
                 {{ langService.t('nav.eventManagement') }}
               </a>
             </li>
             <li>
-              <a class="dropdown-item" (click)="closeDropdown()">
+              <a class="dropdown-item"
+                 [class.active]="isServiceActive('brand-ambassadors-event-hosts')"
+                 routerLink="/services/brand-ambassadors-event-hosts"
+                 routerLinkActive="active"
+                 (click)="handleNavClick()">
                 {{ langService.t('nav.brandAmbassadorsEventHosts') }}
               </a>
             </li>
             <li>
-              <a class="dropdown-item" (click)="closeDropdown()">
+              <a class="dropdown-item"
+                 [class.active]="isServiceActive('av-service')"
+                 routerLink="/services/av-service"
+                 routerLinkActive="active"
+                 (click)="handleNavClick()">
                 {{ langService.t('nav.avService') }}
               </a>
             </li>
             <li>
-              <a class="dropdown-item" (click)="closeDropdown()">
+              <a class="dropdown-item"
+                 [class.active]="isServiceActive('vehicle-branding-wrapping')"
+                 routerLink="/services/vehicle-branding-wrapping"
+                 routerLinkActive="active"
+                 (click)="handleNavClick()">
                 {{ langService.t('nav.vehicleBrandingWrapping') }}
               </a>
             </li>
             <li>
-              <a class="dropdown-item" (click)="closeDropdown()">
+              <a class="dropdown-item"
+                 [class.active]="isServiceActive('stickers-custom-prints')"
+                 routerLink="/services/stickers-custom-prints"
+                 routerLinkActive="active"
+                 (click)="handleNavClick()">
                 {{ langService.t('nav.stickersCustomPrints') }}
               </a>
             </li>
             <li>
-              <a class="dropdown-item" (click)="closeDropdown()">
+              <a class="dropdown-item"
+                 [class.active]="isServiceActive('fabrication-manufacturing')"
+                 routerLink="/services/fabrication-manufacturing"
+                 routerLinkActive="active"
+                 (click)="handleNavClick()">
                 {{ langService.t('nav.fabricationManufacturing') }}
               </a>
             </li>
@@ -91,7 +129,7 @@
         <li class="nav-item">
           <a class="nav-link"
              [class.active]="activeSection() === 'gallery'"
-             (click)="scrollToSection('gallery')"
+             (click)="handleNavClick('gallery')"
              role="button">
             {{ langService.t('nav.gallery') }}
           </a>
@@ -101,7 +139,7 @@
         <li class="nav-item">
           <a class="nav-link"
              [class.active]="activeSection() === 'contact'"
-             (click)="scrollToSection('contact')"
+             (click)="handleNavClick('contact')"
              role="button">
             {{ langService.t('nav.contact') }}
           </a>
@@ -111,7 +149,7 @@
         <li class="nav-item">
           <a class="nav-link"
              [class.active]="activeSection() === 'about'"
-             (click)="scrollToSection('about')"
+             (click)="handleNavClick('about')"
              role="button">
             {{ langService.t('nav.about') }}
           </a>
@@ -121,7 +159,7 @@
         <li class="nav-item">
           <a class="nav-link"
              [class.active]="activeSection() === 'partners'"
-             (click)="scrollToSection('partners')"
+             (click)="handleNavClick('partners')"
              role="button">
             {{ langService.t('nav.partners') }}
           </a>
@@ -130,7 +168,7 @@
         <!-- Get Quote -->
         <li class="nav-item">
           <a class="nav-link btn-get-quote"
-             (click)="scrollToSection('contact')"
+             (click)="handleNavClick('contact')"
              role="button">
             {{ langService.t('nav.getQuote') }}
           </a>

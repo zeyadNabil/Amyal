@@ -1,0 +1,86 @@
+.back-to-top-btn {
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  width: 50px;
+  height: 50px;
+  background: linear-gradient(135deg, var(--pink), var(--purple), var(--blue));
+  border: none;
+  border-radius: 50%;
+  color: #fff;
+  font-size: 1.2rem;
+  cursor: pointer;
+  z-index: 999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 20px rgba(147, 51, 234, 0.4), 0 0 30px rgba(255, 27, 158, 0.3);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  opacity: 0;
+  transform: translateY(20px) scale(0.8);
+  animation: fadeInUp 0.4s ease-out forwards;
+}
+
+.back-to-top-btn:hover {
+  transform: translateY(-5px) scale(1.1);
+  box-shadow: 0 8px 30px rgba(147, 51, 234, 0.6), 0 0 40px rgba(255, 27, 158, 0.5);
+  background: linear-gradient(135deg, var(--pink), var(--purple), var(--blue));
+}
+
+.back-to-top-btn:active {
+  transform: translateY(-2px) scale(1.05);
+}
+
+.back-to-top-btn i {
+  transition: transform 0.3s ease;
+}
+
+.back-to-top-btn:hover i {
+  transform: translateY(-2px);
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px) scale(0.8);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* RTL Support */
+[dir="rtl"] .back-to-top-btn {
+  right: auto;
+  left: 30px;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .back-to-top-btn {
+    width: 45px;
+    height: 45px;
+    bottom: 20px;
+    right: 20px;
+    font-size: 1.1rem;
+  }
+
+  [dir="rtl"] .back-to-top-btn {
+    left: 20px;
+  }
+}
+
+@media (max-width: 576px) {
+  .back-to-top-btn {
+    width: 40px;
+    height: 40px;
+    bottom: 15px;
+    right: 15px;
+    font-size: 1rem;
+  }
+
+  [dir="rtl"] .back-to-top-btn {
+    left: 15px;
+  }
+}
