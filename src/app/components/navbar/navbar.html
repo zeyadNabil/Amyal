@@ -128,8 +128,10 @@
         <!-- Gallery -->
         <li class="nav-item">
           <a class="nav-link"
-             [class.active]="activeSection() === 'gallery'"
-             (click)="handleNavClick('gallery')"
+             routerLink="/gallery"
+             routerLinkActive="active"
+             [routerLinkActiveOptions]="{exact: false}"
+             (click)="handleNavClick()"
              role="button">
             {{ langService.t('nav.gallery') }}
           </a>

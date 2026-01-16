@@ -1,0 +1,338 @@
+<!-- Gallery Page -->
+<section class="gallery-page">
+  <div class="container">
+    <!-- Gallery Header -->
+    <div class="gallery-header scroll-reveal">
+      <h1 class="gallery-title typing-title fade-in-up">
+        <span class="typed-text">{{ typedTitle() || langService.t('gallery.title') }}</span>
+        <span class="typing-cursor" *ngIf="isTyping()">|</span>
+      </h1>
+      <p class="gallery-description fade-in-up">
+        {{ langService.t('gallery.description') }}
+      </p>
+    </div>
+
+    <!-- Gallery Grid -->
+    <div class="gallery-grid">
+      <!-- Row 1: Large horizontal -->
+      <div class="gallery-item large-horizontal fade-in-up scroll-reveal">
+        <div class="gallery-image-wrapper">
+          <img src="https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=1200&h=600&fit=crop" alt="Exhibition Stand" class="gallery-image">
+          <div class="galaxy-overlay"></div>
+          <div class="gallery-overlay">
+            <div class="gallery-info">
+              <h3 class="gallery-item-title">{{ langService.t('gallery.items.exhibitionStand.title') }}</h3>
+              <p class="gallery-item-category">{{ langService.t('gallery.items.exhibitionStand.category') }}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Row 1: Two vertical items -->
+      <div class="gallery-item vertical fade-in-up scroll-reveal">
+        <div class="gallery-image-wrapper">
+          <img src="https://images.unsplash.com/photo-1511795409834-ef04bbd61622?w=600&h=800&fit=crop" alt="Event Production" class="gallery-image">
+          <div class="galaxy-overlay"></div>
+          <div class="gallery-overlay">
+            <div class="gallery-info">
+              <h3 class="gallery-item-title">{{ langService.t('gallery.items.eventProduction.title') }}</h3>
+              <p class="gallery-item-category">{{ langService.t('gallery.items.eventProduction.category') }}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="gallery-item vertical fade-in-up scroll-reveal">
+        <div class="gallery-image-wrapper">
+          <img src="https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=600&h=800&fit=crop" alt="Branding Solutions" class="gallery-image">
+          <div class="galaxy-overlay"></div>
+          <div class="gallery-overlay">
+            <div class="gallery-info">
+              <h3 class="gallery-item-title">{{ langService.t('gallery.items.brandingSolutions.title') }}</h3>
+              <p class="gallery-item-category">{{ langService.t('gallery.items.brandingSolutions.category') }}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Row 2: Medium horizontal items -->
+      <div class="gallery-item medium-horizontal fade-in-up scroll-reveal">
+        <div class="gallery-image-wrapper">
+          <img src="https://images.unsplash.com/photo-1511578314322-379afb476865?w=800&h=600&fit=crop" alt="Custom Fabrication" class="gallery-image">
+          <div class="galaxy-overlay"></div>
+          <div class="gallery-overlay">
+            <div class="gallery-info">
+              <h3 class="gallery-item-title">{{ langService.t('gallery.items.customFabrication.title') }}</h3>
+              <p class="gallery-item-category">{{ langService.t('gallery.items.customFabrication.category') }}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="gallery-item medium-horizontal fade-in-up scroll-reveal">
+        <div class="gallery-image-wrapper">
+          <img src="https://images.unsplash.com/photo-1560179707-f14e90ef3623?w=800&h=600&fit=crop" alt="Display Units" class="gallery-image">
+          <div class="galaxy-overlay"></div>
+          <div class="gallery-overlay">
+            <div class="gallery-info">
+              <h3 class="gallery-item-title">{{ langService.t('gallery.items.displayUnits.title') }}</h3>
+              <p class="gallery-item-category">{{ langService.t('gallery.items.displayUnits.category') }}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Row 3: Vertical and horizontal mix -->
+      <div class="gallery-item vertical fade-in-up scroll-reveal">
+        <div class="gallery-image-wrapper">
+          <img src="https://images.unsplash.com/photo-1505373877841-8d25f7d46678?w=600&h=900&fit=crop" alt="AV Services" class="gallery-image">
+          <div class="galaxy-overlay"></div>
+          <div class="gallery-overlay">
+            <div class="gallery-info">
+              <h3 class="gallery-item-title">{{ langService.t('gallery.items.avServices.title') }}</h3>
+              <p class="gallery-item-category">{{ langService.t('gallery.items.avServices.category') }}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="gallery-item large-horizontal fade-in-up scroll-reveal">
+        <div class="gallery-image-wrapper">
+          <img src="https://images.unsplash.com/photo-1464366400600-7168b8af9bc3?w=1200&h=700&fit=crop" alt="Vehicle Branding" class="gallery-image">
+          <div class="galaxy-overlay"></div>
+          <div class="gallery-overlay">
+            <div class="gallery-info">
+              <h3 class="gallery-item-title">{{ langService.t('gallery.items.vehicleBranding.title') }}</h3>
+              <p class="gallery-item-category">{{ langService.t('gallery.items.vehicleBranding.category') }}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Row 4: Three medium items -->
+      <div class="gallery-item medium-vertical fade-in-up scroll-reveal">
+        <div class="gallery-image-wrapper">
+          <img src="https://images.unsplash.com/photo-1504328345606-18bbc8c9d7d1?w=600&h=600&fit=crop" alt="Stickers & Prints" class="gallery-image">
+          <div class="galaxy-overlay"></div>
+          <div class="gallery-overlay">
+            <div class="gallery-info">
+              <h3 class="gallery-item-title">{{ langService.t('gallery.items.stickersPrints.title') }}</h3>
+              <p class="gallery-item-category">{{ langService.t('gallery.items.stickersPrints.category') }}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="gallery-item medium-vertical fade-in-up scroll-reveal">
+        <div class="gallery-image-wrapper">
+          <img src="https://images.unsplash.com/photo-1467232004584-a241de8bcf5d?w=600&h=600&fit=crop" alt="Booth Design" class="gallery-image">
+          <div class="galaxy-overlay"></div>
+          <div class="gallery-overlay">
+            <div class="gallery-info">
+              <h3 class="gallery-item-title">{{ langService.t('gallery.items.boothDesign.title') }}</h3>
+              <p class="gallery-item-category">{{ langService.t('gallery.items.boothDesign.category') }}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="gallery-item medium-vertical fade-in-up scroll-reveal">
+        <div class="gallery-image-wrapper">
+          <img src="https://images.unsplash.com/photo-1475721027785-f74eccf877e2?w=600&h=600&fit=crop" alt="Event Management" class="gallery-image">
+          <div class="galaxy-overlay"></div>
+          <div class="gallery-overlay">
+            <div class="gallery-info">
+              <h3 class="gallery-item-title">{{ langService.t('gallery.items.eventManagement.title') }}</h3>
+              <p class="gallery-item-category">{{ langService.t('gallery.items.eventManagement.category') }}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Row 5: Large horizontal and vertical -->
+      <div class="gallery-item large-horizontal fade-in-up scroll-reveal">
+        <div class="gallery-image-wrapper">
+          <img src="https://images.unsplash.com/photo-1504148455328-c376907d081c?w=1200&h=650&fit=crop" alt="Exhibition Hall" class="gallery-image">
+          <div class="galaxy-overlay"></div>
+          <div class="gallery-overlay">
+            <div class="gallery-info">
+              <h3 class="gallery-item-title">{{ langService.t('gallery.items.exhibitionHall.title') }}</h3>
+              <p class="gallery-item-category">{{ langService.t('gallery.items.exhibitionHall.category') }}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="gallery-item vertical fade-in-up scroll-reveal">
+        <div class="gallery-image-wrapper">
+          <img src="https://images.unsplash.com/photo-1559526324-4b87b5e36e44?w=600&h=850&fit=crop" alt="Brand Activation" class="gallery-image">
+          <div class="galaxy-overlay"></div>
+          <div class="gallery-overlay">
+            <div class="gallery-info">
+              <h3 class="gallery-item-title">{{ langService.t('gallery.items.brandActivation.title') }}</h3>
+              <p class="gallery-item-category">{{ langService.t('gallery.items.brandActivation.category') }}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Row 6: Mixed sizes -->
+      <div class="gallery-item vertical fade-in-up scroll-reveal">
+        <div class="gallery-image-wrapper">
+          <img src="https://images.unsplash.com/photo-1492684223066-81342ee5ff30?w=600&h=900&fit=crop" alt="Corporate Event" class="gallery-image">
+          <div class="galaxy-overlay"></div>
+          <div class="gallery-overlay">
+            <div class="gallery-info">
+              <h3 class="gallery-item-title">{{ langService.t('gallery.items.corporateEvent.title') }}</h3>
+              <p class="gallery-item-category">{{ langService.t('gallery.items.corporateEvent.category') }}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="gallery-item medium-horizontal fade-in-up scroll-reveal">
+        <div class="gallery-image-wrapper">
+          <img src="https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=900&h=600&fit=crop" alt="Retail Display" class="gallery-image">
+          <div class="galaxy-overlay"></div>
+          <div class="gallery-overlay">
+            <div class="gallery-info">
+              <h3 class="gallery-item-title">{{ langService.t('gallery.items.retailDisplay.title') }}</h3>
+              <p class="gallery-item-category">{{ langService.t('gallery.items.retailDisplay.category') }}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="gallery-item medium-vertical fade-in-up scroll-reveal">
+        <div class="gallery-image-wrapper">
+          <img src="https://images.unsplash.com/photo-1519167758481-83f550bb49b3?w=600&h=600&fit=crop" alt="Fabrication Workshop" class="gallery-image">
+          <div class="galaxy-overlay"></div>
+          <div class="gallery-overlay">
+            <div class="gallery-info">
+              <h3 class="gallery-item-title">{{ langService.t('gallery.items.fabricationWorkshop.title') }}</h3>
+              <p class="gallery-item-category">{{ langService.t('gallery.items.fabricationWorkshop.category') }}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Additional Images to Fill Empty Spaces -->
+      <div class="gallery-item medium-horizontal fade-in-up scroll-reveal">
+        <div class="gallery-image-wrapper">
+          <img src="https://images.unsplash.com/photo-1504868584819-f8e8b4b6d7e3?w=800&h=600&fit=crop" alt="Conference Setup" class="gallery-image">
+          <div class="galaxy-overlay"></div>
+          <div class="gallery-overlay">
+            <div class="gallery-info">
+              <h3 class="gallery-item-title">{{ langService.t('gallery.items.conferenceSetup.title') }}</h3>
+              <p class="gallery-item-category">{{ langService.t('gallery.items.conferenceSetup.category') }}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="gallery-item medium-vertical fade-in-up scroll-reveal">
+        <div class="gallery-image-wrapper">
+          <img src="https://images.unsplash.com/photo-1461360370896-922624d12aa1?w=600&h=600&fit=crop" alt="Stage Design" class="gallery-image">
+          <div class="galaxy-overlay"></div>
+          <div class="gallery-overlay">
+            <div class="gallery-info">
+              <h3 class="gallery-item-title">{{ langService.t('gallery.items.stageDesign.title') }}</h3>
+              <p class="gallery-item-category">{{ langService.t('gallery.items.stageDesign.category') }}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="gallery-item medium-vertical fade-in-up scroll-reveal">
+        <div class="gallery-image-wrapper">
+          <img src="https://images.unsplash.com/photo-1511578314322-379afb476865?w=600&h=600&fit=crop" alt="Lighting Design" class="gallery-image">
+          <div class="galaxy-overlay"></div>
+          <div class="gallery-overlay">
+            <div class="gallery-info">
+              <h3 class="gallery-item-title">{{ langService.t('gallery.items.lightingDesign.title') }}</h3>
+              <p class="gallery-item-category">{{ langService.t('gallery.items.lightingDesign.category') }}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="gallery-item large-horizontal fade-in-up scroll-reveal">
+        <div class="gallery-image-wrapper">
+          <img src="https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=1200&h=600&fit=crop" alt="Trade Show Booth" class="gallery-image">
+          <div class="galaxy-overlay"></div>
+          <div class="gallery-overlay">
+            <div class="gallery-info">
+              <h3 class="gallery-item-title">{{ langService.t('gallery.items.tradeShowBooth.title') }}</h3>
+              <p class="gallery-item-category">{{ langService.t('gallery.items.tradeShowBooth.category') }}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="gallery-item vertical fade-in-up scroll-reveal">
+        <div class="gallery-image-wrapper">
+          <img src="https://images.unsplash.com/photo-1543269865-cbf427effbad?w=600&h=900&fit=crop" alt="Product Launch" class="gallery-image">
+          <div class="galaxy-overlay"></div>
+          <div class="gallery-overlay">
+            <div class="gallery-info">
+              <h3 class="gallery-item-title">{{ langService.t('gallery.items.productLaunch.title') }}</h3>
+              <p class="gallery-item-category">{{ langService.t('gallery.items.productLaunch.category') }}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="gallery-item medium-horizontal fade-in-up scroll-reveal">
+        <div class="gallery-image-wrapper">
+          <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800&h=600&fit=crop" alt="Digital Signage" class="gallery-image">
+          <div class="galaxy-overlay"></div>
+          <div class="gallery-overlay">
+            <div class="gallery-info">
+              <h3 class="gallery-item-title">{{ langService.t('gallery.items.digitalSignage.title') }}</h3>
+              <p class="gallery-item-category">{{ langService.t('gallery.items.digitalSignage.category') }}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="gallery-item medium-vertical fade-in-up scroll-reveal">
+        <div class="gallery-image-wrapper">
+          <img src="https://images.unsplash.com/photo-1524178232363-1fb2b075b655?w=600&h=600&fit=crop" alt="Installation Services" class="gallery-image">
+          <div class="galaxy-overlay"></div>
+          <div class="gallery-overlay">
+            <div class="gallery-info">
+              <h3 class="gallery-item-title">{{ langService.t('gallery.items.installationServices.title') }}</h3>
+              <p class="gallery-item-category">{{ langService.t('gallery.items.installationServices.category') }}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="gallery-item medium-horizontal fade-in-up scroll-reveal">
+        <div class="gallery-image-wrapper">
+          <img src="https://images.unsplash.com/photo-1492684223066-81342ee5ff30?w=800&h=600&fit=crop" alt="VIP Lounge" class="gallery-image">
+          <div class="galaxy-overlay"></div>
+          <div class="gallery-overlay">
+            <div class="gallery-info">
+              <h3 class="gallery-item-title">{{ langService.t('gallery.items.vipLounge.title') }}</h3>
+              <p class="gallery-item-category">{{ langService.t('gallery.items.vipLounge.category') }}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="gallery-item vertical fade-in-up scroll-reveal">
+        <div class="gallery-image-wrapper">
+          <img src="https://images.unsplash.com/photo-1511795409834-ef04bbd61622?w=600&h=900&fit=crop" alt="Award Ceremony" class="gallery-image">
+          <div class="galaxy-overlay"></div>
+          <div class="gallery-overlay">
+            <div class="gallery-info">
+              <h3 class="gallery-item-title">{{ langService.t('gallery.items.awardCeremony.title') }}</h3>
+              <p class="gallery-item-category">{{ langService.t('gallery.items.awardCeremony.category') }}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
