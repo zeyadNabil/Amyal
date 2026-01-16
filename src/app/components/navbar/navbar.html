@@ -140,8 +140,10 @@
         <!-- Contact Us -->
         <li class="nav-item">
           <a class="nav-link"
-             [class.active]="activeSection() === 'contact'"
-             (click)="handleNavClick('contact')"
+             routerLink="/contact-us"
+             routerLinkActive="active"
+             [routerLinkActiveOptions]="{exact: false}"
+             (click)="handleNavClick()"
              role="button">
             {{ langService.t('nav.contact') }}
           </a>
@@ -162,8 +164,10 @@
         <!-- Our Partners -->
         <li class="nav-item">
           <a class="nav-link"
-             [class.active]="activeSection() === 'partners'"
-             (click)="handleNavClick('partners')"
+             routerLink="/partners"
+             routerLinkActive="active"
+             [routerLinkActiveOptions]="{exact: false}"
+             (click)="handleNavClick()"
              role="button">
             {{ langService.t('nav.partners') }}
           </a>
@@ -172,7 +176,10 @@
         <!-- Get Quote -->
         <li class="nav-item">
           <a class="nav-link btn-get-quote"
-             (click)="handleNavClick('contact')"
+             routerLink="/contact-us"
+             routerLinkActive="active"
+             [routerLinkActiveOptions]="{exact: false}"
+             (click)="handleNavClick()"
              role="button">
             {{ langService.t('nav.getQuote') }}
           </a>

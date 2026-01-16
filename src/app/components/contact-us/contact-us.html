@@ -1,165 +1,16 @@
-<!-- Hero Section -->
-<section id="home" class="hero-section">
-  <div class="container">
-    <div class="hero-content">
-      <!-- Logo -->
-      <div class="hero-logo fade-in">
-        <img src="assets/images/logo.png" alt="Amyal" class="hero-logo-img">
-      </div>
-
-      <!-- Main Heading -->
-      <h1 class="hero-title fade-in-up">
-        {{ langService.t('hero.title') }}
-      </h1>
-      <h1 class="hero-title-gradient fade-in-up">
-        {{ langService.t('hero.titleGradient') }}
-      </h1>
-
-      <!-- Subtext -->
-      <p class="hero-subtitle fade-in-up">
-        {{ langService.t('hero.subtitle') }}
-      </p>
-
-      <!-- CTA Button -->
-      <div class="hero-cta fade-in-up">
-        <a (click)="scrollToContact()" class="btn-glow" role="button">
-          <span class="btn-text">{{ langService.t('hero.cta') }}</span>
-        </a>
-      </div>
-
-      <!-- Hero Image -->
-      <div class="hero-image fade-in-up">
-        <img src="assets/images/homepage.jpeg" alt="Exhibition Stands" class="img-fluid">
-      </div>
-    </div>
-  </div>
-
-  <!-- Scroll Indicator -->
-  <div class="scroll-indicator">
-    <div class="scroll-line"></div>
-  </div>
-</section>
-
-<!-- About Us Section -->
-<section id="about" class="about-section">
+<!-- Contact Us Page -->
+<section class="contact-us-section">
   <div class="container">
     <div class="section-header scroll-reveal">
-      <h2 class="section-title gradient-text">{{ langService.t('about.title') }}</h2>
-      <p class="section-subtitle">{{ langService.t('about.subtitle') }}</p>
-    </div>
-
-    <div class="row align-items-center g-5">
-      <div class="col-lg-6 order-2 order-lg-1">
-        <div class="about-content scroll-reveal">
-          <h3 class="about-heading">{{ langService.t('about.heading') }}</h3>
-          <p class="about-text">{{ langService.t('about.text1') }}</p>
-          <p class="about-text">{{ langService.t('about.text2') }}</p>
-        </div>
-      </div>
-
-      <div class="col-lg-6 order-1 order-lg-2">
-        <div class="about-images scroll-reveal">
-          <div class="about-image-main image-fade">
-            <img src="assets/images/homepage.jpeg" alt="About Amyal" class="img-fluid">
-          </div>
-          <div class="about-image-float image-fade">
-            <img src="assets/images/logo.png" alt="Amyal Logo" class="img-fluid">
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- Statistics Row -->
-    <div class="row g-4 mt-5">
-      <div class="col-12">
-        <div class="row about-stats g-4 justify-content-center">
-          <div class="col-12 col-md-6 col-lg-4">
-            <div class="stat-item scroll-reveal">
-              <div class="stat-number">500+</div>
-              <div class="stat-label">{{ langService.t('about.stat1') }}</div>
-            </div>
-          </div>
-          <div class="col-12 col-md-6 col-lg-4">
-            <div class="stat-item scroll-reveal">
-              <div class="stat-number">15+</div>
-              <div class="stat-label">{{ langService.t('about.stat2') }}</div>
-            </div>
-          </div>
-          <div class="col-12 col-md-6 col-lg-4">
-            <div class="stat-item scroll-reveal">
-              <div class="stat-number">98%</div>
-              <div class="stat-label">{{ langService.t('about.stat3') }}</div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- Features -->
-    <div class="row g-4 mt-5">
-      <div class="col-12 col-md-6 col-lg-3">
-        <div class="feature-card scroll-reveal">
-          <div class="feature-icon">
-            <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <path d="M12 2L2 7l10 5 10-5-10-5z"></path>
-              <path d="M2 17l10 5 10-5M2 12l10 5 10-5"></path>
-            </svg>
-          </div>
-          <h4 class="feature-title">{{ langService.t('about.feature1Title') }}</h4>
-          <p class="feature-text">{{ langService.t('about.feature1Text') }}</p>
-        </div>
-      </div>
-
-      <div class="col-12 col-md-6 col-lg-3">
-        <div class="feature-card scroll-reveal">
-          <div class="feature-icon">
-            <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <circle cx="12" cy="12" r="10"></circle>
-              <polyline points="12 6 12 12 16 14"></polyline>
-            </svg>
-          </div>
-          <h4 class="feature-title">{{ langService.t('about.feature2Title') }}</h4>
-          <p class="feature-text">{{ langService.t('about.feature2Text') }}</p>
-        </div>
-      </div>
-
-      <div class="col-12 col-md-6 col-lg-3">
-        <div class="feature-card scroll-reveal">
-          <div class="feature-icon">
-            <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
-              <circle cx="12" cy="7" r="4"></circle>
-            </svg>
-          </div>
-          <h4 class="feature-title">{{ langService.t('about.feature3Title') }}</h4>
-          <p class="feature-text">{{ langService.t('about.feature3Text') }}</p>
-        </div>
-      </div>
-
-      <div class="col-12 col-md-6 col-lg-3">
-        <div class="feature-card scroll-reveal">
-          <div class="feature-icon">
-            <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline>
-            </svg>
-          </div>
-          <h4 class="feature-title">{{ langService.t('about.feature4Title') }}</h4>
-          <p class="feature-text">{{ langService.t('about.feature4Text') }}</p>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- Contact Section -->
-<section id="contact" class="contact-section">
-  <div class="container">
-    <div class="section-header scroll-reveal">
-      <h2 class="section-title gradient-text">{{ langService.t('contact.title') }}</h2>
-      <p class="section-subtitle">{{ langService.t('contact.subtitle') }}</p>
+      <h1 class="section-title gradient-text typing-title fade-in-up">
+        <span class="typed-text">{{ typedTitle() || langService.t('contact.title') }}</span>
+        <span class="typing-cursor" *ngIf="isTyping()">|</span>
+      </h1>
+      <p class="section-subtitle fade-in-up">{{ langService.t('contact.subtitle') }}</p>
     </div>
 
     <div class="row g-5">
+      <!-- Contact Information -->
       <div class="col-lg-6">
         <div class="contact-info scroll-reveal">
           <h3 class="contact-heading">{{ langService.t('contact.heading') }}</h3>
@@ -230,6 +81,7 @@
         </div>
       </div>
 
+      <!-- Contact Form -->
       <div class="col-lg-6">
         <form [formGroup]="contactForm" (ngSubmit)="onSubmit()" class="contact-form scroll-reveal">
           <div class="form-group">
@@ -317,6 +169,24 @@
             </span>
           </button>
         </form>
+      </div>
+    </div>
+
+    <!-- Google Maps Embed - Full Width -->
+    <div class="row g-5 mt-5">
+      <div class="col-12">
+        <div class="map-container scroll-reveal">
+          <iframe
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3610.1995098312!2d55.2708!3d25.2048!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3e5f43348a67e24d%3A0xff45e502e1ceb7e2!2sDubai%20-%20United%20Arab%20Emirates!5e0!3m2!1sen!2sus!4v1698765432109!5m2!1sen!2sus"
+            width="100%"
+            height="400"
+            style="border:0; border-radius: 20px;"
+            allowfullscreen=""
+            loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade"
+            title="Amyal Location - Dubai, UAE">
+          </iframe>
+        </div>
       </div>
     </div>
   </div>

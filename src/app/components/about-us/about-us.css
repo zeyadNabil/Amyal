@@ -42,7 +42,7 @@
   justify-content: center;
   opacity: 0;
   transform: translateY(30px);
-  transition: opacity 0.8s ease, transform 0.8s ease;
+  animation: titleSlideIn 0.8s ease forwards;
 }
 
 .about-title.fade-in-up {
@@ -70,6 +70,17 @@
   line-height: 1;
 }
 
+@keyframes titleSlideIn {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
 @keyframes blinkCursor {
   0%, 49% {
     opacity: 1;
@@ -86,7 +97,7 @@
 .section {
   margin-bottom: 100px;
   opacity: 0;
-  transform: translateY(50px);
+  transform: translateY(30px);
   transition: opacity 0.8s ease, transform 0.8s ease;
 }
 
@@ -165,12 +176,12 @@
   text-align: center;
   transition: all 0.4s ease;
   opacity: 0;
-  transform: translateY(40px) scale(0.95);
+  transform: translateY(30px);
 }
 
 .feature-card.scroll-reveal.active {
   opacity: 1;
-  transform: translateY(0) scale(1);
+  transform: translateY(0);
 }
 
 .feature-card:hover {
@@ -234,13 +245,13 @@
   padding: 50px 40px;
   transition: all 0.4s ease;
   opacity: 0;
-  transform: translateY(40px) scale(0.95);
+  transform: translateY(30px);
 }
 
 .mission-card.scroll-reveal.active,
 .vision-card.scroll-reveal.active {
   opacity: 1;
-  transform: translateY(0) scale(1);
+  transform: translateY(0);
 }
 
 .mission-card:hover,
@@ -315,22 +326,22 @@
   margin-bottom: 60px;
   position: relative;
   opacity: 0;
-  transform: translateX(-50px);
+  transform: translateY(30px);
   transition: opacity 0.8s ease, transform 0.8s ease;
 }
 
 .process-step:nth-child(even) {
   flex-direction: row-reverse;
-  transform: translateX(50px);
+  transform: translateY(30px);
 }
 
 .process-step.scroll-reveal.active {
   opacity: 1;
-  transform: translateX(0);
+  transform: translateY(0);
 }
 
 .process-step:nth-child(even).scroll-reveal.active {
-  transform: translateX(0);
+  transform: translateY(0);
 }
 
 .step-number {
@@ -388,19 +399,20 @@
 .fade-in-up {
   opacity: 0;
   transform: translateY(30px);
-  transition: opacity 0.8s ease, transform 0.8s ease;
+  animation: fadeInUp 0.8s ease forwards;
 }
 
-.fade-in-up.fade-in-up {
-  opacity: 1;
-  transform: translateY(0);
+@keyframes fadeInUp {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 .scroll-reveal {
   opacity: 0;
-  transform: translateY(50px);
-  transition: opacity 0.8s cubic-bezier(0.4, 0, 0.2, 1),
-              transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+  transform: translateY(30px);
+  transition: opacity 0.8s ease, transform 0.8s ease;
 }
 
 .scroll-reveal.active {
@@ -441,11 +453,11 @@
 
   .process-step {
     flex-direction: row !important;
-    transform: translateX(-50px) !important;
+    transform: translateY(30px) !important;
   }
 
   .process-step.scroll-reveal.active {
-    transform: translateX(0) !important;
+    transform: translateY(0) !important;
   }
 
   .step-content {

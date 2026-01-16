@@ -139,12 +139,15 @@
     "phone": "Phone",
     "email": "Email",
     "location": "Location",
-    "address": "Riyadh, Saudi Arabia",
+    "address": "Dubai, United Arab Emirates",
     "namePlaceholder": "Your Name",
     "emailPlaceholder": "Your Email",
     "phonePlaceholder": "Your Phone",
     "messagePlaceholder": "Your Message",
     "submit": "Send Message"
+  },
+  "partners": {
+    "title": "Our Partners"
   },
   "footer": {
     "text": "Amyal designs and produces some of the region's spectacular events. Whatever your budget, we guarantee you an event to be proud of.",
@@ -159,7 +162,7 @@
     "contactUs": "Contact Us",
     "phone": "Phone",
     "email": "Email",
-    "address": "Riyadh, Saudi Arabia",
+    "address": "Dubai, United Arab Emirates",
     "copyright": "All rights reserved.",
     "facebook": "Facebook",
     "instagram": "Instagram",

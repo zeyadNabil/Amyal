@@ -1,0 +1,43 @@
+<section class="partners-page">
+  <div class="container">
+    <!-- Header Section -->
+    <div class="partners-header">
+      <h1 class="partners-title fade-in-up">
+        <span class="typed-text">{{ typedTitle() }}</span>
+        @if (isTyping()) {
+          <span class="typing-cursor">|</span>
+        }
+      </h1>
+    </div>
+
+    <!-- Partners Images Section -->
+    <div class="partners-content">
+      <div class="row g-4 justify-content-center">
+        <div class="col-12 col-md-6 col-lg-5">
+          <div class="partner-card scroll-reveal">
+            <div class="partner-image-wrapper">
+              <img 
+                src="assets/images/partners_1.png" 
+                alt="Partner 1" 
+                class="partner-image"
+                loading="lazy">
+              <div class="image-overlay"></div>
+            </div>
+          </div>
+        </div>
+        <div class="col-12 col-md-6 col-lg-5">
+          <div class="partner-card scroll-reveal">
+            <div class="partner-image-wrapper">
+              <img 
+                src="assets/images/partners_2.png" 
+                alt="Partner 2" 
+                class="partner-image"
+                loading="lazy">
+              <div class="image-overlay"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

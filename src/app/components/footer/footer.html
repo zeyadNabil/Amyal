@@ -11,11 +11,11 @@
         <div class="footer-contact-info">
           <p class="contact-item">
             <span class="contact-label">{{ langService.t('footer.phone') }}:</span>
-            <a href="tel:+966501234567" class="contact-link">+966 50 123 4567</a>
+            <a href="tel:+971504612803" class="contact-link">+971 50 461 2803</a>
           </p>
           <p class="contact-item">
             <span class="contact-label">{{ langService.t('footer.email') }}:</span>
-            <a href="mailto:info@amyal.com" class="contact-link">info@amyal.com</a>
+            <a href="mailto:Info@amyal.com" class="contact-link">Info@amyal.com</a>
           </p>
           <p class="contact-item">
             <span class="contact-label">{{ langService.t('contact.location') }}:</span>
@@ -29,27 +29,27 @@
         <h3 class="footer-heading">{{ langService.t('footer.usefulLinks') }}</h3>
         <ul class="footer-list">
           <li>
-            <a (click)="scrollToSection('home')" class="footer-link" role="button">
+            <a (click)="navigateToPage('/')" class="footer-link" role="button">
               {{ langService.t('nav.home') }}
             </a>
           </li>
           <li>
-            <a (click)="scrollToSection('about')" class="footer-link" role="button">
+            <a (click)="navigateToPage('/about-us')" class="footer-link" role="button">
               {{ langService.t('nav.about') }}
             </a>
           </li>
           <li>
-            <a (click)="scrollToSection('gallery')" class="footer-link" role="button">
+            <a (click)="navigateToPage('/gallery')" class="footer-link" role="button">
               {{ langService.t('nav.gallery') }}
             </a>
           </li>
           <li>
-            <a (click)="scrollToSection('partners')" class="footer-link" role="button">
+            <a (click)="navigateToPage('/partners')" class="footer-link" role="button">
               {{ langService.t('nav.partners') }}
             </a>
           </li>
           <li>
-            <a (click)="scrollToSection('contact')" class="footer-link" role="button">
+            <a (click)="navigateToPage('/contact-us')" class="footer-link" role="button">
               {{ langService.t('footer.contactUs') }}
             </a>
           </li>
@@ -61,47 +61,47 @@
         <h3 class="footer-heading">{{ langService.t('footer.ourServices') }}</h3>
         <ul class="footer-list">
           <li>
-            <a class="footer-link" role="button">
+            <a (click)="navigateToPage('/services/exhibition-stand')" class="footer-link" role="button">
               {{ langService.t('nav.exhibitionStand') }}
             </a>
           </li>
           <li>
-            <a class="footer-link" role="button">
+            <a (click)="navigateToPage('/services/exhibition-booth-design')" class="footer-link" role="button">
               {{ langService.t('nav.exhibitionBoothDesign') }}
             </a>
           </li>
           <li>
-            <a class="footer-link" role="button">
+            <a (click)="navigateToPage('/services/display-units-mall-kiosk')" class="footer-link" role="button">
               {{ langService.t('nav.displayUnitsMallKiosk') }}
             </a>
           </li>
           <li>
-            <a class="footer-link" role="button">
+            <a (click)="navigateToPage('/services/event-management')" class="footer-link" role="button">
               {{ langService.t('nav.eventManagement') }}
             </a>
           </li>
           <li>
-            <a class="footer-link" role="button">
+            <a (click)="navigateToPage('/services/brand-ambassadors-event-hosts')" class="footer-link" role="button">
               {{ langService.t('nav.brandAmbassadorsEventHosts') }}
             </a>
           </li>
           <li>
-            <a class="footer-link" role="button">
+            <a (click)="navigateToPage('/services/av-service')" class="footer-link" role="button">
               {{ langService.t('nav.avService') }}
             </a>
           </li>
           <li>
-            <a class="footer-link" role="button">
+            <a (click)="navigateToPage('/services/vehicle-branding-wrapping')" class="footer-link" role="button">
               {{ langService.t('nav.vehicleBrandingWrapping') }}
             </a>
           </li>
           <li>
-            <a class="footer-link" role="button">
+            <a (click)="navigateToPage('/services/stickers-custom-prints')" class="footer-link" role="button">
               {{ langService.t('nav.stickersCustomPrints') }}
             </a>
           </li>
           <li>
-            <a class="footer-link" role="button">
+            <a (click)="navigateToPage('/services/fabrication-manufacturing')" class="footer-link" role="button">
               {{ langService.t('nav.fabricationManufacturing') }}
             </a>
           </li>

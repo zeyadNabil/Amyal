@@ -184,7 +184,7 @@
 }
 
 .navbar-logo {
-    height: 100px;
+    height: 300px;
     width: auto;
     filter: drop-shadow(0 0 10px rgba(147, 51, 234, 0.5));
     transition: filter 0.3s ease;
