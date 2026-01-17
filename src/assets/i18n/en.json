@@ -32,6 +32,7 @@
     "stat1": "Projects Completed",
     "stat2": "Years Experience",
     "stat3": "Client Satisfaction",
+    "stat4": "Countries Served",
     "feature1Title": "Innovative Design",
     "feature1Text": "Cutting-edge designs that push boundaries and capture attention.",
     "feature2Title": "On-Time Delivery",
@@ -168,6 +169,85 @@
     "instagram": "Instagram",
     "twitter": "Twitter",
     "linkedin": "LinkedIn"
+  },
+  "home": {
+    "numbers": {
+      "1": "1",
+      "2": "2",
+      "3": "3",
+      "4": "4",
+      "5": "5",
+      "6": "6"
+    },
+    "services": {
+      "learnMore": "Learn More",
+      "exhibitionStandDesc": "Custom exhibition stands that captivate audiences",
+      "exhibitionBoothDesignDesc": "Innovative booth designs for maximum impact",
+      "displayUnitsMallKioskDesc": "Eye-catching display units and kiosks",
+      "eventManagementDesc": "Complete event management solutions",
+      "brandAmbassadorsEventHostsDesc": "Professional brand ambassadors",
+      "avServiceDesc": "Premium audio-visual services",
+      "vehicleBrandingWrappingDesc": "Mobile advertising solutions",
+      "stickersCustomPrintsDesc": "Custom printing and stickers",
+      "fabricationManufacturingDesc": "Precision fabrication services"
+    },
+    "features": {
+      "title": "Why Choose Amyal",
+      "subtitle": "Excellence in every detail",
+      "innovativeDesign": {
+        "title": "Innovative Design",
+        "text": "Cutting-edge designs that push boundaries"
+      },
+      "onTimeDelivery": {
+        "title": "On-Time Delivery",
+        "text": "Reliable execution with guaranteed timelines"
+      },
+      "expertTeam": {
+        "title": "Expert Team",
+        "text": "Skilled professionals dedicated to excellence"
+      },
+      "qualityMaterials": {
+        "title": "Quality Materials",
+        "text": "Premium materials ensuring durability"
+      },
+      "fullService": {
+        "title": "Full Service",
+        "text": "End-to-end solutions from concept to completion"
+      },
+      "clientFirst": {
+        "title": "Client First",
+        "text": "Your satisfaction is our priority"
+      }
+    },
+    "gallery": {
+      "viewFullGallery": "View Full Gallery"
+    },
+    "process": {
+      "title": "How We Work",
+      "subtitle": "From concept to completion",
+      "consultation": {
+        "title": "Consultation",
+        "description": "Understanding your brand and objectives"
+      },
+      "designApproval": {
+        "title": "Design & Approval",
+        "description": "Custom designs and 3D visualizations"
+      },
+      "production": {
+        "title": "Production",
+        "description": "In-house fabrication with quality control"
+      },
+      "installation": {
+        "title": "Installation",
+        "description": "Professional setup and handover"
+      }
+    },
+    "cta": {
+      "title": "Ready to Create Something Extraordinary?",
+      "subtitle": "Let's bring your vision to life",
+      "getStarted": "Get Started",
+      "learnMore": "Learn More"
+    }
   },
   "services": {
     "sections": {

@@ -1,95 +1,113 @@
 import { Component, OnInit, HostListener, signal, effect } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { RouterModule } from '@angular/router';
 import { LanguageService } from '../../services/language.service';
 
 @Component({
   selector: 'app-home',
-  imports: [CommonModule, ReactiveFormsModule],
+  imports: [CommonModule, RouterModule],
   templateUrl: './home.html',
   styleUrl: './home.css'
 })
 export class Home implements OnInit {
   isLoaded = signal(false);
   hasAnimatedCounters = signal(false);
-  contactForm: FormGroup;
-  isSubmitting = signal(false);
-  submitSuccess = signal(false);
-  submitError = signal(false);
 
-  constructor(
-    public langService: LanguageService,
-    private fb: FormBuilder
-  ) {
-    this.contactForm = this.fb.group({
-      name: ['', [Validators.required, Validators.minLength(2)]],
-      email: ['', [Validators.required, Validators.email]],
-      phone: ['', [Validators.required]],
-      message: ['', [Validators.required, Validators.minLength(10)]]
-    });
+  // Services data - will be initialized in ngOnInit
+  services: Array<{ key: string; description: string }> = [];
 
-    // React to language changes
+  // Stats data - will be initialized in ngOnInit
+  stats: Array<{ icon: string; value: number; suffix: string; label: string }> = [];
+
+  // Features data - will be initialized in ngOnInit
+  features: Array<{ icon: string; title: string; text: string }> = [];
+
+  // Gallery preview items - will be initialized in ngOnInit
+  galleryItems: Array<{ image: string; title: string; category: string }> = [];
+
+  // Process steps - will be initialized in ngOnInit
+  processSteps: Array<{ title: string; description: string }> = [];
+
+  constructor(public langService: LanguageService) {
     effect(() => {
       const lang = this.langService.currentLang();
-      console.log('Language changed to:', lang);
+      // Update all translations when language changes
+      this.updateTranslations();
     });
+  }
+
+  updateTranslations(): void {
+    // Update services
+    this.services = [
+      { key: 'exhibitionStand', description: this.langService.t('home.services.exhibitionStandDesc') },
+      { key: 'exhibitionBoothDesign', description: this.langService.t('home.services.exhibitionBoothDesignDesc') },
+      { key: 'displayUnitsMallKiosk', description: this.langService.t('home.services.displayUnitsMallKioskDesc') },
+      { key: 'eventManagement', description: this.langService.t('home.services.eventManagementDesc') },
+      { key: 'brandAmbassadorsEventHosts', description: this.langService.t('home.services.brandAmbassadorsEventHostsDesc') },
+      { key: 'avService', description: this.langService.t('home.services.avServiceDesc') },
+      { key: 'vehicleBrandingWrapping', description: this.langService.t('home.services.vehicleBrandingWrappingDesc') },
+      { key: 'stickersCustomPrints', description: this.langService.t('home.services.stickersCustomPrintsDesc') },
+      { key: 'fabricationManufacturing', description: this.langService.t('home.services.fabricationManufacturingDesc') }
+    ];
+
+    // Update stats
+    this.stats = [
+      { icon: '📊', value: 500, suffix: '+', label: this.langService.t('about.stat1') },
+      { icon: '⭐', value: 15, suffix: '+', label: this.langService.t('about.stat2') },
+      { icon: '😊', value: 98, suffix: '%', label: this.langService.t('about.stat3') },
+      { icon: '🌍', value: 50, suffix: '+', label: this.langService.t('about.stat4') || 'Countries Served' }
+    ];
+
+    // Update features
+    this.features = [
+      { icon: '🎨', title: this.langService.t('home.features.innovativeDesign.title'), text: this.langService.t('home.features.innovativeDesign.text') },
+      { icon: '⚡', title: this.langService.t('home.features.onTimeDelivery.title'), text: this.langService.t('home.features.onTimeDelivery.text') },
+      { icon: '👥', title: this.langService.t('home.features.expertTeam.title'), text: this.langService.t('home.features.expertTeam.text') },
+      { icon: '💎', title: this.langService.t('home.features.qualityMaterials.title'), text: this.langService.t('home.features.qualityMaterials.text') },
+      { icon: '🚀', title: this.langService.t('home.features.fullService.title'), text: this.langService.t('home.features.fullService.text') },
+      { icon: '🤝', title: this.langService.t('home.features.clientFirst.title'), text: this.langService.t('home.features.clientFirst.text') }
+    ];
+
+    // Update gallery items
+    this.galleryItems = [
+      { image: 'https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=600&h=400&fit=crop', title: this.langService.t('gallery.items.exhibitionStand.title'), category: this.langService.t('gallery.items.exhibitionStand.category') },
+      { image: 'https://images.unsplash.com/photo-1511795409834-ef04bbd61622?w=600&h=400&fit=crop', title: this.langService.t('gallery.items.eventProduction.title'), category: this.langService.t('gallery.items.eventProduction.category') },
+      { image: 'https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=600&h=400&fit=crop', title: this.langService.t('gallery.items.brandingSolutions.title'), category: this.langService.t('gallery.items.brandingSolutions.category') },
+      { image: 'https://images.unsplash.com/photo-1505373877841-8d25f7d46678?w=600&h=400&fit=crop', title: this.langService.t('gallery.items.customFabrication.title'), category: this.langService.t('gallery.items.customFabrication.category') }
+    ];
+
+    // Update process steps
+    this.processSteps = [
+      { title: this.langService.t('home.process.consultation.title'), description: this.langService.t('home.process.consultation.description') },
+      { title: this.langService.t('home.process.designApproval.title'), description: this.langService.t('home.process.designApproval.description') },
+      { title: this.langService.t('home.process.production.title'), description: this.langService.t('home.process.production.description') },
+      { title: this.langService.t('home.process.installation.title'), description: this.langService.t('home.process.installation.description') }
+    ];
   }
 
   ngOnInit(): void {
+    // Initialize all translations
+    this.updateTranslations();
+    
     setTimeout(() => this.isLoaded.set(true), 100);
-    this.animateOnLoad();
     this.initScrollAnimations();
-    this.initImageAnimations();
     this.initCounterAnimations();
-    this.initFormAnimations();
+    this.initParallaxEffects();
   }
+
 
   @HostListener('window:scroll', [])
   onScroll(): void {
-    const heroImage = document.querySelector('.hero-image') as HTMLElement;
-    if (heroImage) {
-      const scrolled = window.pageYOffset;
-      const parallax = scrolled * 0.3;
-      heroImage.style.transform = `translateY(${parallax}px)`;
-    }
+    this.updateParallax();
+    this.updateScrollReveals();
   }
 
-  @HostListener('document:mousemove', ['$event'])
-  onMouseMove(e: MouseEvent): void {
-    const heroLogo = document.querySelector('.hero-logo-img') as HTMLElement;
-    if (heroLogo) {
-      const rect = heroLogo.getBoundingClientRect();
-      const centerX = rect.left + rect.width / 2;
-      const centerY = rect.top + rect.height / 2;
 
-      const deltaX = (e.clientX - centerX) * 0.02;
-      const deltaY = (e.clientY - centerY) * 0.02;
-
-      heroLogo.style.transform = `translate(${deltaX}px, ${deltaY}px)`;
-    }
-  }
-
-  animateOnLoad(): void {
-    setTimeout(() => {
-      const fadeElements = document.querySelectorAll('.fade-in, .fade-in-up');
-      fadeElements.forEach((element: Element, index: number) => {
-        setTimeout(() => {
-          (element as HTMLElement).style.opacity = '1';
-          (element as HTMLElement).style.transform = 'translateY(0)';
-        }, index * 50);
-      });
-    }, 50);
-  }
-
-  scrollToContact(): void {
-    const element = document.getElementById('contact');
-    element?.scrollIntoView({ behavior: 'smooth' });
-  }
 
   initScrollAnimations(): void {
     const observerOptions = {
-      threshold: 0.15,
-      rootMargin: '0px 0px -50px 0px'
+      threshold: 0.1,
+      rootMargin: '0px 0px -100px 0px'
     };
 
     const observer = new IntersectionObserver((entries) => {
@@ -103,27 +121,6 @@ export class Home implements OnInit {
     setTimeout(() => {
       const revealElements = document.querySelectorAll('.scroll-reveal');
       revealElements.forEach(element => observer.observe(element));
-    }, 100);
-  }
-
-  initImageAnimations(): void {
-    const imageObserverOptions = {
-      threshold: 0.1,
-      rootMargin: '0px 0px -30px 0px'
-    };
-
-    const imageObserver = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('active');
-          imageObserver.unobserve(entry.target);
-        }
-      });
-    }, imageObserverOptions);
-
-    setTimeout(() => {
-      const imageContainers = document.querySelectorAll('.image-fade, .about-image-main, .about-image-float');
-      imageContainers.forEach(container => imageObserver.observe(container));
     }, 100);
   }
 
@@ -143,7 +140,7 @@ export class Home implements OnInit {
     }, observerOptions);
 
     setTimeout(() => {
-      const statsSection = document.querySelector('.about-stats');
+      const statsSection = document.querySelector('.stats-section');
       if (statsSection) {
         observer.observe(statsSection);
       }
@@ -152,85 +149,76 @@ export class Home implements OnInit {
 
   animateCounters(): void {
     const counters = document.querySelectorAll('.stat-number');
-
+    
     counters.forEach(counter => {
-      const target = counter.textContent || '';
-      const isPercentage = target.includes('%');
-      const isPlus = target.includes('+');
-      const numericValue = parseInt(target.replace(/[^0-9]/g, ''));
-
+      const target = parseInt(counter.getAttribute('data-target') || '0');
       let current = 0;
-      const increment = numericValue / 40;
-      const duration = 1200;
-      const stepTime = duration / 40;
+      const increment = target / 60;
+      const duration = 2000;
+      const stepTime = duration / 60;
 
       const timer = setInterval(() => {
         current += increment;
-        if (current >= numericValue) {
-          current = numericValue;
+        if (current >= target) {
+          current = target;
           clearInterval(timer);
         }
-
-        let displayValue: string = Math.floor(current).toString();
-        if (isPercentage) displayValue += '%';
-        if (isPlus) displayValue += '+';
-
-        counter.textContent = displayValue;
+        counter.textContent = Math.floor(current).toString();
       }, stepTime);
     });
   }
 
-  initFormAnimations(): void {
-    setTimeout(() => {
-      const inputs = document.querySelectorAll('.form-control');
-
-      inputs.forEach(input => {
-        input.addEventListener('focus', (event: Event) => {
-          const target = event.target as HTMLElement;
-          const parent = target.parentElement;
-          if (parent) {
-            parent.style.transform = 'translateY(-2px)';
-            parent.style.transition = 'transform 0.3s ease';
-          }
-        });
-
-        input.addEventListener('blur', (event: Event) => {
-          const target = event.target as HTMLElement;
-          const parent = target.parentElement;
-          if (parent) {
-            parent.style.transform = 'translateY(0)';
-          }
-        });
-      });
-    }, 100);
+  initParallaxEffects(): void {
+    // Parallax for hero section
+    window.addEventListener('scroll', () => {
+      const scrolled = window.pageYOffset;
+      const hero = document.querySelector('.hero-section');
+      if (hero) {
+        (hero as HTMLElement).style.transform = `translateY(${scrolled * 0.5}px)`;
+      }
+    });
   }
 
-  onSubmit(): void {
-    if (this.contactForm.valid) {
-      this.isSubmitting.set(true);
-      this.submitError.set(false);
-
-      // Simulate API call
-      setTimeout(() => {
-        this.isSubmitting.set(false);
-        this.submitSuccess.set(true);
-        this.contactForm.reset();
-
-        // Reset success message after 3 seconds
-        setTimeout(() => {
-          this.submitSuccess.set(false);
-        }, 3000);
-      }, 1500);
-    } else {
-      // Mark all fields as touched to show validation errors
-      Object.keys(this.contactForm.controls).forEach(key => {
-        this.contactForm.get(key)?.markAsTouched();
-      });
-    }
+  updateParallax(): void {
+    const scrolled = window.pageYOffset;
+    const elements = document.querySelectorAll('.parallax-element');
+    elements.forEach((element, index) => {
+      const speed = 0.3 + (index * 0.1);
+      (element as HTMLElement).style.transform = `translateY(${scrolled * speed}px)`;
+    });
   }
 
-  get name() { return this.contactForm.get('name'); }
-  get email() { return this.contactForm.get('email'); }
-  get phone() { return this.contactForm.get('phone'); }
-  get message() { return this.contactForm.get('message'); }
+  updateScrollReveals(): void {
+    const reveals = document.querySelectorAll('.scroll-reveal');
+    reveals.forEach(element => {
+      const elementTop = element.getBoundingClientRect().top;
+      const elementVisible = 150;
+      
+      if (elementTop < window.innerHeight - elementVisible) {
+        element.classList.add('active');
+      }
+    });
+  }
+
+
+
+  scrollToSection(sectionId: string): void {
+    const element = document.getElementById(sectionId);
+    element?.scrollIntoView({ behavior: 'smooth' });
+  }
+
+  getServiceIcon(key: string): string {
+    const icons: { [key: string]: string } = {
+      'exhibitionStand': '🏢',
+      'exhibitionBoothDesign': '🎨',
+      'displayUnitsMallKiosk': '🛍️',
+      'eventManagement': '🎪',
+      'brandAmbassadorsEventHosts': '👥',
+      'avService': '🎬',
+      'vehicleBrandingWrapping': '🚗',
+      'stickersCustomPrints': '🖨️',
+      'fabricationManufacturing': '⚙️'
+    };
+    return icons[key] || '✨';
+  }
 }

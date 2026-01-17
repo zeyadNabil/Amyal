@@ -84,9 +84,25 @@ export class Navbar implements OnInit, OnDestroy {
   @HostListener('document:click', ['$event'])
   onDocumentClick(event: Event): void {
     const target = event.target as HTMLElement;
+    
+    // Close dropdown if clicking outside
     const dropdown = target.closest('.nav-item.dropdown');
     if (!dropdown) {
       this.isDropdownOpen.set(false);
+    }
+    
+    // Close mobile menu if clicking outside
+    const navbarContent = document.getElementById('navbarContent');
+    const isMenuOpen = navbarContent && navbarContent.classList.contains('show');
+    
+    if (isMenuOpen) {
+      const clickedInsideNavbar = target.closest('#navbarContent');
+      const clickedOnToggler = target.closest('.navbar-toggler');
+      
+      // Close menu if click is outside both navbar content and toggler
+      if (!clickedInsideNavbar && !clickedOnToggler) {
+        this.closeMobileMenu();
+      }
     }
   }
 
@@ -189,6 +205,19 @@ export class Navbar implements OnInit, OnDestroy {
     if (sectionId) {
       setTimeout(() => this.scrollToSection(sectionId), 100);
     }
+  }
+
+  navigateToContact(): void {
+    // Close mobile menu
+    this.closeMobileMenu();
+    // Close dropdown if open
+    this.closeDropdown();
+    // Navigate to contact page and scroll to top
+    this.router.navigate(['/contact-us']).then(() => {
+      setTimeout(() => {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }, 100);
+    });
   }
 
   toggleLanguage(): void {

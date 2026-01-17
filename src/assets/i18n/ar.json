@@ -32,6 +32,7 @@
     "stat1": "مشاريع مكتملة",
     "stat2": "سنوات الخبرة",
     "stat3": "رضا العملاء",
+    "stat4": "دول تم خدمتها",
     "feature1Title": "تصميم مبتكر",
     "feature1Text": "تصاميم متطورة تدفع الحدود وتجذب الانتباه.",
     "feature2Title": "التسليم في الوقت المحدد",
@@ -168,6 +169,85 @@
     "instagram": "إنستغرام",
     "twitter": "تويتر",
     "linkedin": "لينكد إن"
+  },
+  "home": {
+    "numbers": {
+      "1": "١",
+      "2": "٢",
+      "3": "٣",
+      "4": "٤",
+      "5": "٥",
+      "6": "٦"
+    },
+    "services": {
+      "learnMore": "اعرف المزيد",
+      "exhibitionStandDesc": "أجنحة معارض مخصصة تأسر الجمهور",
+      "exhibitionBoothDesignDesc": "تصاميم أجنحة مبتكرة لأقصى تأثير",
+      "displayUnitsMallKioskDesc": "وحدات عرض وكشكات جذابة",
+      "eventManagementDesc": "حلول إدارة فعاليات كاملة",
+      "brandAmbassadorsEventHostsDesc": "سفراء علامة تجارية محترفون",
+      "avServiceDesc": "خدمات صوت وصورة متميزة",
+      "vehicleBrandingWrappingDesc": "حلول إعلانية متنقلة",
+      "stickersCustomPrintsDesc": "طباعة وملصقات مخصصة",
+      "fabricationManufacturingDesc": "خدمات تصنيع دقيقة"
+    },
+    "features": {
+      "title": "لماذا تختار آميال",
+      "subtitle": "التميز في كل التفاصيل",
+      "innovativeDesign": {
+        "title": "تصميم مبتكر",
+        "text": "تصاميم متطورة تدفع الحدود"
+      },
+      "onTimeDelivery": {
+        "title": "التسليم في الوقت المحدد",
+        "text": "تنفيذ موثوق مع جداول زمنية مضمونة"
+      },
+      "expertTeam": {
+        "title": "فريق خبير",
+        "text": "محترفون ماهرون مكرسون للتميز"
+      },
+      "qualityMaterials": {
+        "title": "مواد عالية الجودة",
+        "text": "مواد متميزة تضمن المتانة"
+      },
+      "fullService": {
+        "title": "خدمة كاملة",
+        "text": "حلول شاملة من المفهوم إلى الإنجاز"
+      },
+      "clientFirst": {
+        "title": "العميل أولاً",
+        "text": "رضاك هو أولويتنا"
+      }
+    },
+    "gallery": {
+      "viewFullGallery": "عرض المعرض الكامل"
+    },
+    "process": {
+      "title": "كيف نعمل",
+      "subtitle": "من المفهوم إلى الإنجاز",
+      "consultation": {
+        "title": "الاستشارة",
+        "description": "فهم علامتك التجارية وأهدافك"
+      },
+      "designApproval": {
+        "title": "التصميم والموافقة",
+        "description": "تصاميم مخصصة وتصورات ثلاثية الأبعاد"
+      },
+      "production": {
+        "title": "الإنتاج",
+        "description": "تصنيع داخلي مع مراقبة الجودة"
+      },
+      "installation": {
+        "title": "التركيب",
+        "description": "إعداد احترافي وتسليم"
+      }
+    },
+    "cta": {
+      "title": "هل أنت مستعد لإنشاء شيء استثنائي؟",
+      "subtitle": "لنجعل رؤيتك حقيقة",
+      "getStarted": "ابدأ الآن",
+      "learnMore": "اعرف المزيد"
+    }
   },
   "services": {
     "sections": {
