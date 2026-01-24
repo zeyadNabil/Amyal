@@ -81,6 +81,7 @@
   }
 
   [dir="rtl"] .back-to-top-btn {
+    right: auto;
     left: 15px;
   }
 }

@@ -3,9 +3,8 @@
   <div class="container">
     <!-- Gallery Header -->
     <div class="gallery-header scroll-reveal">
-      <h1 class="gallery-title typing-title fade-in-up">
-        <span class="typed-text">{{ typedTitle() || langService.t('gallery.title') }}</span>
-        <span class="typing-cursor" *ngIf="isTyping()">|</span>
+      <h1 class="gallery-title fade-title fade-in-up" [class.fade-out]="titleFadeState() === 'fade-out'" [class.fade-in]="titleFadeState() === 'fade-in'" [class.visible]="titleFadeState() === 'visible'">
+        {{ langService.t('gallery.title') }}
       </h1>
       <p class="gallery-description fade-in-up">
         {{ langService.t('gallery.description') }}
@@ -17,7 +16,7 @@
       <!-- Row 1: Large horizontal -->
       <div class="gallery-item large-horizontal fade-in-up scroll-reveal">
         <div class="gallery-image-wrapper">
-          <img src="https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=1200&h=600&fit=crop" alt="Exhibition Stand" class="gallery-image">
+          <img src="assets/images/gallery/frame_30.jpg" alt="Exhibition Stand" class="gallery-image">
           <div class="galaxy-overlay"></div>
           <div class="gallery-overlay">
             <div class="gallery-info">
@@ -31,7 +30,7 @@
       <!-- Row 1: Two vertical items -->
       <div class="gallery-item vertical fade-in-up scroll-reveal">
         <div class="gallery-image-wrapper">
-          <img src="https://images.unsplash.com/photo-1511795409834-ef04bbd61622?w=600&h=800&fit=crop" alt="Event Production" class="gallery-image">
+          <img src="assets/images/gallery/frame_31.jpg" alt="Event Production" class="gallery-image">
           <div class="galaxy-overlay"></div>
           <div class="gallery-overlay">
             <div class="gallery-info">
@@ -44,7 +43,7 @@
 
       <div class="gallery-item vertical fade-in-up scroll-reveal">
         <div class="gallery-image-wrapper">
-          <img src="https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=600&h=800&fit=crop" alt="Branding Solutions" class="gallery-image">
+          <img src="assets/images/gallery/frame_32.jpg" alt="Branding Solutions" class="gallery-image">
           <div class="galaxy-overlay"></div>
           <div class="gallery-overlay">
             <div class="gallery-info">
@@ -58,7 +57,7 @@
       <!-- Row 2: Medium horizontal items -->
       <div class="gallery-item medium-horizontal fade-in-up scroll-reveal">
         <div class="gallery-image-wrapper">
-          <img src="https://images.unsplash.com/photo-1511578314322-379afb476865?w=800&h=600&fit=crop" alt="Custom Fabrication" class="gallery-image">
+          <img src="assets/images/gallery/frame_33.jpg" alt="Custom Fabrication" class="gallery-image">
           <div class="galaxy-overlay"></div>
           <div class="gallery-overlay">
             <div class="gallery-info">
@@ -71,7 +70,7 @@
 
       <div class="gallery-item medium-horizontal fade-in-up scroll-reveal">
         <div class="gallery-image-wrapper">
-          <img src="https://images.unsplash.com/photo-1560179707-f14e90ef3623?w=800&h=600&fit=crop" alt="Display Units" class="gallery-image">
+          <img src="assets/images/gallery/frame_34.jpg" alt="Display Units" class="gallery-image">
           <div class="galaxy-overlay"></div>
           <div class="gallery-overlay">
             <div class="gallery-info">
@@ -85,7 +84,7 @@
       <!-- Row 3: Vertical and horizontal mix -->
       <div class="gallery-item vertical fade-in-up scroll-reveal">
         <div class="gallery-image-wrapper">
-          <img src="https://images.unsplash.com/photo-1505373877841-8d25f7d46678?w=600&h=900&fit=crop" alt="AV Services" class="gallery-image">
+          <img src="assets/images/gallery/frame_35.jpg" alt="AV Services" class="gallery-image">
           <div class="galaxy-overlay"></div>
           <div class="gallery-overlay">
             <div class="gallery-info">
@@ -98,7 +97,7 @@
 
       <div class="gallery-item large-horizontal fade-in-up scroll-reveal">
         <div class="gallery-image-wrapper">
-          <img src="https://images.unsplash.com/photo-1464366400600-7168b8af9bc3?w=1200&h=700&fit=crop" alt="Vehicle Branding" class="gallery-image">
+          <img src="assets/images/gallery/frame_36.jpg" alt="Vehicle Branding" class="gallery-image">
           <div class="galaxy-overlay"></div>
           <div class="gallery-overlay">
             <div class="gallery-info">
@@ -112,7 +111,7 @@
       <!-- Row 4: Three medium items -->
       <div class="gallery-item medium-vertical fade-in-up scroll-reveal">
         <div class="gallery-image-wrapper">
-          <img src="https://images.unsplash.com/photo-1504328345606-18bbc8c9d7d1?w=600&h=600&fit=crop" alt="Stickers & Prints" class="gallery-image">
+          <img src="assets/images/gallery/mahawa_1.jpg" alt="Stickers & Prints" class="gallery-image">
           <div class="galaxy-overlay"></div>
           <div class="gallery-overlay">
             <div class="gallery-info">
@@ -125,7 +124,7 @@
 
       <div class="gallery-item medium-vertical fade-in-up scroll-reveal">
         <div class="gallery-image-wrapper">
-          <img src="https://images.unsplash.com/photo-1467232004584-a241de8bcf5d?w=600&h=600&fit=crop" alt="Booth Design" class="gallery-image">
+          <img src="assets/images/gallery/mahawa_2.jpg" alt="Booth Design" class="gallery-image">
           <div class="galaxy-overlay"></div>
           <div class="gallery-overlay">
             <div class="gallery-info">
@@ -138,7 +137,7 @@
 
       <div class="gallery-item medium-vertical fade-in-up scroll-reveal">
         <div class="gallery-image-wrapper">
-          <img src="https://images.unsplash.com/photo-1475721027785-f74eccf877e2?w=600&h=600&fit=crop" alt="Event Management" class="gallery-image">
+          <img src="assets/images/gallery/mahawa_3.jpg" alt="Event Management" class="gallery-image">
           <div class="galaxy-overlay"></div>
           <div class="gallery-overlay">
             <div class="gallery-info">
@@ -152,7 +151,7 @@
       <!-- Row 5: Large horizontal and vertical -->
       <div class="gallery-item large-horizontal fade-in-up scroll-reveal">
         <div class="gallery-image-wrapper">
-          <img src="https://images.unsplash.com/photo-1504148455328-c376907d081c?w=1200&h=650&fit=crop" alt="Exhibition Hall" class="gallery-image">
+          <img src="assets/images/gallery/mahawa_4.jpg" alt="Exhibition Hall" class="gallery-image">
           <div class="galaxy-overlay"></div>
           <div class="gallery-overlay">
             <div class="gallery-info">
@@ -165,7 +164,7 @@
 
       <div class="gallery-item vertical fade-in-up scroll-reveal">
         <div class="gallery-image-wrapper">
-          <img src="https://images.unsplash.com/photo-1559526324-4b87b5e36e44?w=600&h=850&fit=crop" alt="Brand Activation" class="gallery-image">
+          <img src="assets/images/gallery/mahawa_5.jpg" alt="Brand Activation" class="gallery-image">
           <div class="galaxy-overlay"></div>
           <div class="gallery-overlay">
             <div class="gallery-info">
@@ -179,7 +178,7 @@
       <!-- Row 6: Mixed sizes -->
       <div class="gallery-item vertical fade-in-up scroll-reveal">
         <div class="gallery-image-wrapper">
-          <img src="https://images.unsplash.com/photo-1492684223066-81342ee5ff30?w=600&h=900&fit=crop" alt="Corporate Event" class="gallery-image">
+          <img src="assets/images/gallery/mahawa_6.jpg" alt="Corporate Event" class="gallery-image">
           <div class="galaxy-overlay"></div>
           <div class="gallery-overlay">
             <div class="gallery-info">
@@ -192,7 +191,7 @@
 
       <div class="gallery-item medium-horizontal fade-in-up scroll-reveal">
         <div class="gallery-image-wrapper">
-          <img src="https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=900&h=600&fit=crop" alt="Retail Display" class="gallery-image">
+          <img src="assets/images/gallery/mahawa_7.jpg" alt="Retail Display" class="gallery-image">
           <div class="galaxy-overlay"></div>
           <div class="gallery-overlay">
             <div class="gallery-info">
@@ -205,7 +204,7 @@
 
       <div class="gallery-item medium-vertical fade-in-up scroll-reveal">
         <div class="gallery-image-wrapper">
-          <img src="https://images.unsplash.com/photo-1519167758481-83f550bb49b3?w=600&h=600&fit=crop" alt="Fabrication Workshop" class="gallery-image">
+          <img src="assets/images/gallery/mahawa_8.jpg" alt="Fabrication Workshop" class="gallery-image">
           <div class="galaxy-overlay"></div>
           <div class="gallery-overlay">
             <div class="gallery-info">
@@ -219,7 +218,7 @@
       <!-- Additional Images to Fill Empty Spaces -->
       <div class="gallery-item medium-horizontal fade-in-up scroll-reveal">
         <div class="gallery-image-wrapper">
-          <img src="https://images.unsplash.com/photo-1504868584819-f8e8b4b6d7e3?w=800&h=600&fit=crop" alt="Conference Setup" class="gallery-image">
+          <img src="assets/images/gallery/mahawa_9.jpg" alt="Conference Setup" class="gallery-image">
           <div class="galaxy-overlay"></div>
           <div class="gallery-overlay">
             <div class="gallery-info">
@@ -232,7 +231,7 @@
 
       <div class="gallery-item medium-vertical fade-in-up scroll-reveal">
         <div class="gallery-image-wrapper">
-          <img src="https://images.unsplash.com/photo-1461360370896-922624d12aa1?w=600&h=600&fit=crop" alt="Stage Design" class="gallery-image">
+          <img src="assets/images/gallery/mahawa_10.jpg" alt="Stage Design" class="gallery-image">
           <div class="galaxy-overlay"></div>
           <div class="gallery-overlay">
             <div class="gallery-info">
@@ -245,7 +244,7 @@
 
       <div class="gallery-item medium-vertical fade-in-up scroll-reveal">
         <div class="gallery-image-wrapper">
-          <img src="https://images.unsplash.com/photo-1511578314322-379afb476865?w=600&h=600&fit=crop" alt="Lighting Design" class="gallery-image">
+          <img src="assets/images/gallery/mahawa_11.jpg" alt="Lighting Design" class="gallery-image">
           <div class="galaxy-overlay"></div>
           <div class="gallery-overlay">
             <div class="gallery-info">
@@ -258,7 +257,7 @@
 
       <div class="gallery-item large-horizontal fade-in-up scroll-reveal">
         <div class="gallery-image-wrapper">
-          <img src="https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=1200&h=600&fit=crop" alt="Trade Show Booth" class="gallery-image">
+          <img src="assets/images/gallery/mahawa_12.jpg" alt="Trade Show Booth" class="gallery-image">
           <div class="galaxy-overlay"></div>
           <div class="gallery-overlay">
             <div class="gallery-info">
@@ -271,7 +270,7 @@
 
       <div class="gallery-item vertical fade-in-up scroll-reveal">
         <div class="gallery-image-wrapper">
-          <img src="https://images.unsplash.com/photo-1543269865-cbf427effbad?w=600&h=900&fit=crop" alt="Product Launch" class="gallery-image">
+          <img src="assets/images/gallery/mahawa_13.jpg" alt="Product Launch" class="gallery-image">
           <div class="galaxy-overlay"></div>
           <div class="gallery-overlay">
             <div class="gallery-info">
@@ -284,7 +283,7 @@
 
       <div class="gallery-item medium-horizontal fade-in-up scroll-reveal">
         <div class="gallery-image-wrapper">
-          <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800&h=600&fit=crop" alt="Digital Signage" class="gallery-image">
+          <img src="assets/images/gallery/mahawa_14.jpg" alt="Digital Signage" class="gallery-image">
           <div class="galaxy-overlay"></div>
           <div class="gallery-overlay">
             <div class="gallery-info">
@@ -297,7 +296,7 @@
 
       <div class="gallery-item medium-vertical fade-in-up scroll-reveal">
         <div class="gallery-image-wrapper">
-          <img src="https://images.unsplash.com/photo-1524178232363-1fb2b075b655?w=600&h=600&fit=crop" alt="Installation Services" class="gallery-image">
+          <img src="assets/images/gallery/54eid_etihad.jpg" alt="Installation Services" class="gallery-image">
           <div class="galaxy-overlay"></div>
           <div class="gallery-overlay">
             <div class="gallery-info">
@@ -310,7 +309,7 @@
 
       <div class="gallery-item medium-horizontal fade-in-up scroll-reveal">
         <div class="gallery-image-wrapper">
-          <img src="https://images.unsplash.com/photo-1492684223066-81342ee5ff30?w=800&h=600&fit=crop" alt="VIP Lounge" class="gallery-image">
+          <img src="assets/images/gallery/54uae.jpg" alt="VIP Lounge" class="gallery-image">
           <div class="galaxy-overlay"></div>
           <div class="gallery-overlay">
             <div class="gallery-info">
@@ -323,7 +322,7 @@
 
       <div class="gallery-item vertical fade-in-up scroll-reveal">
         <div class="gallery-image-wrapper">
-          <img src="https://images.unsplash.com/photo-1511795409834-ef04bbd61622?w=600&h=900&fit=crop" alt="Award Ceremony" class="gallery-image">
+          <img src="assets/images/gallery/adcoap.jpg" alt="Award Ceremony" class="gallery-image">
           <div class="galaxy-overlay"></div>
           <div class="gallery-overlay">
             <div class="gallery-info">

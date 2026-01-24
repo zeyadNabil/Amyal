@@ -318,6 +318,7 @@
   width: 2px;
   background: linear-gradient(180deg, #FF1B9E 0%, #9333EA 50%, #3B82F6 100%);
   transform: translateX(-50%);
+  z-index: 0;
 }
 
 .process-step {
@@ -328,6 +329,10 @@
   opacity: 0;
   transform: translateY(30px);
   transition: opacity 0.8s ease, transform 0.8s ease;
+}
+
+.process-step:nth-child(odd) {
+  flex-direction: row;
 }
 
 .process-step:nth-child(even) {
@@ -355,21 +360,35 @@
   font-size: 2rem;
   font-weight: 700;
   color: #fff;
-  position: relative;
-  z-index: 2;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 3;
   flex-shrink: 0;
   box-shadow: 0 10px 30px rgba(147, 51, 234, 0.3);
+  border: 5px solid #0a0e1a;
+  box-sizing: border-box;
 }
 
 .step-content {
   flex: 1;
+  max-width: calc(50% - 80px);
   background: rgba(255, 255, 255, 0.05);
   backdrop-filter: blur(10px);
   border: 1px solid rgba(255, 255, 255, 0.1);
   border-radius: 16px;
   padding: 30px;
-  margin: 0 40px;
   transition: all 0.4s ease;
+}
+
+.process-step:nth-child(odd) .step-content {
+  margin-right: calc(50% + 80px);
+  margin-left: 0;
+}
+
+.process-step:nth-child(even) .step-content {
+  margin-left: calc(50% + 80px);
+  margin-right: 0;
 }
 
 .process-step:hover .step-content {
@@ -390,6 +409,40 @@
   color: rgba(255, 255, 255, 0.8);
   line-height: 1.7;
   margin: 0;
+}
+
+/* ========================================
+   RTL SUPPORT - DESKTOP
+   ======================================== */
+
+[dir="rtl"] .process-timeline::before {
+  left: auto;
+  right: 50%;
+  transform: translateX(50%);
+}
+
+[dir="rtl"] .step-number {
+  left: auto;
+  right: 50%;
+  transform: translateX(50%);
+}
+
+[dir="rtl"] .process-step:nth-child(odd) {
+  flex-direction: row-reverse;
+}
+
+[dir="rtl"] .process-step:nth-child(even) {
+  flex-direction: row;
+}
+
+[dir="rtl"] .process-step:nth-child(odd) .step-content {
+  margin-right: 0;
+  margin-left: calc(50% + 80px);
+}
+
+[dir="rtl"] .process-step:nth-child(even) .step-content {
+  margin-left: 0;
+  margin-right: calc(50% + 80px);
 }
 
 /* ========================================
@@ -425,6 +478,10 @@
    ======================================== */
 
 @media (max-width: 1024px) {
+  .about-us-page,
+  .section {
+    margin-top: 80px;
+  }
   .container {
     padding: 0 2rem;
   }
@@ -460,9 +517,29 @@
     transform: translateY(0) !important;
   }
 
+  .step-number {
+    position: relative !important;
+    left: auto !important;
+    transform: none !important;
+    margin-right: 20px;
+  }
+
   .step-content {
-    margin-left: 80px;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+    max-width: 100% !important;
+    flex: 1;
+  }
+
+  /* RTL Support for Tablet */
+  [dir="rtl"] .process-timeline::before {
+    left: auto;
+    right: 40px;
+  }
+
+  [dir="rtl"] .step-number {
     margin-right: 0;
+    margin-left: 20px;
   }
 }
 
@@ -471,6 +548,11 @@
    ======================================== */
 
 @media (max-width: 768px) {
+  .about-us-page,
+  .section {
+    margin-top: 11%;
+  }
+
   .about-us-page {
     padding-top: 120px;
     padding-bottom: 60px;
@@ -572,11 +654,30 @@
     width: 60px;
     height: 60px;
     font-size: 1.5rem;
+    position: relative !important;
+    left: auto !important;
+    transform: none !important;
+    margin-right: 15px;
+    flex-shrink: 0;
   }
 
   .step-content {
-    margin-left: 60px;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+    max-width: 100% !important;
     padding: 20px;
+    flex: 1;
+  }
+
+  /* RTL Support for Mobile */
+  [dir="rtl"] .process-timeline::before {
+    left: auto;
+    right: 30px;
+  }
+
+  [dir="rtl"] .step-number {
+    margin-right: 0;
+    margin-left: 15px;
   }
 
   .step-title {
@@ -589,6 +690,10 @@
 }
 
 @media (max-width: 480px) {
+  .about-us-page,
+  .section {
+    margin-top: 13.5%;
+  }
   .about-us-page {
     padding-top: 100px;
     padding-bottom: 40px;
@@ -620,8 +725,32 @@
     padding: 25px 20px;
   }
 
+  .process-timeline::before {
+    left: 25px;
+  }
+
+  .step-number {
+    width: 50px;
+    height: 50px;
+    font-size: 1.2rem;
+    margin-right: 12px;
+  }
+
   .step-content {
-    margin-left: 50px;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+    max-width: 100% !important;
     padding: 15px;
+  }
+
+  /* RTL Support for Small Mobile */
+  [dir="rtl"] .process-timeline::before {
+    left: auto;
+    right: 25px;
+  }
+
+  [dir="rtl"] .step-number {
+    margin-right: 0;
+    margin-left: 12px;
   }
 }

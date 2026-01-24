@@ -13,9 +13,8 @@ export class Services implements OnInit, OnDestroy, AfterViewInit {
   serviceType = signal<string>('');
   isLoaded = signal(false);
   currentSlideIndex = signal(0);
-  typedTitle = signal<string>('');
-  isTyping = signal<boolean>(false);
-  private typingTimeout: any = null;
+  titleFadeState = signal<'fade-out' | 'fade-in' | 'visible'>('fade-out');
+  private fadeTimeout: any = null;
   private languageEffect: any = null;
   private previousLang: string = '';
 
@@ -31,6 +30,7 @@ export class Services implements OnInit, OnDestroy, AfterViewInit {
     'exhibition-booth-design': 'exhibitionBoothDesign',
     'display-units-mall-kiosk': 'displayUnitsMallKiosk',
     'event-management': 'eventManagement',
+    'mall-activation': 'mallActivation',
     'brand-ambassadors-event-hosts': 'brandAmbassadorsEventHosts',
     'av-service': 'avService',
     'vehicle-branding-wrapping': 'vehicleBrandingWrapping',
@@ -38,52 +38,55 @@ export class Services implements OnInit, OnDestroy, AfterViewInit {
     'fabrication-manufacturing': 'fabricationManufacturing'
   };
 
-  // Image URLs for each service (using Unsplash placeholder images) - 3 different images per service
+  // Image URLs for each service (using local gallery images) - 3 different images per service
   serviceImages: { [key: string]: string[] } = {
     'exhibition-stand': [
-      'https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=1200&h=800&fit=crop',
-      'https://images.unsplash.com/photo-1511795409834-ef04bbd61622?w=1200&h=800&fit=crop',
-      'https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=1200&h=800&fit=crop'
+      'assets/images/gallery/frame_5.jpg',
+      'assets/images/gallery/frame_6.jpg',
+      'assets/images/gallery/frame_7.jpg'
     ],
     'exhibition-booth-design': [
-      'https://images.unsplash.com/photo-1511578314322-379afb476865?w=1200&h=800&fit=crop',
-      'https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=1200&h=800&fit=crop',
-      'https://images.unsplash.com/photo-1511795409834-ef04bbd61622?w=1200&h=800&fit=crop'
+      'assets/images/sign board/jetour.jpeg',
+      'assets/images/sign board/neon signage.jpeg',
+      'assets/images/sign board/stainless steel.jpeg'
     ],
     'display-units-mall-kiosk': [
-      'https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=1200&h=800&fit=crop',
-      'https://images.unsplash.com/photo-1511578314322-379afb476865?w=1200&h=800&fit=crop',
-      'https://images.unsplash.com/photo-1586953208448-b95a79798f07?w=1200&h=800&fit=crop'
+      'assets/images/gallery/frame_8.jpg',
+      'assets/images/gallery/frame_9.jpg',
+      'assets/images/gallery/frame_10.jpg'
     ],
     'event-management': [
-      'https://images.unsplash.com/photo-1511795409834-ef04bbd61622?w=1200&h=800&fit=crop',
-      'https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?w=1200&h=800&fit=crop',
-      'https://images.unsplash.com/photo-1511578314322-379afb476865?w=1200&h=800&fit=crop'
+      'assets/images/gallery/frame_11.jpg',
+      'assets/images/gallery/frame_12.jpg',
+      'assets/images/gallery/frame_13.jpg'
+    ],
+    'mall-activation': [
+      'assets/images/gallery/frame_14.jpg'
     ],
     'brand-ambassadors-event-hosts': [
-      'https://images.unsplash.com/photo-1511578314322-379afb476865?w=1200&h=800&fit=crop',
-      'https://images.unsplash.com/photo-1511795409834-ef04bbd61622?w=1200&h=800&fit=crop',
-      'https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=1200&h=800&fit=crop'
+      'assets/images/gallery/frame_15.jpg',
+      'assets/images/gallery/frame_16.jpg',
+      'assets/images/gallery/frame_17.jpg'
     ],
     'av-service': [
-      'https://images.unsplash.com/photo-1511795409834-ef04bbd61622?w=1200&h=800&fit=crop',
-      'https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?w=1200&h=800&fit=crop',
-      'https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=1200&h=800&fit=crop'
+      'assets/images/gallery/frame_18.jpg',
+      'assets/images/gallery/frame_19.jpg',
+      'assets/images/gallery/frame_20.jpg'
     ],
     'vehicle-branding-wrapping': [
-      'https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?w=1200&h=800&fit=crop',
-      'https://images.unsplash.com/photo-1586953208448-b95a79798f07?w=1200&h=800&fit=crop',
-      'https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=1200&h=800&fit=crop'
+      'assets/images/gallery/frame_21.jpg',
+      'assets/images/gallery/frame_22.jpg',
+      'assets/images/gallery/frame_23.jpg'
     ],
     'stickers-custom-prints': [
-      'https://images.unsplash.com/photo-1586953208448-b95a79798f07?w=1200&h=800&fit=crop',
-      'https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?w=1200&h=800&fit=crop',
-      'https://images.unsplash.com/photo-1511578314322-379afb476865?w=1200&h=800&fit=crop'
+      'assets/images/gallery/frame_24.jpg',
+      'assets/images/gallery/frame_25.jpg',
+      'assets/images/gallery/frame_26.jpg'
     ],
     'fabrication-manufacturing': [
-      'https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?w=1200&h=800&fit=crop',
-      'https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?w=1200&h=800&fit=crop',
-      'https://images.unsplash.com/photo-1511578314322-379afb476865?w=1200&h=800&fit=crop'
+      'assets/images/gallery/frame_27.jpg',
+      'assets/images/gallery/frame_28.jpg',
+      'assets/images/gallery/frame_29.jpg'
     ]
   };
 
@@ -104,18 +107,14 @@ export class Services implements OnInit, OnDestroy, AfterViewInit {
       if (this.isLoaded() && translations && this.getServiceKey() && currentLang !== this.previousLang) {
         this.previousLang = currentLang;
 
-        // Clear any ongoing typing animation
-        if (this.typingTimeout) {
-          clearTimeout(this.typingTimeout);
+        // Clear any ongoing fade animation
+        if (this.fadeTimeout) {
+          clearTimeout(this.fadeTimeout);
         }
 
-        // Reset typing state
-        this.typedTitle.set('');
-        this.isTyping.set(false);
-
-        // Restart typing animation with new translation
+        // Restart fade animation with new translation
         setTimeout(() => {
-          this.startTypingAnimation();
+          this.startFadeAnimation();
         }, 150);
       } else if (!this.previousLang) {
         // Set initial language on first load
@@ -128,21 +127,25 @@ export class Services implements OnInit, OnDestroy, AfterViewInit {
     this.route.params.subscribe(params => {
       const serviceId = params['id'] || '';
 
-      // Reset typing state when route changes
-      this.typedTitle.set('');
-      this.isTyping.set(false);
+      // Reset fade state when route changes
+      this.titleFadeState.set('fade-out');
 
       this.serviceType.set(serviceId);
       this.isLoaded.set(true);
 
-      // Wait a bit to ensure translation is loaded, then start typing
+      // Wait a bit to ensure translation is loaded, then start fade
       setTimeout(() => {
-        this.startTypingAnimation();
+        this.startFadeAnimation();
       }, 150);
 
       setTimeout(() => {
         this.initScrollAnimations();
         this.initCarouselDrag();
+        
+        // Ensure video is muted if it's Mall Activation
+        if (serviceId === 'mall-activation') {
+          this.enforceVideoMuted();
+        }
       }, 100);
     });
   }
@@ -151,7 +154,73 @@ export class Services implements OnInit, OnDestroy, AfterViewInit {
     // Initialize carousel drag after view is initialized
     setTimeout(() => {
       this.initCarouselDrag();
+      
+      // Ensure video is muted for Mall Activation
+      if (this.isMallActivation()) {
+        this.enforceVideoMuted();
+      }
     }, 300);
+  }
+
+  private enforceVideoMuted(): void {
+    const videoElement = document.querySelector('.service-video') as HTMLVideoElement;
+    if (!videoElement) {
+      // Retry if video not loaded yet
+      setTimeout(() => this.enforceVideoMuted(), 100);
+      return;
+    }
+
+    // Set muted immediately
+    videoElement.muted = true;
+    videoElement.volume = 0;
+    videoElement.setAttribute('muted', 'true');
+    videoElement.removeAttribute('controls');
+
+    // Function to force mute
+    const forceMute = () => {
+      if (videoElement) {
+        videoElement.muted = true;
+        videoElement.volume = 0;
+        videoElement.setAttribute('muted', 'true');
+      }
+    };
+
+    // Multiple event listeners to catch any unmuting attempts
+    videoElement.addEventListener('volumechange', forceMute, { passive: true });
+    videoElement.addEventListener('play', forceMute, { passive: true });
+    videoElement.addEventListener('loadedmetadata', forceMute, { passive: true });
+    videoElement.addEventListener('loadeddata', forceMute, { passive: true });
+    videoElement.addEventListener('canplay', forceMute, { passive: true });
+    videoElement.addEventListener('playing', forceMute, { passive: true });
+
+    // Watch for attribute changes
+    const observer = new MutationObserver((mutations) => {
+      mutations.forEach((mutation) => {
+        if (mutation.type === 'attributes' && mutation.attributeName === 'muted') {
+          if (!videoElement.muted) {
+            forceMute();
+          }
+        }
+      });
+    });
+
+    observer.observe(videoElement, {
+      attributes: true,
+      attributeFilter: ['muted', 'volume']
+    });
+
+    // Periodic check to ensure it stays muted
+    const muteInterval = setInterval(() => {
+      if (videoElement && (!videoElement.muted || videoElement.volume > 0)) {
+        forceMute();
+      }
+    }, 500);
+
+    // Clean up interval when component is destroyed
+    window.addEventListener('beforeunload', () => {
+      clearInterval(muteInterval);
+      observer.disconnect();
+    });
   }
 
   private initCarouselDrag(): void {
@@ -164,8 +233,14 @@ export class Services implements OnInit, OnDestroy, AfterViewInit {
       if ((window as any).bootstrap) {
         this.carousel = (window as any).bootstrap.Carousel.getInstance(carouselEl);
         if (!this.carousel) {
-          // Initialize if not already initialized
-          this.carousel = new (window as any).bootstrap.Carousel(carouselEl);
+          // Initialize if not already initialized with 5 second interval
+          this.carousel = new (window as any).bootstrap.Carousel(carouselEl, {
+            interval: 5000,
+            ride: 'carousel'
+          });
+        } else {
+          // Update interval if carousel already exists
+          this.carousel._config.interval = 5000;
         }
       }
     } catch (e) {
@@ -303,64 +378,22 @@ export class Services implements OnInit, OnDestroy, AfterViewInit {
     }
   }
 
-  private startTypingAnimation(): void {
-    this.typedTitle.set('');
-    this.isTyping.set(true);
+  private startFadeAnimation(): void {
+    // Fade out first
+    this.titleFadeState.set('fade-out');
 
-    const serviceKey = this.getServiceKey();
-    if (!serviceKey) {
-      // If service key is not available, fallback to showing full title
-      const fallbackTitle = this.langService.t('nav.' + this.serviceType());
-      this.typedTitle.set(fallbackTitle);
-      this.isTyping.set(false);
-      return;
+    // After fade out completes, fade in
+    if (this.fadeTimeout) {
+      clearTimeout(this.fadeTimeout);
     }
 
-    const translationKey = 'nav.' + serviceKey;
-    let fullTitle = this.langService.t(translationKey);
-
-    // Check if translation exists (not just the key itself)
-    if (!fullTitle || fullTitle === translationKey) {
-      // Translation not ready yet, try again after a delay
-      setTimeout(() => {
-        fullTitle = this.langService.t(translationKey);
-        if (fullTitle && fullTitle !== translationKey) {
-          this.typeText(fullTitle);
-        } else {
-          // Still not ready, show what we have
-          this.typedTitle.set(fullTitle || this.serviceType());
-          this.isTyping.set(false);
-        }
-      }, 200);
-      return;
-    }
-
-    this.typeText(fullTitle);
-  }
-
-  private typeText(fullTitle: string): void {
-    let currentIndex = 0;
-    let timeoutId: any = null;
-
-    const typeCharacter = () => {
-      if (currentIndex < fullTitle.length) {
-        this.typedTitle.set(fullTitle.substring(0, currentIndex + 1));
-        currentIndex++;
-        timeoutId = setTimeout(typeCharacter, 80); // Adjust speed here (milliseconds per character)
-        this.typingTimeout = timeoutId;
-      } else {
-        this.isTyping.set(false);
-        this.typingTimeout = null;
-      }
-    };
-
-    // Clear any existing timeout
-    if (this.typingTimeout) {
-      clearTimeout(this.typingTimeout);
-    }
-
-    // Start typing after a short delay
-    this.typingTimeout = setTimeout(() => typeCharacter(), 300);
+    this.fadeTimeout = setTimeout(() => {
+      this.titleFadeState.set('fade-in');
+      // After fade in completes, set to visible
+      this.fadeTimeout = setTimeout(() => {
+        this.titleFadeState.set('visible');
+      }, 800);
+    }, 400);
   }
 
   ngOnDestroy(): void {
@@ -369,9 +402,9 @@ export class Services implements OnInit, OnDestroy, AfterViewInit {
       this.languageEffect.destroy();
     }
 
-    // Clear any ongoing typing animation
-    if (this.typingTimeout) {
-      clearTimeout(this.typingTimeout);
+    // Clear any ongoing fade animation
+    if (this.fadeTimeout) {
+      clearTimeout(this.fadeTimeout);
     }
   }
 
@@ -444,6 +477,39 @@ export class Services implements OnInit, OnDestroy, AfterViewInit {
     return this.serviceImages[key] || [];
   }
 
+  isMallActivation(): boolean {
+    return this.serviceType() === 'mall-activation';
+  }
+
+  isSignBoard(): boolean {
+    return this.serviceType() === 'exhibition-booth-design';
+  }
+
+  // Feature images for Sign Board service
+  signBoardFeatureImages: { [key: number]: string } = {
+    0: 'assets/images/sign board/all.jpeg', // 3D Signage
+    1: 'assets/images/sign board/sou=ast_light.jpeg', // Outdoor Flex Face Signage
+    2: 'assets/images/sign board/jetour_indoor.jpeg', // Indoor & Reception Signage
+    3: 'assets/images/sign board/eliteGroup.jpeg', // Office & Door Signage
+    4: 'assets/images/sign board/aluminuim&bras.jpeg', // Aluminium & Brass 3D Signage
+    5: 'assets/images/sign board/stainless steel.jpeg', // Stainless Steel Signage
+    6: 'assets/images/sign board/neon signage.jpeg', // Neon & LED Signage
+    7: 'assets/images/sign board/sou=ast.jpeg', // Wall & Glass Stickers
+    8: 'assets/images/sign board/jetour.jpeg', // Digital Printing & Promotional Graphics
+    9: 'assets/images/sign board/all.jpeg' // Vehicle Branding (fallback)
+  };
+
+  getFeatureImage(index: number): string | null {
+    if (this.isSignBoard() && this.signBoardFeatureImages[index]) {
+      return this.signBoardFeatureImages[index];
+    }
+    return null;
+  }
+
+  getMallActivationVideoUrl(): string {
+    return 'assets/images/mall_activation_video.mp4';
+  }
+
   // Icon arrays for different sections
   private featureIcons: string[] = [
     'fa-check-circle',
@@ -506,7 +572,7 @@ export class Services implements OnInit, OnDestroy, AfterViewInit {
     'fa-gem'
   ];
 
-  // Methods to get icons based on index
+  // Methods to get icons based on index (language-independent)
   getFeatureIcon(index: number): string {
     return this.featureIcons[index % this.featureIcons.length];
   }

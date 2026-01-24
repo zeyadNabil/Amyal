@@ -3,9 +3,8 @@
   <div class="container">
     <!-- Page Header -->
     <div class="about-header scroll-reveal">
-      <h1 class="about-title typing-title fade-in-up">
-        <span class="typed-text">{{ typedTitle() || langService.t('aboutUs.title') }}</span>
-        <span class="typing-cursor" *ngIf="isTyping()">|</span>
+      <h1 class="about-title fade-title fade-in-up" [class.fade-out]="titleFadeState() === 'fade-out'" [class.fade-in]="titleFadeState() === 'fade-in'" [class.visible]="titleFadeState() === 'visible'">
+        {{ langService.t('aboutUs.title') }}
       </h1>
     </div>
 

@@ -3,9 +3,10 @@
     "home": "Home",
     "productsServices": "Products & Services",
     "exhibitionStand": "Exhibition Stand",
-    "exhibitionBoothDesign": "Exhibition Booth Design",
+    "exhibitionBoothDesign": "Sign Board",
     "displayUnitsMallKiosk": "Display Units and Mall Kiosk",
     "eventManagement": "Event Management",
+    "mallActivation": "Mall Activation",
     "brandAmbassadorsEventHosts": "Brand Ambassadors & Event Hosts",
     "avService": "AV Service",
     "vehicleBrandingWrapping": "Vehicle Branding & Wrapping",
@@ -141,11 +142,27 @@
     "email": "Email",
     "location": "Location",
     "address": "Dubai, United Arab Emirates",
+    "usaLocation": "USA Office",
+    "usaAddress": "2450 Cherry Laurel Drive, Sanford, FL 32771",
+    "usaPhone": "+1 407-927-7483",
+    "uae": "UAE",
+    "usa": "USA",
     "namePlaceholder": "Your Name",
     "emailPlaceholder": "Your Email",
     "phonePlaceholder": "Your Phone",
     "messagePlaceholder": "Your Message",
-    "submit": "Send Message"
+    "submit": "Send Message",
+    "validation": {
+      "nameRequired": "Name is required",
+      "nameMinLength": "Name must be at least 2 characters",
+      "emailRequired": "Email is required",
+      "emailInvalid": "Please enter a valid email",
+      "phoneRequired": "Phone is required",
+      "messageRequired": "Message is required",
+      "messageMinLength": "Message must be at least 10 characters"
+    },
+    "sending": "Sending...",
+    "messageSent": "Message Sent! ✓"
   },
   "partners": {
     "title": "Our Partners"
@@ -182,7 +199,7 @@
     "services": {
       "learnMore": "Learn More",
       "exhibitionStandDesc": "Custom exhibition stands that captivate audiences",
-      "exhibitionBoothDesignDesc": "Innovative booth designs for maximum impact",
+      "exhibitionBoothDesignDesc": "Professional sign board solutions for maximum visibility",
       "displayUnitsMallKioskDesc": "Eye-catching display units and kiosks",
       "eventManagementDesc": "Complete event management solutions",
       "brandAmbassadorsEventHostsDesc": "Professional brand ambassadors",
@@ -267,8 +284,8 @@
       "closingText": "Our approach combines strategic thinking, creative design, and precise execution to deliver exhibition stands that perform as well as they look. Whether you are launching a new product, entering a new market, or strengthening customer relationships, we help you create spaces that resonate with your audience and elevate your brand experience."
     },
     "exhibitionBoothDesign": {
-      "overview": "We design and build high-impact exhibition stands that bring brands to life. Combining creative design, in-house production, and expert installation, we deliver exhibition solutions that command attention and drive results across the UAE.",
-      "features": "2D/3D Concept Design & Rendering|Layout Planning & Space Optimization|Custom Booth Fabrication|Counter Units, Shelving & Display Zones|LED Screens / Product Highlight Areas|Material Selection & Finishing Options|Installation, Dismantling & Logistics"
+      "overview": "We specialize in designing and producing all types of high-quality signage to suit every business and branding need. Our solutions include 3D signage, aluminum signs, stainless steel signs, neon signs, and illuminated displays. From concept to fabrication and installation, we deliver durable, visually striking signboards that enhance brand visibility and create a strong, professional presence indoors and outdoors.",
+      "features": "3D Signage – Custom 3D letters and logos that make your brand stand out|Outdoor Flex Face Signage – Large-format illuminated signs for building facades and storefronts|Indoor & Reception Signage – Branded interior signs for lobbies, offices, and reception areas|Office & Door Signage – Professional wayfinding and room identification signs|Aluminium & Brass 3D Signage – Premium metal letters and logos for a high-end finish|Stainless Steel Signage – Durable, corrosion-resistant signage for indoor and outdoor use|Neon & LED Signage – Eye-catching illuminated signs to attract attention day and night|Wall & Glass Stickers – Custom graphics for walls, windows, and glass partitions|Digital Printing & Promotional Graphics – Banners, posters, and marketing prints to promote your brand|Vehicle Branding – Full and partial wraps that turn your vehicles into moving advertisements"
     },
     "displayUnitsMallKiosk": {
       "overview": "We design and manufacture custom display units and mall kiosks that attract attention in high-traffic retail and public spaces. Our solutions are built to be durable, visually appealing, and easy to operate, ensuring long-term performance. Whether for product launches, promotions, or permanent retail presence, we create display units that enhance customer interaction and sales visibility.",
@@ -277,6 +294,10 @@
     "eventManagement": {
       "overview": "We offer full-service event management, covering planning, coordination, production, and on-site execution. Our team handles logistics, scheduling, vendor coordination, staffing, and technical setup to ensure smooth and successful events. From corporate events and product launches to exhibitions and brand activations, we deliver seamless experiences that reflect professionalism and attention to detail.",
       "features": "Event Planning & Coordination|Vendor & Supplier Management|Venue Setup & Production Oversight|Staffing & On-Ground Operations|Stage, Lighting & Show Flow Management|Event Branding & Signage Setup|Post-Event Wrap-Up & Reporting"
+    },
+    "mallActivation": {
+      "overview": "We deliver engaging mall activation experiences designed to attract attention, connect with audiences, and boost brand visibility. Our services include interactive displays, product demonstrations, promotional booths, and photo activation zones that create memorable customer interactions. From concept and design to fabrication and on-site execution, we ensure every activation aligns with your marketing goals and drives real engagement with shoppers.",
+      "features": "Interactive Display Installations|Product Demonstration Zones|Promotional Booth Design & Setup|Photo Activation Areas|Brand Experience Zones|Customer Engagement Activities|Concept Development & Design|Fabrication & Production|On-Site Installation & Management|Post-Activation Analysis & Reporting"
     },
     "brandAmbassadorsEventHosts": {
       "overview": "We provide professional brand ambassadors and event hosts to represent your brand with confidence, professionalism, and impact.",

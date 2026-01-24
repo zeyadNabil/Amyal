@@ -9,6 +9,7 @@ export interface Translations {
     exhibitionBoothDesign: string;
     displayUnitsMallKiosk: string;
     eventManagement: string;
+    mallActivation: string;
     brandAmbassadorsEventHosts: string;
     avService: string;
     vehicleBrandingWrapping: string;

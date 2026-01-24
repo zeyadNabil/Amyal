@@ -2,20 +2,27 @@
 <section id="home" class="hero-section">
   <div class="container">
     <div class="hero-content">
-      <!-- Main Heading -->
-      <h1 class="hero-title">
-        <span class="text-line">{{ langService.t('hero.title') }}</span>
-        <span class="text-line gradient-text-animated">{{ langService.t('hero.titleGradient') }}</span>
-      </h1>
+      <!-- Left Side: Text Content -->
+      <div class="hero-text-content">
+        <h1 class="hero-title">
+          <span class="text-line">{{ langService.t('hero.title') }}</span>
+          <span class="text-line gradient-text-animated">{{ langService.t('hero.titleGradient') }}</span>
+        </h1>
 
-      <!-- CTA Buttons -->
-      <div class="hero-cta">
-        <a (click)="scrollToSection('services')" class="btn-glow btn-primary">
-          <span class="btn-text">{{ langService.t('hero.cta') }}</span>
-        </a>
-        <a routerLink="/contact-us" class="btn-glow btn-secondary">
-          <span class="btn-text">{{ langService.t('nav.contact') }}</span>
-        </a>
+        <!-- CTA Buttons -->
+        <div class="hero-cta">
+          <a (click)="scrollToSection('services')" class="btn-glow btn-primary">
+            <span class="btn-text">{{ langService.t('hero.cta') }}</span>
+          </a>
+          <a routerLink="/contact-us" class="btn-glow btn-secondary">
+            <span class="btn-text">{{ langService.t('nav.contact') }}</span>
+          </a>
+        </div>
+      </div>
+
+      <!-- Right Side: Stands Photo Image -->
+      <div class="hero-stands-image-wrapper">
+        <img src="assets/images/Stands Photo.jpeg" alt="Exhibition Stands" class="hero-stands-image">
       </div>
     </div>
   </div>
@@ -33,7 +40,7 @@
       <div class="service-card-animated scroll-reveal" *ngFor="let service of services; let i = index" [style.--delay]="i * 0.1 + 's'">
         <div class="service-card-inner">
           <div class="service-icon-wrapper">
-            <div class="service-icon">{{ getServiceIcon(service.key) }}</div>
+            <div class="service-icon"><i [class]="'fas ' + getServiceIcon(service.key)"></i></div>
           </div>
           <h3 class="service-title">{{ langService.t('nav.' + service.key) }}</h3>
           <p class="service-description">{{ service.description }}</p>
@@ -54,7 +61,7 @@
   <div class="container">
     <div class="stats-grid">
       <div class="stat-card-animated scroll-reveal" *ngFor="let stat of stats; let i = index">
-        <div class="stat-icon">{{ stat.icon }}</div>
+        <div class="stat-icon"><i [class]="'fas ' + stat.icon"></i></div>
         <div class="stat-number-wrapper">
           <span class="stat-number" [attr.data-target]="stat.value">{{ stat.value }}</span>
           <span class="stat-suffix">{{ stat.suffix }}</span>
@@ -77,7 +84,7 @@
       <div class="feature-card-3d scroll-reveal" *ngFor="let feature of features; let i = index">
         <div class="feature-card-front">
           <div class="feature-number">{{ langService.t('home.numbers.' + (i + 1)) }}</div>
-          <div class="feature-icon-large">{{ feature.icon }}</div>
+          <div class="feature-icon-large"><i [class]="'fas ' + feature.icon"></i></div>
           <h3 class="feature-title">{{ feature.title }}</h3>
           <p class="feature-text">{{ feature.text }}</p>
         </div>
@@ -124,11 +131,7 @@
 
     <div class="process-timeline">
       <div class="process-step scroll-reveal" *ngFor="let step of processSteps; let i = index">
-        <div class="step-connector" *ngIf="i < processSteps.length - 1"></div>
-        <div class="step-circle">
-          <div class="step-number">{{ langService.t('home.numbers.' + (i + 1)) }}</div>
-          <div class="step-pulse"></div>
-        </div>
+        <div class="step-number">{{ langService.t('home.numbers.' + (i + 1)) }}</div>
         <div class="step-content">
           <h3 class="step-title">{{ step.title }}</h3>
           <p class="step-description">{{ step.description }}</p>

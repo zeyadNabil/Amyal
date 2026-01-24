@@ -1,0 +1,47 @@
+<!-- Floating Chat Widget -->
+<div class="chat-widget-container">
+  <!-- Chat Button -->
+  <button 
+    class="chat-widget-button"
+    (click)="toggleChat()"
+    [class.open]="isOpen()"
+    aria-label="Chat with us"
+    title="Chat with us">
+    <i class="fas fa-comments" *ngIf="!isOpen()"></i>
+    <i class="fas fa-times" *ngIf="isOpen()"></i>
+  </button>
+
+  <!-- Chat Panel -->
+  <div class="chat-panel" [class.open]="isOpen()">
+    <div class="chat-panel-header">
+      <h4 class="chat-title">{{ langService.t('nav.contact') }}</h4>
+      <button class="chat-close-btn" (click)="closeChat()" aria-label="Close chat">
+        <i class="fas fa-times"></i>
+      </button>
+    </div>
+    
+    <div class="chat-panel-content">
+      <div class="chat-info">
+        <div class="chat-phone">
+          <i class="fas fa-phone"></i>
+          <a [href]="getPhoneLinkUAE()" class="phone-link">{{ phoneNumberUAE }}</a>
+          <span class="phone-label">({{ langService.t('contact.uae') }})</span>
+        </div>
+        <div class="chat-phone">
+          <i class="fas fa-phone"></i>
+          <a [href]="getPhoneLinkUSA()" class="phone-link">{{ phoneNumberUSA }}</a>
+          <span class="phone-label">({{ langService.t('contact.usa') }})</span>
+        </div>
+        <p class="chat-message">{{ langService.t('contact.text') || 'Get in touch with us' }}</p>
+      </div>
+      
+      <a 
+        routerLink="/contact-us" 
+        class="chat-send-btn"
+        (click)="navigateToContact()">
+        <span>{{ langService.t('contact.submit') || 'Send Message' }}</span>
+        <i class="fas fa-paper-plane"></i>
+      </a>
+    </div>
+  </div>
+</div>

@@ -52,28 +52,28 @@ export class Home implements OnInit {
 
     // Update stats
     this.stats = [
-      { icon: '📊', value: 500, suffix: '+', label: this.langService.t('about.stat1') },
-      { icon: '⭐', value: 15, suffix: '+', label: this.langService.t('about.stat2') },
-      { icon: '😊', value: 98, suffix: '%', label: this.langService.t('about.stat3') },
-      { icon: '🌍', value: 50, suffix: '+', label: this.langService.t('about.stat4') || 'Countries Served' }
+      { icon: 'fa-chart-bar', value: 500, suffix: '+', label: this.langService.t('about.stat1') },
+      { icon: 'fa-star', value: 15, suffix: '+', label: this.langService.t('about.stat2') },
+      { icon: 'fa-smile', value: 98, suffix: '%', label: this.langService.t('about.stat3') },
+      { icon: 'fa-globe', value: 50, suffix: '+', label: this.langService.t('about.stat4') || 'Countries Served' }
     ];
 
     // Update features
     this.features = [
-      { icon: '🎨', title: this.langService.t('home.features.innovativeDesign.title'), text: this.langService.t('home.features.innovativeDesign.text') },
-      { icon: '⚡', title: this.langService.t('home.features.onTimeDelivery.title'), text: this.langService.t('home.features.onTimeDelivery.text') },
-      { icon: '👥', title: this.langService.t('home.features.expertTeam.title'), text: this.langService.t('home.features.expertTeam.text') },
-      { icon: '💎', title: this.langService.t('home.features.qualityMaterials.title'), text: this.langService.t('home.features.qualityMaterials.text') },
-      { icon: '🚀', title: this.langService.t('home.features.fullService.title'), text: this.langService.t('home.features.fullService.text') },
-      { icon: '🤝', title: this.langService.t('home.features.clientFirst.title'), text: this.langService.t('home.features.clientFirst.text') }
+      { icon: 'fa-palette', title: this.langService.t('home.features.innovativeDesign.title'), text: this.langService.t('home.features.innovativeDesign.text') },
+      { icon: 'fa-bolt', title: this.langService.t('home.features.onTimeDelivery.title'), text: this.langService.t('home.features.onTimeDelivery.text') },
+      { icon: 'fa-users', title: this.langService.t('home.features.expertTeam.title'), text: this.langService.t('home.features.expertTeam.text') },
+      { icon: 'fa-gem', title: this.langService.t('home.features.qualityMaterials.title'), text: this.langService.t('home.features.qualityMaterials.text') },
+      { icon: 'fa-rocket', title: this.langService.t('home.features.fullService.title'), text: this.langService.t('home.features.fullService.text') },
+      { icon: 'fa-handshake', title: this.langService.t('home.features.clientFirst.title'), text: this.langService.t('home.features.clientFirst.text') }
     ];
 
     // Update gallery items
     this.galleryItems = [
-      { image: 'https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=600&h=400&fit=crop', title: this.langService.t('gallery.items.exhibitionStand.title'), category: this.langService.t('gallery.items.exhibitionStand.category') },
-      { image: 'https://images.unsplash.com/photo-1511795409834-ef04bbd61622?w=600&h=400&fit=crop', title: this.langService.t('gallery.items.eventProduction.title'), category: this.langService.t('gallery.items.eventProduction.category') },
-      { image: 'https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=600&h=400&fit=crop', title: this.langService.t('gallery.items.brandingSolutions.title'), category: this.langService.t('gallery.items.brandingSolutions.category') },
-      { image: 'https://images.unsplash.com/photo-1505373877841-8d25f7d46678?w=600&h=400&fit=crop', title: this.langService.t('gallery.items.customFabrication.title'), category: this.langService.t('gallery.items.customFabrication.category') }
+      { image: 'assets/images/gallery/frame_1.jpg', title: this.langService.t('gallery.items.exhibitionStand.title'), category: this.langService.t('gallery.items.exhibitionStand.category') },
+      { image: 'assets/images/gallery/frame_2.jpg', title: this.langService.t('gallery.items.eventProduction.title'), category: this.langService.t('gallery.items.eventProduction.category') },
+      { image: 'assets/images/gallery/frame_3.jpg', title: this.langService.t('gallery.items.brandingSolutions.title'), category: this.langService.t('gallery.items.brandingSolutions.category') },
+      { image: 'assets/images/gallery/frame_4.jpg', title: this.langService.t('gallery.items.customFabrication.title'), category: this.langService.t('gallery.items.customFabrication.category') }
     ];
 
     // Update process steps
@@ -88,11 +88,18 @@ export class Home implements OnInit {
   ngOnInit(): void {
     // Initialize all translations
     this.updateTranslations();
-    
+
     setTimeout(() => this.isLoaded.set(true), 100);
     this.initScrollAnimations();
     this.initCounterAnimations();
     this.initParallaxEffects();
+    // Ensure hero section has no transform applied
+    setTimeout(() => {
+      const hero = document.querySelector('.hero-section');
+      if (hero) {
+        (hero as HTMLElement).style.transform = 'none';
+      }
+    }, 100);
   }
 
 
@@ -149,7 +156,7 @@ export class Home implements OnInit {
 
   animateCounters(): void {
     const counters = document.querySelectorAll('.stat-number');
-    
+
     counters.forEach(counter => {
       const target = parseInt(counter.getAttribute('data-target') || '0');
       let current = 0;
@@ -169,14 +176,7 @@ export class Home implements OnInit {
   }
 
   initParallaxEffects(): void {
-    // Parallax for hero section
-    window.addEventListener('scroll', () => {
-      const scrolled = window.pageYOffset;
-      const hero = document.querySelector('.hero-section');
-      if (hero) {
-        (hero as HTMLElement).style.transform = `translateY(${scrolled * 0.5}px)`;
-      }
-    });
+    // Parallax effects removed - using normal scroll behavior
   }
 
   updateParallax(): void {
@@ -193,7 +193,7 @@ export class Home implements OnInit {
     reveals.forEach(element => {
       const elementTop = element.getBoundingClientRect().top;
       const elementVisible = 150;
-      
+
       if (elementTop < window.innerHeight - elementVisible) {
         element.classList.add('active');
       }
@@ -209,16 +209,16 @@ export class Home implements OnInit {
 
   getServiceIcon(key: string): string {
     const icons: { [key: string]: string } = {
-      'exhibitionStand': '🏢',
-      'exhibitionBoothDesign': '🎨',
-      'displayUnitsMallKiosk': '🛍️',
-      'eventManagement': '🎪',
-      'brandAmbassadorsEventHosts': '👥',
-      'avService': '🎬',
-      'vehicleBrandingWrapping': '🚗',
-      'stickersCustomPrints': '🖨️',
-      'fabricationManufacturing': '⚙️'
+      'exhibitionStand': 'fa-building',
+      'exhibitionBoothDesign': 'fa-palette',
+      'displayUnitsMallKiosk': 'fa-shopping-bag',
+      'eventManagement': 'fa-theater-masks',
+      'brandAmbassadorsEventHosts': 'fa-users',
+      'avService': 'fa-video',
+      'vehicleBrandingWrapping': 'fa-car',
+      'stickersCustomPrints': 'fa-print',
+      'fabricationManufacturing': 'fa-cogs'
     };
-    return icons[key] || '✨';
+    return icons[key] || 'fa-star';
   }
 }

@@ -21,6 +21,14 @@
             <span class="contact-label">{{ langService.t('contact.location') }}:</span>
             <span class="contact-text">{{ langService.t('footer.address') }}</span>
           </p>
+          <p class="contact-item">
+            <span class="contact-label">{{ langService.t('contact.usaLocation') }}:</span>
+            <span class="contact-text">{{ langService.t('contact.usaAddress') }}</span>
+          </p>
+          <p class="contact-item">
+            <span class="contact-label">{{ langService.t('contact.phone') }} (USA):</span>
+            <a href="tel:+14079277483" class="contact-link">{{ langService.t('contact.usaPhone') }}</a>
+          </p>
         </div>
       </div>
 
@@ -78,6 +86,11 @@
           <li>
             <a (click)="navigateToPage('/services/event-management')" class="footer-link" role="button">
               {{ langService.t('nav.eventManagement') }}
+            </a>
+          </li>
+          <li>
+            <a (click)="navigateToPage('/services/mall-activation')" class="footer-link" role="button">
+              {{ langService.t('nav.mallActivation') }}
             </a>
           </li>
           <li>

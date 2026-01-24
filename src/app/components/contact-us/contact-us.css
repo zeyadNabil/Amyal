@@ -6,6 +6,9 @@
     padding: calc(var(--nav-height) + 4rem) 0 8rem;
     min-height: 100vh;
     position: relative;
+    overflow-x: hidden;
+    width: 100%;
+    max-width: 100%;
 }
 
 .section-header {
@@ -41,33 +44,23 @@
     }
 }
 
-.typing-title {
+.fade-title {
+    transition: opacity 0.8s ease, transform 0.8s ease;
+}
+
+.fade-title.fade-out {
+    opacity: 0;
+    transform: translateY(20px);
+}
+
+.fade-title.fade-in {
     opacity: 1;
     transform: translateY(0);
 }
 
-.typed-text {
-    display: inline-block;
-}
-
-.typing-cursor {
-    display: inline-block;
-    margin-left: 5px;
-    font-weight: 400;
-    color: #9333EA;
-    animation: blinkCursor 1s infinite;
-    font-size: clamp(2.5rem, 5vw, 4rem);
-    vertical-align: middle;
-    line-height: 1;
-}
-
-@keyframes blinkCursor {
-    0%, 49% {
-        opacity: 1;
-    }
-    50%, 100% {
-        opacity: 0;
-    }
+.fade-title.visible {
+    opacity: 1;
+    transform: translateY(0);
 }
 
 .contact-heading {
@@ -107,6 +100,12 @@
     background: rgba(147, 51, 234, 0.1);
     border-color: var(--purple);
     box-shadow: 0 10px 30px rgba(147, 51, 234, 0.2);
+}
+
+@media (max-width: 768px) {
+    .contact-item:hover {
+        transform: none;
+    }
 }
 
 .contact-icon {
@@ -181,11 +180,33 @@
     border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
+/* USA Location Section */
+.usa-location-section {
+    text-align: center;
+    margin-top: 4rem;
+    padding: 3rem;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 20px;
+}
+
+.usa-location-section .section-title {
+    font-size: clamp(1.75rem, 3vw, 2.5rem);
+    margin-bottom: 2rem;
+}
+
+.usa-location-section .contact-details {
+    max-width: 600px;
+    margin: 0 auto;
+}
+
 .map-container iframe {
     width: 100%;
+    max-width: 100%;
     height: 400px;
     border: none;
     display: block;
+    box-sizing: border-box;
 }
 
 /* Contact Form */
@@ -194,6 +215,8 @@
     border: 1px solid rgba(255, 255, 255, 0.1);
     border-radius: 20px;
     padding: 3rem;
+    box-sizing: border-box;
+    max-width: 100%;
 }
 
 .form-group {
@@ -202,6 +225,7 @@
 
 .form-control {
     width: 100%;
+    max-width: 100%;
     padding: 1rem 1.5rem;
     font-size: 1rem;
     background: rgba(255, 255, 255, 0.05);
@@ -209,6 +233,7 @@
     border-radius: 10px;
     color: var(--white);
     transition: all 0.3s ease;
+    box-sizing: border-box;
 }
 
 .form-control:focus {
@@ -220,6 +245,66 @@
 
 .form-control::placeholder {
     color: var(--gray-dark);
+}
+
+/* RTL Support for form inputs */
+[dir="rtl"] .form-control {
+    text-align: right !important;
+    direction: rtl !important;
+    unicode-bidi: bidi-override !important;
+}
+
+[dir="rtl"] input[type="tel"].form-control,
+[dir="rtl"] input[type="text"].form-control,
+[dir="rtl"] input[type="email"].form-control {
+    text-align: right !important;
+    direction: rtl !important;
+    unicode-bidi: bidi-override !important;
+}
+
+[dir="rtl"] input[type="tel"].form-control,
+[dir="rtl"] input[type="tel"].form-control:focus,
+[dir="rtl"] input[type="tel"].form-control:active {
+    text-align: right !important;
+    direction: rtl !important;
+    unicode-bidi: bidi-override !important;
+}
+
+[dir="rtl"] input[type="tel"].form-control::placeholder,
+[dir="rtl"] input[type="text"].form-control::placeholder,
+[dir="rtl"] input[type="email"].form-control::placeholder {
+    text-align: right !important;
+    direction: rtl !important;
+    unicode-bidi: embed !important;
+}
+
+input[type="tel"][dir="rtl"].form-control,
+input[type="tel"][dir="rtl"].form-control::placeholder {
+    text-align: right !important;
+    direction: rtl !important;
+}
+
+[dir="rtl"] .form-control::placeholder {
+    text-align: right !important;
+    direction: rtl !important;
+    unicode-bidi: embed !important;
+}
+
+[dir="rtl"] textarea.form-control {
+    text-align: right !important;
+    direction: rtl !important;
+    unicode-bidi: bidi-override !important;
+}
+
+[dir="rtl"] textarea.form-control::placeholder {
+    text-align: right !important;
+    direction: rtl !important;
+    unicode-bidi: embed !important;
+}
+
+[dir="rtl"] .invalid-feedback {
+    text-align: right !important;
+    direction: rtl !important;
 }
 
 textarea.form-control {
@@ -256,6 +341,8 @@ textarea.form-control {
     box-shadow: 0 0 20px rgba(147, 51, 234, 0.3);
     cursor: pointer;
     width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
 }
 
 .btn-glow::before {
@@ -312,23 +399,38 @@ textarea.form-control {
    ======================================== */
 
 @media (max-width: 991px) {
-    .contact-us-section {
-        padding: calc(var(--nav-height) + 2rem) 0 5rem;
-    }
+  .contact-us-section {
+    margin-top: 8.5%;
+    padding: calc(var(--nav-height) + 2rem) 1rem 5rem;
+    overflow-x: hidden;
+  }
 
     .contact-form {
         padding: 2rem;
         margin-top: 3rem;
+        margin-left: 0;
+        margin-right: 0;
     }
 
     .map-container {
         margin-top: 2rem;
+        margin-left: 0;
+        margin-right: 0;
     }
 }
 
 @media (max-width: 768px) {
+  .contact-us-section {
+    margin-top: 11%;
+    padding-left: 1rem;
+    padding-right: 1rem;
+    overflow-x: hidden;
+  }
+
     .contact-item {
         padding: 1rem;
+        margin-left: 0;
+        margin-right: 0;
     }
 
     .contact-icon {
@@ -343,12 +445,20 @@ textarea.form-control {
     .contact-info-text p {
         font-size: 0.95rem;
     }
+
+    .contact-form {
+        padding: 2rem 1.5rem;
+        margin-left: 0;
+        margin-right: 0;
+    }
 }
 
 @media (max-width: 576px) {
-    .contact-us-section {
-        padding: calc(var(--nav-height) + 1rem) 0 4rem;
-    }
+  .contact-us-section {
+    margin-top: 13.5%;
+    padding: calc(var(--nav-height) + 1rem) 1rem 4rem;
+    overflow-x: hidden;
+  }
 
     .section-header {
         margin-bottom: 3rem;
@@ -372,13 +482,32 @@ textarea.form-control {
 
     .contact-form {
         padding: 1.5rem;
+        margin-left: 0;
+        margin-right: 0;
+    }
+
+    .contact-item {
+        padding: 1rem;
+        margin-left: 0;
+        margin-right: 0;
+    }
+
+    .form-control {
+        padding: 0.875rem 1rem;
     }
 
     .social-links {
         justify-content: center;
+        flex-wrap: wrap;
+    }
+
+    .map-container {
+        margin-left: 0;
+        margin-right: 0;
     }
 
     .map-container iframe {
         height: 300px;
+        max-width: 100%;
     }
 }

@@ -10,22 +10,21 @@ import { LanguageService } from '../../services/language.service';
 })
 export class AboutUs implements OnInit, OnDestroy {
   isLoaded = signal(false);
-  typedTitle = signal<string>('');
-  isTyping = signal<boolean>(false);
+  titleFadeState = signal<'fade-out' | 'fade-in' | 'visible'>('fade-out');
   private scrollObserver?: IntersectionObserver;
-  private typingTimeout: any = null;
+  private fadeTimeout: any = null;
   private languageEffect: any = null;
 
   constructor(public langService: LanguageService) {
-    // Watch for language changes and restart typing animation
+    // Watch for language changes and restart fade animation
     this.languageEffect = effect(() => {
       const translations = this.langService.translations();
       const currentLang = this.langService.currentLang();
-      
-      // Restart typing animation when language changes
+
+      // Restart fade animation when language changes
       if (translations) {
         setTimeout(() => {
-          this.startTypingAnimation();
+          this.startFadeAnimation();
         }, 100);
       }
     });
@@ -35,65 +34,36 @@ export class AboutUs implements OnInit, OnDestroy {
     setTimeout(() => this.isLoaded.set(true), 100);
     this.initScrollAnimations();
     this.animateOnLoad();
-    // Start typing animation after a delay
+    // Start fade animation after a delay
     setTimeout(() => {
-      this.startTypingAnimation();
+      this.startFadeAnimation();
     }, 500);
   }
 
-  private startTypingAnimation(): void {
-    this.typedTitle.set('');
-    this.isTyping.set(true);
+  private startFadeAnimation(): void {
+    // Fade out first
+    this.titleFadeState.set('fade-out');
 
-    const translationKey = 'aboutUs.title';
-    let fullTitle = this.langService.t(translationKey);
-
-    // Check if translation exists
-    if (!fullTitle || fullTitle === translationKey) {
-      setTimeout(() => {
-        fullTitle = this.langService.t(translationKey);
-        if (fullTitle && fullTitle !== translationKey) {
-          this.typeText(fullTitle);
-        } else {
-          this.typedTitle.set(fullTitle || 'About Us');
-          this.isTyping.set(false);
-        }
-      }, 200);
-      return;
+    // After fade out completes, fade in
+    if (this.fadeTimeout) {
+      clearTimeout(this.fadeTimeout);
     }
 
-    this.typeText(fullTitle);
-  }
-
-  private typeText(fullTitle: string): void {
-    let currentIndex = 0;
-    let timeoutId: any = null;
-
-    const typeCharacter = () => {
-      if (currentIndex < fullTitle.length) {
-        this.typedTitle.set(fullTitle.substring(0, currentIndex + 1));
-        currentIndex++;
-        timeoutId = setTimeout(typeCharacter, 80);
-        this.typingTimeout = timeoutId;
-      } else {
-        this.isTyping.set(false);
-        this.typingTimeout = null;
-      }
-    };
-
-    if (this.typingTimeout) {
-      clearTimeout(this.typingTimeout);
-    }
-
-    this.typingTimeout = setTimeout(() => typeCharacter(), 300);
+    this.fadeTimeout = setTimeout(() => {
+      this.titleFadeState.set('fade-in');
+      // After fade in completes, set to visible
+      this.fadeTimeout = setTimeout(() => {
+        this.titleFadeState.set('visible');
+      }, 800);
+    }, 400);
   }
 
   ngOnDestroy(): void {
     if (this.languageEffect) {
       this.languageEffect.destroy();
     }
-    if (this.typingTimeout) {
-      clearTimeout(this.typingTimeout);
+    if (this.fadeTimeout) {
+      clearTimeout(this.fadeTimeout);
     }
     if (this.scrollObserver) {
       this.scrollObserver.disconnect();

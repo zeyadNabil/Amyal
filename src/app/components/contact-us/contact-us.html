@@ -2,9 +2,8 @@
 <section class="contact-us-section">
   <div class="container">
     <div class="section-header scroll-reveal">
-      <h1 class="section-title gradient-text typing-title fade-in-up">
-        <span class="typed-text">{{ typedTitle() || langService.t('contact.title') }}</span>
-        <span class="typing-cursor" *ngIf="isTyping()">|</span>
+      <h1 class="section-title gradient-text fade-title fade-in-up" [class.fade-out]="titleFadeState() === 'fade-out'" [class.fade-in]="titleFadeState() === 'fade-in'" [class.visible]="titleFadeState() === 'visible'">
+        {{ langService.t('contact.title') }}
       </h1>
       <p class="section-subtitle fade-in-up">{{ langService.t('contact.subtitle') }}</p>
     </div>
@@ -24,8 +23,20 @@
                 </svg>
               </div>
               <div class="contact-info-text">
-                <h5>{{ langService.t('contact.phone') }}</h5>
+                <h5>{{ langService.t('contact.phone') }} (UAE)</h5>
                 <p><a href="tel:+971504612803" class="contact-link">+971 50 461 2803</a></p>
+              </div>
+            </div>
+
+            <div class="contact-item scroll-reveal">
+              <div class="contact-icon">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
+                </svg>
+              </div>
+              <div class="contact-info-text">
+                <h5>{{ langService.t('contact.phone') }} (USA)</h5>
+                <p><a href="tel:+14079277483" class="contact-link">{{ langService.t('contact.usaPhone') }}</a></p>
               </div>
             </div>
 
@@ -94,10 +105,10 @@
             @if (name?.invalid && name?.touched) {
               <div class="invalid-feedback d-block">
                 @if (name?.errors?.['required']) {
-                  Name is required
+                  {{ langService.t('contact.validation.nameRequired') }}
                 }
                 @if (name?.errors?.['minlength']) {
-                  Name must be at least 2 characters
+                  {{ langService.t('contact.validation.nameMinLength') }}
                 }
               </div>
             }
@@ -113,10 +124,10 @@
             @if (email?.invalid && email?.touched) {
               <div class="invalid-feedback d-block">
                 @if (email?.errors?.['required']) {
-                  Email is required
+                  {{ langService.t('contact.validation.emailRequired') }}
                 }
                 @if (email?.errors?.['email']) {
-                  Please enter a valid email
+                  {{ langService.t('contact.validation.emailInvalid') }}
                 }
               </div>
             }
@@ -127,10 +138,11 @@
               type="tel"
               class="form-control"
               [placeholder]="langService.t('contact.phonePlaceholder')"
+              [attr.dir]="langService.currentLang() === 'ar' ? 'rtl' : 'ltr'"
               formControlName="phone"
               [class.is-invalid]="phone?.invalid && phone?.touched">
             @if (phone?.invalid && phone?.touched) {
-              <div class="invalid-feedback d-block">Phone is required</div>
+              <div class="invalid-feedback d-block">{{ langService.t('contact.validation.phoneRequired') }}</div>
             }
           </div>
 
@@ -145,10 +157,10 @@
             @if (message?.invalid && message?.touched) {
               <div class="invalid-feedback d-block">
                 @if (message?.errors?.['required']) {
-                  Message is required
+                  {{ langService.t('contact.validation.messageRequired') }}
                 }
                 @if (message?.errors?.['minlength']) {
-                  Message must be at least 10 characters
+                  {{ langService.t('contact.validation.messageMinLength') }}
                 }
               </div>
             }
@@ -160,9 +172,9 @@
             [disabled]="isSubmitting()">
             <span class="btn-text">
               @if (isSubmitting()) {
-                Sending...
+                {{ langService.t('contact.sending') }}
               } @else if (submitSuccess()) {
-                Message Sent! ✓
+                {{ langService.t('contact.messageSent') }}
               } @else {
                 {{ langService.t('contact.submit') }}
               }
@@ -186,6 +198,41 @@
             referrerpolicy="no-referrer-when-downgrade"
             title="Amyal Location - Dubai, UAE">
           </iframe>
+        </div>
+      </div>
+    </div>
+
+    <!-- USA Location Section -->
+    <div class="row g-5 mt-5">
+      <div class="col-12">
+        <div class="usa-location-section scroll-reveal">
+          <h3 class="section-title gradient-text">{{ langService.t('contact.usaLocation') }}</h3>
+          <div class="contact-details">
+            <div class="contact-item scroll-reveal">
+              <div class="contact-icon">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+                  <circle cx="12" cy="10" r="3"></circle>
+                </svg>
+              </div>
+              <div class="contact-info-text">
+                <h5>{{ langService.t('contact.location') }}</h5>
+                <p>{{ langService.t('contact.usaAddress') }}</p>
+              </div>
+            </div>
+
+            <div class="contact-item scroll-reveal">
+              <div class="contact-icon">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
+                </svg>
+              </div>
+              <div class="contact-info-text">
+                <h5>{{ langService.t('contact.phone') }}</h5>
+                <p><a href="tel:+14079277483" class="contact-link">{{ langService.t('contact.usaPhone') }}</a></p>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>

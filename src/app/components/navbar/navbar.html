@@ -79,6 +79,15 @@
             </li>
             <li>
               <a class="dropdown-item"
+                 [class.active]="isServiceActive('mall-activation')"
+                 routerLink="/services/mall-activation"
+                 routerLinkActive="active"
+                 (click)="handleNavClick()">
+                {{ langService.t('nav.mallActivation') }}
+              </a>
+            </li>
+            <li>
+              <a class="dropdown-item"
                  [class.active]="isServiceActive('brand-ambassadors-event-hosts')"
                  routerLink="/services/brand-ambassadors-event-hosts"
                  routerLinkActive="active"

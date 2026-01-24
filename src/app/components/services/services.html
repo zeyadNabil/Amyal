@@ -3,9 +3,8 @@
   <div class="container">
     <!-- Header Section -->
     <div class="service-header">
-      <h1 class="service-title typing-title">
-        <span class="typed-text">{{ typedTitle() || langService.t('nav.' + getServiceKey()) || serviceType() }}</span>
-        <span class="typing-cursor" *ngIf="isTyping()">|</span>
+      <h1 class="service-title fade-title" [class.fade-out]="titleFadeState() === 'fade-out'" [class.fade-in]="titleFadeState() === 'fade-in'" [class.visible]="titleFadeState() === 'visible'">
+        {{ langService.t('nav.' + getServiceKey()) || serviceType() }}
       </h1>
       <div class="service-breadcrumb">
         <a routerLink="/" class="breadcrumb-link">{{ langService.t('nav.home') }}</a>
@@ -14,11 +13,34 @@
       </div>
     </div>
 
-    <!-- Image Slider Section -->
-    <div class="service-section scroll-reveal" *ngIf="getServiceImages().length > 0">
-      <div class="row">
+    <!-- Video Section for Mall Activation -->
+    <div class="service-section service-video-section scroll-reveal" *ngIf="isMallActivation()">
+      <div class="row g-0">
         <div class="col-12">
-          <div id="serviceCarousel" #carousel class="carousel slide carousel-fade service-carousel" data-bs-ride="carousel" data-bs-interval="4000">
+          <div class="service-video-wrapper">
+            <video class="service-video"
+                   [src]="getMallActivationVideoUrl()"
+                   autoplay
+                   loop
+                   muted
+                   volume="0"
+                   playsinline
+                   disablePictureInPicture
+                   controlsList="nodownload nofullscreen noremoteplayback"
+                   oncontextmenu="return false;">
+              Your browser does not support the video tag.
+            </video>
+            <div class="video-overlay"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Image Slider Section -->
+    <div class="service-section service-slider-section scroll-reveal" *ngIf="!isMallActivation() && getServiceImages().length > 0">
+      <div class="row g-0">
+        <div class="col-12">
+          <div id="serviceCarousel" #carousel class="carousel slide carousel-fade service-carousel" data-bs-ride="carousel" data-bs-interval="5000">
             <div class="carousel-indicators">
               <button type="button"
                       *ngFor="let img of getServiceImages(); let i = index"
@@ -36,10 +58,6 @@
                   <img [src]="image"
                        class="d-block w-100 service-slider-image"
                        [alt]="langService.t('nav.' + getServiceKey()) + ' - Image ' + (i + 1)">
-                  <div class="galaxy-overlay"></div>
-                </div>
-                <div class="carousel-caption d-none d-md-block">
-                  <h3>{{ langService.t('nav.' + getServiceKey()) }}</h3>
                 </div>
               </div>
             </div>
@@ -58,14 +76,23 @@
 
     <!-- Overview Section with Image -->
     <div class="service-section scroll-reveal" *ngIf="getOverview() && hasContent()">
-      <div class="row g-4 align-items-start">
-        <div class="col-lg-6" [class.offset-lg-6]="getServiceImages().length === 0">
+      <div class="row g-4 align-items-stretch">
+        <div class="col-lg-6" [class.offset-lg-6]="getServiceImages().length === 0 && !isMallActivation()">
           <div class="service-card overview-card">
             <h2 class="section-title">{{ langService.t('services.sections.overview') }}</h2>
             <p class="section-text">{{ getOverview() }}</p>
           </div>
         </div>
-        <div class="col-lg-6" *ngIf="getServiceImages().length > 0">
+        <div class="col-lg-6" *ngIf="getServiceImages().length > 0 && !isMallActivation()">
+          <div class="service-image-wrapper animate-float">
+            <img [src]="getServiceImages()[0]"
+                 class="img-fluid service-content-image"
+                 [alt]="langService.t('nav.' + getServiceKey())">
+            <div class="image-overlay"></div>
+            <div class="galaxy-overlay" *ngIf="isSignBoard()"></div>
+          </div>
+        </div>
+        <div class="col-lg-6" *ngIf="isMallActivation()">
           <div class="service-image-wrapper animate-float">
             <img [src]="getServiceImages()[0]"
                  class="img-fluid service-content-image"
@@ -76,14 +103,22 @@
       </div>
     </div>
 
-    <!-- Features Section with Icons -->
+    <!-- Features Section with Icons/Images -->
     <div class="service-section scroll-reveal" *ngIf="getFeatures().length > 0">
       <h2 class="section-main-title">{{ langService.t('services.sections.features') }}</h2>
       <div class="row g-4">
         <div class="col-md-6 col-lg-4" *ngFor="let feature of getFeatures(); let i = index">
-          <div class="service-card feature-card card-hover animate-card" [style.--i]="i">
+          <div class="service-card feature-card card-hover animate-card" [class.feature-card-with-image]="isSignBoard() && getFeatureImage(i)" [style.--i]="i">
+            <!-- Image for Sign Board - outside card-content to extend to edges -->
+            <div class="card-image-wrapper" *ngIf="isSignBoard() && getFeatureImage(i)">
+              <img [src]="getFeatureImage(i)"
+                   class="card-feature-image"
+                   [alt]="feature">
+              <div class="galaxy-overlay"></div>
+            </div>
             <div class="card-content">
-              <div class="card-icon">
+              <!-- Icon for non-Sign Board services -->
+              <div class="card-icon" *ngIf="!isSignBoard() || !getFeatureImage(i)">
                 <i [class]="'fas ' + getFeatureIcon(i)"></i>
               </div>
               <p class="card-text">{{ feature }}</p>

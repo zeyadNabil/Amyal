@@ -32,6 +32,43 @@ export class Navbar implements OnInit, OnDestroy {
     
     // Initial check
     this.updateActiveRoute();
+    
+    // Listen for Bootstrap collapse events
+    this.setupMenuToggleListener();
+  }
+
+  setupMenuToggleListener(): void {
+    // Prevent body scroll when menu is open
+    const navbarCollapse = document.getElementById('navbarContent');
+    if (navbarCollapse) {
+      // Listen for Bootstrap collapse events
+      navbarCollapse.addEventListener('shown.bs.collapse', () => {
+        document.body.style.overflow = 'hidden';
+      });
+      
+      navbarCollapse.addEventListener('hidden.bs.collapse', () => {
+        document.body.style.overflow = '';
+      });
+      
+      // Also listen for manual class changes (fallback)
+      const observer = new MutationObserver((mutations) => {
+        mutations.forEach((mutation) => {
+          if (mutation.type === 'attributes' && mutation.attributeName === 'class') {
+            const target = mutation.target as HTMLElement;
+            if (target.classList.contains('show')) {
+              document.body.style.overflow = 'hidden';
+            } else {
+              document.body.style.overflow = '';
+            }
+          }
+        });
+      });
+      
+      observer.observe(navbarCollapse, {
+        attributes: true,
+        attributeFilter: ['class']
+      });
+    }
   }
 
   ngOnDestroy(): void {
@@ -175,6 +212,8 @@ export class Navbar implements OnInit, OnDestroy {
           if (toggleButton) {
             toggleButton.setAttribute('aria-expanded', 'false');
           }
+          // Restore body scroll
+          document.body.style.overflow = '';
         }
       } else {
         // Fallback: manually remove show class
@@ -183,6 +222,8 @@ export class Navbar implements OnInit, OnDestroy {
         if (toggleButton) {
           toggleButton.setAttribute('aria-expanded', 'false');
         }
+        // Restore body scroll
+        document.body.style.overflow = '';
       }
     }
   }
