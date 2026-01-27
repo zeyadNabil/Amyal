@@ -3,7 +3,7 @@
   <div class="container">
     <!-- Gallery Header -->
     <div class="gallery-header scroll-reveal">
-      <h1 class="gallery-title fade-title fade-in-up" [class.fade-out]="titleFadeState() === 'fade-out'" [class.fade-in]="titleFadeState() === 'fade-in'" [class.visible]="titleFadeState() === 'visible'">
+      <h1 class="gallery-title gradient-text-animated fade-title fade-in-up" [class.fade-out]="titleFadeState() === 'fade-out'" [class.fade-in]="titleFadeState() === 'fade-in'" [class.visible]="titleFadeState() === 'visible'">
         {{ langService.t('gallery.title') }}
       </h1>
       <p class="gallery-description fade-in-up">
@@ -14,7 +14,7 @@
     <!-- Gallery Grid -->
     <div class="gallery-grid">
       <!-- Row 1: Large horizontal -->
-      <div class="gallery-item large-horizontal fade-in-up scroll-reveal">
+      <div class="gallery-item large-horizontal fade-in-up scroll-reveal" (click)="openImage('assets/images/gallery/frame_30.jpg')">
         <div class="gallery-image-wrapper">
           <img src="assets/images/gallery/frame_30.jpg" alt="Exhibition Stand" class="gallery-image">
           <div class="galaxy-overlay"></div>
@@ -28,7 +28,7 @@
       </div>
 
       <!-- Row 1: Two vertical items -->
-      <div class="gallery-item vertical fade-in-up scroll-reveal">
+      <div class="gallery-item vertical fade-in-up scroll-reveal" (click)="openImage('assets/images/gallery/frame_31.jpg')">
         <div class="gallery-image-wrapper">
           <img src="assets/images/gallery/frame_31.jpg" alt="Event Production" class="gallery-image">
           <div class="galaxy-overlay"></div>
@@ -41,7 +41,7 @@
         </div>
       </div>
 
-      <div class="gallery-item vertical fade-in-up scroll-reveal">
+      <div class="gallery-item vertical fade-in-up scroll-reveal" (click)="openImage('assets/images/gallery/frame_32.jpg')">
         <div class="gallery-image-wrapper">
           <img src="assets/images/gallery/frame_32.jpg" alt="Branding Solutions" class="gallery-image">
           <div class="galaxy-overlay"></div>
@@ -55,7 +55,7 @@
       </div>
 
       <!-- Row 2: Medium horizontal items -->
-      <div class="gallery-item medium-horizontal fade-in-up scroll-reveal">
+      <div class="gallery-item medium-horizontal fade-in-up scroll-reveal" (click)="openImage('assets/images/gallery/frame_33.jpg')">
         <div class="gallery-image-wrapper">
           <img src="assets/images/gallery/frame_33.jpg" alt="Custom Fabrication" class="gallery-image">
           <div class="galaxy-overlay"></div>
@@ -68,7 +68,7 @@
         </div>
       </div>
 
-      <div class="gallery-item medium-horizontal fade-in-up scroll-reveal">
+      <div class="gallery-item medium-horizontal fade-in-up scroll-reveal" (click)="openImage('assets/images/gallery/frame_34.jpg')">
         <div class="gallery-image-wrapper">
           <img src="assets/images/gallery/frame_34.jpg" alt="Display Units" class="gallery-image">
           <div class="galaxy-overlay"></div>
@@ -82,7 +82,7 @@
       </div>
 
       <!-- Row 3: Vertical and horizontal mix -->
-      <div class="gallery-item vertical fade-in-up scroll-reveal">
+      <div class="gallery-item vertical fade-in-up scroll-reveal" (click)="openImage('assets/images/gallery/frame_35.jpg')">
         <div class="gallery-image-wrapper">
           <img src="assets/images/gallery/frame_35.jpg" alt="AV Services" class="gallery-image">
           <div class="galaxy-overlay"></div>
@@ -95,7 +95,7 @@
         </div>
       </div>
 
-      <div class="gallery-item large-horizontal fade-in-up scroll-reveal">
+      <div class="gallery-item large-horizontal fade-in-up scroll-reveal" (click)="openImage('assets/images/gallery/frame_36.jpg')">
         <div class="gallery-image-wrapper">
           <img src="assets/images/gallery/frame_36.jpg" alt="Vehicle Branding" class="gallery-image">
           <div class="galaxy-overlay"></div>
@@ -109,7 +109,7 @@
       </div>
 
       <!-- Row 4: Three medium items -->
-      <div class="gallery-item medium-vertical fade-in-up scroll-reveal">
+      <div class="gallery-item medium-vertical fade-in-up scroll-reveal" (click)="openImage('assets/images/gallery/mahawa_1.jpg')">
         <div class="gallery-image-wrapper">
           <img src="assets/images/gallery/mahawa_1.jpg" alt="Stickers & Prints" class="gallery-image">
           <div class="galaxy-overlay"></div>
@@ -122,7 +122,7 @@
         </div>
       </div>
 
-      <div class="gallery-item medium-vertical fade-in-up scroll-reveal">
+      <div class="gallery-item medium-vertical fade-in-up scroll-reveal" (click)="openImage('assets/images/gallery/mahawa_2.jpg')">
         <div class="gallery-image-wrapper">
           <img src="assets/images/gallery/mahawa_2.jpg" alt="Booth Design" class="gallery-image">
           <div class="galaxy-overlay"></div>
@@ -135,7 +135,7 @@
         </div>
       </div>
 
-      <div class="gallery-item medium-vertical fade-in-up scroll-reveal">
+      <div class="gallery-item medium-vertical fade-in-up scroll-reveal" (click)="openImage('assets/images/gallery/mahawa_3.jpg')">
         <div class="gallery-image-wrapper">
           <img src="assets/images/gallery/mahawa_3.jpg" alt="Event Management" class="gallery-image">
           <div class="galaxy-overlay"></div>
@@ -149,7 +149,7 @@
       </div>
 
       <!-- Row 5: Large horizontal and vertical -->
-      <div class="gallery-item large-horizontal fade-in-up scroll-reveal">
+      <div class="gallery-item large-horizontal fade-in-up scroll-reveal" (click)="openImage('assets/images/gallery/mahawa_4.jpg')">
         <div class="gallery-image-wrapper">
           <img src="assets/images/gallery/mahawa_4.jpg" alt="Exhibition Hall" class="gallery-image">
           <div class="galaxy-overlay"></div>
@@ -162,7 +162,7 @@
         </div>
       </div>
 
-      <div class="gallery-item vertical fade-in-up scroll-reveal">
+      <div class="gallery-item vertical fade-in-up scroll-reveal" (click)="openImage('assets/images/gallery/mahawa_5.jpg')">
         <div class="gallery-image-wrapper">
           <img src="assets/images/gallery/mahawa_5.jpg" alt="Brand Activation" class="gallery-image">
           <div class="galaxy-overlay"></div>
@@ -176,7 +176,7 @@
       </div>
 
       <!-- Row 6: Mixed sizes -->
-      <div class="gallery-item vertical fade-in-up scroll-reveal">
+      <div class="gallery-item vertical fade-in-up scroll-reveal" (click)="openImage('assets/images/gallery/mahawa_6.jpg')">
         <div class="gallery-image-wrapper">
           <img src="assets/images/gallery/mahawa_6.jpg" alt="Corporate Event" class="gallery-image">
           <div class="galaxy-overlay"></div>
@@ -189,7 +189,7 @@
         </div>
       </div>
 
-      <div class="gallery-item medium-horizontal fade-in-up scroll-reveal">
+      <div class="gallery-item medium-horizontal fade-in-up scroll-reveal" (click)="openImage('assets/images/gallery/mahawa_7.jpg')">
         <div class="gallery-image-wrapper">
           <img src="assets/images/gallery/mahawa_7.jpg" alt="Retail Display" class="gallery-image">
           <div class="galaxy-overlay"></div>
@@ -205,7 +205,6 @@
       <div class="gallery-item medium-vertical fade-in-up scroll-reveal">
         <div class="gallery-image-wrapper">
           <img src="assets/images/gallery/mahawa_8.jpg" alt="Fabrication Workshop" class="gallery-image">
-          <div class="galaxy-overlay"></div>
           <div class="gallery-overlay">
             <div class="gallery-info">
               <h3 class="gallery-item-title">{{ langService.t('gallery.items.fabricationWorkshop.title') }}</h3>
@@ -216,7 +215,7 @@
       </div>
 
       <!-- Additional Images to Fill Empty Spaces -->
-      <div class="gallery-item medium-horizontal fade-in-up scroll-reveal">
+      <div class="gallery-item medium-horizontal fade-in-up scroll-reveal" (click)="openImage('assets/images/gallery/mahawa_9.jpg')">
         <div class="gallery-image-wrapper">
           <img src="assets/images/gallery/mahawa_9.jpg" alt="Conference Setup" class="gallery-image">
           <div class="galaxy-overlay"></div>
@@ -229,7 +228,7 @@
         </div>
       </div>
 
-      <div class="gallery-item medium-vertical fade-in-up scroll-reveal">
+      <div class="gallery-item medium-vertical fade-in-up scroll-reveal" (click)="openImage('assets/images/gallery/mahawa_10.jpg')">
         <div class="gallery-image-wrapper">
           <img src="assets/images/gallery/mahawa_10.jpg" alt="Stage Design" class="gallery-image">
           <div class="galaxy-overlay"></div>
@@ -242,7 +241,7 @@
         </div>
       </div>
 
-      <div class="gallery-item medium-vertical fade-in-up scroll-reveal">
+      <div class="gallery-item medium-vertical fade-in-up scroll-reveal" (click)="openImage('assets/images/gallery/mahawa_11.jpg')">
         <div class="gallery-image-wrapper">
           <img src="assets/images/gallery/mahawa_11.jpg" alt="Lighting Design" class="gallery-image">
           <div class="galaxy-overlay"></div>
@@ -255,7 +254,7 @@
         </div>
       </div>
 
-      <div class="gallery-item large-horizontal fade-in-up scroll-reveal">
+      <div class="gallery-item large-horizontal fade-in-up scroll-reveal" (click)="openImage('assets/images/gallery/mahawa_12.jpg')">
         <div class="gallery-image-wrapper">
           <img src="assets/images/gallery/mahawa_12.jpg" alt="Trade Show Booth" class="gallery-image">
           <div class="galaxy-overlay"></div>
@@ -268,7 +267,7 @@
         </div>
       </div>
 
-      <div class="gallery-item vertical fade-in-up scroll-reveal">
+      <div class="gallery-item vertical fade-in-up scroll-reveal" (click)="openImage('assets/images/gallery/mahawa_13.jpg')">
         <div class="gallery-image-wrapper">
           <img src="assets/images/gallery/mahawa_13.jpg" alt="Product Launch" class="gallery-image">
           <div class="galaxy-overlay"></div>
@@ -281,7 +280,7 @@
         </div>
       </div>
 
-      <div class="gallery-item medium-horizontal fade-in-up scroll-reveal">
+      <div class="gallery-item medium-horizontal fade-in-up scroll-reveal" (click)="openImage('assets/images/gallery/mahawa_14.jpg')">
         <div class="gallery-image-wrapper">
           <img src="assets/images/gallery/mahawa_14.jpg" alt="Digital Signage" class="gallery-image">
           <div class="galaxy-overlay"></div>
@@ -294,7 +293,7 @@
         </div>
       </div>
 
-      <div class="gallery-item medium-vertical fade-in-up scroll-reveal">
+      <div class="gallery-item medium-vertical fade-in-up scroll-reveal" (click)="openImage('assets/images/gallery/54eid_etihad.jpg')">
         <div class="gallery-image-wrapper">
           <img src="assets/images/gallery/54eid_etihad.jpg" alt="Installation Services" class="gallery-image">
           <div class="galaxy-overlay"></div>
@@ -307,7 +306,7 @@
         </div>
       </div>
 
-      <div class="gallery-item medium-horizontal fade-in-up scroll-reveal">
+      <div class="gallery-item medium-horizontal fade-in-up scroll-reveal" (click)="openImage('assets/images/gallery/54uae.jpg')">
         <div class="gallery-image-wrapper">
           <img src="assets/images/gallery/54uae.jpg" alt="VIP Lounge" class="gallery-image">
           <div class="galaxy-overlay"></div>
@@ -320,7 +319,7 @@
         </div>
       </div>
 
-      <div class="gallery-item vertical fade-in-up scroll-reveal">
+      <div class="gallery-item vertical fade-in-up scroll-reveal" (click)="openImage('assets/images/gallery/adcoap.jpg')">
         <div class="gallery-image-wrapper">
           <img src="assets/images/gallery/adcoap.jpg" alt="Award Ceremony" class="gallery-image">
           <div class="galaxy-overlay"></div>
@@ -331,6 +330,27 @@
             </div>
           </div>
         </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Lightbox Modal -->
+  <div class="lightbox-overlay" *ngIf="isLightboxOpen()" (click)="closeLightbox()">
+    <div class="lightbox-container" (click)="$event.stopPropagation()">
+      <button class="lightbox-close" (click)="closeLightbox()" aria-label="Close lightbox">
+        <i class="fas fa-times"></i>
+      </button>
+      <button class="lightbox-nav lightbox-prev" (click)="prevImage()" aria-label="Previous image">
+        <i class="fas fa-chevron-left"></i>
+      </button>
+      <button class="lightbox-nav lightbox-next" (click)="nextImage()" aria-label="Next image">
+        <i class="fas fa-chevron-right"></i>
+      </button>
+      <div class="lightbox-image-wrapper">
+        <img [src]="getCurrentImage()" alt="Gallery Image" class="lightbox-image">
+      </div>
+      <div class="lightbox-counter">
+        {{ currentImageIndex() + 1 }} / {{ galleryImages.length }}
       </div>
     </div>
   </div>

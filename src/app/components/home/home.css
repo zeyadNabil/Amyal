@@ -159,6 +159,98 @@
 
 
 /* ========================================
+   PARTNERS SLIDER SECTION
+   ======================================== */
+
+.partners-slider-section {
+  padding: 4rem 0;
+  position: relative;
+  overflow: hidden;
+  background: transparent;
+  z-index: 1;
+}
+
+.partners-slider-section .section-header {
+  margin-bottom: 3rem;
+}
+
+.partners-slider-container {
+  width: 100%;
+  overflow: hidden;
+  position: relative;
+  mask-image: linear-gradient(
+    to right,
+    transparent 0%,
+    black 5%,
+    black 95%,
+    transparent 100%
+  );
+  -webkit-mask-image: linear-gradient(
+    to right,
+    transparent 0%,
+    black 5%,
+    black 95%,
+    transparent 100%
+  );
+}
+
+.partners-slider-track {
+  display: flex;
+  gap: 4rem;
+  animation: slidePartners 60s linear infinite;
+  width: fit-content;
+}
+
+.partners-slider-item {
+  flex-shrink: 0;
+  width: 280px;
+  height: 180px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.5rem;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 15px;
+  transition: all 0.3s ease;
+  backdrop-filter: blur(10px);
+}
+
+.partners-slider-item:hover {
+  transform: translateY(-5px) scale(1.05);
+  background: rgba(147, 51, 234, 0.1);
+  border-color: var(--purple);
+  box-shadow: 0 10px 30px rgba(147, 51, 234, 0.3);
+}
+
+.partner-logo {
+  max-width: 90%;
+  max-height: 90%;
+  width: auto;
+  height: auto;
+  object-fit: contain;
+  transition: transform 0.3s ease;
+}
+
+.partners-slider-item:hover .partner-logo {
+  transform: scale(1.1);
+}
+
+@keyframes slidePartners {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+/* Pause animation on hover */
+.partners-slider-container:hover .partners-slider-track {
+  animation-play-state: paused;
+}
+
+/* ========================================
    SERVICES OVERVIEW SECTION
    ======================================== */
 
@@ -480,9 +572,7 @@
   transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-.gallery-preview-item:hover .gallery-preview-image {
-  transform: scale(1.2) rotate(5deg);
-}
+/* Removed hover zoom effect */
 
 .gallery-overlay-animated {
   position: absolute;
@@ -770,6 +860,7 @@
 
 @media (max-width: 991px) {
   .hero-section,
+  .partners-slider-section,
   .services-overview-section,
   .stats-section,
   .features-section,
@@ -777,6 +868,17 @@
   .process-section,
   .cta-section {
     margin-top: 8.5%;
+  }
+
+  .partners-slider-item {
+    width: 220px;
+    height: 140px;
+    padding: 1.5rem;
+  }
+
+  .partners-slider-track {
+    gap: 3rem;
+    animation-duration: 50s;
   }
   .services-grid {
     grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
@@ -827,6 +929,7 @@
 
 @media (max-width: 768px) {
   .hero-section,
+  .partners-slider-section,
   .services-overview-section,
   .stats-section,
   .features-section,
@@ -834,6 +937,21 @@
   .process-section,
   .cta-section {
     margin-top: 100px;
+  }
+
+  .partners-slider-section {
+    padding: 3rem 0;
+  }
+
+  .partners-slider-item {
+    width: 200px;
+    height: 120px;
+    padding: 1.5rem;
+  }
+
+  .partners-slider-track {
+    gap: 2rem;
+    animation-duration: 45s;
   }
   .hero-content {
     grid-template-columns: 1fr;
@@ -907,6 +1025,7 @@
 
 @media (max-width: 576px) {
   .hero-section,
+  .partners-slider-section,
   .services-overview-section,
   .stats-section,
   .features-section,
@@ -914,6 +1033,21 @@
   .process-section,
   .cta-section {
     margin-top: 13.5%;
+  }
+
+  .partners-slider-section {
+    padding: 2rem 0;
+  }
+
+  .partners-slider-item {
+    width: 180px;
+    height: 110px;
+    padding: 1.25rem;
+  }
+
+  .partners-slider-track {
+    gap: 1.5rem;
+    animation-duration: 40s;
   }
   .hero-content {
     gap: 2rem;

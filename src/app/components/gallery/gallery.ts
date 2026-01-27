@@ -15,6 +15,39 @@ export class Gallery implements OnInit, OnDestroy {
   private imageObserver?: IntersectionObserver;
   private fadeTimeout: any = null;
   private languageEffect: any = null;
+  private keyDownHandler: ((event: KeyboardEvent) => void) | null = null;
+
+  // Lightbox state
+  isLightboxOpen = signal(false);
+  currentImageIndex = signal(0);
+  
+  // All gallery images in order
+  galleryImages = [
+    'assets/images/gallery/frame_30.jpg',
+    'assets/images/gallery/frame_31.jpg',
+    'assets/images/gallery/frame_32.jpg',
+    'assets/images/gallery/frame_33.jpg',
+    'assets/images/gallery/frame_34.jpg',
+    'assets/images/gallery/frame_35.jpg',
+    'assets/images/gallery/frame_36.jpg',
+    'assets/images/gallery/mahawa_1.jpg',
+    'assets/images/gallery/mahawa_2.jpg',
+    'assets/images/gallery/mahawa_3.jpg',
+    'assets/images/gallery/mahawa_4.jpg',
+    'assets/images/gallery/mahawa_5.jpg',
+    'assets/images/gallery/mahawa_6.jpg',
+    'assets/images/gallery/mahawa_7.jpg',
+    'assets/images/gallery/mahawa_8.jpg',
+    'assets/images/gallery/mahawa_9.jpg',
+    'assets/images/gallery/mahawa_10.jpg',
+    'assets/images/gallery/mahawa_11.jpg',
+    'assets/images/gallery/mahawa_12.jpg',
+    'assets/images/gallery/mahawa_13.jpg',
+    'assets/images/gallery/mahawa_14.jpg',
+    'assets/images/gallery/54eid_etihad.jpg',
+    'assets/images/gallery/54uae.jpg',
+    'assets/images/gallery/adcoap.jpg'
+  ];
 
   constructor(public langService: LanguageService) {
     // Watch for language changes and restart fade animation
@@ -40,6 +73,10 @@ export class Gallery implements OnInit, OnDestroy {
     setTimeout(() => {
       this.startFadeAnimation();
     }, 500);
+    
+    // Add keyboard navigation for lightbox
+    this.keyDownHandler = this.handleKeyDown.bind(this);
+    document.addEventListener('keydown', this.keyDownHandler);
   }
 
   private startFadeAnimation(): void {
@@ -72,6 +109,10 @@ export class Gallery implements OnInit, OnDestroy {
     }
     if (this.imageObserver) {
       this.imageObserver.disconnect();
+    }
+    // Remove keyboard listener
+    if (this.keyDownHandler) {
+      document.removeEventListener('keydown', this.keyDownHandler);
     }
   }
 
@@ -127,5 +168,81 @@ export class Gallery implements OnInit, OnDestroy {
       const imageContainers = document.querySelectorAll('.gallery-image');
       imageContainers.forEach(container => this.imageObserver?.observe(container));
     }, 300);
+  }
+
+  openImage(imageSrc: string): void {
+    // Find the index of the clicked image
+    const index = this.galleryImages.indexOf(imageSrc);
+    if (index !== -1) {
+      this.currentImageIndex.set(index);
+      this.isLightboxOpen.set(true);
+      // Prevent body scroll when lightbox is open
+      document.body.style.overflow = 'hidden';
+      // Hide navbar, back-to-top button, and chat widget when lightbox is open
+      const navbar = document.getElementById('mainNav');
+      const backToTop = document.querySelector('.back-to-top-btn') as HTMLElement;
+      const chatWidget = document.querySelector('.chat-widget-container') as HTMLElement;
+      
+      if (navbar) {
+        navbar.style.display = 'none';
+      }
+      if (backToTop) {
+        backToTop.style.display = 'none';
+      }
+      if (chatWidget) {
+        chatWidget.style.display = 'none';
+      }
+    }
+  }
+
+  closeLightbox(): void {
+    this.isLightboxOpen.set(false);
+    document.body.style.overflow = '';
+    // Show navbar, back-to-top button, and chat widget again when lightbox is closed
+    const navbar = document.getElementById('mainNav');
+    const backToTop = document.querySelector('.back-to-top-btn') as HTMLElement;
+    const chatWidget = document.querySelector('.chat-widget-container') as HTMLElement;
+    
+    if (navbar) {
+      navbar.style.display = '';
+    }
+    if (backToTop) {
+      backToTop.style.display = '';
+    }
+    if (chatWidget) {
+      chatWidget.style.display = '';
+    }
+  }
+
+  nextImage(): void {
+    const currentIndex = this.currentImageIndex();
+    const nextIndex = (currentIndex + 1) % this.galleryImages.length;
+    this.currentImageIndex.set(nextIndex);
+  }
+
+  prevImage(): void {
+    const currentIndex = this.currentImageIndex();
+    const prevIndex = currentIndex === 0 ? this.galleryImages.length - 1 : currentIndex - 1;
+    this.currentImageIndex.set(prevIndex);
+  }
+
+  getCurrentImage(): string {
+    return this.galleryImages[this.currentImageIndex()];
+  }
+
+  private handleKeyDown(event: KeyboardEvent): void {
+    if (!this.isLightboxOpen()) return;
+
+    switch (event.key) {
+      case 'Escape':
+        this.closeLightbox();
+        break;
+      case 'ArrowRight':
+        this.nextImage();
+        break;
+      case 'ArrowLeft':
+        this.prevImage();
+        break;
+    }
   }
 }

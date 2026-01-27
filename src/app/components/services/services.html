@@ -3,7 +3,7 @@
   <div class="container">
     <!-- Header Section -->
     <div class="service-header">
-      <h1 class="service-title fade-title" [class.fade-out]="titleFadeState() === 'fade-out'" [class.fade-in]="titleFadeState() === 'fade-in'" [class.visible]="titleFadeState() === 'visible'">
+      <h1 class="service-title gradient-text-animated fade-title" [class.fade-out]="titleFadeState() === 'fade-out'" [class.fade-in]="titleFadeState() === 'fade-in'" [class.visible]="titleFadeState() === 'visible'">
         {{ langService.t('nav.' + getServiceKey()) || serviceType() }}
       </h1>
       <div class="service-breadcrumb">
@@ -36,40 +36,51 @@
       </div>
     </div>
 
-    <!-- Image Slider Section -->
+    <!-- Card Slider Section -->
     <div class="service-section service-slider-section scroll-reveal" *ngIf="!isMallActivation() && getServiceImages().length > 0">
-      <div class="row g-0">
-        <div class="col-12">
-          <div id="serviceCarousel" #carousel class="carousel slide carousel-fade service-carousel" data-bs-ride="carousel" data-bs-interval="5000">
-            <div class="carousel-indicators">
-              <button type="button"
-                      *ngFor="let img of getServiceImages(); let i = index"
-                      [attr.data-bs-target]="'#serviceCarousel'"
-                      [attr.data-bs-slide-to]="i"
-                      [class.active]="i === 0"
-                      [attr.aria-label]="'Slide ' + (i + 1)">
-              </button>
-            </div>
-            <div class="carousel-inner">
-              <div class="carousel-item"
-                   *ngFor="let image of getServiceImages(); let i = index"
-                   [class.active]="i === 0">
-                <div class="slider-image-wrapper">
-                  <img [src]="image"
-                       class="d-block w-100 service-slider-image"
-                       [alt]="langService.t('nav.' + getServiceKey()) + ' - Image ' + (i + 1)">
+      <div class="container">
+        <div class="card-slider-wrapper">
+          <div class="card-slider-container" 
+               #cardSlider
+               (mousedown)="onMouseDown($event)"
+               (mousemove)="onMouseMove($event)"
+               (mouseup)="onMouseUp($event)"
+               (mouseleave)="onMouseUp($event)"
+               (touchstart)="onTouchStart($event)"
+               (touchmove)="onTouchMove($event)"
+               (touchend)="onTouchEnd($event)">
+            <div class="card-slider-track" 
+                 [style.transform]="'translateX(' + sliderOffset() + 'px)'"
+                 [style.transition]="isDragging() ? 'none' : 'transform 0.5s cubic-bezier(0.4, 0, 0.2, 1)'">
+              <div class="card-slider-item" 
+                   *ngFor="let image of getServiceImages(); let i = index">
+                <div class="service-card slider-card">
+                  <div class="card-image-wrapper" (click)="openImage(image)">
+                    <img [src]="image"
+                         class="card-slider-image"
+                         [alt]="langService.t('nav.' + getServiceKey()) + ' - Image ' + (i + 1)">
+                    <div class="galaxy-overlay"></div>
+                  </div>
+                  <div class="card-content">
+                    <p class="card-text">{{ getCardText(i) }}</p>
+                  </div>
                 </div>
               </div>
             </div>
-            <button class="carousel-control-prev" type="button" data-bs-target="#serviceCarousel" data-bs-slide="prev">
-              <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-              <span class="visually-hidden">Previous</span>
-            </button>
-            <button class="carousel-control-next" type="button" data-bs-target="#serviceCarousel" data-bs-slide="next">
-              <span class="carousel-control-next-icon" aria-hidden="true"></span>
-              <span class="visually-hidden">Next</span>
-            </button>
           </div>
+          <!-- Navigation Arrows -->
+          <button class="slider-nav-btn slider-nav-prev" 
+                  (click)="scrollCards('prev')"
+                  [disabled]="!canScrollPrev()"
+                  *ngIf="getServiceImages().length > 1">
+            <i class="fas fa-chevron-left"></i>
+          </button>
+          <button class="slider-nav-btn slider-nav-next" 
+                  (click)="scrollCards('next')"
+                  [disabled]="!canScrollNext()"
+                  *ngIf="getServiceImages().length > 1">
+            <i class="fas fa-chevron-right"></i>
+          </button>
         </div>
       </div>
     </div>
@@ -79,12 +90,12 @@
       <div class="row g-4 align-items-stretch">
         <div class="col-lg-6" [class.offset-lg-6]="getServiceImages().length === 0 && !isMallActivation()">
           <div class="service-card overview-card">
-            <h2 class="section-title">{{ langService.t('services.sections.overview') }}</h2>
+            <h2 class="section-title gradient-text-animated">{{ langService.t('services.sections.overview') }}</h2>
             <p class="section-text">{{ getOverview() }}</p>
           </div>
         </div>
         <div class="col-lg-6" *ngIf="getServiceImages().length > 0 && !isMallActivation()">
-          <div class="service-image-wrapper animate-float">
+          <div class="service-image-wrapper animate-float" (click)="openImageInNewTab(getServiceImages()[0])">
             <img [src]="getServiceImages()[0]"
                  class="img-fluid service-content-image"
                  [alt]="langService.t('nav.' + getServiceKey())">
@@ -93,7 +104,7 @@
           </div>
         </div>
         <div class="col-lg-6" *ngIf="isMallActivation()">
-          <div class="service-image-wrapper animate-float">
+          <div class="service-image-wrapper animate-float" (click)="openImageInNewTab(getServiceImages()[0])">
             <img [src]="getServiceImages()[0]"
                  class="img-fluid service-content-image"
                  [alt]="langService.t('nav.' + getServiceKey())">
@@ -105,20 +116,13 @@
 
     <!-- Features Section with Icons/Images -->
     <div class="service-section scroll-reveal" *ngIf="getFeatures().length > 0">
-      <h2 class="section-main-title">{{ langService.t('services.sections.features') }}</h2>
+      <h2 class="section-main-title gradient-text-animated">{{ langService.t('services.sections.features') }}</h2>
       <div class="row g-4">
         <div class="col-md-6 col-lg-4" *ngFor="let feature of getFeatures(); let i = index">
-          <div class="service-card feature-card card-hover animate-card" [class.feature-card-with-image]="isSignBoard() && getFeatureImage(i)" [style.--i]="i">
-            <!-- Image for Sign Board - outside card-content to extend to edges -->
-            <div class="card-image-wrapper" *ngIf="isSignBoard() && getFeatureImage(i)">
-              <img [src]="getFeatureImage(i)"
-                   class="card-feature-image"
-                   [alt]="feature">
-              <div class="galaxy-overlay"></div>
-            </div>
+          <div class="service-card feature-card card-hover animate-card" [style.--i]="i">
             <div class="card-content">
-              <!-- Icon for non-Sign Board services -->
-              <div class="card-icon" *ngIf="!isSignBoard() || !getFeatureImage(i)">
+              <!-- Icon for all services including Sign Board -->
+              <div class="card-icon">
                 <i [class]="'fas ' + getFeatureIcon(i)"></i>
               </div>
               <p class="card-text">{{ feature }}</p>
@@ -130,7 +134,7 @@
 
     <!-- What Makes Different Section with Icons -->
     <div class="service-section scroll-reveal" *ngIf="getWhatMakesDifferent().length > 0">
-      <h2 class="section-main-title">{{ langService.t('services.sections.whatMakesDifferent') }}</h2>
+      <h2 class="section-main-title gradient-text-animated">{{ langService.t('services.sections.whatMakesDifferent') }}</h2>
       <div class="row g-4">
         <div class="col-md-6 col-lg-4" *ngFor="let item of getWhatMakesDifferent(); let i = index">
           <div class="service-card different-card card-hover animate-card" [style.--i]="i">
@@ -147,7 +151,7 @@
 
     <!-- Benefits Section with Icons -->
     <div class="service-section scroll-reveal" *ngIf="getBenefits().length > 0">
-      <h2 class="section-main-title">{{ langService.t('services.sections.benefits') }}</h2>
+      <h2 class="section-main-title gradient-text-animated">{{ langService.t('services.sections.benefits') }}</h2>
       <div class="row g-4">
         <div class="col-md-6 col-lg-4" *ngFor="let benefit of getBenefits(); let i = index">
           <div class="service-card benefit-card card-hover animate-card" [style.--i]="i">
@@ -172,7 +176,7 @@
               <div class="info-card-icon">
                 <i class="fas fa-box"></i>
               </div>
-              <h2 class="section-title">{{ langService.t('services.sections.whatWeDeliver') }}</h2>
+              <h2 class="section-title gradient-text-animated">{{ langService.t('services.sections.whatWeDeliver') }}</h2>
             </div>
             <ul class="info-list">
               <li *ngFor="let item of getWhatWeDeliver()">
@@ -192,7 +196,7 @@
               <div class="info-card-icon">
                 <i class="fas fa-star"></i>
               </div>
-              <h2 class="section-title">{{ langService.t('services.sections.whyChoose') }}</h2>
+              <h2 class="section-title gradient-text-animated">{{ langService.t('services.sections.whyChoose') }}</h2>
             </div>
             <ul class="info-list">
               <li *ngFor="let item of getWhyChoose(); let i = index">
@@ -226,6 +230,27 @@
             <p class="section-text">Content for {{ getServiceKey() }} will be added here</p>
           </div>
         </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Slider Lightbox Modal -->
+  <div class="slider-lightbox-overlay" *ngIf="isSliderLightboxOpen()" (click)="closeSliderLightbox()">
+    <div class="slider-lightbox-container" (click)="$event.stopPropagation()">
+      <button class="slider-lightbox-close" (click)="closeSliderLightbox()" aria-label="Close lightbox">
+        <i class="fas fa-times"></i>
+      </button>
+      <button class="slider-lightbox-nav slider-lightbox-prev" (click)="prevSliderImage()" aria-label="Previous image" *ngIf="sliderImagesForLightbox.length > 1">
+        <i class="fas fa-chevron-left"></i>
+      </button>
+      <button class="slider-lightbox-nav slider-lightbox-next" (click)="nextSliderImage()" aria-label="Next image" *ngIf="sliderImagesForLightbox.length > 1">
+        <i class="fas fa-chevron-right"></i>
+      </button>
+      <div class="slider-lightbox-image-wrapper">
+        <img [src]="getCurrentSliderImage()" alt="Service Image" class="slider-lightbox-image">
+      </div>
+      <div class="slider-lightbox-counter" *ngIf="sliderImagesForLightbox.length > 1">
+        {{ currentSliderImageIndex() + 1 }} / {{ sliderImagesForLightbox.length }}
       </div>
     </div>
   </div>

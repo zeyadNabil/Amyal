@@ -1,5 +1,6 @@
 import { Injectable, signal, computed } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { Router } from '@angular/router';
 
 export interface Translations {
   nav: {
@@ -144,12 +145,23 @@ export class LanguageService {
   // Computed signal for text direction
   isRTL = computed(() => this.currentLangSignal() === 'ar');
 
-  constructor(private http: HttpClient) {
+  constructor(
+    private http: HttpClient,
+    private router: Router
+  ) {
     const savedLang = localStorage.getItem('lang') || 'en';
     this.loadLanguage(savedLang);
   }
 
-  loadLanguage(lang: string): void {
+
+  toggleLanguage(): void {
+    const newLang = this.currentLangSignal() === 'en' ? 'ar' : 'en';
+    // Preserve current route when switching language
+    const currentRoute = this.router.url;
+    this.loadLanguage(newLang, currentRoute);
+  }
+
+  loadLanguage(lang: string, preserveRoute?: string): void {
     this.http.get<Translations>(`assets/i18n/${lang}.json`).subscribe({
       next: (data) => {
         this.translationsSignal.set(data);
@@ -161,14 +173,20 @@ export class LanguageService {
 
         // Save preference
         localStorage.setItem('lang', lang);
+
+        // Preserve route if provided - always navigate to ensure we stay on the same page
+        if (preserveRoute) {
+          // Use setTimeout to ensure DOM updates and signal propagation are complete
+          setTimeout(() => {
+            // Only navigate if we're not already on the correct route
+            if (this.router.url !== preserveRoute) {
+              this.router.navigateByUrl(preserveRoute, { skipLocationChange: false });
+            }
+          }, 100);
+        }
       },
       error: (err) => console.error('Error loading translations:', err)
     });
-  }
-
-  toggleLanguage(): void {
-    const newLang = this.currentLangSignal() === 'en' ? 'ar' : 'en';
-    this.loadLanguage(newLang);
   }
 
   getTranslation(key: string): string {

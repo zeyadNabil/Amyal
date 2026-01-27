@@ -8,6 +8,7 @@
   padding-bottom: 80px;
   position: relative;
   z-index: 1;
+  background: transparent;
 }
 
 .container {
@@ -109,6 +110,10 @@
   border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
+.gallery-image-wrapper {
+  cursor: pointer;
+}
+
 .gallery-item.scroll-reveal.active {
   opacity: 1;
   transform: translateY(0);
@@ -135,11 +140,9 @@
   transform: scale(1);
 }
 
-.gallery-item:hover .gallery-image {
-  transform: scale(1.15);
-}
+/* Removed hover zoom effect */
 
-/* Galaxy Overlay - Same as Services Component */
+/* Galaxy Overlay - Reduced purple effect */
 .galaxy-overlay {
   position: absolute;
   top: 0;
@@ -148,18 +151,25 @@
   height: 100%;
   background: linear-gradient(
     135deg,
-    rgba(59, 7, 100, 0.85) 0%,
-    rgba(147, 51, 234, 0.75) 25%,
-    rgba(255, 27, 158, 0.7) 50%,
-    rgba(59, 130, 246, 0.75) 75%,
-    rgba(30, 58, 138, 0.85) 100%
+    rgba(59, 7, 100, 0.25) 0%,
+    rgba(147, 51, 234, 0.2) 25%,
+    rgba(255, 27, 158, 0.22) 50%,
+    rgba(59, 130, 246, 0.2) 75%,
+    rgba(30, 58, 138, 0.25) 100%
   );
   mix-blend-mode: overlay;
   pointer-events: none;
   z-index: 1;
+  transition: opacity 0.3s ease;
 }
 
-/* Alternative galaxy overlay with radial gradient for more depth */
+/* Hide overlay on hover and when clicked */
+.gallery-item:hover .galaxy-overlay,
+.gallery-item:active .galaxy-overlay {
+  opacity: 0;
+}
+
+/* Alternative galaxy overlay with radial gradient - reduced effect */
 .galaxy-overlay::before {
   content: '';
   position: absolute;
@@ -169,20 +179,27 @@
   height: 100%;
   background: radial-gradient(
     circle at 30% 50%,
-    rgba(255, 27, 158, 0.5) 0%,
+    rgba(255, 27, 158, 0.15) 0%,
     transparent 50%
   ),
   radial-gradient(
     circle at 70% 70%,
-    rgba(147, 51, 234, 0.5) 0%,
+    rgba(147, 51, 234, 0.12) 0%,
     transparent 50%
   ),
   radial-gradient(
     circle at 50% 30%,
-    rgba(59, 130, 246, 0.5) 0%,
+    rgba(59, 130, 246, 0.12) 0%,
     transparent 50%
   );
   mix-blend-mode: screen;
+  transition: opacity 0.3s ease;
+}
+
+/* Hide overlay pseudo-element on hover/click */
+.gallery-item:hover .galaxy-overlay::before,
+.gallery-item:active .galaxy-overlay::before {
+  opacity: 0;
 }
 
 /* Grid Item Sizes */
@@ -233,6 +250,11 @@
 
 .gallery-item:hover .gallery-overlay {
   opacity: 1;
+}
+
+/* Hide text overlay on click for mobile */
+.gallery-item:active .gallery-overlay {
+  opacity: 0;
 }
 
 .gallery-info {
@@ -485,9 +507,7 @@
     }
   }
 
-  .gallery-item:hover .gallery-image {
-    transform: scale(1.08);
-  }
+  /* Removed hover zoom effect */
 
   /* Mobile overlay always visible for better UX */
   .gallery-overlay {
@@ -594,5 +614,230 @@
 
   .gallery-item:active .gallery-image {
     transform: scale(1.05);
+  }
+
+  /* Hide overlays on touch devices when tapped */
+  .gallery-item:active .galaxy-overlay,
+  .gallery-item:active .galaxy-overlay::before {
+    opacity: 0;
+  }
+
+  .gallery-item:active .gallery-overlay {
+    opacity: 0;
+  }
+}
+
+/* Gradient Text Animation */
+.gradient-text-animated {
+  background: linear-gradient(135deg, var(--pink) 0%, var(--purple) 50%, var(--blue) 100%);
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: gradientShift 3s ease infinite, textShimmer 2s ease-in-out infinite;
+}
+
+@keyframes gradientShift {
+  0%, 100% {
+    background-position: 0% center;
+  }
+  50% {
+    background-position: 100% center;
+  }
+}
+
+@keyframes textShimmer {
+  0%, 100% {
+    filter: drop-shadow(0 0 20px rgba(147, 51, 234, 0.5));
+  }
+  50% {
+    filter: drop-shadow(0 0 40px rgba(255, 27, 158, 0.8));
+  }
+}
+
+/* ========================================
+   LIGHTBOX MODAL
+   ======================================== */
+
+.lightbox-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.95);
+  z-index: 99999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: fadeIn 0.3s ease;
+  backdrop-filter: blur(10px);
+}
+
+/* Hide navbar, back-to-top button, and chat widget when lightbox is open */
+body:has(.lightbox-overlay) #mainNav,
+body:has(.lightbox-overlay) .back-to-top-btn,
+body:has(.lightbox-overlay) .chat-widget-container {
+  display: none !important;
+  z-index: 1 !important;
+  opacity: 0 !important;
+  pointer-events: none !important;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.lightbox-container {
+  position: relative;
+  width: 90%;
+  max-width: 1400px;
+  height: 90vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.lightbox-image-wrapper {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.lightbox-image {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+  border-radius: 8px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+  animation: zoomIn 0.3s ease;
+}
+
+@keyframes zoomIn {
+  from {
+    transform: scale(0.9);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+.lightbox-close {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  width: 50px;
+  height: 50px;
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  border: 2px solid rgba(255, 255, 255, 0.2);
+  border-radius: 50%;
+  color: #fff;
+  font-size: 1.5rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+  z-index: 10000;
+}
+
+.lightbox-close:hover {
+  background: rgba(255, 255, 255, 0.2);
+  border-color: rgba(255, 255, 255, 0.4);
+  transform: scale(1.1);
+}
+
+.lightbox-nav {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 60px;
+  height: 60px;
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  border: 2px solid rgba(255, 255, 255, 0.2);
+  border-radius: 50%;
+  color: #fff;
+  font-size: 1.5rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+  z-index: 10000;
+}
+
+.lightbox-nav:hover {
+  background: rgba(255, 255, 255, 0.2);
+  border-color: rgba(255, 255, 255, 0.4);
+  transform: translateY(-50%) scale(1.1);
+}
+
+.lightbox-prev {
+  left: 20px;
+}
+
+.lightbox-next {
+  right: 20px;
+}
+
+.lightbox-counter {
+  position: absolute;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(10px);
+  color: #fff;
+  padding: 10px 20px;
+  border-radius: 25px;
+  font-size: 0.9rem;
+  font-weight: 500;
+  z-index: 10000;
+}
+
+/* Mobile Responsive */
+@media (max-width: 768px) {
+  .lightbox-container {
+    width: 95%;
+    height: 85vh;
+  }
+
+  .lightbox-close {
+    top: 10px;
+    right: 10px;
+    width: 40px;
+    height: 40px;
+    font-size: 1.2rem;
+  }
+
+  .lightbox-nav {
+    width: 50px;
+    height: 50px;
+    font-size: 1.2rem;
+  }
+
+  .lightbox-prev {
+    left: 10px;
+  }
+
+  .lightbox-next {
+    right: 10px;
+  }
+
+  .lightbox-counter {
+    bottom: 10px;
+    font-size: 0.8rem;
+    padding: 8px 16px;
   }
 }

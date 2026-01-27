@@ -3,6 +3,8 @@ import { CommonModule } from '@angular/common';
 import { ActivatedRoute, RouterModule } from '@angular/router';
 import { LanguageService } from '../../services/language.service';
 
+// Add FontAwesome icons if not already imported
+
 @Component({
   selector: 'app-services',
   imports: [CommonModule, RouterModule],
@@ -19,10 +21,22 @@ export class Services implements OnInit, OnDestroy, AfterViewInit {
   private previousLang: string = '';
 
   @ViewChild('carousel', { static: false }) carouselElement!: ElementRef;
+  @ViewChild('cardSlider', { static: false }) cardSliderElement!: ElementRef;
   private carousel: any = null;
   private touchStartX: number = 0;
   private touchEndX: number = 0;
   private minSwipeDistance: number = 50;
+  
+  // Card slider state
+  sliderOffset = signal(0);
+  isDragging = signal(false);
+  dragStartX = signal(0);
+  dragCurrentX = signal(0);
+  currentCardIndex = signal(0);
+  cardsVisible = signal(3);
+  private cardWidth: number = 0;
+  private gap: number = 30;
+  private keyDownHandler: ((event: KeyboardEvent) => void) | null = null;
 
   // Service types mapping
   serviceTypes: { [key: string]: string } = {
@@ -41,14 +55,26 @@ export class Services implements OnInit, OnDestroy, AfterViewInit {
   // Image URLs for each service (using local gallery images) - 3 different images per service
   serviceImages: { [key: string]: string[] } = {
     'exhibition-stand': [
-      'assets/images/gallery/frame_5.jpg',
-      'assets/images/gallery/frame_6.jpg',
-      'assets/images/gallery/frame_7.jpg'
+      'assets/images/EXHIBITION STAND/aman service.jpeg',
+      'assets/images/EXHIBITION STAND/amcan.jpeg',
+      'assets/images/EXHIBITION STAND/canali.jpeg',
+      'assets/images/EXHIBITION STAND/cellucor.jpeg',
+      'assets/images/EXHIBITION STAND/mahawa.jpeg',
+      'assets/images/EXHIBITION STAND/nutrex.jpeg',
+      'assets/images/EXHIBITION STAND/orange&gold.jpeg',
+      'assets/images/EXHIBITION STAND/qimma.jpeg',
+      'assets/images/EXHIBITION STAND/redLight.jpeg',
+      'assets/images/EXHIBITION STAND/vision.jpeg',
+      'assets/images/EXHIBITION STAND/white&gold.jpeg'
     ],
     'exhibition-booth-design': [
+      'assets/images/sign board/elite.jpeg',
+      'assets/images/sign board/goldSign.jpeg',
       'assets/images/sign board/jetour.jpeg',
-      'assets/images/sign board/neon signage.jpeg',
-      'assets/images/sign board/stainless steel.jpeg'
+      'assets/images/sign board/marathon.jpeg',
+      'assets/images/sign board/neon.jpeg',
+      'assets/images/sign board/sour=st.jpeg',
+      'assets/images/sign board/uae.jpeg'
     ],
     'display-units-mall-kiosk': [
       'assets/images/gallery/frame_8.jpg',
@@ -56,17 +82,13 @@ export class Services implements OnInit, OnDestroy, AfterViewInit {
       'assets/images/gallery/frame_10.jpg'
     ],
     'event-management': [
-      'assets/images/gallery/frame_11.jpg',
-      'assets/images/gallery/frame_12.jpg',
-      'assets/images/gallery/frame_13.jpg'
+      'assets/images/EVENT MANAGEMENT/EVENT MANAGEMENT.jpeg'
     ],
     'mall-activation': [
       'assets/images/gallery/frame_14.jpg'
     ],
     'brand-ambassadors-event-hosts': [
-      'assets/images/gallery/frame_15.jpg',
-      'assets/images/gallery/frame_16.jpg',
-      'assets/images/gallery/frame_17.jpg'
+      'assets/images/BRAND AMBASSADORS & EVENT HOSTS/BRAND AMBASSADORS & EVENT HOSTS.jpeg'
     ],
     'av-service': [
       'assets/images/gallery/frame_18.jpg',
@@ -74,19 +96,15 @@ export class Services implements OnInit, OnDestroy, AfterViewInit {
       'assets/images/gallery/frame_20.jpg'
     ],
     'vehicle-branding-wrapping': [
-      'assets/images/gallery/frame_21.jpg',
-      'assets/images/gallery/frame_22.jpg',
-      'assets/images/gallery/frame_23.jpg'
+      'assets/images/VEHICLE BRANDING & WRAPPING/car1.jpeg',
+      'assets/images/VEHICLE BRANDING & WRAPPING/car2.jpeg',
+      'assets/images/VEHICLE BRANDING & WRAPPING/car3.jpeg'
     ],
     'stickers-custom-prints': [
-      'assets/images/gallery/frame_24.jpg',
-      'assets/images/gallery/frame_25.jpg',
-      'assets/images/gallery/frame_26.jpg'
+      'assets/images/STICKERS & CUSTOM PRINTS/STICKERS & CUSTOM PRINTS.jpeg'
     ],
     'fabrication-manufacturing': [
-      'assets/images/gallery/frame_27.jpg',
-      'assets/images/gallery/frame_28.jpg',
-      'assets/images/gallery/frame_29.jpg'
+      'assets/images/FABRICATION & MANUFACTURING/MANUFACTURING.jpeg'
     ]
   };
 
@@ -140,7 +158,7 @@ export class Services implements OnInit, OnDestroy, AfterViewInit {
 
       setTimeout(() => {
         this.initScrollAnimations();
-        this.initCarouselDrag();
+        this.initCardSlider();
         
         // Ensure video is muted if it's Mall Activation
         if (serviceId === 'mall-activation') {
@@ -148,12 +166,18 @@ export class Services implements OnInit, OnDestroy, AfterViewInit {
         }
       }, 100);
     });
+    
+    // Add keyboard navigation for slider lightbox
+    this.keyDownHandler = this.handleKeyDown.bind(this);
+    if (this.keyDownHandler) {
+      document.addEventListener('keydown', this.keyDownHandler);
+    }
   }
 
   ngAfterViewInit(): void {
-    // Initialize carousel drag after view is initialized
+    // Initialize card slider after view is initialized
     setTimeout(() => {
-      this.initCarouselDrag();
+      this.initCardSlider();
       
       // Ensure video is muted for Mall Activation
       if (this.isMallActivation()) {
@@ -223,159 +247,231 @@ export class Services implements OnInit, OnDestroy, AfterViewInit {
     });
   }
 
-  private initCarouselDrag(): void {
-    const carouselEl = document.getElementById('serviceCarousel');
-    if (!carouselEl) return;
-
-    // Try to get Bootstrap carousel instance
-    try {
-      // Check if Bootstrap is available
-      if ((window as any).bootstrap) {
-        this.carousel = (window as any).bootstrap.Carousel.getInstance(carouselEl);
-        if (!this.carousel) {
-          // Initialize if not already initialized with 5 second interval
-          this.carousel = new (window as any).bootstrap.Carousel(carouselEl, {
-            interval: 5000,
-            ride: 'carousel'
-          });
+  private initCardSlider(): void {
+    setTimeout(() => {
+      if (this.cardSliderElement?.nativeElement) {
+        const container = this.cardSliderElement.nativeElement;
+        const containerWidth = container.offsetWidth;
+        
+        // Determine cards visible and gap based on screen size
+        let cardsVisible = 3;
+        if (window.innerWidth <= 576) {
+          cardsVisible = 1;
+          this.gap = 15;
+        } else if (window.innerWidth <= 768) {
+          cardsVisible = 2;
+          this.gap = 20;
         } else {
-          // Update interval if carousel already exists
-          this.carousel._config.interval = 5000;
+          cardsVisible = 3;
+          this.gap = 30;
         }
-      }
-    } catch (e) {
-      console.log('Bootstrap carousel API not available, using fallback');
-    }
-
-    // Touch events for mobile
-    carouselEl.addEventListener('touchstart', (e: TouchEvent) => {
-      this.touchStartX = e.touches[0].clientX;
-    }, { passive: true });
-
-    carouselEl.addEventListener('touchend', (e: TouchEvent) => {
-      this.touchEndX = e.changedTouches[0].clientX;
-      this.handleSwipe();
-    }, { passive: true });
-
-    // Mouse events for desktop drag
-    let isMouseDown = false;
-    let mouseStartX = 0;
-    let mouseEndX = 0;
-    let hasDragged = false;
-
-    const handleMouseDown = (e: MouseEvent) => {
-      // Don't interfere with button clicks or links
-      const target = e.target as HTMLElement;
-      if (target.closest('.carousel-control-prev') ||
-          target.closest('.carousel-control-next') ||
-          target.closest('.carousel-indicators') ||
-          target.closest('a') ||
-          target.closest('button')) {
-        return;
-      }
-
-      e.preventDefault();
-      isMouseDown = true;
-      hasDragged = false;
-      mouseStartX = e.clientX;
-      mouseEndX = e.clientX;
-      carouselEl.style.cursor = 'grabbing';
-      carouselEl.style.userSelect = 'none';
-    };
-
-    const handleMouseMove = (e: MouseEvent) => {
-      if (isMouseDown) {
-        e.preventDefault();
-        mouseEndX = e.clientX;
-        const diff = mouseStartX - mouseEndX;
-
-        // Visual feedback during drag
-        if (Math.abs(diff) > 10) {
-          hasDragged = true;
+        this.cardsVisible.set(cardsVisible);
+        
+        // Calculate card width based on container and gap
+        this.cardWidth = (containerWidth - (this.gap * (cardsVisible - 1))) / cardsVisible;
+        
+        // Reset to first card if current index is out of bounds
+        const maxIndex = Math.max(0, this.getServiceImages().length - cardsVisible);
+        if (this.currentCardIndex() > maxIndex) {
+          this.currentCardIndex.set(0);
         }
+        
+        this.updateSliderPosition();
       }
-    };
-
-    const handleMouseUp = () => {
-      if (isMouseDown) {
-        const diff = mouseStartX - mouseEndX;
-
-        // Only trigger slide if there was actual drag movement
-        if (hasDragged && Math.abs(diff) > this.minSwipeDistance) {
-          if (diff > 0) {
-            // Dragged left - next slide
-            this.goToNextSlide();
-          } else {
-            // Dragged right - previous slide
-            this.goToPrevSlide();
-          }
-        }
-
-        isMouseDown = false;
-        hasDragged = false;
-        carouselEl.style.cursor = 'grab';
-        carouselEl.style.userSelect = '';
-      }
-    };
-
-    const handleMouseLeave = () => {
-      if (isMouseDown) {
-        // If mouse leaves while dragging, still check if we should slide
-        handleMouseUp();
-      }
-    };
-
-    carouselEl.addEventListener('mousedown', handleMouseDown);
-    document.addEventListener('mousemove', handleMouseMove);
-    document.addEventListener('mouseup', handleMouseUp);
-    carouselEl.addEventListener('mouseleave', handleMouseLeave);
-
-    // Set initial cursor
-    carouselEl.style.cursor = 'grab';
+    }, 100);
   }
 
-  private handleSwipe(): void {
-    const swipeDistance = this.touchStartX - this.touchEndX;
+  // Mouse drag handlers
+  onMouseDown(event: MouseEvent): void {
+    const target = event.target as HTMLElement;
+    if (target.closest('.slider-nav-btn') || target.closest('button')) {
+      return;
+    }
 
-    if (Math.abs(swipeDistance) > this.minSwipeDistance) {
-      if (swipeDistance > 0) {
-        // Swipe left - next slide
-        this.goToNextSlide();
-      } else {
-        // Swipe right - previous slide
-        this.goToPrevSlide();
-      }
+    event.preventDefault();
+    this.isDragging.set(true);
+    this.dragStartX.set(event.clientX);
+    this.dragCurrentX.set(event.clientX);
+    
+    if (this.cardSliderElement?.nativeElement) {
+      this.cardSliderElement.nativeElement.style.cursor = 'grabbing';
     }
   }
 
-  private goToNextSlide(): void {
-    const carouselEl = document.getElementById('serviceCarousel');
-    if (!carouselEl) return;
+  onMouseMove(event: MouseEvent): void {
+    if (!this.isDragging()) return;
+    
+    event.preventDefault();
+    this.dragCurrentX.set(event.clientX);
+    const diff = this.dragStartX() - this.dragCurrentX();
+    const newOffset = this.sliderOffset() - diff;
+    
+    // Calculate bounds
+    const maxOffset = 0;
+    const minOffset = -((this.getServiceImages().length - this.cardsVisible()) * (this.cardWidth + this.gap));
+    
+    // Clamp the offset
+    const clampedOffset = Math.max(minOffset, Math.min(maxOffset, newOffset));
+    this.sliderOffset.set(clampedOffset);
+    this.dragStartX.set(this.dragCurrentX());
+  }
 
-    if (this.carousel && typeof this.carousel.next === 'function') {
-      this.carousel.next();
+  onMouseUp(event: MouseEvent): void {
+    if (!this.isDragging()) return;
+    
+    this.isDragging.set(false);
+    
+    if (this.cardSliderElement?.nativeElement) {
+      this.cardSliderElement.nativeElement.style.cursor = 'grab';
+    }
+    
+    // Snap to nearest card
+    this.snapToNearestCard();
+  }
+
+  // Touch handlers
+  onTouchStart(event: TouchEvent): void {
+    if (event.touches.length > 0) {
+      this.isDragging.set(true);
+      this.dragStartX.set(event.touches[0].clientX);
+      this.dragCurrentX.set(event.touches[0].clientX);
+    }
+  }
+
+  onTouchMove(event: TouchEvent): void {
+    if (!this.isDragging() || event.touches.length === 0) return;
+    
+    event.preventDefault();
+    this.dragCurrentX.set(event.touches[0].clientX);
+    const diff = this.dragStartX() - this.dragCurrentX();
+    const newOffset = this.sliderOffset() - diff;
+    
+    // Calculate bounds
+    const maxOffset = 0;
+    const minOffset = -((this.getServiceImages().length - this.cardsVisible()) * (this.cardWidth + this.gap));
+    
+    // Clamp the offset
+    const clampedOffset = Math.max(minOffset, Math.min(maxOffset, newOffset));
+    this.sliderOffset.set(clampedOffset);
+    this.dragStartX.set(this.dragCurrentX());
+  }
+
+  onTouchEnd(event: TouchEvent): void {
+    if (!this.isDragging()) return;
+    
+    this.isDragging.set(false);
+    this.snapToNearestCard();
+  }
+
+  private snapToNearestCard(): void {
+    const cardStep = this.cardWidth + this.gap;
+    const currentIndex = Math.round(-this.sliderOffset() / cardStep);
+    const maxIndex = Math.max(0, this.getServiceImages().length - this.cardsVisible());
+    const clampedIndex = Math.max(0, Math.min(maxIndex, currentIndex));
+    
+    this.currentCardIndex.set(clampedIndex);
+    this.sliderOffset.set(-clampedIndex * cardStep);
+  }
+
+  scrollCards(direction: 'prev' | 'next'): void {
+    const cardStep = this.cardWidth + this.gap;
+    const maxIndex = Math.max(0, this.getServiceImages().length - this.cardsVisible());
+    
+    if (direction === 'next') {
+      const nextIndex = Math.min(maxIndex, this.currentCardIndex() + 1);
+      this.currentCardIndex.set(nextIndex);
+      this.sliderOffset.set(-nextIndex * cardStep);
     } else {
-      // Fallback: trigger next button click
-      const nextButton = carouselEl.querySelector('.carousel-control-next') as HTMLElement;
-      if (nextButton) {
-        nextButton.click();
-      }
+      const prevIndex = Math.max(0, this.currentCardIndex() - 1);
+      this.currentCardIndex.set(prevIndex);
+      this.sliderOffset.set(-prevIndex * cardStep);
     }
   }
 
-  private goToPrevSlide(): void {
-    const carouselEl = document.getElementById('serviceCarousel');
-    if (!carouselEl) return;
+  canScrollPrev(): boolean {
+    return this.currentCardIndex() > 0;
+  }
 
-    if (this.carousel && typeof this.carousel.prev === 'function') {
-      this.carousel.prev();
-    } else {
-      // Fallback: trigger prev button click
-      const prevButton = carouselEl.querySelector('.carousel-control-prev') as HTMLElement;
-      if (prevButton) {
-        prevButton.click();
-      }
+  canScrollNext(): boolean {
+    const maxIndex = Math.max(0, this.getServiceImages().length - this.cardsVisible());
+    return this.currentCardIndex() < maxIndex;
+  }
+
+  getCardsVisible(): number {
+    return this.cardsVisible();
+  }
+
+  getCardText(index: number): string {
+    const features = this.getFeatures();
+    const serviceKey = this.getServiceKey();
+    
+    // If we have features, use them for card text
+    if (features && features.length > index) {
+      return features[index];
     }
+    
+    // Fallback: create descriptive text based on service and index
+    const serviceName = this.langService.t('nav.' + serviceKey) || this.serviceType();
+    const descriptions: { [key: string]: string[] } = {
+      'exhibitionStand': [
+        'Professional exhibition stands that showcase your brand with style and impact',
+        'Custom-designed stands that attract visitors and create memorable experiences',
+        'Innovative display solutions that maximize your exhibition presence'
+      ],
+      'exhibitionBoothDesign': [
+        '3D Signage - Custom 3D letters and logos that make your brand stand out',
+        'Outdoor Flex Face Signage - Large-format illuminated signs for building facades and storefronts',
+        'Indoor & Reception Signage - Branded interior signs for lobbies, offices, and reception areas'
+      ],
+      'displayUnitsMallKiosk': [
+        'Eye-catching display units that draw attention in high-traffic areas',
+        'Custom kiosk designs perfect for malls and retail environments',
+        'Interactive displays that engage customers and drive sales'
+      ],
+      'eventManagement': [
+        'Complete event management services from planning to execution',
+        'Professional event coordination ensuring seamless experiences',
+        'Memorable events that leave lasting impressions on attendees'
+      ],
+      'brandAmbassadorsEventHosts': [
+        'Professional brand ambassadors who represent your brand with excellence',
+        'Experienced event hosts who engage and connect with your audience',
+        'Dynamic personalities that bring your brand to life at events'
+      ],
+      'avService': [
+        'State-of-the-art audio-visual equipment for impactful presentations',
+        'Professional AV setup ensuring crystal-clear sound and visuals',
+        'Complete AV solutions for events, conferences, and exhibitions'
+      ],
+      'vehicleBrandingWrapping': [
+        'Full vehicle wrapping services that turn vehicles into mobile billboards',
+        'High-quality vinyl wraps that protect and promote your brand',
+        'Custom vehicle branding solutions for maximum visibility'
+      ],
+      'stickersCustomPrints': [
+        'Custom stickers and prints for any application or surface',
+        'High-quality printing services with vibrant colors and durability',
+        'Personalized graphics that enhance your brand visibility'
+      ],
+      'fabricationManufacturing': [
+        'Precision fabrication services for custom structures and displays',
+        'Quality manufacturing ensuring durability and professional finish',
+        'Expert craftsmanship bringing your design concepts to reality'
+      ]
+    };
+    
+    const serviceDescriptions = descriptions[serviceKey] || [];
+    if (serviceDescriptions.length > index) {
+      return serviceDescriptions[index];
+    }
+    
+    // Final fallback
+    return `${serviceName} - Premium quality service ${index + 1}`;
+  }
+
+  private updateSliderPosition(): void {
+    const cardStep = this.cardWidth + this.gap;
+    this.sliderOffset.set(-this.currentCardIndex() * cardStep);
   }
 
   private startFadeAnimation(): void {
@@ -405,6 +501,11 @@ export class Services implements OnInit, OnDestroy, AfterViewInit {
     // Clear any ongoing fade animation
     if (this.fadeTimeout) {
       clearTimeout(this.fadeTimeout);
+    }
+    
+    // Remove keyboard listener
+    if (this.keyDownHandler) {
+      document.removeEventListener('keydown', this.keyDownHandler);
     }
   }
 
@@ -495,8 +596,7 @@ export class Services implements OnInit, OnDestroy, AfterViewInit {
     5: 'assets/images/sign board/stainless steel.jpeg', // Stainless Steel Signage
     6: 'assets/images/sign board/neon signage.jpeg', // Neon & LED Signage
     7: 'assets/images/sign board/sou=ast.jpeg', // Wall & Glass Stickers
-    8: 'assets/images/sign board/jetour.jpeg', // Digital Printing & Promotional Graphics
-    9: 'assets/images/sign board/all.jpeg' // Vehicle Branding (fallback)
+    8: 'assets/images/sign board/jetour.jpeg' // Digital Printing & Promotional Graphics
   };
 
   getFeatureImage(index: number): string | null {
@@ -630,6 +730,11 @@ export class Services implements OnInit, OnDestroy, AfterViewInit {
     this.checkScrollReveal();
   }
 
+  @HostListener('window:resize', [])
+  onResize(): void {
+    this.initCardSlider();
+  }
+
   private initScrollAnimations(): void {
     setTimeout(() => {
       const observer = new IntersectionObserver((entries) => {
@@ -653,5 +758,88 @@ export class Services implements OnInit, OnDestroy, AfterViewInit {
         element.classList.add('active');
       }
     });
+  }
+
+  // Lightbox state for slider images
+  isSliderLightboxOpen = signal(false);
+  currentSliderImageIndex = signal(0);
+  sliderImagesForLightbox: string[] = [];
+
+  openImage(imageSrc: string): void {
+    // For slider images, open in lightbox
+    const sliderImages = this.getServiceImages();
+    const index = sliderImages.indexOf(imageSrc);
+    
+    if (index !== -1 && sliderImages.length > 0) {
+      // This is a slider image - open in lightbox
+      this.sliderImagesForLightbox = sliderImages;
+      this.currentSliderImageIndex.set(index);
+      this.isSliderLightboxOpen.set(true);
+      document.body.style.overflow = 'hidden';
+      
+      // Hide navbar, back-to-top, and chat widget
+      const navbar = document.getElementById('mainNav');
+      const backToTop = document.querySelector('.back-to-top-btn') as HTMLElement;
+      const chatWidget = document.querySelector('.chat-widget-container') as HTMLElement;
+      
+      if (navbar) navbar.style.display = 'none';
+      if (backToTop) backToTop.style.display = 'none';
+      if (chatWidget) chatWidget.style.display = 'none';
+    } else {
+      // For other images (overview section), open in new tab
+      window.open(imageSrc, '_blank');
+    }
+  }
+
+  closeSliderLightbox(): void {
+    this.isSliderLightboxOpen.set(false);
+    document.body.style.overflow = '';
+    
+    // Show navbar, back-to-top, and chat widget again
+    const navbar = document.getElementById('mainNav');
+    const backToTop = document.querySelector('.back-to-top-btn') as HTMLElement;
+    const chatWidget = document.querySelector('.chat-widget-container') as HTMLElement;
+    
+    if (navbar) navbar.style.display = '';
+    if (backToTop) backToTop.style.display = '';
+    if (chatWidget) chatWidget.style.display = '';
+  }
+
+  nextSliderImage(): void {
+    const currentIndex = this.currentSliderImageIndex();
+    const nextIndex = (currentIndex + 1) % this.sliderImagesForLightbox.length;
+    this.currentSliderImageIndex.set(nextIndex);
+  }
+
+  prevSliderImage(): void {
+    const currentIndex = this.currentSliderImageIndex();
+    const prevIndex = currentIndex === 0 ? this.sliderImagesForLightbox.length - 1 : currentIndex - 1;
+    this.currentSliderImageIndex.set(prevIndex);
+  }
+
+  getCurrentSliderImage(): string {
+    return this.sliderImagesForLightbox[this.currentSliderImageIndex()] || '';
+  }
+
+  handleKeyDown(event: KeyboardEvent): void {
+    if (!this.isSliderLightboxOpen()) return;
+
+    switch (event.key) {
+      case 'Escape':
+        this.closeSliderLightbox();
+        break;
+      case 'ArrowRight':
+        this.nextSliderImage();
+        break;
+      case 'ArrowLeft':
+        this.prevSliderImage();
+        break;
+    }
+  }
+
+  openImageInNewTab(imageSrc: string): void {
+    if (imageSrc) {
+      window.open(imageSrc, '_blank');
+    }
   }
 }

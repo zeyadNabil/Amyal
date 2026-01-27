@@ -122,4 +122,11 @@ export class Partners implements OnInit, OnDestroy {
       revealElements.forEach(element => this.scrollObserver?.observe(element));
     }, 300);
   }
+
+  openImage(imageSrc: string): void {
+    // Open image in a new window/tab without any effects
+    if (imageSrc) {
+      window.open(imageSrc, '_blank');
+    }
+  }
 }

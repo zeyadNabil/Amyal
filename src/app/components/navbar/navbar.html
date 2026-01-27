@@ -2,11 +2,16 @@
   <div class="container-fluid">
     <!-- Logo -->
     <a class="navbar-brand" routerLink="/" (click)="handleNavClick('home')" role="button">
-      <img src="assets/images/logo.png" alt="Amyal" class="navbar-logo">
+      <img src="assets/images/amyal_logo.png" alt="Amyal" class="navbar-logo">
     </a>
 
     <!-- Mobile Toggle -->
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent" aria-controls="navbarContent" aria-expanded="false" aria-label="Toggle navigation">
+    <button class="navbar-toggler"
+            type="button"
+            (click)="toggleMobileMenu(); $event.stopPropagation()"
+            [attr.aria-expanded]="false"
+            aria-controls="navbarContent"
+            aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
 

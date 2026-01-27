@@ -16,6 +16,7 @@ export class Navbar implements OnInit, OnDestroy {
   isDropdownOpen = signal(false);
   activeServiceRoute = signal<string>('');
   private routerSubscription?: Subscription;
+  private isMenuToggling = false;
 
   constructor(
     public langService: LanguageService,
@@ -40,14 +41,31 @@ export class Navbar implements OnInit, OnDestroy {
   setupMenuToggleListener(): void {
     // Prevent body scroll when menu is open
     const navbarCollapse = document.getElementById('navbarContent');
-    if (navbarCollapse) {
+    const toggleButton = document.querySelector('.navbar-toggler') as HTMLElement;
+    
+    if (navbarCollapse && toggleButton) {
       // Listen for Bootstrap collapse events
+      navbarCollapse.addEventListener('show.bs.collapse', () => {
+        // Ensure display is set before animation starts
+        navbarCollapse.style.display = 'block';
+        void navbarCollapse.offsetHeight; // Force reflow
+      });
+      
       navbarCollapse.addEventListener('shown.bs.collapse', () => {
         document.body.style.overflow = 'hidden';
+        toggleButton.setAttribute('aria-expanded', 'true');
+        this.isMenuToggling = false;
+      });
+      
+      navbarCollapse.addEventListener('hide.bs.collapse', () => {
+        // Animation is starting to close
       });
       
       navbarCollapse.addEventListener('hidden.bs.collapse', () => {
         document.body.style.overflow = '';
+        toggleButton.setAttribute('aria-expanded', 'false');
+        navbarCollapse.style.display = '';
+        this.isMenuToggling = false;
       });
       
       // Also listen for manual class changes (fallback)
@@ -57,8 +75,10 @@ export class Navbar implements OnInit, OnDestroy {
             const target = mutation.target as HTMLElement;
             if (target.classList.contains('show')) {
               document.body.style.overflow = 'hidden';
-            } else {
+              toggleButton.setAttribute('aria-expanded', 'true');
+            } else if (!target.classList.contains('collapsing')) {
               document.body.style.overflow = '';
+              toggleButton.setAttribute('aria-expanded', 'false');
             }
           }
         });
@@ -121,6 +141,11 @@ export class Navbar implements OnInit, OnDestroy {
   @HostListener('document:click', ['$event'])
   onDocumentClick(event: Event): void {
     const target = event.target as HTMLElement;
+    
+    // Don't process clicks if menu is currently toggling
+    if (this.isMenuToggling) {
+      return;
+    }
     
     // Close dropdown if clicking outside
     const dropdown = target.closest('.nav-item.dropdown');
@@ -195,10 +220,82 @@ export class Navbar implements OnInit, OnDestroy {
     this.isDropdownOpen.set(false);
   }
 
+  toggleMobileMenu(): void {
+    // Prevent multiple rapid clicks
+    if (this.isMenuToggling) {
+      return;
+    }
+    
+    this.isMenuToggling = true;
+    const navbarCollapse = document.getElementById('navbarContent');
+    const toggleButton = document.querySelector('.navbar-toggler') as HTMLElement;
+    
+    if (!navbarCollapse || !toggleButton) {
+      this.isMenuToggling = false;
+      return;
+    }
+    
+    const isCurrentlyOpen = navbarCollapse.classList.contains('show');
+    
+    // Use Bootstrap's collapse API if available
+    if ((window as any).bootstrap) {
+      let collapseInstance = (window as any).bootstrap.Collapse.getInstance(navbarCollapse);
+      
+      if (!collapseInstance) {
+        // Initialize collapse if it doesn't exist with proper animation
+        collapseInstance = new (window as any).bootstrap.Collapse(navbarCollapse, {
+          toggle: false
+        });
+      }
+      
+      // Force reflow to ensure smooth animation
+      void navbarCollapse.offsetHeight;
+      
+      if (isCurrentlyOpen) {
+        collapseInstance.hide();
+      } else {
+        // Ensure the element is ready for animation
+        // Remove any inline styles that might interfere
+        navbarCollapse.style.display = '';
+        // Force reflow to ensure smooth animation start
+        void navbarCollapse.offsetHeight;
+        // Now trigger the show animation
+        collapseInstance.show();
+      }
+    } else {
+      // Fallback: manually toggle with animation
+      if (isCurrentlyOpen) {
+        navbarCollapse.classList.remove('show');
+        toggleButton.setAttribute('aria-expanded', 'false');
+        document.body.style.overflow = '';
+      } else {
+        // Ensure display is set before adding show class for smooth animation
+        navbarCollapse.style.display = 'block';
+        // Force reflow
+        void navbarCollapse.offsetHeight;
+        navbarCollapse.classList.add('show');
+        toggleButton.setAttribute('aria-expanded', 'true');
+        document.body.style.overflow = 'hidden';
+      }
+    }
+    
+    // Reset flag after animation completes
+    setTimeout(() => {
+      this.isMenuToggling = false;
+    }, 400); // Slightly longer to ensure animation completes
+  }
+
   closeMobileMenu(): void {
+    // Prevent multiple rapid clicks
+    if (this.isMenuToggling) {
+      return;
+    }
+    
     // Close Bootstrap collapse menu
     const navbarCollapse = document.getElementById('navbarContent');
     if (navbarCollapse && navbarCollapse.classList.contains('show')) {
+      this.isMenuToggling = true;
+      
       // Use Bootstrap's collapse API if available
       if ((window as any).bootstrap) {
         const collapseInstance = (window as any).bootstrap.Collapse.getInstance(navbarCollapse);
@@ -225,6 +322,11 @@ export class Navbar implements OnInit, OnDestroy {
         // Restore body scroll
         document.body.style.overflow = '';
       }
+      
+      // Reset flag after animation completes
+      setTimeout(() => {
+        this.isMenuToggling = false;
+      }, 350);
     }
   }
 

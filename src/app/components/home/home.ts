@@ -11,7 +11,7 @@ import { LanguageService } from '../../services/language.service';
 })
 export class Home implements OnInit {
   isLoaded = signal(false);
-  hasAnimatedCounters = signal(false);
+  private counterTimers: Map<Element, any> = new Map();
 
   // Services data - will be initialized in ngOnInit
   services: Array<{ key: string; description: string }> = [];
@@ -27,6 +27,9 @@ export class Home implements OnInit {
 
   // Process steps - will be initialized in ngOnInit
   processSteps: Array<{ title: string; description: string }> = [];
+
+  // Partners data
+  partners: Array<{ logo: string; name: string }> = [];
 
   constructor(public langService: LanguageService) {
     effect(() => {
@@ -82,6 +85,26 @@ export class Home implements OnInit {
       { title: this.langService.t('home.process.designApproval.title'), description: this.langService.t('home.process.designApproval.description') },
       { title: this.langService.t('home.process.production.title'), description: this.langService.t('home.process.production.description') },
       { title: this.langService.t('home.process.installation.title'), description: this.langService.t('home.process.installation.description') }
+    ];
+
+    // Update partners
+    this.partners = [
+      { logo: 'assets/images/Amyal PNG Partners/573521118_18541182556065137_6745484161360848157_n-Photoroom.png', name: 'Partner 1' },
+      { logo: 'assets/images/Amyal PNG Partners/ADSB.png-Photoroom.png', name: 'ADSB' },
+      { logo: 'assets/images/Amyal PNG Partners/baniyas-sc-seeklogo.png', name: 'Baniyas SC' },
+      { logo: 'assets/images/Amyal PNG Partners/bawabat-alsharq-mall-logo.png', name: 'Bawabat Alsharq Mall' },
+      { logo: 'assets/images/Amyal PNG Partners/brand.png', name: 'Brand' },
+      { logo: 'assets/images/Amyal PNG Partners/craiyon.png', name: 'Craiyon' },
+      { logo: 'assets/images/Amyal PNG Partners/dubai-sports-council-thumb.png', name: 'Dubai Sports Council' },
+      { logo: 'assets/images/Amyal PNG Partners/emirates center for strategic studies and research.png', name: 'Emirates Center' },
+      { logo: 'assets/images/Amyal PNG Partners/logo-en.png', name: 'Logo' },
+      { logo: 'assets/images/Amyal PNG Partners/Makani.png', name: 'Makani' },
+      { logo: 'assets/images/Amyal PNG Partners/Ministry-of-Human-Resources-&-Emiratisation-.png', name: 'Ministry of Human Resources' },
+      { logo: 'assets/images/Amyal PNG Partners/MOCCAE_Horizontal-en.png', name: 'MOCCAE' },
+      { logo: 'assets/images/Amyal PNG Partners/MOET_Horizontal_RGB_A.png', name: 'MOET' },
+      { logo: 'assets/images/Amyal PNG Partners/mofaicuaelogo.png', name: 'MOFAIC UAE' },
+      { logo: 'assets/images/Amyal PNG Partners/SAAS properties.png', name: 'SAAS Properties' },
+      { logo: 'assets/images/Amyal PNG Partners/umex_and_simtex.png', name: 'UMEX & Simtex' }
     ];
   }
 
@@ -139,9 +162,17 @@ export class Home implements OnInit {
 
     const observer = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
-        if (entry.isIntersecting && !this.hasAnimatedCounters()) {
-          this.hasAnimatedCounters.set(true);
-          this.animateCounters();
+        if (entry.isIntersecting) {
+          // Reset counters to 0 first, then animate
+          this.resetCounters();
+          // Small delay to ensure reset is visible, then animate
+          setTimeout(() => {
+            this.animateCounters();
+          }, 50);
+        } else {
+          // When section leaves view, stop any running animations and reset
+          this.stopCounterAnimations();
+          this.resetCounters();
         }
       });
     }, observerOptions);
@@ -154,7 +185,25 @@ export class Home implements OnInit {
     }, 100);
   }
 
+  resetCounters(): void {
+    const counters = document.querySelectorAll('.stat-number');
+    counters.forEach(counter => {
+      counter.textContent = '0';
+    });
+  }
+
+  stopCounterAnimations(): void {
+    // Clear all running timers
+    this.counterTimers.forEach((timer) => {
+      clearInterval(timer);
+    });
+    this.counterTimers.clear();
+  }
+
   animateCounters(): void {
+    // Stop any existing animations first
+    this.stopCounterAnimations();
+    
     const counters = document.querySelectorAll('.stat-number');
 
     counters.forEach(counter => {
@@ -169,9 +218,13 @@ export class Home implements OnInit {
         if (current >= target) {
           current = target;
           clearInterval(timer);
+          this.counterTimers.delete(counter);
         }
         counter.textContent = Math.floor(current).toString();
       }, stepTime);
+      
+      // Store the timer so we can clear it later
+      this.counterTimers.set(counter, timer);
     });
   }
 
@@ -220,5 +273,21 @@ export class Home implements OnInit {
       'fabricationManufacturing': 'fa-cogs'
     };
     return icons[key] || 'fa-star';
+  }
+
+  getServiceRoute(key: string): string {
+    // Convert camelCase service key to kebab-case route
+    const routeMap: { [key: string]: string } = {
+      'exhibitionStand': 'exhibition-stand',
+      'exhibitionBoothDesign': 'exhibition-booth-design',
+      'displayUnitsMallKiosk': 'display-units-mall-kiosk',
+      'eventManagement': 'event-management',
+      'brandAmbassadorsEventHosts': 'brand-ambassadors-event-hosts',
+      'avService': 'av-service',
+      'vehicleBrandingWrapping': 'vehicle-branding-wrapping',
+      'stickersCustomPrints': 'stickers-custom-prints',
+      'fabricationManufacturing': 'fabrication-manufacturing'
+    };
+    return routeMap[key] || key.toLowerCase();
   }
 }

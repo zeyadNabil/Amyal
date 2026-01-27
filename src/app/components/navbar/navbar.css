@@ -593,23 +593,34 @@
         overflow-y: auto;
         overflow-x: hidden;
         z-index: 1000;
-        transition: opacity 0.3s ease-out, visibility 0.3s ease-out;
+        display: none;
         visibility: hidden;
         opacity: 0;
         pointer-events: none;
+        transition: opacity 0.35s ease-in-out, visibility 0.35s ease-in-out;
     }
 
-    .navbar-collapse:not(.show) {
+    .navbar-collapse:not(.show):not(.collapsing) {
         opacity: 0;
         visibility: hidden;
         pointer-events: none;
+        display: none;
+    }
+
+    .navbar-collapse.collapsing {
+        display: block !important;
+        opacity: 0;
+        visibility: visible;
+        pointer-events: none;
+        transition: opacity 0.35s ease-in-out, visibility 0.35s ease-in-out;
     }
 
     .navbar-collapse.show {
+        display: block !important;
         opacity: 1;
         visibility: visible;
         pointer-events: auto;
-        animation: fadeIn 0.3s ease-out;
+        transition: opacity 0.35s ease-in-out, visibility 0.35s ease-in-out;
     }
 
     @keyframes fadeIn {

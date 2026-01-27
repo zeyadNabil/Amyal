@@ -2,7 +2,7 @@
 <section class="contact-us-section">
   <div class="container">
     <div class="section-header scroll-reveal">
-      <h1 class="section-title gradient-text fade-title fade-in-up" [class.fade-out]="titleFadeState() === 'fade-out'" [class.fade-in]="titleFadeState() === 'fade-in'" [class.visible]="titleFadeState() === 'visible'">
+      <h1 class="section-title gradient-text gradient-text-animated fade-title fade-in-up" [class.fade-out]="titleFadeState() === 'fade-out'" [class.fade-in]="titleFadeState() === 'fade-in'" [class.visible]="titleFadeState() === 'visible'">
         {{ langService.t('contact.title') }}
       </h1>
       <p class="section-subtitle fade-in-up">{{ langService.t('contact.subtitle') }}</p>
@@ -12,7 +12,7 @@
       <!-- Contact Information -->
       <div class="col-lg-6">
         <div class="contact-info scroll-reveal">
-          <h3 class="contact-heading">{{ langService.t('contact.heading') }}</h3>
+          <h3 class="contact-heading gradient-text-animated">{{ langService.t('contact.heading') }}</h3>
           <p class="contact-text">{{ langService.t('contact.text') }}</p>
 
           <div class="contact-details">
@@ -206,7 +206,7 @@
     <div class="row g-5 mt-5">
       <div class="col-12">
         <div class="usa-location-section scroll-reveal">
-          <h3 class="section-title gradient-text">{{ langService.t('contact.usaLocation') }}</h3>
+          <h3 class="section-title gradient-text gradient-text-animated">{{ langService.t('contact.usaLocation') }}</h3>
           <div class="contact-details">
             <div class="contact-item scroll-reveal">
               <div class="contact-icon">

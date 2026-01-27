@@ -28,6 +28,26 @@
   </div>
 </section>
 
+<!-- Partners Slider Section -->
+<section class="partners-slider-section">
+  <div class="container">
+    <div class="section-header scroll-reveal">
+      <h2 class="section-title gradient-text-animated">{{ langService.t('nav.partners') }}</h2>
+    </div>
+  </div>
+  <div class="partners-slider-container">
+    <div class="partners-slider-track">
+      <div class="partners-slider-item" *ngFor="let partner of partners">
+        <img [src]="partner.logo" [alt]="partner.name" class="partner-logo">
+      </div>
+      <!-- Duplicate for seamless loop -->
+      <div class="partners-slider-item" *ngFor="let partner of partners">
+        <img [src]="partner.logo" [alt]="partner.name" class="partner-logo">
+      </div>
+    </div>
+  </div>
+</section>
+
 <!-- Services Overview Section -->
 <section id="services" class="services-overview-section">
   <div class="container">
@@ -42,9 +62,9 @@
           <div class="service-icon-wrapper">
             <div class="service-icon"><i [class]="'fas ' + getServiceIcon(service.key)"></i></div>
           </div>
-          <h3 class="service-title">{{ langService.t('nav.' + service.key) }}</h3>
+          <h3 class="service-title gradient-text-animated">{{ langService.t('nav.' + service.key) }}</h3>
           <p class="service-description">{{ service.description }}</p>
-          <a [routerLink]="['/services', service.key]" class="service-link">
+          <a [routerLink]="['/services', getServiceRoute(service.key)]" class="service-link">
             <span>{{ langService.t('home.services.learnMore') }}</span>
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
               <path d="M5 12h14M12 5l7 7-7 7"></path>
@@ -85,7 +105,7 @@
         <div class="feature-card-front">
           <div class="feature-number">{{ langService.t('home.numbers.' + (i + 1)) }}</div>
           <div class="feature-icon-large"><i [class]="'fas ' + feature.icon"></i></div>
-          <h3 class="feature-title">{{ feature.title }}</h3>
+          <h3 class="feature-title gradient-text-animated">{{ feature.title }}</h3>
           <p class="feature-text">{{ feature.text }}</p>
         </div>
       </div>
@@ -133,7 +153,7 @@
       <div class="process-step scroll-reveal" *ngFor="let step of processSteps; let i = index">
         <div class="step-number">{{ langService.t('home.numbers.' + (i + 1)) }}</div>
         <div class="step-content">
-          <h3 class="step-title">{{ step.title }}</h3>
+            <h3 class="step-title gradient-text-animated">{{ step.title }}</h3>
           <p class="step-description">{{ step.description }}</p>
         </div>
       </div>

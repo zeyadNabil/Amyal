@@ -12,7 +12,7 @@
       <div class="partners-grid">
         @for (partner of partners; track $index) {
           <div class="partner-card scroll-reveal" [style.animation-delay]="($index * 0.1) + 's'">
-            <div class="partner-image-wrapper">
+            <div class="partner-image-wrapper" (click)="openImage(partner)">
               <img 
                 [src]="partner" 
                 [alt]="'Partner ' + ($index + 1)" 
