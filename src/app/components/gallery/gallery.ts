@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy, signal, effect } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { CommonModule, Location } from '@angular/common';
 import { LanguageService } from '../../services/language.service';
 import { SERVICE_IMAGES } from '../../constants/service-images.constant';
 
@@ -17,11 +17,12 @@ export class Gallery implements OnInit, OnDestroy {
   private fadeTimeout: any = null;
   private languageEffect: any = null;
   private keyDownHandler: ((event: KeyboardEvent) => void) | null = null;
+  private popStateHandler: ((event: PopStateEvent) => void) | null = null;
 
   // Lightbox state
   isLightboxOpen = signal(false);
   currentImageIndex = signal(0);
-  
+
   // Images to exclude from gallery (but keep in services)
   private excludedImages: string[] = [
     'assets/images/gallery/frame_9.jpg',           // index 19
@@ -43,7 +44,7 @@ export class Gallery implements OnInit, OnDestroy {
     return allImages.filter(image => !this.excludedImages.includes(image));
   }
 
-  constructor(public langService: LanguageService) {
+  constructor(public langService: LanguageService, private location: Location) {
     // Watch for language changes and restart fade animation
     this.languageEffect = effect(() => {
       const translations = this.langService.translations();
@@ -67,10 +68,14 @@ export class Gallery implements OnInit, OnDestroy {
     setTimeout(() => {
       this.startFadeAnimation();
     }, 500);
-    
+
     // Add keyboard navigation for lightbox
     this.keyDownHandler = this.handleKeyDown.bind(this);
     document.addEventListener('keydown', this.keyDownHandler);
+
+    // Add popstate handler for browser back button
+    this.popStateHandler = this.handlePopState.bind(this);
+    window.addEventListener('popstate', this.popStateHandler);
   }
 
   private startFadeAnimation(): void {
@@ -107,6 +112,29 @@ export class Gallery implements OnInit, OnDestroy {
     // Remove keyboard listener
     if (this.keyDownHandler) {
       document.removeEventListener('keydown', this.keyDownHandler);
+    }
+    // Remove popstate listener
+    if (this.popStateHandler) {
+      window.removeEventListener('popstate', this.popStateHandler);
+    }
+
+    // Clean up lightbox state if component is destroyed while lightbox is open
+    // This handles cases like browser back button navigation away from gallery
+    if (this.isLightboxOpen()) {
+      document.body.style.overflow = '';
+      const navbar = document.getElementById('mainNav');
+      const backToTop = document.querySelector('.back-to-top-btn') as HTMLElement;
+      const chatWidget = document.querySelector('.chat-widget-container') as HTMLElement;
+
+      if (navbar) {
+        navbar.style.display = '';
+      }
+      if (backToTop) {
+        backToTop.style.display = '';
+      }
+      if (chatWidget) {
+        chatWidget.style.display = '';
+      }
     }
   }
 
@@ -170,13 +198,17 @@ export class Gallery implements OnInit, OnDestroy {
     if (index !== -1) {
       this.currentImageIndex.set(index);
       this.isLightboxOpen.set(true);
+
+      // Push a new state to browser history so back button closes lightbox
+      history.pushState({ lightboxOpen: true }, '');
+
       // Prevent body scroll when lightbox is open
       document.body.style.overflow = 'hidden';
       // Hide navbar, back-to-top button, and chat widget when lightbox is open
       const navbar = document.getElementById('mainNav');
       const backToTop = document.querySelector('.back-to-top-btn') as HTMLElement;
       const chatWidget = document.querySelector('.chat-widget-container') as HTMLElement;
-      
+
       if (navbar) {
         navbar.style.display = 'none';
       }
@@ -189,14 +221,17 @@ export class Gallery implements OnInit, OnDestroy {
     }
   }
 
-  closeLightbox(): void {
+  closeLightbox(skipHistoryBack: boolean = false): void {
+    if (!this.isLightboxOpen()) return;
+
     this.isLightboxOpen.set(false);
     document.body.style.overflow = '';
+
     // Show navbar, back-to-top button, and chat widget again when lightbox is closed
     const navbar = document.getElementById('mainNav');
     const backToTop = document.querySelector('.back-to-top-btn') as HTMLElement;
     const chatWidget = document.querySelector('.chat-widget-container') as HTMLElement;
-    
+
     if (navbar) {
       navbar.style.display = '';
     }
@@ -205,6 +240,19 @@ export class Gallery implements OnInit, OnDestroy {
     }
     if (chatWidget) {
       chatWidget.style.display = '';
+    }
+
+    // If closing via X button (not back button), go back in history to remove the lightbox state
+    if (!skipHistoryBack) {
+      history.back();
+    }
+  }
+
+  private handlePopState(event: PopStateEvent): void {
+    // If lightbox is open and user presses back button, close the lightbox
+    if (this.isLightboxOpen()) {
+      // Pass true to skip calling history.back() again (would cause double navigation)
+      this.closeLightbox(true);
     }
   }
 

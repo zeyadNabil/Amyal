@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy, AfterViewInit, signal, effect, HostListener, ElementRef, ViewChild } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { CommonModule, Location } from '@angular/common';
 import { ActivatedRoute, RouterModule } from '@angular/router';
 import { LanguageService } from '../../services/language.service';
 import { SERVICE_IMAGES } from '../../constants/service-images.constant';
@@ -38,6 +38,7 @@ export class Services implements OnInit, OnDestroy, AfterViewInit {
   private cardWidth: number = 0;
   private gap: number = 30;
   private keyDownHandler: ((event: KeyboardEvent) => void) | null = null;
+  private popStateHandler: ((event: PopStateEvent) => void) | null = null;
 
   // Service types mapping
   serviceTypes: { [key: string]: string } = {
@@ -58,7 +59,8 @@ export class Services implements OnInit, OnDestroy, AfterViewInit {
 
   constructor(
     private route: ActivatedRoute,
-    public langService: LanguageService
+    public langService: LanguageService,
+    private location: Location
   ) {
     // Store initial language
     this.previousLang = this.langService.currentLang();
@@ -108,8 +110,8 @@ export class Services implements OnInit, OnDestroy, AfterViewInit {
         this.initScrollAnimations();
         this.initCardSlider();
 
-        // Ensure video is muted if it's Mall Activation
-        if (serviceId === 'mall-activation') {
+        // Ensure video is muted if it has video
+        if (serviceId === 'mall-activation' || serviceId === 'av-service') {
           this.enforceVideoMuted();
         }
       }, 100);
@@ -120,6 +122,10 @@ export class Services implements OnInit, OnDestroy, AfterViewInit {
     if (this.keyDownHandler) {
       document.addEventListener('keydown', this.keyDownHandler);
     }
+
+    // Add popstate handler for browser back button
+    this.popStateHandler = this.handlePopState.bind(this);
+    window.addEventListener('popstate', this.popStateHandler);
   }
 
   ngAfterViewInit(): void {
@@ -127,8 +133,8 @@ export class Services implements OnInit, OnDestroy, AfterViewInit {
     setTimeout(() => {
       this.initCardSlider();
 
-      // Ensure video is muted for Mall Activation
-      if (this.isMallActivation()) {
+      // Ensure video is muted for services with video
+      if (this.hasVideo()) {
         this.enforceVideoMuted();
       }
     }, 300);
@@ -455,6 +461,30 @@ export class Services implements OnInit, OnDestroy, AfterViewInit {
     if (this.keyDownHandler) {
       document.removeEventListener('keydown', this.keyDownHandler);
     }
+
+    // Remove popstate listener
+    if (this.popStateHandler) {
+      window.removeEventListener('popstate', this.popStateHandler);
+    }
+
+    // Clean up lightbox state if component is destroyed while lightbox is open
+    // This handles cases like browser back button navigation away from services
+    if (this.isSliderLightboxOpen()) {
+      document.body.style.overflow = '';
+      const navbar = document.getElementById('mainNav');
+      const backToTop = document.querySelector('.back-to-top-btn') as HTMLElement;
+      const chatWidget = document.querySelector('.chat-widget-container') as HTMLElement;
+
+      if (navbar) {
+        navbar.style.display = '';
+      }
+      if (backToTop) {
+        backToTop.style.display = '';
+      }
+      if (chatWidget) {
+        chatWidget.style.display = '';
+      }
+    }
   }
 
   getServiceKey(): string {
@@ -556,6 +586,27 @@ export class Services implements OnInit, OnDestroy, AfterViewInit {
 
   getMallActivationVideoUrl(): string {
     return 'assets/images/mall_activation_video.mp4';
+  }
+
+  getAvServiceVideoUrl(): string {
+    return 'assets/images/av_service.mp4';
+  }
+
+  isAvService(): boolean {
+    return this.serviceType() === 'av-service';
+  }
+
+  hasVideo(): boolean {
+    return this.isMallActivation() || this.isAvService();
+  }
+
+  getVideoUrl(): string {
+    if (this.isMallActivation()) {
+      return this.getMallActivationVideoUrl();
+    } else if (this.isAvService()) {
+      return this.getAvServiceVideoUrl();
+    }
+    return '';
   }
 
   // Icon arrays for different sections
@@ -723,6 +774,10 @@ export class Services implements OnInit, OnDestroy, AfterViewInit {
       this.sliderImagesForLightbox = sliderImages;
       this.currentSliderImageIndex.set(index);
       this.isSliderLightboxOpen.set(true);
+
+      // Push a new state to browser history so back button closes lightbox
+      history.pushState({ lightboxOpen: true }, '');
+
       document.body.style.overflow = 'hidden';
 
       // Hide navbar, back-to-top, and chat widget
@@ -739,7 +794,9 @@ export class Services implements OnInit, OnDestroy, AfterViewInit {
     }
   }
 
-  closeSliderLightbox(): void {
+  closeSliderLightbox(skipHistoryBack: boolean = false): void {
+    if (!this.isSliderLightboxOpen()) return;
+
     this.isSliderLightboxOpen.set(false);
     document.body.style.overflow = '';
 
@@ -751,6 +808,19 @@ export class Services implements OnInit, OnDestroy, AfterViewInit {
     if (navbar) navbar.style.display = '';
     if (backToTop) backToTop.style.display = '';
     if (chatWidget) chatWidget.style.display = '';
+
+    // If closing via X button (not back button), go back in history to remove the lightbox state
+    if (!skipHistoryBack) {
+      history.back();
+    }
+  }
+
+  private handlePopState(event: PopStateEvent): void {
+    // If lightbox is open and user presses back button, close the lightbox
+    if (this.isSliderLightboxOpen()) {
+      // Pass true to skip calling history.back() again (would cause double navigation)
+      this.closeSliderLightbox(true);
+    }
   }
 
   nextSliderImage(): void {

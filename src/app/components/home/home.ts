@@ -22,9 +22,6 @@ export class Home implements OnInit {
   // Features data - will be initialized in ngOnInit
   features: Array<{ icon: string; title: string; text: string }> = [];
 
-  // Gallery preview items - will be initialized in ngOnInit
-  galleryItems: Array<{ image: string; title: string; category: string }> = [];
-
   // Process steps - will be initialized in ngOnInit
   processSteps: Array<{ title: string; description: string }> = [];
 
@@ -54,30 +51,20 @@ export class Home implements OnInit {
 
     // Update stats
     this.stats = [
-      { icon: 'fa-chart-bar', value: 500, suffix: '+', label: this.langService.t('about.stat1') },
-      { icon: 'fa-star', value: 15, suffix: '+', label: this.langService.t('about.stat2') },
-      { icon: 'fa-smile', value: 98, suffix: '%', label: this.langService.t('about.stat3') },
-      { icon: 'fa-globe', value: 50, suffix: '+', label: this.langService.t('about.stat4') || 'Countries Served' }
+      { icon: 'assets/images/Icons/layers.png', value: 500, suffix: '+', label: this.langService.t('about.stat1') },
+      { icon: 'assets/images/Icons/star.png', value: 15, suffix: '+', label: this.langService.t('about.stat2') },
+      { icon: 'assets/images/Icons/smile.png', value: 98, suffix: '%', label: this.langService.t('about.stat3') },
+      { icon: 'assets/images/Icons/glope.png', value: 50, suffix: '+', label: this.langService.t('about.stat4') || 'Countries Served' }
     ];
 
     // Update features
     this.features = [
-      { icon: 'fa-palette', title: this.langService.t('home.features.innovativeDesign.title'), text: this.langService.t('home.features.innovativeDesign.text') },
-      { icon: 'fa-bolt', title: this.langService.t('home.features.onTimeDelivery.title'), text: this.langService.t('home.features.onTimeDelivery.text') },
-      { icon: 'fa-users', title: this.langService.t('home.features.expertTeam.title'), text: this.langService.t('home.features.expertTeam.text') },
-      { icon: 'fa-gem', title: this.langService.t('home.features.qualityMaterials.title'), text: this.langService.t('home.features.qualityMaterials.text') },
-      { icon: 'fa-rocket', title: this.langService.t('home.features.fullService.title'), text: this.langService.t('home.features.fullService.text') },
-      { icon: 'fa-handshake', title: this.langService.t('home.features.clientFirst.title'), text: this.langService.t('home.features.clientFirst.text') }
-    ];
-
-    // Update gallery items
-    this.galleryItems = [
-      { image: 'assets/images/EXHIBITION STAND/canali.jpeg', title: this.langService.t('gallery.items.exhibitionStand.title'), category: this.langService.t('gallery.items.exhibitionStand.category') },
-      { image: 'assets/images/EXHIBITION STAND/cellucor.jpeg', title: this.langService.t('gallery.items.exhibitionStand.title'), category: this.langService.t('gallery.items.exhibitionStand.category') },
-      { image: 'assets/images/sign board/elite.jpeg', title: this.langService.t('gallery.items.eventProduction.title'), category: this.langService.t('gallery.items.eventProduction.category') },
-      { image: 'assets/images/DISPLAY UNITS AND MALL KIOSK/DISPLAY UNITS AND MALL KIOSK.jpeg', title: this.langService.t('gallery.items.brandingSolutions.title'), category: this.langService.t('gallery.items.brandingSolutions.category') },
-      { image: 'assets/images/VEHICLE BRANDING & WRAPPING/car2.jpeg', title: this.langService.t('gallery.items.customFabrication.title'), category: this.langService.t('gallery.items.customFabrication.category') },
-      { image: 'assets/images/STICKERS & CUSTOM PRINTS/STICKERS & CUSTOM PRINTS.jpeg', title: this.langService.t('gallery.items.exhibitionStand.title'), category: this.langService.t('gallery.items.exhibitionStand.category') }
+      { icon: 'assets/images/Icons/signBoard.png', title: this.langService.t('home.features.innovativeDesign.title'), text: this.langService.t('home.features.innovativeDesign.text') },
+      { icon: 'assets/images/Icons/rocket.png', title: this.langService.t('home.features.onTimeDelivery.title'), text: this.langService.t('home.features.onTimeDelivery.text') },
+      { icon: 'assets/images/Icons/team.png', title: this.langService.t('home.features.expertTeam.title'), text: this.langService.t('home.features.expertTeam.text') },
+      { icon: 'assets/images/Icons/star.png', title: this.langService.t('home.features.qualityMaterials.title'), text: this.langService.t('home.features.qualityMaterials.text') },
+      { icon: 'assets/images/Icons/settings.png', title: this.langService.t('home.features.fullService.title'), text: this.langService.t('home.features.fullService.text') },
+      { icon: 'assets/images/Icons/handshake.png', title: this.langService.t('home.features.clientFirst.title'), text: this.langService.t('home.features.clientFirst.text') }
     ];
 
     // Update process steps
@@ -97,7 +84,6 @@ export class Home implements OnInit {
       { logo: 'assets/images/Partners White Text Without Background/Mair_upscaled.png', name: 'Mair' },
       { logo: 'assets/images/Partners White Text Without Background/Makani_upscaled.png', name: 'Makani' },
       { logo: 'assets/images/Partners White Text Without Background/Ministry-of-Human-Resources-&-Emiratisation-_upscaled.png', name: 'Ministry of Human Resources' },
-      { logo: 'assets/images/Partners White Text Without Background/mofaicuaelogo_upscaled.png', name: 'MOFAIC UAE' },
       { logo: 'assets/images/Partners White Text Without Background/SAAS properties_upscaled.png', name: 'SAAS Properties' },
       { logo: 'assets/images/Partners White Text Without Background/umex_and_simtex_upscaled.png', name: 'UMEX & Simtex' }
     ];

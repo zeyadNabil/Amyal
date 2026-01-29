@@ -93,7 +93,9 @@
     <div class="stats-grid">
       @for (stat of stats; track stat.label; let i = $index) {
         <div class="stat-card-animated scroll-reveal">
-          <div class="stat-icon"><i [class]="'fas ' + stat.icon"></i></div>
+          <div class="stat-icon">
+            <img [src]="stat.icon" [alt]="stat.label">
+          </div>
           <div class="stat-number-wrapper">
             <span class="stat-number" [attr.data-target]="stat.value">{{ stat.value }}</span>
             <span class="stat-suffix">{{ stat.suffix }}</span>
@@ -118,42 +120,14 @@
         <div class="feature-card-3d scroll-reveal">
           <div class="feature-card-front">
             <div class="feature-number">{{ langService.t('home.numbers.' + (i + 1)) }}</div>
-            <div class="feature-icon-large"><i [class]="'fas ' + feature.icon"></i></div>
+            <div class="feature-icon-large">
+              <img [src]="feature.icon" [alt]="feature.title">
+            </div>
             <h3 class="feature-title gradient-text-animated">{{ feature.title }}</h3>
             <p class="feature-text">{{ feature.text }}</p>
           </div>
         </div>
       }
-    </div>
-  </div>
-</section>
-
-<!-- Gallery Preview Section -->
-<section class="gallery-preview-section">
-  <div class="container">
-    <div class="section-header scroll-reveal">
-      <h2 class="section-title gradient-text-animated">{{ langService.t('gallery.title') }}</h2>
-      <p class="section-subtitle">{{ langService.t('gallery.description') }}</p>
-    </div>
-
-    <div class="gallery-preview-grid">
-      @for (item of galleryItems; track item.title; let i = $index) {
-        <div class="gallery-preview-item scroll-reveal" [style.--delay]="i * 0.1 + 's'">
-          <div class="gallery-image-container">
-            <img [src]="item.image" [alt]="item.title" class="gallery-preview-image">
-            <div class="gallery-overlay-animated">
-              <h4 class="gallery-item-title">{{ item.title }}</h4>
-              <p class="gallery-item-category">{{ item.category }}</p>
-            </div>
-          </div>
-        </div>
-      }
-    </div>
-
-    <div class="gallery-cta scroll-reveal">
-      <a routerLink="/gallery" class="btn-glow btn-primary">
-        <span class="btn-text">{{ langService.t('home.gallery.viewFullGallery') }}</span>
-      </a>
     </div>
   </div>
 </section>

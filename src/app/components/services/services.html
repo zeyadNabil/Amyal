@@ -14,33 +14,36 @@
       </div>
     </div>
 
-    <!-- Video Section for Mall Activation -->
-    @if (isMallActivation()) {
+    <!-- Video Section for Mall Activation and AV Service -->
+    @if (hasVideo()) {
       <div class="service-section service-video-section scroll-reveal">
-        <div class="row g-0">
-        <div class="col-12">
-          <div class="service-video-wrapper">
-            <video class="service-video"
-                   [src]="getMallActivationVideoUrl()"
-                   autoplay
-                   loop
-                   muted
-                   volume="0"
-                   playsinline
-                   disablePictureInPicture
-                   controlsList="nodownload nofullscreen noremoteplayback"
-                   oncontextmenu="return false;">
-              Your browser does not support the video tag.
-            </video>
-            <div class="video-overlay"></div>
+        <div class="container">
+          <div class="row">
+            <div class="col-12">
+              <div class="service-video-wrapper">
+                <video class="service-video"
+                       [src]="getVideoUrl()"
+                       [muted]="true"
+                       [volume]="0"
+                       autoplay
+                       loop
+                       muted
+                       playsinline
+                       disablePictureInPicture
+                       controlsList="nodownload nofullscreen noremoteplayback"
+                       oncontextmenu="return false;">
+                  Your browser does not support the video tag.
+                </video>
+                <div class="video-overlay"></div>
+              </div>
+            </div>
           </div>
         </div>
-      </div>
       </div>
     }
 
     <!-- Card Slider Section -->
-    @if (!isMallActivation() && getServiceImages().length > 0) {
+    @if (!hasVideo() && getServiceImages().length > 0) {
       <div class="service-section service-slider-section scroll-reveal">
       <div class="container">
         <div class="card-slider-wrapper">
@@ -90,39 +93,16 @@
       </div>
     }
 
-    <!-- Overview Section with Image -->
+    <!-- Overview Section -->
     @if (getOverview() && hasContent()) {
       <div class="service-section scroll-reveal">
-        <div class="row g-4 align-items-stretch">
-        <div class="col-lg-6" [class.offset-lg-6]="getServiceImages().length === 0 && !isMallActivation()">
-          <div class="service-card overview-card">
-            <h2 class="section-title gradient-text-animated">{{ langService.t('services.sections.overview') }}</h2>
-            <p class="section-text">{{ getOverview() }}</p>
-          </div>
-        </div>
-        @if (getServiceImages().length > 0 && !isMallActivation()) {
-          <div class="col-lg-6">
-            <div class="service-image-wrapper animate-float" (click)="openImageInNewTab(getServiceImages()[0])">
-              <img [src]="getServiceImages()[0]"
-                   class="img-fluid service-content-image"
-                   [alt]="langService.t('nav.' + getServiceKey())">
-              <div class="image-overlay"></div>
-              @if (isSignBoard()) {
-                <div class="galaxy-overlay"></div>
-              }
+        <div class="row g-4 align-items-stretch justify-content-center">
+          <div class="col-lg-8">
+            <div class="service-card overview-card">
+              <h2 class="section-title gradient-text-animated">{{ langService.t('services.sections.overview') }}</h2>
+              <p class="section-text">{{ getOverview() }}</p>
             </div>
           </div>
-        }
-        @if (isMallActivation()) {
-          <div class="col-lg-6">
-            <div class="service-image-wrapper animate-float" (click)="openImageInNewTab(getServiceImages()[0])">
-              <img [src]="getServiceImages()[0]"
-                   class="img-fluid service-content-image"
-                   [alt]="langService.t('nav.' + getServiceKey())">
-              <div class="image-overlay"></div>
-            </div>
-          </div>
-        }
         </div>
       </div>
     }
