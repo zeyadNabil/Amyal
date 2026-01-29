@@ -2,15 +2,17 @@ import { Component, OnInit, OnDestroy, signal, effect } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { LanguageService } from '../../services/language.service';
+import { ShimmerLoader } from '../shimmer-loader/shimmer-loader';
 
 @Component({
   selector: 'app-contact-us',
-  imports: [CommonModule, ReactiveFormsModule],
+  imports: [CommonModule, ReactiveFormsModule, ShimmerLoader],
   templateUrl: './contact-us.html',
   styleUrl: './contact-us.css'
 })
 export class ContactUs implements OnInit, OnDestroy {
   contactForm: FormGroup;
+  isLoaded = signal(false);
   isSubmitting = signal(false);
   submitSuccess = signal(false);
   submitError = signal(false);
@@ -44,6 +46,8 @@ export class ContactUs implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
+    // Simulate loading time to show shimmer effect
+    setTimeout(() => this.isLoaded.set(true), 1500);
     this.initScrollAnimations();
     this.initFormAnimations();
     // Start fade animation after a delay

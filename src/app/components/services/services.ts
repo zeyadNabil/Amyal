@@ -3,12 +3,13 @@ import { CommonModule, Location } from '@angular/common';
 import { ActivatedRoute, RouterModule } from '@angular/router';
 import { LanguageService } from '../../services/language.service';
 import { SERVICE_IMAGES } from '../../constants/service-images.constant';
+import { ShimmerLoader } from '../shimmer-loader/shimmer-loader';
 
 // Add FontAwesome icons if not already imported
 
 @Component({
   selector: 'app-services',
-  imports: [CommonModule, RouterModule],
+  imports: [CommonModule, RouterModule, ShimmerLoader],
   templateUrl: './services.html',
   styleUrl: './services.css'
 })
@@ -97,9 +98,12 @@ export class Services implements OnInit, OnDestroy, AfterViewInit {
 
       // Reset fade state when route changes
       this.titleFadeState.set('fade-out');
+      this.isLoaded.set(false);
 
       this.serviceType.set(serviceId);
-      this.isLoaded.set(true);
+
+      // Simulate loading time to show shimmer effect
+      setTimeout(() => this.isLoaded.set(true), 1500);
 
       // Wait a bit to ensure translation is loaded, then start fade
       setTimeout(() => {

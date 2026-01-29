@@ -1,5 +1,8 @@
+<!-- Shimmer Loader -->
+<app-shimmer-loader [layout]="'cards'" [isLoading]="!isLoaded()" [itemCount]="6"></app-shimmer-loader>
+
 <!-- About Us Page -->
-<section class="about-us-page">
+<section class="about-us-page" [class.content-loaded]="isLoaded()">
   <div class="container">
     <!-- Page Header -->
     <div class="about-header scroll-reveal">

@@ -2,6 +2,16 @@
    CONTACT US PAGE
    ======================================== */
 
+/* Content Fade In */
+.contact-us-section {
+  opacity: 0;
+  transition: opacity 0.6s ease;
+}
+
+.contact-us-section.content-loaded {
+  opacity: 1;
+}
+
 .contact-us-section {
     padding: calc(var(--nav-height) + 4rem) 0 8rem;
     min-height: 100vh;

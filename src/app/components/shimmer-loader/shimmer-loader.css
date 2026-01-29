@@ -1,0 +1,337 @@
+/* ========================================
+   SHIMMER LOADING EFFECT - REUSABLE
+   ======================================== */
+
+.shimmer-loading-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: var(--bg-dark, #0a0a1a);
+  z-index: 9999;
+  overflow-y: auto;
+  transition: opacity 0.5s ease, visibility 0.5s ease;
+  opacity: 1;
+  visibility: visible;
+}
+
+.shimmer-loading-overlay.hidden {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+/* Shimmer Animation */
+@keyframes shimmer {
+  0% {
+    background-position: -1000px 0;
+  }
+  100% {
+    background-position: 1000px 0;
+  }
+}
+
+.shimmer-box {
+  background: linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0.05) 0%,
+    rgba(255, 255, 255, 0.1) 20%,
+    rgba(147, 51, 234, 0.15) 40%,
+    rgba(255, 255, 255, 0.1) 60%,
+    rgba(255, 255, 255, 0.05) 100%
+  );
+  background-size: 1000px 100%;
+  animation: shimmer 2s infinite linear;
+  border-radius: 12px;
+  position: relative;
+  overflow: hidden;
+}
+
+.shimmer-box::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(147, 51, 234, 0.2) 50%,
+    transparent 100%
+  );
+  animation: shimmerGlow 2s infinite linear;
+}
+
+@keyframes shimmerGlow {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+/* Section Padding */
+.shimmer-section {
+  padding: 8rem 2rem;
+}
+
+.hero-shimmer {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  padding-top: calc(var(--nav-height, 80px) + 2rem);
+}
+
+/* Text Elements */
+.shimmer-title {
+  height: 60px;
+  margin-bottom: 1rem;
+  width: 100%;
+}
+
+.shimmer-section-title {
+  height: 50px;
+  width: 300px;
+  margin: 0 auto 2rem;
+}
+
+.shimmer-subtitle {
+  height: 30px;
+  width: 60%;
+  margin: 0 auto 3rem;
+}
+
+/* Buttons */
+.shimmer-buttons {
+  display: flex;
+  gap: 1.5rem;
+  justify-content: flex-start;
+  flex-wrap: wrap;
+  margin-top: 2rem;
+}
+
+.shimmer-button {
+  height: 60px;
+  width: 200px;
+  border-radius: 50px;
+}
+
+/* Images */
+.shimmer-image {
+  height: 400px;
+  width: 100%;
+  border-radius: 20px;
+}
+
+/* Partners/Logos */
+.partners-shimmer {
+  padding: 2rem 0;
+}
+
+.shimmer-partners-track {
+  display: flex;
+  gap: 2rem;
+  justify-content: center;
+  flex-wrap: wrap;
+  padding: 2rem 0;
+}
+
+.shimmer-partner-card {
+  width: 280px;
+  height: 180px;
+  border-radius: 15px;
+}
+
+/* Grid Layouts */
+.shimmer-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+  margin-top: 4rem;
+}
+
+.shimmer-card {
+  height: 400px;
+  border-radius: 20px;
+}
+
+.shimmer-cards-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+  margin-top: 4rem;
+}
+
+.shimmer-feature-card {
+  height: 350px;
+  border-radius: 20px;
+}
+
+/* Stats Grid */
+.shimmer-stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 2rem;
+  margin: 4rem 0;
+}
+
+.shimmer-stat-card {
+  height: 300px;
+  border-radius: 20px;
+}
+
+/* List Layout */
+.shimmer-list-item {
+  display: flex;
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+  align-items: flex-start;
+}
+
+.shimmer-list-icon {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.shimmer-list-content {
+  flex: 1;
+}
+
+.shimmer-list-title {
+  height: 30px;
+  width: 60%;
+  margin-bottom: 1rem;
+}
+
+.shimmer-list-text {
+  height: 20px;
+  width: 100%;
+}
+
+/* Contact Form */
+.shimmer-form {
+  max-width: 600px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.shimmer-input {
+  height: 50px;
+  width: 100%;
+}
+
+.shimmer-textarea {
+  height: 150px;
+  width: 100%;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .shimmer-section {
+    padding: 6rem 1rem;
+  }
+
+  .hero-shimmer {
+    min-height: auto;
+    padding: calc(var(--nav-height, 80px) + 2rem) 1rem 4rem;
+  }
+
+  .shimmer-image {
+    height: 300px;
+  }
+
+  .shimmer-partner-card {
+    width: 200px;
+    height: 120px;
+  }
+
+  .shimmer-grid,
+  .shimmer-cards-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .shimmer-card,
+  .shimmer-feature-card {
+    height: 350px;
+  }
+
+  .shimmer-stat-card {
+    height: 250px;
+  }
+
+  .shimmer-stats-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .shimmer-buttons {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .shimmer-button {
+    width: 100%;
+    max-width: 300px;
+  }
+
+  .shimmer-subtitle {
+    width: 80%;
+  }
+
+  .shimmer-section-title {
+    width: 250px;
+  }
+}
+
+@media (max-width: 576px) {
+  .shimmer-section {
+    padding: 4rem 1rem;
+  }
+
+  .hero-shimmer {
+    padding: calc(var(--nav-height, 80px) + 1rem) 1rem 3rem;
+  }
+
+  .shimmer-title {
+    height: 40px;
+  }
+
+  .shimmer-image {
+    height: 250px;
+  }
+
+  .shimmer-partner-card {
+    width: 180px;
+    height: 110px;
+  }
+
+  .shimmer-card,
+  .shimmer-feature-card {
+    height: 300px;
+  }
+
+  .shimmer-stat-card {
+    height: 220px;
+  }
+
+  .shimmer-section-title {
+    width: 200px;
+    height: 40px;
+  }
+
+  .shimmer-subtitle {
+    width: 90%;
+    height: 25px;
+  }
+
+  .shimmer-list-icon {
+    width: 40px;
+    height: 40px;
+  }
+}

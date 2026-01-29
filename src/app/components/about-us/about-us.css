@@ -2,6 +2,16 @@
    ABOUT US PAGE STYLES
    ======================================== */
 
+/* Content Fade In */
+.about-us-page {
+  opacity: 0;
+  transition: opacity 0.6s ease;
+}
+
+.about-us-page.content-loaded {
+  opacity: 1;
+}
+
 .about-us-page {
   min-height: 100vh;
   padding-top: 140px;

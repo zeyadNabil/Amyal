@@ -1,0 +1,144 @@
+<div class="shimmer-loading-overlay" [class.hidden]="!isLoading">
+  <!-- Hero Layout -->
+  @if (layout === 'hero') {
+    <section class="shimmer-section hero-shimmer">
+      <div class="container">
+        <div class="row align-items-center">
+          <div class="col-12 col-md-6">
+            <div class="shimmer-box shimmer-title"></div>
+            <div class="shimmer-box shimmer-title" style="width: 80%;"></div>
+            <div class="shimmer-buttons">
+              <div class="shimmer-box shimmer-button"></div>
+              <div class="shimmer-box shimmer-button"></div>
+            </div>
+          </div>
+          <div class="col-12 col-md-6">
+            <div class="shimmer-box shimmer-image"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+  }
+
+  <!-- Grid Layout (Services, Gallery) -->
+  @if (layout === 'grid' || layout === 'services' || layout === 'gallery') {
+    <section class="shimmer-section">
+      <div class="container">
+        <div class="shimmer-box shimmer-section-title"></div>
+        <div class="shimmer-box shimmer-subtitle"></div>
+        <div class="shimmer-grid">
+          @for (item of arrayFromCount; track item) {
+            <div class="shimmer-box shimmer-card"></div>
+          }
+        </div>
+      </div>
+    </section>
+  }
+
+  <!-- Cards Layout -->
+  @if (layout === 'cards') {
+    <section class="shimmer-section">
+      <div class="container">
+        <div class="shimmer-box shimmer-section-title"></div>
+        <div class="shimmer-cards-grid">
+          @for (item of arrayFromCount; track item) {
+            <div class="shimmer-box shimmer-feature-card"></div>
+          }
+        </div>
+      </div>
+    </section>
+  }
+
+  <!-- List Layout -->
+  @if (layout === 'list') {
+    <section class="shimmer-section">
+      <div class="container">
+        <div class="shimmer-box shimmer-section-title"></div>
+        @for (item of arrayFromCount; track item) {
+          <div class="shimmer-list-item">
+            <div class="shimmer-box shimmer-list-icon"></div>
+            <div class="shimmer-list-content">
+              <div class="shimmer-box shimmer-list-title"></div>
+              <div class="shimmer-box shimmer-list-text"></div>
+            </div>
+          </div>
+        }
+      </div>
+    </section>
+  }
+
+  <!-- Contact Form Layout -->
+  @if (layout === 'contact-form') {
+    <section class="shimmer-section">
+      <div class="container">
+        <div class="shimmer-box shimmer-section-title"></div>
+        <div class="shimmer-box shimmer-subtitle"></div>
+        <div class="shimmer-form">
+          <div class="shimmer-box shimmer-input"></div>
+          <div class="shimmer-box shimmer-input"></div>
+          <div class="shimmer-box shimmer-input"></div>
+          <div class="shimmer-box shimmer-textarea"></div>
+          <div class="shimmer-box shimmer-button" style="width: 200px;"></div>
+        </div>
+      </div>
+    </section>
+  }
+
+  <!-- Full Page Layout (Complex pages like Home) -->
+  @if (layout === 'full-page') {
+    <!-- Hero -->
+    <section class="shimmer-section hero-shimmer">
+      <div class="container">
+        <div class="row align-items-center">
+          <div class="col-12 col-md-6">
+            <div class="shimmer-box shimmer-title"></div>
+            <div class="shimmer-box shimmer-title" style="width: 80%;"></div>
+            <div class="shimmer-buttons">
+              <div class="shimmer-box shimmer-button"></div>
+              <div class="shimmer-box shimmer-button"></div>
+            </div>
+          </div>
+          <div class="col-12 col-md-6">
+            <div class="shimmer-box shimmer-image"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Partners/Logos -->
+    <section class="shimmer-section partners-shimmer">
+      <div class="container">
+        <div class="shimmer-box shimmer-section-title"></div>
+      </div>
+      <div class="shimmer-partners-track">
+        @for (item of [1,2,3,4,5]; track item) {
+          <div class="shimmer-box shimmer-partner-card"></div>
+        }
+      </div>
+    </section>
+
+    <!-- Content Grid -->
+    <section class="shimmer-section">
+      <div class="container">
+        <div class="shimmer-box shimmer-section-title"></div>
+        <div class="shimmer-box shimmer-subtitle"></div>
+        <div class="shimmer-grid">
+          @for (item of arrayFromCount; track item) {
+            <div class="shimmer-box shimmer-card"></div>
+          }
+        </div>
+      </div>
+    </section>
+
+    <!-- Stats -->
+    <section class="shimmer-section">
+      <div class="container">
+        <div class="shimmer-stats-grid">
+          @for (item of [1,2,3,4]; track item) {
+            <div class="shimmer-box shimmer-stat-card"></div>
+          }
+        </div>
+      </div>
+    </section>
+  }
+</div>

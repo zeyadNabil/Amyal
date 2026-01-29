@@ -1,6 +1,9 @@
+<!-- Shimmer Loader -->
+<app-shimmer-loader [layout]="'services'" [isLoading]="!isLoaded()" [itemCount]="6"></app-shimmer-loader>
+
 <!-- Service Content -->
 @if (isLoaded()) {
-  <div class="service-page">
+  <div class="service-page" [class.content-loaded]="isLoaded()">
     <div class="container">
     <!-- Header Section -->
     <div class="service-header">

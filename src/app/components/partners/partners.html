@@ -1,4 +1,7 @@
-<section class="partners-page">
+<!-- Shimmer Loader -->
+<app-shimmer-loader [layout]="'grid'" [isLoading]="!isLoaded()" [itemCount]="15"></app-shimmer-loader>
+
+<section class="partners-page" [class.content-loaded]="isLoaded()">
   <div class="container">
     <!-- Header Section -->
     <div class="partners-header">
@@ -13,9 +16,9 @@
         @for (partner of partners; track $index) {
           <div class="partner-card scroll-reveal" [style.animation-delay]="($index * 0.1) + 's'">
             <div class="partner-image-wrapper" (click)="openImage(partner)">
-              <img 
-                [src]="partner" 
-                [alt]="'Partner ' + ($index + 1)" 
+              <img
+                [src]="partner"
+                [alt]="'Partner ' + ($index + 1)"
                 class="partner-image"
                 loading="lazy">
             </div>

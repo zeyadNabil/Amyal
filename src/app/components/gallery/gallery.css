@@ -2,6 +2,16 @@
    GALLERY PAGE STYLES
    ======================================== */
 
+/* Content Fade In */
+.gallery-page {
+  opacity: 0;
+  transition: opacity 0.6s ease;
+}
+
+.gallery-page.content-loaded {
+  opacity: 1;
+}
+
 .gallery-page {
   min-height: 100vh;
   padding-top: 140px;

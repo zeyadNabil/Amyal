@@ -3,21 +3,17 @@
    ======================================== */
 
 .hero-section {
-  min-height: 100vh;
+  min-height: 85vh;
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: calc(var(--nav-height) + 2rem) 2rem 2rem;
+  padding: calc(var(--nav-height) + 2rem) 2rem 0;
   position: relative;
   overflow: visible;
   z-index: 1;
 }
 
 .hero-content {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 4rem;
-  align-items: center;
   max-width: 1400px;
   margin: 0 auto;
   position: relative;
@@ -32,12 +28,26 @@
   justify-content: center;
   align-items: flex-start;
   animation: fadeInUp 1s ease-out 0.2s both;
+  padding-right: 2rem;
+}
+
+/* RTL Support */
+[dir="rtl"] .hero-text-content {
+  padding-right: 0;
+  padding-left: 2rem;
 }
 
 /* Right Side: Stands Photo Image */
 .hero-stands-image-wrapper {
   position: relative;
   animation: fadeInUp 1s ease-out 0.4s both;
+  padding-left: 2rem;
+}
+
+/* RTL Support */
+[dir="rtl"] .hero-stands-image-wrapper {
+  padding-left: 0;
+  padding-right: 2rem;
 }
 
 .hero-stands-image {
@@ -163,15 +173,16 @@
    ======================================== */
 
 .partners-slider-section {
-  padding: 1rem 0;
+  padding: 0.5rem 0 2rem;
   position: relative;
   overflow: hidden;
   background: transparent;
   z-index: 1;
+  margin-top: -8rem;
 }
 
 .partners-slider-section .section-header {
-  margin-bottom: 1.5rem;
+  margin-bottom: 3rem;
 }
 
 .partners-slider-container {
@@ -264,7 +275,7 @@
    ======================================== */
 
 .services-overview-section {
-  padding: 8rem 0;
+  padding: 5rem 0;
   position: relative;
   overflow: hidden;
   z-index: 1;
@@ -327,9 +338,26 @@
 }
 
 .service-icon {
-  font-size: 3rem;
+  width: 180px;
+  height: 180px;
+  min-width: 180px;
+  min-height: 180px;
+  max-width: 180px;
+  max-height: 180px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 15px;
   position: relative;
   z-index: 2;
+}
+
+.service-icon img {
+  width: 150px !important;
+  height: 150px !important;
+  object-fit: contain;
+  display: block;
 }
 
 .service-title {
@@ -426,32 +454,25 @@
 }
 
 .stat-icon {
-  width: 120px;
-  height: 120px;
-  min-width: 120px;
-  min-height: 120px;
-  max-width: 120px;
-  max-height: 120px;
+  width: 180px;
+  height: 180px;
+  min-width: 180px;
+  min-height: 180px;
+  max-width: 180px;
+  max-height: 180px;
   margin: 0 auto 1rem;
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 10px;
+  padding: 15px;
 }
 
-/* Default size for first and last icons (70px) */
+/* Consistent size for all stat icons */
 .stat-icon img {
-  width: 70px !important;
-  height: 70px !important;
+  width: 150px !important;
+  height: 150px !important;
   object-fit: contain;
   display: block;
-}
-
-/* Star and Smile icons (2nd and 3rd) - slightly larger (85px) */
-.stat-card-animated:nth-child(2) .stat-icon img,
-.stat-card-animated:nth-child(3) .stat-icon img {
-  width: 85px !important;
-  height: 85px !important;
 }
 
 .stat-number-wrapper {
@@ -490,7 +511,7 @@
    ======================================== */
 
 .features-section {
-  padding: 8rem 0;
+  padding: 5rem 0;
   position: relative;
   z-index: 1;
   background: transparent;
@@ -544,12 +565,12 @@
 }
 
 .feature-icon-large {
-  width: 100px;
-  height: 100px;
-  min-width: 100px;
-  min-height: 100px;
-  max-width: 100px;
-  max-height: 100px;
+  width: 180px;
+  height: 180px;
+  min-width: 180px;
+  min-height: 180px;
+  max-width: 180px;
+  max-height: 180px;
   margin: 0 auto 1.5rem;
   display: flex;
   align-items: center;
@@ -558,8 +579,8 @@
 }
 
 .feature-icon-large img {
-  width: 70px !important;
-  height: 70px !important;
+  width: 150px !important;
+  height: 150px !important;
   object-fit: contain;
   display: block;
 }
@@ -739,7 +760,7 @@
    ======================================== */
 
 .cta-section {
-  padding: 8rem 0;
+  padding: 5rem 0;
   background: transparent;
   position: relative;
   overflow: hidden;
@@ -945,14 +966,26 @@
     gap: 2rem;
     animation-duration: 45s;
   }
-  .hero-content {
-    grid-template-columns: 1fr;
-    gap: 0.75rem;
-    text-align: center;
-  }
   .hero-text-content {
     text-align: center;
     align-items: center;
+    padding-right: 0;
+    padding-bottom: 0;
+    margin-bottom: -0.5rem;
+  }
+
+  [dir="rtl"] .hero-text-content {
+    padding-left: 0;
+  }
+
+  .hero-stands-image-wrapper {
+    padding-left: 0;
+    padding-top: 0;
+    margin-top: -0.5rem;
+  }
+
+  [dir="rtl"] .hero-stands-image-wrapper {
+    padding-right: 0;
   }
   .hero-cta {
     flex-direction: column;
@@ -970,8 +1003,54 @@
     grid-template-columns: 1fr;
   }
 
+  .feature-icon-large {
+    width: 120px;
+    height: 120px;
+    min-width: 120px;
+    min-height: 120px;
+    max-width: 120px;
+    max-height: 120px;
+  }
+
+  .feature-icon-large img {
+    width: 90px !important;
+    height: 90px !important;
+  }
+
+  .feature-title {
+    font-size: 1.25rem;
+  }
+
+  .feature-text {
+    font-size: 0.9rem;
+  }
+
   .stats-grid {
     grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
+  }
+
+  .stat-card-animated {
+    padding: 1.5rem 0.75rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .stat-icon {
+    width: 120px;
+    height: 120px;
+    min-width: 120px;
+    min-height: 120px;
+    max-width: 120px;
+    max-height: 120px;
+    margin: 0 auto 0.75rem;
+  }
+
+  .stat-icon img {
+    width: 90px !important;
+    height: 90px !important;
   }
 
   .process-timeline::before {
@@ -1045,19 +1124,71 @@
     gap: 1.5rem;
     animation-duration: 40s;
   }
-  .hero-content {
-    gap: 0.5rem;
+  .hero-text-content {
+    padding-bottom: 0;
+    margin-bottom: -1rem;
+  }
+
+  .hero-stands-image-wrapper {
+    padding-top: 0;
+    margin-top: -1rem;
   }
   .hero-stands-image {
     border-radius: 15px;
+  }
+
+  .stat-card-animated {
+    padding: 1.25rem 0.5rem;
+  }
+
+  .stat-icon {
+    width: 100px;
+    height: 100px;
+    min-width: 100px;
+    min-height: 100px;
+    max-width: 100px;
+    max-height: 100px;
+    margin: 0 auto 0.5rem;
+  }
+
+  .stat-icon img {
+    width: 75px !important;
+    height: 75px !important;
   }
 
   .stat-number {
     font-size: 2.5rem;
   }
 
+  .feature-icon-large {
+    width: 100px;
+    height: 100px;
+    min-width: 100px;
+    min-height: 100px;
+    max-width: 100px;
+    max-height: 100px;
+  }
+
+  .feature-icon-large img {
+    width: 75px !important;
+    height: 75px !important;
+  }
+
+  .feature-title {
+    font-size: 1.1rem;
+  }
+
+  .feature-text {
+    font-size: 0.85rem;
+    line-height: 1.5;
+  }
+
   .feature-card-3d {
-    height: 300px;
+    height: 280px;
+  }
+
+  .feature-card-front {
+    padding: 1.5rem;
   }
 
   .process-timeline::before {
@@ -1090,4 +1221,29 @@
     margin-inline-end: 0;
     margin-inline-start: 12px;
   }
+}
+
+/* ========================================
+   CONTENT FADE IN
+   ======================================== */
+
+.hero-section,
+.partners-slider-section,
+.services-overview-section,
+.stats-section,
+.features-section,
+.process-section,
+.cta-section {
+  opacity: 0;
+  transition: opacity 0.6s ease;
+}
+
+.hero-section.content-loaded,
+.partners-slider-section.content-loaded,
+.services-overview-section.content-loaded,
+.stats-section.content-loaded,
+.features-section.content-loaded,
+.process-section.content-loaded,
+.cta-section.content-loaded {
+  opacity: 1;
 }

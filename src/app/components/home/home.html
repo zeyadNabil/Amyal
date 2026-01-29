@@ -1,9 +1,12 @@
+<!-- Shimmer Loader -->
+<app-shimmer-loader [layout]="'full-page'" [isLoading]="!isLoaded()" [itemCount]="8"></app-shimmer-loader>
+
 <!-- Hero Section -->
-<section id="home" class="hero-section">
+<section id="home" class="hero-section" [class.content-loaded]="isLoaded()">
   <div class="container">
-    <div class="hero-content">
+    <div class="row hero-content align-items-center">
       <!-- Left Side: Text Content -->
-      <div class="hero-text-content">
+      <div class="col-12 col-md-6 hero-text-content">
         <h1 class="hero-title">
           <span class="text-line">{{ langService.t('hero.title') }}</span>
           <span class="text-line gradient-text-animated">{{ langService.t('hero.titleGradient') }}</span>
@@ -21,7 +24,7 @@
       </div>
 
       <!-- Right Side: Stands Photo Image -->
-      <div class="hero-stands-image-wrapper">
+      <div class="col-12 col-md-6 hero-stands-image-wrapper">
         <img src="assets/images/Stands Photo.png" alt="Exhibition Stands" class="hero-stands-image">
       </div>
     </div>
@@ -29,7 +32,7 @@
 </section>
 
 <!-- Partners Slider Section -->
-<section class="partners-slider-section">
+<section class="partners-slider-section" [class.content-loaded]="isLoaded()">
   <div class="container">
     <div class="section-header scroll-reveal">
       <h2 class="section-title gradient-text-animated">{{ langService.t('nav.partners') }}</h2>
@@ -53,7 +56,7 @@
 </section>
 
 <!-- Services Overview Section -->
-<section id="services" class="services-overview-section">
+<section id="services" class="services-overview-section" [class.content-loaded]="isLoaded()">
   <div class="container">
     <div class="section-header scroll-reveal">
       <h2 class="section-title gradient-text-animated">{{ langService.t('nav.productsServices') }}</h2>
@@ -68,8 +71,7 @@
             <div class="service-icon">
               <!-- Use custom icons for all services -->
               <img [src]="getServiceIconPath(service.key)"
-                   [alt]="langService.t('nav.' + service.key)"
-                   style="width: 100%; height: 100%; object-fit: contain;">
+                   [alt]="langService.t('nav.' + service.key)">
             </div>
           </div>
           <h3 class="service-title gradient-text-animated">{{ langService.t('nav.' + service.key) }}</h3>
@@ -88,7 +90,7 @@
 </section>
 
 <!-- Stats Section with Animated Counters -->
-<section class="stats-section">
+<section class="stats-section" [class.content-loaded]="isLoaded()">
   <div class="container">
     <div class="stats-grid">
       @for (stat of stats; track stat.label; let i = $index) {
@@ -108,7 +110,7 @@
 </section>
 
 <!-- Features Section -->
-<section class="features-section">
+<section class="features-section" [class.content-loaded]="isLoaded()">
   <div class="container">
     <div class="section-header scroll-reveal">
       <h2 class="section-title gradient-text-animated">{{ langService.t('home.features.title') }}</h2>
@@ -133,7 +135,7 @@
 </section>
 
 <!-- Process/Workflow Section -->
-<section class="process-section">
+<section class="process-section" [class.content-loaded]="isLoaded()">
   <div class="container">
     <div class="section-header scroll-reveal">
       <h2 class="section-title gradient-text-animated">{{ langService.t('home.process.title') }}</h2>
@@ -155,7 +157,7 @@
 </section>
 
 <!-- CTA Section -->
-<section class="cta-section">
+<section class="cta-section" [class.content-loaded]="isLoaded()">
   <div class="container">
     <div class="cta-content scroll-reveal">
       <h2 class="cta-title gradient-text-animated">{{ langService.t('home.cta.title') }}</h2>

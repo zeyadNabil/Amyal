@@ -1,5 +1,8 @@
+<!-- Shimmer Loader -->
+<app-shimmer-loader [layout]="'gallery'" [isLoading]="!isLoaded()" [itemCount]="12"></app-shimmer-loader>
+
 <!-- Gallery Page -->
-<section class="gallery-page">
+<section class="gallery-page" [class.content-loaded]="isLoaded()">
   <div class="container">
     <!-- Gallery Header -->
     <div class="gallery-header scroll-reveal">

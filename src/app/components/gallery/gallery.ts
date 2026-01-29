@@ -2,10 +2,11 @@ import { Component, OnInit, OnDestroy, signal, effect } from '@angular/core';
 import { CommonModule, Location } from '@angular/common';
 import { LanguageService } from '../../services/language.service';
 import { SERVICE_IMAGES } from '../../constants/service-images.constant';
+import { ShimmerLoader } from '../shimmer-loader/shimmer-loader';
 
 @Component({
   selector: 'app-gallery',
-  imports: [CommonModule],
+  imports: [CommonModule, ShimmerLoader],
   templateUrl: './gallery.html',
   styleUrl: './gallery.css'
 })
@@ -60,7 +61,8 @@ export class Gallery implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    setTimeout(() => this.isLoaded.set(true), 100);
+    // Simulate loading time to show shimmer effect
+    setTimeout(() => this.isLoaded.set(true), 1500);
     this.initScrollAnimations();
     this.initImageAnimations();
     this.animateOnLoad();

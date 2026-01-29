@@ -1,5 +1,8 @@
+<!-- Shimmer Loader -->
+<app-shimmer-loader [layout]="'contact-form'" [isLoading]="!isLoaded()"></app-shimmer-loader>
+
 <!-- Contact Us Page -->
-<section class="contact-us-section">
+<section class="contact-us-section" [class.content-loaded]="isLoaded()">
   <div class="container">
     <div class="section-header scroll-reveal">
       <h1 class="section-title gradient-text gradient-text-animated fade-title fade-in-up" [class.fade-out]="titleFadeState() === 'fade-out'" [class.fade-in]="titleFadeState() === 'fade-in'" [class.visible]="titleFadeState() === 'visible'">
