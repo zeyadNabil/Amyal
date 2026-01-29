@@ -2,6 +2,7 @@ import { Component, OnInit, OnDestroy, AfterViewInit, signal, effect, HostListen
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute, RouterModule } from '@angular/router';
 import { LanguageService } from '../../services/language.service';
+import { SERVICE_IMAGES } from '../../constants/service-images.constant';
 
 // Add FontAwesome icons if not already imported
 
@@ -26,7 +27,7 @@ export class Services implements OnInit, OnDestroy, AfterViewInit {
   private touchStartX: number = 0;
   private touchEndX: number = 0;
   private minSwipeDistance: number = 50;
-  
+
   // Card slider state
   sliderOffset = signal(0);
   isDragging = signal(false);
@@ -52,61 +53,8 @@ export class Services implements OnInit, OnDestroy, AfterViewInit {
     'fabrication-manufacturing': 'fabricationManufacturing'
   };
 
-  // Image URLs for each service (using local gallery images) - 3 different images per service
-  serviceImages: { [key: string]: string[] } = {
-    'exhibition-stand': [
-      'assets/images/EXHIBITION STAND/aman service.jpeg',
-      'assets/images/EXHIBITION STAND/amcan.jpeg',
-      'assets/images/EXHIBITION STAND/canali.jpeg',
-      'assets/images/EXHIBITION STAND/cellucor.jpeg',
-      'assets/images/EXHIBITION STAND/mahawa.jpeg',
-      'assets/images/EXHIBITION STAND/nutrex.jpeg',
-      'assets/images/EXHIBITION STAND/orange&gold.jpeg',
-      'assets/images/EXHIBITION STAND/qimma.jpeg',
-      'assets/images/EXHIBITION STAND/redLight.jpeg',
-      'assets/images/EXHIBITION STAND/vision.jpeg',
-      'assets/images/EXHIBITION STAND/white&gold.jpeg'
-    ],
-    'exhibition-booth-design': [
-      'assets/images/sign board/elite.jpeg',
-      'assets/images/sign board/goldSign.jpeg',
-      'assets/images/sign board/jetour.jpeg',
-      'assets/images/sign board/marathon.jpeg',
-      'assets/images/sign board/neon.jpeg',
-      'assets/images/sign board/sour=st.jpeg',
-      'assets/images/sign board/uae.jpeg'
-    ],
-    'display-units-mall-kiosk': [
-      'assets/images/gallery/frame_8.jpg',
-      'assets/images/gallery/frame_9.jpg',
-      'assets/images/gallery/frame_10.jpg'
-    ],
-    'event-management': [
-      'assets/images/EVENT MANAGEMENT/EVENT MANAGEMENT.jpeg'
-    ],
-    'mall-activation': [
-      'assets/images/gallery/frame_14.jpg'
-    ],
-    'brand-ambassadors-event-hosts': [
-      'assets/images/BRAND AMBASSADORS & EVENT HOSTS/BRAND AMBASSADORS & EVENT HOSTS.jpeg'
-    ],
-    'av-service': [
-      'assets/images/gallery/frame_18.jpg',
-      'assets/images/gallery/frame_19.jpg',
-      'assets/images/gallery/frame_20.jpg'
-    ],
-    'vehicle-branding-wrapping': [
-      'assets/images/VEHICLE BRANDING & WRAPPING/car1.jpeg',
-      'assets/images/VEHICLE BRANDING & WRAPPING/car2.jpeg',
-      'assets/images/VEHICLE BRANDING & WRAPPING/car3.jpeg'
-    ],
-    'stickers-custom-prints': [
-      'assets/images/STICKERS & CUSTOM PRINTS/STICKERS & CUSTOM PRINTS.jpeg'
-    ],
-    'fabrication-manufacturing': [
-      'assets/images/FABRICATION & MANUFACTURING/MANUFACTURING.jpeg'
-    ]
-  };
+  // Image URLs for each service (using shared constant)
+  serviceImages: { [key: string]: string[] } = SERVICE_IMAGES;
 
   constructor(
     private route: ActivatedRoute,
@@ -159,14 +107,14 @@ export class Services implements OnInit, OnDestroy, AfterViewInit {
       setTimeout(() => {
         this.initScrollAnimations();
         this.initCardSlider();
-        
+
         // Ensure video is muted if it's Mall Activation
         if (serviceId === 'mall-activation') {
           this.enforceVideoMuted();
         }
       }, 100);
     });
-    
+
     // Add keyboard navigation for slider lightbox
     this.keyDownHandler = this.handleKeyDown.bind(this);
     if (this.keyDownHandler) {
@@ -178,7 +126,7 @@ export class Services implements OnInit, OnDestroy, AfterViewInit {
     // Initialize card slider after view is initialized
     setTimeout(() => {
       this.initCardSlider();
-      
+
       // Ensure video is muted for Mall Activation
       if (this.isMallActivation()) {
         this.enforceVideoMuted();
@@ -252,7 +200,7 @@ export class Services implements OnInit, OnDestroy, AfterViewInit {
       if (this.cardSliderElement?.nativeElement) {
         const container = this.cardSliderElement.nativeElement;
         const containerWidth = container.offsetWidth;
-        
+
         // Determine cards visible and gap based on screen size
         let cardsVisible = 3;
         if (window.innerWidth <= 576) {
@@ -266,16 +214,16 @@ export class Services implements OnInit, OnDestroy, AfterViewInit {
           this.gap = 30;
         }
         this.cardsVisible.set(cardsVisible);
-        
+
         // Calculate card width based on container and gap
         this.cardWidth = (containerWidth - (this.gap * (cardsVisible - 1))) / cardsVisible;
-        
+
         // Reset to first card if current index is out of bounds
         const maxIndex = Math.max(0, this.getServiceImages().length - cardsVisible);
         if (this.currentCardIndex() > maxIndex) {
           this.currentCardIndex.set(0);
         }
-        
+
         this.updateSliderPosition();
       }
     }, 100);
@@ -292,7 +240,7 @@ export class Services implements OnInit, OnDestroy, AfterViewInit {
     this.isDragging.set(true);
     this.dragStartX.set(event.clientX);
     this.dragCurrentX.set(event.clientX);
-    
+
     if (this.cardSliderElement?.nativeElement) {
       this.cardSliderElement.nativeElement.style.cursor = 'grabbing';
     }
@@ -300,16 +248,16 @@ export class Services implements OnInit, OnDestroy, AfterViewInit {
 
   onMouseMove(event: MouseEvent): void {
     if (!this.isDragging()) return;
-    
+
     event.preventDefault();
     this.dragCurrentX.set(event.clientX);
     const diff = this.dragStartX() - this.dragCurrentX();
     const newOffset = this.sliderOffset() - diff;
-    
+
     // Calculate bounds
     const maxOffset = 0;
     const minOffset = -((this.getServiceImages().length - this.cardsVisible()) * (this.cardWidth + this.gap));
-    
+
     // Clamp the offset
     const clampedOffset = Math.max(minOffset, Math.min(maxOffset, newOffset));
     this.sliderOffset.set(clampedOffset);
@@ -318,13 +266,13 @@ export class Services implements OnInit, OnDestroy, AfterViewInit {
 
   onMouseUp(event: MouseEvent): void {
     if (!this.isDragging()) return;
-    
+
     this.isDragging.set(false);
-    
+
     if (this.cardSliderElement?.nativeElement) {
       this.cardSliderElement.nativeElement.style.cursor = 'grab';
     }
-    
+
     // Snap to nearest card
     this.snapToNearestCard();
   }
@@ -340,16 +288,16 @@ export class Services implements OnInit, OnDestroy, AfterViewInit {
 
   onTouchMove(event: TouchEvent): void {
     if (!this.isDragging() || event.touches.length === 0) return;
-    
+
     event.preventDefault();
     this.dragCurrentX.set(event.touches[0].clientX);
     const diff = this.dragStartX() - this.dragCurrentX();
     const newOffset = this.sliderOffset() - diff;
-    
+
     // Calculate bounds
     const maxOffset = 0;
     const minOffset = -((this.getServiceImages().length - this.cardsVisible()) * (this.cardWidth + this.gap));
-    
+
     // Clamp the offset
     const clampedOffset = Math.max(minOffset, Math.min(maxOffset, newOffset));
     this.sliderOffset.set(clampedOffset);
@@ -358,7 +306,7 @@ export class Services implements OnInit, OnDestroy, AfterViewInit {
 
   onTouchEnd(event: TouchEvent): void {
     if (!this.isDragging()) return;
-    
+
     this.isDragging.set(false);
     this.snapToNearestCard();
   }
@@ -368,7 +316,7 @@ export class Services implements OnInit, OnDestroy, AfterViewInit {
     const currentIndex = Math.round(-this.sliderOffset() / cardStep);
     const maxIndex = Math.max(0, this.getServiceImages().length - this.cardsVisible());
     const clampedIndex = Math.max(0, Math.min(maxIndex, currentIndex));
-    
+
     this.currentCardIndex.set(clampedIndex);
     this.sliderOffset.set(-clampedIndex * cardStep);
   }
@@ -376,7 +324,7 @@ export class Services implements OnInit, OnDestroy, AfterViewInit {
   scrollCards(direction: 'prev' | 'next'): void {
     const cardStep = this.cardWidth + this.gap;
     const maxIndex = Math.max(0, this.getServiceImages().length - this.cardsVisible());
-    
+
     if (direction === 'next') {
       const nextIndex = Math.min(maxIndex, this.currentCardIndex() + 1);
       this.currentCardIndex.set(nextIndex);
@@ -404,12 +352,12 @@ export class Services implements OnInit, OnDestroy, AfterViewInit {
   getCardText(index: number): string {
     const features = this.getFeatures();
     const serviceKey = this.getServiceKey();
-    
+
     // If we have features, use them for card text
     if (features && features.length > index) {
       return features[index];
     }
-    
+
     // Fallback: create descriptive text based on service and index
     const serviceName = this.langService.t('nav.' + serviceKey) || this.serviceType();
     const descriptions: { [key: string]: string[] } = {
@@ -459,12 +407,12 @@ export class Services implements OnInit, OnDestroy, AfterViewInit {
         'Expert craftsmanship bringing your design concepts to reality'
       ]
     };
-    
+
     const serviceDescriptions = descriptions[serviceKey] || [];
     if (serviceDescriptions.length > index) {
       return serviceDescriptions[index];
     }
-    
+
     // Final fallback
     return `${serviceName} - Premium quality service ${index + 1}`;
   }
@@ -502,7 +450,7 @@ export class Services implements OnInit, OnDestroy, AfterViewInit {
     if (this.fadeTimeout) {
       clearTimeout(this.fadeTimeout);
     }
-    
+
     // Remove keyboard listener
     if (this.keyDownHandler) {
       document.removeEventListener('keydown', this.keyDownHandler);
@@ -640,14 +588,14 @@ export class Services implements OnInit, OnDestroy, AfterViewInit {
   private differentIcons: string[] = [
     'fa-star',
     'fa-crown',
-    'fa-diamond',
+    'fa-gem',
     'fa-bolt',
-    'fa-flash',
+    'fa-rocket',
     'fa-gem',
     'fa-fire',
     'fa-sun',
     'fa-moon',
-    'fa-meteor'
+    'fa-certificate'
   ];
 
   private deliverIcons: string[] = [
@@ -769,19 +717,19 @@ export class Services implements OnInit, OnDestroy, AfterViewInit {
     // For slider images, open in lightbox
     const sliderImages = this.getServiceImages();
     const index = sliderImages.indexOf(imageSrc);
-    
+
     if (index !== -1 && sliderImages.length > 0) {
       // This is a slider image - open in lightbox
       this.sliderImagesForLightbox = sliderImages;
       this.currentSliderImageIndex.set(index);
       this.isSliderLightboxOpen.set(true);
       document.body.style.overflow = 'hidden';
-      
+
       // Hide navbar, back-to-top, and chat widget
       const navbar = document.getElementById('mainNav');
       const backToTop = document.querySelector('.back-to-top-btn') as HTMLElement;
       const chatWidget = document.querySelector('.chat-widget-container') as HTMLElement;
-      
+
       if (navbar) navbar.style.display = 'none';
       if (backToTop) backToTop.style.display = 'none';
       if (chatWidget) chatWidget.style.display = 'none';
@@ -794,12 +742,12 @@ export class Services implements OnInit, OnDestroy, AfterViewInit {
   closeSliderLightbox(): void {
     this.isSliderLightboxOpen.set(false);
     document.body.style.overflow = '';
-    
+
     // Show navbar, back-to-top, and chat widget again
     const navbar = document.getElementById('mainNav');
     const backToTop = document.querySelector('.back-to-top-btn') as HTMLElement;
     const chatWidget = document.querySelector('.chat-widget-container') as HTMLElement;
-    
+
     if (navbar) navbar.style.display = '';
     if (backToTop) backToTop.style.display = '';
     if (chatWidget) chatWidget.style.display = '';

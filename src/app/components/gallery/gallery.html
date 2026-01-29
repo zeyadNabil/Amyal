@@ -13,345 +13,51 @@
 
     <!-- Gallery Grid -->
     <div class="gallery-grid">
-      <!-- Row 1: Large horizontal -->
-      <div class="gallery-item large-horizontal fade-in-up scroll-reveal" (click)="openImage('assets/images/gallery/frame_30.jpg')">
-        <div class="gallery-image-wrapper">
-          <img src="assets/images/gallery/frame_30.jpg" alt="Exhibition Stand" class="gallery-image">
-          <div class="galaxy-overlay"></div>
-          <div class="gallery-overlay">
-            <div class="gallery-info">
-              <h3 class="gallery-item-title">{{ langService.t('gallery.items.exhibitionStand.title') }}</h3>
-              <p class="gallery-item-category">{{ langService.t('gallery.items.exhibitionStand.category') }}</p>
+      <!-- Dynamically generate gallery items from service images -->
+      @for (image of galleryImages; track image; let i = $index) {
+        <div
+          class="gallery-item fade-in-up scroll-reveal"
+          [class.large-horizontal]="i % 7 === 0"
+          [class.vertical]="i % 7 === 1 || i % 7 === 2"
+          [class.medium-horizontal]="i % 7 === 3 || i % 7 === 4"
+          [class.medium-vertical]="i % 7 === 5 || i % 7 === 6"
+          (click)="openImage(image)">
+          <div class="gallery-image-wrapper">
+            <img [src]="image" [alt]="'Gallery Image ' + (i + 1)" class="gallery-image">
+            <div class="galaxy-overlay"></div>
+            <div class="gallery-overlay">
+              <div class="gallery-info">
+                <h3 class="gallery-item-title">Image {{ i + 1 }}</h3>
+                <p class="gallery-item-category">Gallery</p>
+              </div>
             </div>
           </div>
         </div>
-      </div>
+      }
 
-      <!-- Row 1: Two vertical items -->
-      <div class="gallery-item vertical fade-in-up scroll-reveal" (click)="openImage('assets/images/gallery/frame_31.jpg')">
-        <div class="gallery-image-wrapper">
-          <img src="assets/images/gallery/frame_31.jpg" alt="Event Production" class="gallery-image">
-          <div class="galaxy-overlay"></div>
-          <div class="gallery-overlay">
-            <div class="gallery-info">
-              <h3 class="gallery-item-title">{{ langService.t('gallery.items.eventProduction.title') }}</h3>
-              <p class="gallery-item-category">{{ langService.t('gallery.items.eventProduction.category') }}</p>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="gallery-item vertical fade-in-up scroll-reveal" (click)="openImage('assets/images/gallery/frame_32.jpg')">
-        <div class="gallery-image-wrapper">
-          <img src="assets/images/gallery/frame_32.jpg" alt="Branding Solutions" class="gallery-image">
-          <div class="galaxy-overlay"></div>
-          <div class="gallery-overlay">
-            <div class="gallery-info">
-              <h3 class="gallery-item-title">{{ langService.t('gallery.items.brandingSolutions.title') }}</h3>
-              <p class="gallery-item-category">{{ langService.t('gallery.items.brandingSolutions.category') }}</p>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Row 2: Medium horizontal items -->
-      <div class="gallery-item medium-horizontal fade-in-up scroll-reveal" (click)="openImage('assets/images/gallery/frame_33.jpg')">
-        <div class="gallery-image-wrapper">
-          <img src="assets/images/gallery/frame_33.jpg" alt="Custom Fabrication" class="gallery-image">
-          <div class="galaxy-overlay"></div>
-          <div class="gallery-overlay">
-            <div class="gallery-info">
-              <h3 class="gallery-item-title">{{ langService.t('gallery.items.customFabrication.title') }}</h3>
-              <p class="gallery-item-category">{{ langService.t('gallery.items.customFabrication.category') }}</p>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="gallery-item medium-horizontal fade-in-up scroll-reveal" (click)="openImage('assets/images/gallery/frame_34.jpg')">
-        <div class="gallery-image-wrapper">
-          <img src="assets/images/gallery/frame_34.jpg" alt="Display Units" class="gallery-image">
-          <div class="galaxy-overlay"></div>
-          <div class="gallery-overlay">
-            <div class="gallery-info">
-              <h3 class="gallery-item-title">{{ langService.t('gallery.items.displayUnits.title') }}</h3>
-              <p class="gallery-item-category">{{ langService.t('gallery.items.displayUnits.category') }}</p>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Row 3: Vertical and horizontal mix -->
-      <div class="gallery-item vertical fade-in-up scroll-reveal" (click)="openImage('assets/images/gallery/frame_35.jpg')">
-        <div class="gallery-image-wrapper">
-          <img src="assets/images/gallery/frame_35.jpg" alt="AV Services" class="gallery-image">
-          <div class="galaxy-overlay"></div>
-          <div class="gallery-overlay">
-            <div class="gallery-info">
-              <h3 class="gallery-item-title">{{ langService.t('gallery.items.avServices.title') }}</h3>
-              <p class="gallery-item-category">{{ langService.t('gallery.items.avServices.category') }}</p>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="gallery-item large-horizontal fade-in-up scroll-reveal" (click)="openImage('assets/images/gallery/frame_36.jpg')">
-        <div class="gallery-image-wrapper">
-          <img src="assets/images/gallery/frame_36.jpg" alt="Vehicle Branding" class="gallery-image">
-          <div class="galaxy-overlay"></div>
-          <div class="gallery-overlay">
-            <div class="gallery-info">
-              <h3 class="gallery-item-title">{{ langService.t('gallery.items.vehicleBranding.title') }}</h3>
-              <p class="gallery-item-category">{{ langService.t('gallery.items.vehicleBranding.category') }}</p>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Row 4: Three medium items -->
-      <div class="gallery-item medium-vertical fade-in-up scroll-reveal" (click)="openImage('assets/images/gallery/mahawa_1.jpg')">
-        <div class="gallery-image-wrapper">
-          <img src="assets/images/gallery/mahawa_1.jpg" alt="Stickers & Prints" class="gallery-image">
-          <div class="galaxy-overlay"></div>
-          <div class="gallery-overlay">
-            <div class="gallery-info">
-              <h3 class="gallery-item-title">{{ langService.t('gallery.items.stickersPrints.title') }}</h3>
-              <p class="gallery-item-category">{{ langService.t('gallery.items.stickersPrints.category') }}</p>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="gallery-item medium-vertical fade-in-up scroll-reveal" (click)="openImage('assets/images/gallery/mahawa_2.jpg')">
-        <div class="gallery-image-wrapper">
-          <img src="assets/images/gallery/mahawa_2.jpg" alt="Booth Design" class="gallery-image">
-          <div class="galaxy-overlay"></div>
-          <div class="gallery-overlay">
-            <div class="gallery-info">
-              <h3 class="gallery-item-title">{{ langService.t('gallery.items.boothDesign.title') }}</h3>
-              <p class="gallery-item-category">{{ langService.t('gallery.items.boothDesign.category') }}</p>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="gallery-item medium-vertical fade-in-up scroll-reveal" (click)="openImage('assets/images/gallery/mahawa_3.jpg')">
-        <div class="gallery-image-wrapper">
-          <img src="assets/images/gallery/mahawa_3.jpg" alt="Event Management" class="gallery-image">
-          <div class="galaxy-overlay"></div>
-          <div class="gallery-overlay">
-            <div class="gallery-info">
-              <h3 class="gallery-item-title">{{ langService.t('gallery.items.eventManagement.title') }}</h3>
-              <p class="gallery-item-category">{{ langService.t('gallery.items.eventManagement.category') }}</p>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Row 5: Large horizontal and vertical -->
-      <div class="gallery-item large-horizontal fade-in-up scroll-reveal" (click)="openImage('assets/images/gallery/mahawa_4.jpg')">
-        <div class="gallery-image-wrapper">
-          <img src="assets/images/gallery/mahawa_4.jpg" alt="Exhibition Hall" class="gallery-image">
-          <div class="galaxy-overlay"></div>
-          <div class="gallery-overlay">
-            <div class="gallery-info">
-              <h3 class="gallery-item-title">{{ langService.t('gallery.items.exhibitionHall.title') }}</h3>
-              <p class="gallery-item-category">{{ langService.t('gallery.items.exhibitionHall.category') }}</p>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="gallery-item vertical fade-in-up scroll-reveal" (click)="openImage('assets/images/gallery/mahawa_5.jpg')">
-        <div class="gallery-image-wrapper">
-          <img src="assets/images/gallery/mahawa_5.jpg" alt="Brand Activation" class="gallery-image">
-          <div class="galaxy-overlay"></div>
-          <div class="gallery-overlay">
-            <div class="gallery-info">
-              <h3 class="gallery-item-title">{{ langService.t('gallery.items.brandActivation.title') }}</h3>
-              <p class="gallery-item-category">{{ langService.t('gallery.items.brandActivation.category') }}</p>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Row 6: Mixed sizes -->
-      <div class="gallery-item vertical fade-in-up scroll-reveal" (click)="openImage('assets/images/gallery/mahawa_6.jpg')">
-        <div class="gallery-image-wrapper">
-          <img src="assets/images/gallery/mahawa_6.jpg" alt="Corporate Event" class="gallery-image">
-          <div class="galaxy-overlay"></div>
-          <div class="gallery-overlay">
-            <div class="gallery-info">
-              <h3 class="gallery-item-title">{{ langService.t('gallery.items.corporateEvent.title') }}</h3>
-              <p class="gallery-item-category">{{ langService.t('gallery.items.corporateEvent.category') }}</p>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="gallery-item medium-horizontal fade-in-up scroll-reveal" (click)="openImage('assets/images/gallery/mahawa_7.jpg')">
-        <div class="gallery-image-wrapper">
-          <img src="assets/images/gallery/mahawa_7.jpg" alt="Retail Display" class="gallery-image">
-          <div class="galaxy-overlay"></div>
-          <div class="gallery-overlay">
-            <div class="gallery-info">
-              <h3 class="gallery-item-title">{{ langService.t('gallery.items.retailDisplay.title') }}</h3>
-              <p class="gallery-item-category">{{ langService.t('gallery.items.retailDisplay.category') }}</p>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="gallery-item medium-vertical fade-in-up scroll-reveal">
-        <div class="gallery-image-wrapper">
-          <img src="assets/images/gallery/mahawa_8.jpg" alt="Fabrication Workshop" class="gallery-image">
-          <div class="gallery-overlay">
-            <div class="gallery-info">
-              <h3 class="gallery-item-title">{{ langService.t('gallery.items.fabricationWorkshop.title') }}</h3>
-              <p class="gallery-item-category">{{ langService.t('gallery.items.fabricationWorkshop.category') }}</p>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Additional Images to Fill Empty Spaces -->
-      <div class="gallery-item medium-horizontal fade-in-up scroll-reveal" (click)="openImage('assets/images/gallery/mahawa_9.jpg')">
-        <div class="gallery-image-wrapper">
-          <img src="assets/images/gallery/mahawa_9.jpg" alt="Conference Setup" class="gallery-image">
-          <div class="galaxy-overlay"></div>
-          <div class="gallery-overlay">
-            <div class="gallery-info">
-              <h3 class="gallery-item-title">{{ langService.t('gallery.items.conferenceSetup.title') }}</h3>
-              <p class="gallery-item-category">{{ langService.t('gallery.items.conferenceSetup.category') }}</p>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="gallery-item medium-vertical fade-in-up scroll-reveal" (click)="openImage('assets/images/gallery/mahawa_10.jpg')">
-        <div class="gallery-image-wrapper">
-          <img src="assets/images/gallery/mahawa_10.jpg" alt="Stage Design" class="gallery-image">
-          <div class="galaxy-overlay"></div>
-          <div class="gallery-overlay">
-            <div class="gallery-info">
-              <h3 class="gallery-item-title">{{ langService.t('gallery.items.stageDesign.title') }}</h3>
-              <p class="gallery-item-category">{{ langService.t('gallery.items.stageDesign.category') }}</p>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="gallery-item medium-vertical fade-in-up scroll-reveal" (click)="openImage('assets/images/gallery/mahawa_11.jpg')">
-        <div class="gallery-image-wrapper">
-          <img src="assets/images/gallery/mahawa_11.jpg" alt="Lighting Design" class="gallery-image">
-          <div class="galaxy-overlay"></div>
-          <div class="gallery-overlay">
-            <div class="gallery-info">
-              <h3 class="gallery-item-title">{{ langService.t('gallery.items.lightingDesign.title') }}</h3>
-              <p class="gallery-item-category">{{ langService.t('gallery.items.lightingDesign.category') }}</p>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="gallery-item large-horizontal fade-in-up scroll-reveal" (click)="openImage('assets/images/gallery/mahawa_12.jpg')">
-        <div class="gallery-image-wrapper">
-          <img src="assets/images/gallery/mahawa_12.jpg" alt="Trade Show Booth" class="gallery-image">
-          <div class="galaxy-overlay"></div>
-          <div class="gallery-overlay">
-            <div class="gallery-info">
-              <h3 class="gallery-item-title">{{ langService.t('gallery.items.tradeShowBooth.title') }}</h3>
-              <p class="gallery-item-category">{{ langService.t('gallery.items.tradeShowBooth.category') }}</p>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="gallery-item vertical fade-in-up scroll-reveal" (click)="openImage('assets/images/gallery/mahawa_13.jpg')">
-        <div class="gallery-image-wrapper">
-          <img src="assets/images/gallery/mahawa_13.jpg" alt="Product Launch" class="gallery-image">
-          <div class="galaxy-overlay"></div>
-          <div class="gallery-overlay">
-            <div class="gallery-info">
-              <h3 class="gallery-item-title">{{ langService.t('gallery.items.productLaunch.title') }}</h3>
-              <p class="gallery-item-category">{{ langService.t('gallery.items.productLaunch.category') }}</p>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="gallery-item medium-horizontal fade-in-up scroll-reveal" (click)="openImage('assets/images/gallery/mahawa_14.jpg')">
-        <div class="gallery-image-wrapper">
-          <img src="assets/images/gallery/mahawa_14.jpg" alt="Digital Signage" class="gallery-image">
-          <div class="galaxy-overlay"></div>
-          <div class="gallery-overlay">
-            <div class="gallery-info">
-              <h3 class="gallery-item-title">{{ langService.t('gallery.items.digitalSignage.title') }}</h3>
-              <p class="gallery-item-category">{{ langService.t('gallery.items.digitalSignage.category') }}</p>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="gallery-item medium-vertical fade-in-up scroll-reveal" (click)="openImage('assets/images/gallery/54eid_etihad.jpg')">
-        <div class="gallery-image-wrapper">
-          <img src="assets/images/gallery/54eid_etihad.jpg" alt="Installation Services" class="gallery-image">
-          <div class="galaxy-overlay"></div>
-          <div class="gallery-overlay">
-            <div class="gallery-info">
-              <h3 class="gallery-item-title">{{ langService.t('gallery.items.installationServices.title') }}</h3>
-              <p class="gallery-item-category">{{ langService.t('gallery.items.installationServices.category') }}</p>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="gallery-item medium-horizontal fade-in-up scroll-reveal" (click)="openImage('assets/images/gallery/54uae.jpg')">
-        <div class="gallery-image-wrapper">
-          <img src="assets/images/gallery/54uae.jpg" alt="VIP Lounge" class="gallery-image">
-          <div class="galaxy-overlay"></div>
-          <div class="gallery-overlay">
-            <div class="gallery-info">
-              <h3 class="gallery-item-title">{{ langService.t('gallery.items.vipLounge.title') }}</h3>
-              <p class="gallery-item-category">{{ langService.t('gallery.items.vipLounge.category') }}</p>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="gallery-item vertical fade-in-up scroll-reveal" (click)="openImage('assets/images/gallery/adcoap.jpg')">
-        <div class="gallery-image-wrapper">
-          <img src="assets/images/gallery/adcoap.jpg" alt="Award Ceremony" class="gallery-image">
-          <div class="galaxy-overlay"></div>
-          <div class="gallery-overlay">
-            <div class="gallery-info">
-              <h3 class="gallery-item-title">{{ langService.t('gallery.items.awardCeremony.title') }}</h3>
-              <p class="gallery-item-category">{{ langService.t('gallery.items.awardCeremony.category') }}</p>
-            </div>
-          </div>
-        </div>
-      </div>
     </div>
   </div>
 
   <!-- Lightbox Modal -->
-  <div class="lightbox-overlay" *ngIf="isLightboxOpen()" (click)="closeLightbox()">
-    <div class="lightbox-container" (click)="$event.stopPropagation()">
-      <button class="lightbox-close" (click)="closeLightbox()" aria-label="Close lightbox">
-        <i class="fas fa-times"></i>
-      </button>
-      <button class="lightbox-nav lightbox-prev" (click)="prevImage()" aria-label="Previous image">
-        <i class="fas fa-chevron-left"></i>
-      </button>
-      <button class="lightbox-nav lightbox-next" (click)="nextImage()" aria-label="Next image">
-        <i class="fas fa-chevron-right"></i>
-      </button>
-      <div class="lightbox-image-wrapper">
-        <img [src]="getCurrentImage()" alt="Gallery Image" class="lightbox-image">
-      </div>
-      <div class="lightbox-counter">
-        {{ currentImageIndex() + 1 }} / {{ galleryImages.length }}
+  @if (isLightboxOpen()) {
+    <div class="lightbox-overlay" (click)="closeLightbox()">
+      <div class="lightbox-container" (click)="$event.stopPropagation()">
+        <button class="lightbox-close" (click)="closeLightbox()" aria-label="Close lightbox">
+          <i class="fas fa-times"></i>
+        </button>
+        <button class="lightbox-nav lightbox-prev" (click)="prevImage()" aria-label="Previous image">
+          <i class="fas fa-chevron-left"></i>
+        </button>
+        <button class="lightbox-nav lightbox-next" (click)="nextImage()" aria-label="Next image">
+          <i class="fas fa-chevron-right"></i>
+        </button>
+        <div class="lightbox-image-wrapper">
+          <img [src]="getCurrentImage()" alt="Gallery Image" class="lightbox-image">
+        </div>
+        <div class="lightbox-counter">
+          {{ currentImageIndex() + 1 }} / {{ galleryImages.length }}
+        </div>
       </div>
     </div>
-  </div>
+  }
 </section>

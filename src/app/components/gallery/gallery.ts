@@ -1,6 +1,7 @@
 import { Component, OnInit, OnDestroy, signal, effect } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { LanguageService } from '../../services/language.service';
+import { SERVICE_IMAGES } from '../../constants/service-images.constant';
 
 @Component({
   selector: 'app-gallery',
@@ -21,33 +22,26 @@ export class Gallery implements OnInit, OnDestroy {
   isLightboxOpen = signal(false);
   currentImageIndex = signal(0);
   
-  // All gallery images in order
-  galleryImages = [
-    'assets/images/gallery/frame_30.jpg',
-    'assets/images/gallery/frame_31.jpg',
-    'assets/images/gallery/frame_32.jpg',
-    'assets/images/gallery/frame_33.jpg',
-    'assets/images/gallery/frame_34.jpg',
-    'assets/images/gallery/frame_35.jpg',
-    'assets/images/gallery/frame_36.jpg',
-    'assets/images/gallery/mahawa_1.jpg',
-    'assets/images/gallery/mahawa_2.jpg',
-    'assets/images/gallery/mahawa_3.jpg',
-    'assets/images/gallery/mahawa_4.jpg',
-    'assets/images/gallery/mahawa_5.jpg',
-    'assets/images/gallery/mahawa_6.jpg',
-    'assets/images/gallery/mahawa_7.jpg',
-    'assets/images/gallery/mahawa_8.jpg',
-    'assets/images/gallery/mahawa_9.jpg',
-    'assets/images/gallery/mahawa_10.jpg',
-    'assets/images/gallery/mahawa_11.jpg',
-    'assets/images/gallery/mahawa_12.jpg',
-    'assets/images/gallery/mahawa_13.jpg',
-    'assets/images/gallery/mahawa_14.jpg',
-    'assets/images/gallery/54eid_etihad.jpg',
-    'assets/images/gallery/54uae.jpg',
-    'assets/images/gallery/adcoap.jpg'
+  // Images to exclude from gallery (but keep in services)
+  private excludedImages: string[] = [
+    'assets/images/gallery/frame_9.jpg',           // index 19
+    'assets/images/gallery/frame_10.jpg',          // index 20
+    'assets/images/EVENT MANAGEMENT/EVENT MANAGEMENT.jpeg', // index 21
+    'assets/images/BRAND AMBASSADORS & EVENT HOSTS/BRAND AMBASSADORS & EVENT HOSTS.jpeg', // index 23
+    'assets/images/gallery/frame_19.jpg',          // index 25
+    'assets/images/gallery/frame_20.jpg',          // index 26
+    'assets/images/VEHICLE BRANDING & WRAPPING/car1.jpeg' // index 27
   ];
+
+  // Collect all images from all services (using shared constant), excluding specified images
+  get galleryImages(): string[] {
+    const allImages: string[] = [];
+    Object.values(SERVICE_IMAGES).forEach(images => {
+      allImages.push(...images);
+    });
+    // Filter out excluded images
+    return allImages.filter(image => !this.excludedImages.includes(image));
+  }
 
   constructor(public langService: LanguageService) {
     // Watch for language changes and restart fade animation

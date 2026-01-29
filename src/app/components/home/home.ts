@@ -49,8 +49,7 @@ export class Home implements OnInit {
       { key: 'brandAmbassadorsEventHosts', description: this.langService.t('home.services.brandAmbassadorsEventHostsDesc') },
       { key: 'avService', description: this.langService.t('home.services.avServiceDesc') },
       { key: 'vehicleBrandingWrapping', description: this.langService.t('home.services.vehicleBrandingWrappingDesc') },
-      { key: 'stickersCustomPrints', description: this.langService.t('home.services.stickersCustomPrintsDesc') },
-      { key: 'fabricationManufacturing', description: this.langService.t('home.services.fabricationManufacturingDesc') }
+      { key: 'stickersCustomPrints', description: this.langService.t('home.services.stickersCustomPrintsDesc') }
     ];
 
     // Update stats
@@ -73,10 +72,12 @@ export class Home implements OnInit {
 
     // Update gallery items
     this.galleryItems = [
-      { image: 'assets/images/gallery/frame_1.jpg', title: this.langService.t('gallery.items.exhibitionStand.title'), category: this.langService.t('gallery.items.exhibitionStand.category') },
-      { image: 'assets/images/gallery/frame_2.jpg', title: this.langService.t('gallery.items.eventProduction.title'), category: this.langService.t('gallery.items.eventProduction.category') },
-      { image: 'assets/images/gallery/frame_3.jpg', title: this.langService.t('gallery.items.brandingSolutions.title'), category: this.langService.t('gallery.items.brandingSolutions.category') },
-      { image: 'assets/images/gallery/frame_4.jpg', title: this.langService.t('gallery.items.customFabrication.title'), category: this.langService.t('gallery.items.customFabrication.category') }
+      { image: 'assets/images/EXHIBITION STAND/canali.jpeg', title: this.langService.t('gallery.items.exhibitionStand.title'), category: this.langService.t('gallery.items.exhibitionStand.category') },
+      { image: 'assets/images/EXHIBITION STAND/cellucor.jpeg', title: this.langService.t('gallery.items.exhibitionStand.title'), category: this.langService.t('gallery.items.exhibitionStand.category') },
+      { image: 'assets/images/sign board/elite.jpeg', title: this.langService.t('gallery.items.eventProduction.title'), category: this.langService.t('gallery.items.eventProduction.category') },
+      { image: 'assets/images/DISPLAY UNITS AND MALL KIOSK/DISPLAY UNITS AND MALL KIOSK.jpeg', title: this.langService.t('gallery.items.brandingSolutions.title'), category: this.langService.t('gallery.items.brandingSolutions.category') },
+      { image: 'assets/images/VEHICLE BRANDING & WRAPPING/car2.jpeg', title: this.langService.t('gallery.items.customFabrication.title'), category: this.langService.t('gallery.items.customFabrication.category') },
+      { image: 'assets/images/STICKERS & CUSTOM PRINTS/STICKERS & CUSTOM PRINTS.jpeg', title: this.langService.t('gallery.items.exhibitionStand.title'), category: this.langService.t('gallery.items.exhibitionStand.category') }
     ];
 
     // Update process steps
@@ -89,22 +90,16 @@ export class Home implements OnInit {
 
     // Update partners
     this.partners = [
-      { logo: 'assets/images/Amyal PNG Partners/573521118_18541182556065137_6745484161360848157_n-Photoroom.png', name: 'Partner 1' },
-      { logo: 'assets/images/Amyal PNG Partners/ADSB.png-Photoroom.png', name: 'ADSB' },
-      { logo: 'assets/images/Amyal PNG Partners/baniyas-sc-seeklogo.png', name: 'Baniyas SC' },
-      { logo: 'assets/images/Amyal PNG Partners/bawabat-alsharq-mall-logo.png', name: 'Bawabat Alsharq Mall' },
-      { logo: 'assets/images/Amyal PNG Partners/brand.png', name: 'Brand' },
-      { logo: 'assets/images/Amyal PNG Partners/craiyon.png', name: 'Craiyon' },
-      { logo: 'assets/images/Amyal PNG Partners/dubai-sports-council-thumb.png', name: 'Dubai Sports Council' },
-      { logo: 'assets/images/Amyal PNG Partners/emirates center for strategic studies and research.png', name: 'Emirates Center' },
-      { logo: 'assets/images/Amyal PNG Partners/logo-en.png', name: 'Logo' },
-      { logo: 'assets/images/Amyal PNG Partners/Makani.png', name: 'Makani' },
-      { logo: 'assets/images/Amyal PNG Partners/Ministry-of-Human-Resources-&-Emiratisation-.png', name: 'Ministry of Human Resources' },
-      { logo: 'assets/images/Amyal PNG Partners/MOCCAE_Horizontal-en.png', name: 'MOCCAE' },
-      { logo: 'assets/images/Amyal PNG Partners/MOET_Horizontal_RGB_A.png', name: 'MOET' },
-      { logo: 'assets/images/Amyal PNG Partners/mofaicuaelogo.png', name: 'MOFAIC UAE' },
-      { logo: 'assets/images/Amyal PNG Partners/SAAS properties.png', name: 'SAAS Properties' },
-      { logo: 'assets/images/Amyal PNG Partners/umex_and_simtex.png', name: 'UMEX & Simtex' }
+      { logo: 'assets/images/Partners White Text Without Background/baniyas-sc-seeklogo.png', name: 'Baniyas SC' },
+      { logo: 'assets/images/Partners White Text Without Background/craiyon_upscaled.png', name: 'Craiyon' },
+      { logo: 'assets/images/Partners White Text Without Background/emirates center for strategic studies and research_upscaled.png', name: 'Emirates Center' },
+      { logo: 'assets/images/Partners White Text Without Background/logo-en_upscaled.png', name: 'Logo' },
+      { logo: 'assets/images/Partners White Text Without Background/Mair_upscaled.png', name: 'Mair' },
+      { logo: 'assets/images/Partners White Text Without Background/Makani_upscaled.png', name: 'Makani' },
+      { logo: 'assets/images/Partners White Text Without Background/Ministry-of-Human-Resources-&-Emiratisation-_upscaled.png', name: 'Ministry of Human Resources' },
+      { logo: 'assets/images/Partners White Text Without Background/mofaicuaelogo_upscaled.png', name: 'MOFAIC UAE' },
+      { logo: 'assets/images/Partners White Text Without Background/SAAS properties_upscaled.png', name: 'SAAS Properties' },
+      { logo: 'assets/images/Partners White Text Without Background/umex_and_simtex_upscaled.png', name: 'UMEX & Simtex' }
     ];
   }
 
@@ -203,7 +198,7 @@ export class Home implements OnInit {
   animateCounters(): void {
     // Stop any existing animations first
     this.stopCounterAnimations();
-    
+
     const counters = document.querySelectorAll('.stat-number');
 
     counters.forEach(counter => {
@@ -222,7 +217,7 @@ export class Home implements OnInit {
         }
         counter.textContent = Math.floor(current).toString();
       }, stepTime);
-      
+
       // Store the timer so we can clear it later
       this.counterTimers.set(counter, timer);
     });
@@ -273,6 +268,22 @@ export class Home implements OnInit {
       'fabricationManufacturing': 'fa-cogs'
     };
     return icons[key] || 'fa-star';
+  }
+
+  getServiceIconPath(key: string): string {
+    // Map service keys to their custom icon paths
+    const iconPaths: { [key: string]: string } = {
+      'exhibitionStand': 'assets/images/Icons/ExhibitionStand.png',
+      'exhibitionBoothDesign': 'assets/images/Icons/signBoard.png',
+      'displayUnitsMallKiosk': 'assets/images/Icons/displayUnit.png',
+      'eventManagement': 'assets/images/Icons/event_managment.png',
+      'brandAmbassadorsEventHosts': 'assets/images/Icons/brand.png',
+      'avService': 'assets/images/Icons/avService.png',
+      'vehicleBrandingWrapping': 'assets/images/Icons/car.png',
+      'stickersCustomPrints': 'assets/images/Icons/stickers.png',
+      'fabricationManufacturing': 'assets/images/Icons/ExhibitionStand.png'
+    };
+    return iconPaths[key] || 'assets/images/Icons/ExhibitionStand.png';
   }
 
   getServiceRoute(key: string): string {

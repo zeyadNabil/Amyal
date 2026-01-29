@@ -22,7 +22,7 @@
 
       <!-- Right Side: Stands Photo Image -->
       <div class="hero-stands-image-wrapper">
-        <img src="assets/images/Stands Photo.jpeg" alt="Exhibition Stands" class="hero-stands-image">
+        <img src="assets/images/Stands Photo.png" alt="Exhibition Stands" class="hero-stands-image">
       </div>
     </div>
   </div>
@@ -37,13 +37,17 @@
   </div>
   <div class="partners-slider-container">
     <div class="partners-slider-track">
-      <div class="partners-slider-item" *ngFor="let partner of partners">
-        <img [src]="partner.logo" [alt]="partner.name" class="partner-logo">
-      </div>
+      @for (partner of partners; track partner.name) {
+        <div class="partners-slider-item">
+          <img [src]="partner.logo" [alt]="partner.name" class="partner-logo">
+        </div>
+      }
       <!-- Duplicate for seamless loop -->
-      <div class="partners-slider-item" *ngFor="let partner of partners">
-        <img [src]="partner.logo" [alt]="partner.name" class="partner-logo">
-      </div>
+      @for (partner of partners; track partner.name) {
+        <div class="partners-slider-item">
+          <img [src]="partner.logo" [alt]="partner.name" class="partner-logo">
+        </div>
+      }
     </div>
   </div>
 </section>
@@ -57,10 +61,16 @@
     </div>
 
     <div class="services-grid">
-      <div class="service-card-animated scroll-reveal" *ngFor="let service of services; let i = index" [style.--delay]="i * 0.1 + 's'">
-        <div class="service-card-inner">
+      @for (service of services; track service.key; let i = $index) {
+        <div class="service-card-animated scroll-reveal" [style.--delay]="i * 0.1 + 's'">
+          <div class="service-card-inner">
           <div class="service-icon-wrapper">
-            <div class="service-icon"><i [class]="'fas ' + getServiceIcon(service.key)"></i></div>
+            <div class="service-icon">
+              <!-- Use custom icons for all services -->
+              <img [src]="getServiceIconPath(service.key)"
+                   [alt]="langService.t('nav.' + service.key)"
+                   style="width: 100%; height: 100%; object-fit: contain;">
+            </div>
           </div>
           <h3 class="service-title gradient-text-animated">{{ langService.t('nav.' + service.key) }}</h3>
           <p class="service-description">{{ service.description }}</p>
@@ -71,7 +81,8 @@
             </svg>
           </a>
         </div>
-      </div>
+        </div>
+      }
     </div>
   </div>
 </section>
@@ -80,14 +91,16 @@
 <section class="stats-section">
   <div class="container">
     <div class="stats-grid">
-      <div class="stat-card-animated scroll-reveal" *ngFor="let stat of stats; let i = index">
-        <div class="stat-icon"><i [class]="'fas ' + stat.icon"></i></div>
-        <div class="stat-number-wrapper">
-          <span class="stat-number" [attr.data-target]="stat.value">{{ stat.value }}</span>
-          <span class="stat-suffix">{{ stat.suffix }}</span>
+      @for (stat of stats; track stat.label; let i = $index) {
+        <div class="stat-card-animated scroll-reveal">
+          <div class="stat-icon"><i [class]="'fas ' + stat.icon"></i></div>
+          <div class="stat-number-wrapper">
+            <span class="stat-number" [attr.data-target]="stat.value">{{ stat.value }}</span>
+            <span class="stat-suffix">{{ stat.suffix }}</span>
+          </div>
+          <div class="stat-label">{{ stat.label }}</div>
         </div>
-        <div class="stat-label">{{ stat.label }}</div>
-      </div>
+      }
     </div>
   </div>
 </section>
@@ -101,14 +114,16 @@
     </div>
 
     <div class="features-grid">
-      <div class="feature-card-3d scroll-reveal" *ngFor="let feature of features; let i = index">
-        <div class="feature-card-front">
-          <div class="feature-number">{{ langService.t('home.numbers.' + (i + 1)) }}</div>
-          <div class="feature-icon-large"><i [class]="'fas ' + feature.icon"></i></div>
-          <h3 class="feature-title gradient-text-animated">{{ feature.title }}</h3>
-          <p class="feature-text">{{ feature.text }}</p>
+      @for (feature of features; track feature.title; let i = $index) {
+        <div class="feature-card-3d scroll-reveal">
+          <div class="feature-card-front">
+            <div class="feature-number">{{ langService.t('home.numbers.' + (i + 1)) }}</div>
+            <div class="feature-icon-large"><i [class]="'fas ' + feature.icon"></i></div>
+            <h3 class="feature-title gradient-text-animated">{{ feature.title }}</h3>
+            <p class="feature-text">{{ feature.text }}</p>
+          </div>
         </div>
-      </div>
+      }
     </div>
   </div>
 </section>
@@ -122,15 +137,17 @@
     </div>
 
     <div class="gallery-preview-grid">
-      <div class="gallery-preview-item scroll-reveal" *ngFor="let item of galleryItems; let i = index" [style.--delay]="i * 0.1 + 's'">
-        <div class="gallery-image-container">
-          <img [src]="item.image" [alt]="item.title" class="gallery-preview-image">
-          <div class="gallery-overlay-animated">
-            <h4 class="gallery-item-title">{{ item.title }}</h4>
-            <p class="gallery-item-category">{{ item.category }}</p>
+      @for (item of galleryItems; track item.title; let i = $index) {
+        <div class="gallery-preview-item scroll-reveal" [style.--delay]="i * 0.1 + 's'">
+          <div class="gallery-image-container">
+            <img [src]="item.image" [alt]="item.title" class="gallery-preview-image">
+            <div class="gallery-overlay-animated">
+              <h4 class="gallery-item-title">{{ item.title }}</h4>
+              <p class="gallery-item-category">{{ item.category }}</p>
+            </div>
           </div>
         </div>
-      </div>
+      }
     </div>
 
     <div class="gallery-cta scroll-reveal">
@@ -150,13 +167,15 @@
     </div>
 
     <div class="process-timeline">
-      <div class="process-step scroll-reveal" *ngFor="let step of processSteps; let i = index">
-        <div class="step-number">{{ langService.t('home.numbers.' + (i + 1)) }}</div>
-        <div class="step-content">
-            <h3 class="step-title gradient-text-animated">{{ step.title }}</h3>
-          <p class="step-description">{{ step.description }}</p>
+      @for (step of processSteps; track step.title; let i = $index) {
+        <div class="process-step scroll-reveal">
+          <div class="step-number">{{ langService.t('home.numbers.' + (i + 1)) }}</div>
+          <div class="step-content">
+              <h3 class="step-title gradient-text-animated">{{ step.title }}</h3>
+            <p class="step-description">{{ step.description }}</p>
+          </div>
         </div>
-      </div>
+      }
     </div>
   </div>
 </section>
