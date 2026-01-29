@@ -102,8 +102,8 @@ export class Services implements OnInit, OnDestroy, AfterViewInit {
 
       this.serviceType.set(serviceId);
 
-      // Simulate loading time to show shimmer effect
-      setTimeout(() => this.isLoaded.set(true), 1500);
+      // Set loaded immediately - no shimmer delay
+      this.isLoaded.set(true);
 
       // Wait a bit to ensure translation is loaded, then start fade
       setTimeout(() => {
@@ -749,6 +749,8 @@ export class Services implements OnInit, OnDestroy, AfterViewInit {
       }, { threshold: 0.1 });
 
       document.querySelectorAll('.scroll-reveal').forEach(el => observer.observe(el));
+      // Immediately check which elements are already in viewport
+      this.checkScrollReveal();
     }, 100);
   }
 
