@@ -14,16 +14,13 @@
       </p>
     </div>
 
-    <!-- Gallery Grid -->
-    <div class="gallery-grid">
+    <!-- Gallery Grid - Bootstrap row/col -->
+    <div class="row g-4">
       <!-- Dynamically generate gallery items from service images -->
       @for (image of galleryImages; track image; let i = $index) {
+        <div class="col-12 col-sm-6 col-lg-4">
         <div
           class="gallery-item fade-in-up scroll-reveal"
-          [class.large-horizontal]="i % 7 === 0"
-          [class.vertical]="i % 7 === 1 || i % 7 === 2"
-          [class.medium-horizontal]="i % 7 === 3 || i % 7 === 4"
-          [class.medium-vertical]="i % 7 === 5 || i % 7 === 6"
           (click)="openImage(image)">
           <div class="gallery-image-wrapper">
             <img [src]="image" [alt]="'Gallery Image ' + (i + 1)" class="gallery-image">
@@ -35,6 +32,7 @@
               </div>
             </div>
           </div>
+        </div>
         </div>
       }
 

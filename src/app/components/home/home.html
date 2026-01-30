@@ -63,8 +63,9 @@
       <p class="section-subtitle">{{ langService.t('about.subtitle') }}</p>
     </div>
 
-    <div class="services-grid">
+    <div class="row g-4 mt-4">
       @for (service of services; track service.key; let i = $index) {
+        <div class="col-12 col-md-6 col-lg-4">
         <div class="service-card-animated scroll-reveal" [style.--delay]="i * 0.1 + 's'">
           <div class="service-card-inner">
           <div class="service-icon-wrapper">
@@ -84,6 +85,7 @@
           </a>
         </div>
         </div>
+        </div>
       }
     </div>
   </div>
@@ -92,8 +94,9 @@
 <!-- Stats Section with Animated Counters -->
 <section class="stats-section" [class.content-loaded]="isLoaded()">
   <div class="container">
-    <div class="stats-grid">
+    <div class="row g-4">
       @for (stat of stats; track stat.label; let i = $index) {
+        <div class="col-12 col-sm-6 col-lg-3">
         <div class="stat-card-animated scroll-reveal">
           <div class="stat-icon">
             <img [src]="stat.icon" [alt]="stat.label">
@@ -103,6 +106,7 @@
             <span class="stat-suffix">{{ stat.suffix }}</span>
           </div>
           <div class="stat-label">{{ stat.label }}</div>
+        </div>
         </div>
       }
     </div>
@@ -117,8 +121,9 @@
       <p class="section-subtitle">{{ langService.t('home.features.subtitle') }}</p>
     </div>
 
-    <div class="features-grid">
+    <div class="row g-4 mt-4">
       @for (feature of features; track feature.title; let i = $index) {
+        <div class="col-12 col-md-6 col-lg-4">
         <div class="feature-card-3d scroll-reveal">
           <div class="feature-card-front">
             <div class="feature-number">{{ langService.t('home.numbers.' + (i + 1)) }}</div>
@@ -128,6 +133,7 @@
             <h3 class="feature-title gradient-text-animated">{{ feature.title }}</h3>
             <p class="feature-text">{{ feature.text }}</p>
           </div>
+        </div>
         </div>
       }
     </div>

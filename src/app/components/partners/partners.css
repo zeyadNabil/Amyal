@@ -69,10 +69,8 @@
   margin: 0 auto;
 }
 
-.partners-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-  gap: 2rem;
+/* Partners use Bootstrap row + col-12 col-sm-6 col-md-4 col-lg-3 */
+.partners-content .row {
   padding: 1rem 0;
 }
 
@@ -295,13 +293,6 @@
 }
 
 /* Responsive */
-@media (max-width: 1200px) {
-  .partners-grid {
-    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-    gap: 1.5rem;
-  }
-}
-
 @media (max-width: 992px) {
   .partners-page {
     margin-top: 8.5%;
@@ -313,11 +304,6 @@
   .partners-header {
     margin-bottom: 4rem;
     padding: 1.5rem 0;
-  }
-
-  .partners-grid {
-    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-    gap: 1.5rem;
   }
 
   .partner-card {
@@ -348,12 +334,6 @@
     min-height: 3rem;
   }
 
-
-  .partners-grid {
-    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
-    gap: 1.25rem;
-  }
-
   .partner-card {
     padding: 1rem;
     border-radius: 15px;
@@ -379,12 +359,6 @@
   .partners-title {
     font-size: 1.75rem;
     letter-spacing: 1px;
-  }
-
-
-  .partners-grid {
-    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-    gap: 1rem;
   }
 
   .partner-card {

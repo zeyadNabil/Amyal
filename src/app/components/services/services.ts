@@ -36,6 +36,9 @@ export class Services implements OnInit, OnDestroy, AfterViewInit {
   dragCurrentX = signal(0);
   currentCardIndex = signal(0);
   cardsVisible = signal(3);
+  /** Exposed for template - makes slider responsive for any number of cards */
+  cardWidthPx = signal(0);
+  gapPx = signal(30);
   private cardWidth: number = 0;
   private gap: number = 30;
   private keyDownHandler: ((event: KeyboardEvent) => void) | null = null;
@@ -211,25 +214,33 @@ export class Services implements OnInit, OnDestroy, AfterViewInit {
         const container = this.cardSliderElement.nativeElement;
         const containerWidth = container.offsetWidth;
 
-        // Determine cards visible and gap based on screen size
+        // Bootstrap breakpoints: sm < 768 (col-12), md/lg >= 768 (col-6 for 2-image slider)
+        const imageCount = this.getServiceImages().length;
         let cardsVisible = 3;
-        if (window.innerWidth <= 576) {
+        if (window.innerWidth < 768) {
+          // sm and below: 1 card (col-12) for all service pages
           cardsVisible = 1;
           this.gap = 15;
-        } else if (window.innerWidth <= 768) {
+        } else if (window.innerWidth < 992) {
           cardsVisible = 2;
           this.gap = 20;
         } else {
           cardsVisible = 3;
           this.gap = 30;
         }
-        this.cardsVisible.set(cardsVisible);
+        // When only 2 images (display-units-mall-kiosk): md/lg = 2 cards (col-6), sm = 1 card (col-12)
+        const visibleCount = imageCount === 2
+          ? (window.innerWidth >= 768 ? 2 : 1)
+          : Math.min(cardsVisible, imageCount);
+        this.cardsVisible.set(visibleCount);
 
         // Calculate card width based on container and gap
-        this.cardWidth = (containerWidth - (this.gap * (cardsVisible - 1))) / cardsVisible;
+        this.cardWidth = (containerWidth - (this.gap * (visibleCount - 1))) / visibleCount;
+        this.cardWidthPx.set(this.cardWidth);
+        this.gapPx.set(this.gap);
 
         // Reset to first card if current index is out of bounds
-        const maxIndex = Math.max(0, this.getServiceImages().length - cardsVisible);
+        const maxIndex = Math.max(0, this.getServiceImages().length - visibleCount);
         if (this.currentCardIndex() > maxIndex) {
           this.currentCardIndex.set(0);
         }

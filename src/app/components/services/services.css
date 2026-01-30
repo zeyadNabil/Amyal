@@ -613,14 +613,14 @@
 
 .card-slider-track {
   display: flex;
-  gap: 30px;
   will-change: transform;
+  /* gap set dynamically via [style.gap.px] for any number of cards */
 }
 
 .card-slider-item {
   flex-shrink: 0;
-  width: calc((100% - 60px) / 3);
   min-width: 0;
+  /* width set dynamically via [style.width.px] - responsive for duplicated cards */
 }
 
 /* Center single image on large screens */
@@ -1503,13 +1503,7 @@ body:has(.slider-lightbox-overlay) .chat-widget-container {
     font-size: 3rem;
   }
 
-  .card-slider-item {
-    width: calc((100% - 30px) / 2);
-  }
-
-  .card-slider-track {
-    gap: 20px;
-  }
+  /* Card width/gap set by component - responsive for any number of cards */
 
   .card-slider-wrapper {
     padding: 20px 0;
@@ -1707,13 +1701,7 @@ body:has(.slider-lightbox-overlay) .chat-widget-container {
     margin-bottom: 15px;
   }
 
-  .card-slider-item {
-    width: 100%;
-  }
-
-  .card-slider-track {
-    gap: 15px;
-  }
+  /* Card width/gap set by component */
 
   /* Remove card styling on mobile - show only images */
   .slider-card {
@@ -1748,15 +1736,6 @@ body:has(.slider-lightbox-overlay) .chat-widget-container {
 
   .service-slider-section .container {
     padding: 0;
-  }
-
-  /* Single card takes full width on very small screens */
-  .card-slider-track:has(.card-slider-item:only-child) {
-    gap: 0;
-  }
-
-  .card-slider-track:has(.card-slider-item:only-child) .card-slider-item {
-    width: 100%;
   }
 
   .slider-nav-btn {
