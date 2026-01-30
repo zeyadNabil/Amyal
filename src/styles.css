@@ -261,35 +261,40 @@ html {
     pointer-events: none;
     z-index: -1;
     opacity: 0.8;
+    will-change: transform;
+    transform: translateZ(0);
 }
 
 .neon-line-top {
     width: 100%;
     height: 100%;
-    filter: blur(1px) drop-shadow(0 0 10px rgba(255, 27, 158, 0.5));
+    filter: drop-shadow(0 0 8px rgba(255, 27, 158, 0.6));
+    transform: translateZ(0);
 }
 
 .animated-path {
-    stroke-dasharray: 1000;
-    stroke-dashoffset: 0;
-    animation: moveLine 20s linear infinite, glowPulse 3s ease-in-out infinite;
+    stroke-dasharray: 2000;
+    stroke-dashoffset: 2000;
+    animation: moveLine 20s linear infinite;
+    will-change: stroke-dashoffset;
+    transform: translateZ(0);
 }
 
 @keyframes moveLine {
     0% {
-        stroke-dashoffset: 1000;
+        stroke-dashoffset: 2000;
     }
     100% {
-        stroke-dashoffset: -1000;
+        stroke-dashoffset: 0;
     }
 }
 
 @keyframes glowPulse {
     0%, 100% {
-        filter: drop-shadow(0 0 5px rgba(255, 27, 158, 0.5));
+        opacity: 0.8;
     }
     50% {
-        filter: drop-shadow(0 0 20px rgba(147, 51, 234, 0.8));
+        opacity: 1;
     }
 }
 
