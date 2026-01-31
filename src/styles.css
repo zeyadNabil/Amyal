@@ -273,8 +273,8 @@ html {
 }
 
 .animated-path {
-    stroke-dasharray: 2000;
-    stroke-dashoffset: 2000;
+    stroke-dasharray: 2000 150;
+    stroke-dashoffset: 2150;
     animation: moveLine 20s linear infinite;
     will-change: stroke-dashoffset;
     transform: translateZ(0);
@@ -282,7 +282,7 @@ html {
 
 @keyframes moveLine {
     0% {
-        stroke-dashoffset: 2000;
+        stroke-dashoffset: 2150;
     }
     100% {
         stroke-dashoffset: 0;
