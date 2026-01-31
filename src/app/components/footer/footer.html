@@ -1,9 +1,9 @@
 <!-- Footer -->
 <footer class="footer">
   <div class="container">
-    <div class="footer-content">
-      <!-- About Us Column -->
-      <div class="footer-column footer-about">
+    <div class="row g-4 footer-content">
+      <!-- About Us Column - full width on tablet (md), then 5/12 on lg -->
+      <div class="col-12 col-md-12 col-lg-5 footer-column footer-about">
         <div class="footer-logo">
           <img src="assets/images/amyal_logo.png" alt="Amyal" class="footer-logo-img">
         </div>
@@ -33,7 +33,7 @@
       </div>
 
       <!-- Useful Links Column -->
-      <div class="footer-column footer-links">
+      <div class="col-12 col-md-6 col-lg-2 footer-column footer-links">
         <h3 class="footer-heading">{{ langService.t('footer.usefulLinks') }}</h3>
         <ul class="footer-list">
           <li>
@@ -65,7 +65,7 @@
       </div>
 
       <!-- Our Services Column -->
-      <div class="footer-column footer-services">
+      <div class="col-12 col-md-6 col-lg-3 footer-column footer-services">
         <h3 class="footer-heading">{{ langService.t('footer.ourServices') }}</h3>
         <ul class="footer-list">
           <li>
@@ -122,7 +122,7 @@
       </div>
 
       <!-- Social Media Column -->
-      <div class="footer-column footer-social">
+      <div class="col-12 col-md-6 col-lg-2 footer-column footer-social">
         <h3 class="footer-heading">{{ langService.t('footer.socialMedia') }}</h3>
         <ul class="footer-list footer-social-list">
           <li>

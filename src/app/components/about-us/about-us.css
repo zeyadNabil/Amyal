@@ -170,12 +170,7 @@
    WHY CHOOSE US SECTION
    ======================================== */
 
-.features-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: 30px;
-  margin-top: 50px;
-}
+/* Why Choose Us features use Bootstrap row + col-12 col-md-6 col-lg-4 */
 
 .feature-card {
   background: rgba(255, 255, 255, 0.05);
@@ -239,12 +234,7 @@
    MISSION & VISION SECTION
    ======================================== */
 
-.mission-vision-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
-  gap: 40px;
-  margin-top: 50px;
-}
+/* Mission & Vision use Bootstrap row + col-12 col-lg-6 */
 
 .mission-card,
 .vision-card {
@@ -504,16 +494,6 @@
     font-size: 2rem;
   }
 
-  .features-grid {
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 25px;
-  }
-
-  .mission-vision-grid {
-    grid-template-columns: 1fr;
-    gap: 30px;
-  }
-
   .process-timeline::before {
     left: 40px;
   }
@@ -605,12 +585,6 @@
     padding: 30px 25px;
   }
 
-  .features-grid {
-    grid-template-columns: 1fr;
-    gap: 20px;
-    margin-top: 30px;
-  }
-
   .feature-card {
     padding: 30px 20px;
   }
@@ -628,12 +602,6 @@
 
   .feature-title {
     font-size: 1.2rem;
-  }
-
-  .mission-vision-grid {
-    grid-template-columns: 1fr;
-    gap: 25px;
-    margin-top: 30px;
   }
 
   .mission-card,

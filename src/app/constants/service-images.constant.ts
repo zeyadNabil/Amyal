@@ -23,9 +23,8 @@ export const SERVICE_IMAGES: { [key: string]: string[] } = {
     'assets/images/sign board/uae.jpeg'
   ],
   'display-units-mall-kiosk': [
-    'assets/images/gallery/frame_8.jpg',
-    'assets/images/gallery/frame_9.jpg',
-    'assets/images/gallery/frame_10.jpg'
+    'assets/images/DISPLAY UNITS AND MALL KIOSK/DISPLAY UNITS AND MALL KIOSK.jpeg',
+    'assets/images/DISPLAY UNITS AND MALL KIOSK/nike.jpeg'
   ],
   'event-management': [
     'assets/images/EVENT MANAGEMENT/EVENT MANAGEMENT.jpeg'

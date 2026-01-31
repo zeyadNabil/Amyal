@@ -61,9 +61,10 @@
                (touchend)="onTouchEnd($event)">
             <div class="card-slider-track"
                  [style.transform]="'translateX(' + sliderOffset() + 'px)'"
-                 [style.transition]="isDragging() ? 'none' : 'transform 0.5s cubic-bezier(0.4, 0, 0.2, 1)'">
+                 [style.transition]="isDragging() ? 'none' : 'transform 0.5s cubic-bezier(0.4, 0, 0.2, 1)'"
+                 [style.gap.px]="gapPx()">
               @for (image of getServiceImages(); track image; let i = $index) {
-                <div class="card-slider-item">
+                <div class="card-slider-item" [style.width.px]="cardWidthPx() || 280">
                   <div class="service-card slider-card">
                     <div class="card-image-wrapper" (click)="openImage(image)">
                       <img [src]="image"
