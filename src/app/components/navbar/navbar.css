@@ -788,11 +788,12 @@
     }
 
     .navbar-logo {
-        height: 80px;
+        height: 92px;
     }
 
+    /* Keep logo same size when sticky (no shrink on scroll) */
     .navbar.scrolled .navbar-logo {
-        height: 70px;
+        height: 92px;
     }
 
     .navbar-toggler-icon {
@@ -964,11 +965,12 @@
     }
 
     .navbar-logo {
-        height: 100px;
+        height: 115px;
     }
 
+    /* Keep logo same size when sticky (no shrink on scroll) */
     .navbar.scrolled .navbar-logo {
-        height: 80px;
+        height: 115px;
     }
 
     .navbar-toggler-icon {
@@ -1271,11 +1273,12 @@
     }
 
     .navbar-logo {
-        height: 130px;
+        height: 140px;
     }
 
+    /* Keep logo same size when sticky (no shrink on scroll) */
     .navbar.scrolled .navbar-logo {
-        height: 110px;
+        height: 140px;
     }
 
     .navbar-toggler-icon {
@@ -1404,11 +1407,12 @@
     }
 
     .navbar-logo {
-        height: 125px;
+        height: 135px;
     }
 
+    /* Keep logo same size when sticky (no shrink on scroll) */
     .navbar.scrolled .navbar-logo {
-        height: 110px;
+        height: 135px;
     }
 
     .navbar-brand {

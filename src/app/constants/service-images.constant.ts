@@ -27,18 +27,14 @@ export const SERVICE_IMAGES: { [key: string]: string[] } = {
     'assets/images/DISPLAY UNITS AND MALL KIOSK/nike.jpeg'
   ],
   'event-management': [
-    'assets/images/EVENT MANAGEMENT/EVENT MANAGEMENT.jpeg'
+    'assets/images/EVENT MANAGEMENT/EVENT MANAGEMENT.png'
   ],
   'mall-activation': [
-    'assets/images/gallery/frame_14.jpg'
   ],
   'brand-ambassadors-event-hosts': [
     'assets/images/BRAND AMBASSADORS & EVENT HOSTS/BRAND AMBASSADORS & EVENT HOSTS.jpeg'
   ],
   'av-service': [
-    'assets/images/gallery/frame_18.jpg',
-    'assets/images/gallery/frame_19.jpg',
-    'assets/images/gallery/frame_20.jpg'
   ],
   'vehicle-branding-wrapping': [
     'assets/images/VEHICLE BRANDING & WRAPPING/car1.jpeg',

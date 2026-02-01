@@ -60,7 +60,7 @@ export class Home implements OnInit {
 
     // Update features
     this.features = [
-      { icon: 'assets/images/Icons/signBoard.png', title: this.langService.t('home.features.innovativeDesign.title'), text: this.langService.t('home.features.innovativeDesign.text') },
+      { icon: 'assets/images/Icons/festival.png', title: this.langService.t('home.features.innovativeDesign.title'), text: this.langService.t('home.features.innovativeDesign.text') },
       { icon: 'assets/images/Icons/rocket.png', title: this.langService.t('home.features.onTimeDelivery.title'), text: this.langService.t('home.features.onTimeDelivery.text') },
       { icon: 'assets/images/Icons/team.png', title: this.langService.t('home.features.expertTeam.title'), text: this.langService.t('home.features.expertTeam.text') },
       { icon: 'assets/images/Icons/star.png', title: this.langService.t('home.features.qualityMaterials.title'), text: this.langService.t('home.features.qualityMaterials.text') },
@@ -86,7 +86,10 @@ export class Home implements OnInit {
       { logo: 'assets/images/Partners White Text Without Background/Makani_upscaled.png', name: 'Makani' },
       { logo: 'assets/images/Partners White Text Without Background/Ministry-of-Human-Resources-&-Emiratisation-_upscaled.png', name: 'Ministry of Human Resources' },
       { logo: 'assets/images/Partners White Text Without Background/SAAS properties_upscaled.png', name: 'SAAS Properties' },
-      { logo: 'assets/images/Partners White Text Without Background/umex_and_simtex_upscaled.png', name: 'UMEX & Simtex' }
+      { logo: 'assets/images/Partners White Text Without Background/umex_and_simtex_upscaled.png', name: 'UMEX & Simtex' },
+      { logo: 'assets/images/Amyal PNG Partners/mubadala.png', name: 'Mubadala' },
+      { logo: 'assets/images/Amyal PNG Partners/Shahat.png', name: 'Shahat' },
+      { logo: 'assets/images/Amyal PNG Partners/mair green.png', name: 'Mair Green' }
     ];
   }
 

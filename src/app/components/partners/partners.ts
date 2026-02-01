@@ -31,8 +31,11 @@ export class Partners implements OnInit, OnDestroy {
     'assets/images/Amyal PNG Partners/Ministry-of-Human-Resources-&-Emiratisation-.png',
     'assets/images/Amyal PNG Partners/MOCCAE_Horizontal-en.png',
     'assets/images/Amyal PNG Partners/MOET_Horizontal_RGB_A.png',
+    'assets/images/Amyal PNG Partners/mubadala.png',
     'assets/images/Amyal PNG Partners/SAAS properties.png',
-    'assets/images/Amyal PNG Partners/umex_and_simtex.png'
+    'assets/images/Amyal PNG Partners/Shahat.png',
+    'assets/images/Amyal PNG Partners/umex_and_simtex.png',
+    'assets/images/Amyal PNG Partners/mair green.png'
   ];
 
   constructor(public langService: LanguageService) {

@@ -23,9 +23,13 @@
         </div>
       </div>
 
-      <!-- Right Side: Stands Photo Image -->
-      <div class="col-12 col-md-6 hero-stands-image-wrapper">
-        <img src="assets/images/Stands Photo.png" alt="Exhibition Stands" class="hero-stands-image">
+      <!-- Right Side: Stands Photo in Rectangle Card -->
+      <div class="col-12 col-md-6 hero-stands-col">
+        <div class="hero-stands-card scroll-reveal">
+          <div class="hero-stands-card-inner">
+            <img src="assets/images/Stands Photo.png" alt="Exhibition Stands" class="hero-stands-image">
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -63,14 +67,14 @@
       <p class="section-subtitle">{{ langService.t('about.subtitle') }}</p>
     </div>
 
-    <div class="row g-4 mt-4">
+    <div class="row g-4 mt-4 services-cards-row">
       @for (service of services; track service.key; let i = $index) {
-        <div class="col-12 col-md-6 col-lg-4">
+        <div class="col-12 col-md-6 col-lg-4 services-card-col">
         <div class="service-card-animated scroll-reveal" [style.--delay]="i * 0.1 + 's'">
           <div class="service-card-inner">
           <div class="service-icon-wrapper">
-            <div class="service-icon">
-              <!-- Use custom icons for all services -->
+            <div class="service-icon home-page-icon">
+              <!-- Use custom icons for all services; swap file (same path/name) and size stays consistent -->
               <img [src]="getServiceIconPath(service.key)"
                    [alt]="langService.t('nav.' + service.key)">
             </div>
@@ -98,7 +102,7 @@
       @for (stat of stats; track stat.label; let i = $index) {
         <div class="col-12 col-sm-6 col-lg-3">
         <div class="stat-card-animated scroll-reveal">
-          <div class="stat-icon">
+          <div class="stat-icon home-page-icon">
             <img [src]="stat.icon" [alt]="stat.label">
           </div>
           <div class="stat-number-wrapper">
@@ -127,7 +131,7 @@
         <div class="feature-card-3d scroll-reveal">
           <div class="feature-card-front">
             <div class="feature-number">{{ langService.t('home.numbers.' + (i + 1)) }}</div>
-            <div class="feature-icon-large">
+            <div class="feature-icon-large home-page-icon">
               <img [src]="feature.icon" [alt]="feature.title">
             </div>
             <h3 class="feature-title gradient-text-animated">{{ feature.title }}</h3>

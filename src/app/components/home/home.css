@@ -1,4 +1,38 @@
 /* ========================================
+   HOME PAGE ICONS - Single source of size (all screens)
+   Swap icon images (same name/path) and they keep same size.
+   ======================================== */
+
+:host {
+  --home-icon-box: 180px;
+  --home-icon-img: 150px;
+}
+
+/* Shared class for all home page icon wrappers (services, stats, features) */
+.home-page-icon {
+  width: var(--home-icon-box);
+  height: var(--home-icon-box);
+  min-width: var(--home-icon-box);
+  min-height: var(--home-icon-box);
+  max-width: var(--home-icon-box);
+  max-height: var(--home-icon-box);
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 15px;
+  position: relative;
+  z-index: 2;
+}
+
+.home-page-icon img {
+  width: var(--home-icon-img) !important;
+  height: var(--home-icon-img) !important;
+  object-fit: contain;
+  display: block;
+}
+
+/* ========================================
    HERO SECTION
    ======================================== */
 
@@ -7,7 +41,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: calc(var(--nav-height) + 2rem) 2rem 0;
+  padding: calc(var(--nav-height) + 2rem) 2rem 3rem;
   position: relative;
   overflow: visible;
   z-index: 1;
@@ -37,32 +71,63 @@
   padding-left: 2rem;
 }
 
-/* Right Side: Stands Photo Image */
-.hero-stands-image-wrapper {
-  position: relative;
-  animation: fadeInUp 1s ease-out 0.4s both;
+/* Right Side: Stands Photo - col-12 small, col-6 on md+ */
+.hero-stands-col {
+  display: flex;
+  align-items: center;
+  justify-content: center;
   padding-left: 2rem;
+  margin-top: 1.5rem;
+}
+
+@media (min-width: 768px) {
+  .hero-stands-col {
+    margin-top: 0;
+  }
 }
 
 /* RTL Support */
-[dir="rtl"] .hero-stands-image-wrapper {
+[dir="rtl"] .hero-stands-col {
   padding-left: 0;
   padding-right: 2rem;
+}
+
+/* Rectangle card (like services card) that fits the photo size */
+.hero-stands-card {
+  width: 100%;
+  max-width: 100%;
+}
+
+.hero-stands-card-inner {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 20px;
+  overflow: hidden;
+  transition: all 0.3s ease;
+  display: block;
+  position: relative;
+  /* Card size = photo size (rectangle) */
+  line-height: 0;
+}
+
+.hero-stands-card:hover .hero-stands-card-inner {
+  transform: translateY(-10px);
+  background: rgba(147, 51, 234, 0.1);
+  border-color: var(--purple);
+  box-shadow: 0 20px 60px rgba(147, 51, 234, 0.4);
 }
 
 .hero-stands-image {
   width: 100%;
   height: auto;
   display: block;
-  border-radius: 0;
-  box-shadow: none;
   filter: brightness(0.95) contrast(1.05);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  transition: transform 0.3s ease;
+  max-width: 100%;
 }
 
-.hero-stands-image:hover {
-  transform: translateY(-5px);
-  box-shadow: none;
+.hero-stands-card:hover .hero-stands-image {
+  transform: scale(1.02);
 }
 
 .hero-title {
@@ -80,29 +145,9 @@
 
 .gradient-text-animated {
   background: linear-gradient(135deg, var(--pink) 0%, var(--purple) 50%, var(--blue) 100%);
-  background-size: 200% auto;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
-  animation: gradientShift 3s ease infinite, textShimmer 2s ease-in-out infinite;
-}
-
-@keyframes gradientShift {
-  0%, 100% {
-    background-position: 0% center;
-  }
-  50% {
-    background-position: 100% center;
-  }
-}
-
-@keyframes textShimmer {
-  0%, 100% {
-    filter: drop-shadow(0 0 20px rgba(147, 51, 234, 0.5));
-  }
-  50% {
-    filter: drop-shadow(0 0 40px rgba(255, 27, 158, 0.8));
-  }
 }
 
 .hero-cta {
@@ -178,7 +223,7 @@
   overflow: hidden;
   background: transparent;
   z-index: 1;
-  margin-top: -8rem;
+  margin-top: 3rem;
 }
 
 .partners-slider-section .section-header {
@@ -301,10 +346,27 @@
   margin: 0 auto;
 }
 
-/* Services use Bootstrap row + col-12 col-md-6 col-lg-4 */
+/* Services: Bootstrap row + cols; fix flex so cards don't overlap */
+
+.services-cards-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: stretch;
+}
+
+.services-card-col {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
 
 .service-card-animated {
   position: relative;
+  flex: 1 1 auto;
+  width: 100%;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
 }
 
 .service-card-inner {
@@ -313,7 +375,9 @@
   border-radius: 20px;
   padding: 2.5rem;
   transition: all 0.3s ease;
-  height: 100%;
+  flex: 1 1 auto;
+  min-height: 0;
+  width: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -332,28 +396,7 @@
   margin-bottom: 1.5rem;
 }
 
-.service-icon {
-  width: 180px;
-  height: 180px;
-  min-width: 180px;
-  min-height: 180px;
-  max-width: 180px;
-  max-height: 180px;
-  margin: 0 auto;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 15px;
-  position: relative;
-  z-index: 2;
-}
-
-.service-icon img {
-  width: 150px !important;
-  height: 150px !important;
-  object-fit: contain;
-  display: block;
-}
+/* Sizing from .home-page-icon; no extra rules needed */
 
 .service-title {
   font-size: 1.5rem;
@@ -447,25 +490,8 @@
 }
 
 .stat-icon {
-  width: 180px;
-  height: 180px;
-  min-width: 180px;
-  min-height: 180px;
-  max-width: 180px;
-  max-height: 180px;
-  margin: 0 auto 1rem;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 15px;
-}
-
-/* Consistent size for all stat icons */
-.stat-icon img {
-  width: 150px !important;
-  height: 150px !important;
-  object-fit: contain;
-  display: block;
+  margin-bottom: 1rem;
+  /* Sizing from .home-page-icon */
 }
 
 .stat-number-wrapper {
@@ -553,24 +579,8 @@
 }
 
 .feature-icon-large {
-  width: 180px;
-  height: 180px;
-  min-width: 180px;
-  min-height: 180px;
-  max-width: 180px;
-  max-height: 180px;
-  margin: 0 auto 1.5rem;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 15px;
-}
-
-.feature-icon-large img {
-  width: 150px !important;
-  height: 150px !important;
-  object-fit: contain;
-  display: block;
+  margin-bottom: 1.5rem;
+  /* Sizing from .home-page-icon */
 }
 
 .feature-title {
@@ -972,6 +982,7 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    margin-bottom: 3rem;
   }
 
   .btn-glow {
@@ -979,18 +990,9 @@
     max-width: 300px;
   }
 
-  .feature-icon-large {
-    width: 120px;
-    height: 120px;
-    min-width: 120px;
-    min-height: 120px;
-    max-width: 120px;
-    max-height: 120px;
-  }
-
-  .feature-icon-large img {
-    width: 90px !important;
-    height: 90px !important;
+  :host {
+    --home-icon-box: 120px;
+    --home-icon-img: 90px;
   }
 
   .feature-title {
@@ -1010,18 +1012,7 @@
   }
 
   .stat-icon {
-    width: 120px;
-    height: 120px;
-    min-width: 120px;
-    min-height: 120px;
-    max-width: 120px;
-    max-height: 120px;
-    margin: 0 auto 0.75rem;
-  }
-
-  .stat-icon img {
-    width: 90px !important;
-    height: 90px !important;
+    margin-bottom: 0.75rem;
   }
 
   .process-timeline::before {
@@ -1112,37 +1103,17 @@
     padding: 1.25rem 0.5rem;
   }
 
-  .stat-icon {
-    width: 100px;
-    height: 100px;
-    min-width: 100px;
-    min-height: 100px;
-    max-width: 100px;
-    max-height: 100px;
-    margin: 0 auto 0.5rem;
+  :host {
+    --home-icon-box: 100px;
+    --home-icon-img: 75px;
   }
 
-  .stat-icon img {
-    width: 75px !important;
-    height: 75px !important;
+  .stat-icon {
+    margin-bottom: 0.5rem;
   }
 
   .stat-number {
     font-size: 2.5rem;
-  }
-
-  .feature-icon-large {
-    width: 100px;
-    height: 100px;
-    min-width: 100px;
-    min-height: 100px;
-    max-width: 100px;
-    max-height: 100px;
-  }
-
-  .feature-icon-large img {
-    width: 75px !important;
-    height: 75px !important;
   }
 
   .feature-title {

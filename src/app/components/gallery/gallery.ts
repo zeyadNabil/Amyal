@@ -24,25 +24,13 @@ export class Gallery implements OnInit, OnDestroy {
   isLightboxOpen = signal(false);
   currentImageIndex = signal(0);
 
-  // Images to exclude from gallery (but keep in services)
-  private excludedImages: string[] = [
-    'assets/images/gallery/frame_9.jpg',           // index 19
-    'assets/images/gallery/frame_10.jpg',          // index 20
-    'assets/images/EVENT MANAGEMENT/EVENT MANAGEMENT.jpeg', // index 21
-    'assets/images/BRAND AMBASSADORS & EVENT HOSTS/BRAND AMBASSADORS & EVENT HOSTS.jpeg', // index 23
-    'assets/images/gallery/frame_19.jpg',          // index 25
-    'assets/images/gallery/frame_20.jpg',          // index 26
-    'assets/images/VEHICLE BRANDING & WRAPPING/car1.jpeg' // index 27
-  ];
-
-  // Collect all images from all services (using shared constant), excluding specified images
+  // Collect all images from all services (using shared constant), one instance each
   get galleryImages(): string[] {
     const allImages: string[] = [];
     Object.values(SERVICE_IMAGES).forEach(images => {
       allImages.push(...images);
     });
-    // Filter out excluded images
-    return allImages.filter(image => !this.excludedImages.includes(image));
+    return [...new Set(allImages)];
   }
 
   constructor(public langService: LanguageService, private location: Location) {
