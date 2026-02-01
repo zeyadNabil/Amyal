@@ -1147,11 +1147,11 @@
     }
 
     .navbar-logo {
-        height: 55px;
+        height: 100px;
     }
 
     .navbar.scrolled .navbar-logo {
-        height: 45px;
+        height: 100px;
     }
 
     .navbar-toggler-icon {

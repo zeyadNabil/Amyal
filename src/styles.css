@@ -265,6 +265,14 @@ html {
     transform: translateZ(0);
 }
 
+/* Fix for iPhone 14 Pro Max and similar tall mobile screens */
+@media (max-width: 479px) and (min-height: 800px) {
+    .neon-lines {
+        position: absolute;
+        top: -80px;
+    }
+}
+
 .neon-line-top {
     width: 100%;
     height: 100%;

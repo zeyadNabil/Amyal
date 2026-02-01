@@ -310,9 +310,49 @@
   }
 }
 
+/* RTL: Reverse direction for infinite loop */
+:host-context([dir="rtl"]) .partners-slider-track,
+[dir="rtl"] .partners-slider-track {
+  animation-name: slidePartnersRTL;
+}
+
+@keyframes slidePartnersRTL {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(50%);
+  }
+}
+
 /* Pause animation on hover */
 .partners-slider-container:hover .partners-slider-track {
   animation-play-state: paused;
+}
+
+/* Mobile: JS-based auto-scroll + swipe */
+@media (max-width: 768px) {
+  .partners-slider-container {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+    mask-image: none;
+    -webkit-mask-image: none;
+    /* Force LTR direction for consistent scroll behavior */
+    direction: ltr !important;
+  }
+  
+  .partners-slider-container::-webkit-scrollbar {
+    display: none;
+  }
+  
+  /* Disable CSS animation - JS handles it */
+  .partners-slider-track {
+    animation: none !important;
+    /* Force LTR for consistent scroll */
+    direction: ltr !important;
+  }
 }
 
 /* ========================================

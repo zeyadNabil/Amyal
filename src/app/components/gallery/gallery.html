@@ -23,12 +23,12 @@
           class="gallery-item fade-in-up scroll-reveal"
           (click)="openImage(image)">
           <div class="gallery-image-wrapper">
-            <img [src]="image" [alt]="'Gallery Image ' + (i + 1)" class="gallery-image">
+            <img [src]="image" [alt]="langService.t('nav.gallery') + ' ' + (i + 1)" class="gallery-image">
             <div class="galaxy-overlay"></div>
             <div class="gallery-overlay">
               <div class="gallery-info">
-                <h3 class="gallery-item-title">Image {{ i + 1 }}</h3>
-                <p class="gallery-item-category">Gallery</p>
+                <h3 class="gallery-item-title">{{ toLocalNumeral(i + 1) }}</h3>
+                <p class="gallery-item-category">{{ langService.t('nav.gallery') }}</p>
               </div>
             </div>
           </div>
@@ -56,7 +56,7 @@
           <img [src]="getCurrentImage()" alt="Gallery Image" class="lightbox-image">
         </div>
         <div class="lightbox-counter">
-          {{ currentImageIndex() + 1 }} / {{ galleryImages.length }}
+          {{ toLocalNumeral(currentImageIndex() + 1) }} / {{ toLocalNumeral(galleryImages.length) }}
         </div>
       </div>
     </div>

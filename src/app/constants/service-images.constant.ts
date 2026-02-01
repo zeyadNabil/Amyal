@@ -19,8 +19,7 @@ export const SERVICE_IMAGES: { [key: string]: string[] } = {
     'assets/images/sign board/jetour.jpeg',
     'assets/images/sign board/marathon.jpeg',
     'assets/images/sign board/neon.jpeg',
-    'assets/images/sign board/sour=st.jpeg',
-    'assets/images/sign board/uae.jpeg'
+    'assets/images/sign board/sour=st.jpeg'
   ],
   'display-units-mall-kiosk': [
     'assets/images/DISPLAY UNITS AND MALL KIOSK/DISPLAY UNITS AND MALL KIOSK.jpeg',

@@ -33,6 +33,9 @@ export class Gallery implements OnInit, OnDestroy {
     return [...new Set(allImages)];
   }
 
+  // Arabic numerals mapping
+  private arabicNumerals = ['٠', '١', '٢', '٣', '٤', '٥', '٦', '٧', '٨', '٩'];
+
   constructor(public langService: LanguageService, private location: Location) {
     // Watch for language changes and restart fade animation
     this.languageEffect = effect(() => {
@@ -46,6 +49,14 @@ export class Gallery implements OnInit, OnDestroy {
         }, 100);
       }
     });
+  }
+
+  // Convert number to Arabic numerals if language is Arabic
+  toLocalNumeral(num: number): string {
+    if (this.langService.currentLang() === 'ar') {
+      return num.toString().split('').map(digit => this.arabicNumerals[parseInt(digit)]).join('');
+    }
+    return num.toString();
   }
 
   ngOnInit(): void {

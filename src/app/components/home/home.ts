@@ -1,4 +1,4 @@
-import { Component, OnInit, HostListener, signal, effect } from '@angular/core';
+import { Component, OnInit, OnDestroy, HostListener, signal, effect } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { LanguageService } from '../../services/language.service';
@@ -10,9 +10,15 @@ import { ShimmerLoader } from '../shimmer-loader/shimmer-loader';
   templateUrl: './home.html',
   styleUrl: './home.css'
 })
-export class Home implements OnInit {
+export class Home implements OnInit, OnDestroy {
   isLoaded = signal(false);
   private counterTimers: Map<Element, any> = new Map();
+  
+  // Mobile partners slider
+  private mobileSliderInterval: any = null;
+  private isTouching = false;
+  private sliderContainer: HTMLElement | null = null;
+  private touchResumeTimeout: any = null;
 
   // Services data - will be initialized in ngOnInit
   services: Array<{ key: string; description: string }> = [];
@@ -102,6 +108,7 @@ export class Home implements OnInit {
     this.initScrollAnimations();
     this.initCounterAnimations();
     this.initParallaxEffects();
+    this.initMobilePartnersSlider();
     // Ensure hero section has no transform applied
     setTimeout(() => {
       const hero = document.querySelector('.hero-section');
@@ -109,6 +116,70 @@ export class Home implements OnInit {
         (hero as HTMLElement).style.transform = 'none';
       }
     }, 100);
+  }
+
+  ngOnDestroy(): void {
+    // Cleanup mobile slider interval
+    if (this.mobileSliderInterval) {
+      cancelAnimationFrame(this.mobileSliderInterval);
+    }
+    if (this.touchResumeTimeout) {
+      clearTimeout(this.touchResumeTimeout);
+    }
+  }
+
+  initMobilePartnersSlider(): void {
+    // Only run on mobile
+    if (window.innerWidth > 768) return;
+
+    setTimeout(() => {
+      this.sliderContainer = document.querySelector('.partners-slider-container');
+      if (!this.sliderContainer) return;
+
+      const scrollSpeed = 1; // pixels per frame
+      const container = this.sliderContainer;
+
+      // Touch event handlers
+      container.addEventListener('touchstart', () => {
+        this.isTouching = true;
+        // Clear any pending resume timeout
+        if (this.touchResumeTimeout) {
+          clearTimeout(this.touchResumeTimeout);
+          this.touchResumeTimeout = null;
+        }
+      }, { passive: true });
+
+      container.addEventListener('touchend', () => {
+        // Resume after 2 seconds
+        this.touchResumeTimeout = setTimeout(() => {
+          this.isTouching = false;
+        }, 2000);
+      }, { passive: true });
+
+      // Auto-scroll with requestAnimationFrame for smooth performance
+      const autoScroll = () => {
+        if (!this.sliderContainer) {
+          return; // Stop if container is gone
+        }
+        
+        if (!this.isTouching) {
+          const halfWidth = this.sliderContainer.scrollWidth / 2;
+          
+          // Always scroll forward (LTR direction forced in CSS)
+          this.sliderContainer.scrollLeft += scrollSpeed;
+          
+          // Reset to start when reaching middle (seamless loop)
+          if (this.sliderContainer.scrollLeft >= halfWidth) {
+            this.sliderContainer.scrollLeft = 0;
+          }
+        }
+
+        this.mobileSliderInterval = requestAnimationFrame(autoScroll);
+      };
+
+      // Start auto-scroll
+      this.mobileSliderInterval = requestAnimationFrame(autoScroll);
+    }, 2500); // Wait for content to load
   }
 
 
@@ -142,24 +213,19 @@ export class Home implements OnInit {
 
   initCounterAnimations(): void {
     const observerOptions = {
-      threshold: 0.5,
+      threshold: 0.2, // Lower threshold for mobile
       rootMargin: '0px'
     };
 
     const observer = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
         if (entry.isIntersecting) {
-          // Reset counters to 0 first, then animate
-          this.resetCounters();
-          // Small delay to ensure reset is visible, then animate
-          setTimeout(() => {
-            this.animateCounters();
-          }, 50);
-        } else {
-          // When section leaves view, stop any running animations and reset
-          this.stopCounterAnimations();
-          this.resetCounters();
+          // Start infinite counter animation if not already running
+          if (this.counterTimers.size === 0) {
+            this.startInfiniteCounters();
+          }
         }
+        // Don't reset when leaving view - let counters keep running
       });
     }, observerOptions);
 
@@ -186,7 +252,7 @@ export class Home implements OnInit {
     this.counterTimers.clear();
   }
 
-  animateCounters(): void {
+  startInfiniteCounters(): void {
     // Stop any existing animations first
     this.stopCounterAnimations();
 
@@ -195,23 +261,47 @@ export class Home implements OnInit {
     counters.forEach(counter => {
       const target = parseInt(counter.getAttribute('data-target') || '0');
       let current = 0;
-      const increment = target / 60;
-      const duration = 2000;
-      const stepTime = duration / 60;
+      const duration = 2000; // 2 seconds to count up
+      const pauseDuration = 200; // 0.2 seconds pause at max
+      const steps = 60;
+      const increment = target / steps;
+      const stepTime = duration / steps;
 
-      const timer = setInterval(() => {
-        current += increment;
-        if (current >= target) {
-          current = target;
-          clearInterval(timer);
-          this.counterTimers.delete(counter);
-        }
-        counter.textContent = Math.floor(current).toString();
-      }, stepTime);
+      const runCounter = () => {
+        current = 0;
+        counter.textContent = '0';
+        
+        const timer = setInterval(() => {
+          current += increment;
+          if (current >= target) {
+            current = target;
+            counter.textContent = target.toString();
+            clearInterval(timer);
+            
+            // Pause at max, then restart
+            const restartTimer = setTimeout(() => {
+              runCounter();
+            }, pauseDuration);
+            
+            // Store restart timer for cleanup
+            this.counterTimers.set(counter, restartTimer as any);
+          } else {
+            counter.textContent = Math.floor(current).toString();
+          }
+        }, stepTime);
 
-      // Store the timer so we can clear it later
-      this.counterTimers.set(counter, timer);
+        // Store the timer so we can clear it later
+        this.counterTimers.set(counter, timer);
+      };
+
+      // Start the counter
+      runCounter();
     });
+  }
+
+  animateCounters(): void {
+    // Kept for backwards compatibility, now calls infinite version
+    this.startInfiniteCounters();
   }
 
   initParallaxEffects(): void {
