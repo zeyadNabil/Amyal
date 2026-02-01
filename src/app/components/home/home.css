@@ -991,8 +991,8 @@
   }
 
   :host {
-    --home-icon-box: 120px;
-    --home-icon-img: 90px;
+    --home-icon-box: 145px;
+    --home-icon-img: 115px;
   }
 
   .feature-title {
@@ -1104,8 +1104,8 @@
   }
 
   :host {
-    --home-icon-box: 100px;
-    --home-icon-img: 75px;
+    --home-icon-box: 125px;
+    --home-icon-img: 100px;
   }
 
   .stat-icon {

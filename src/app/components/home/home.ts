@@ -82,7 +82,6 @@ export class Home implements OnInit {
       { logo: 'assets/images/Partners White Text Without Background/craiyon_upscaled.png', name: 'Craiyon' },
       { logo: 'assets/images/Partners White Text Without Background/emirates center for strategic studies and research_upscaled.png', name: 'Emirates Center' },
       { logo: 'assets/images/Partners White Text Without Background/logo-en_upscaled.png', name: 'Logo' },
-      { logo: 'assets/images/Partners White Text Without Background/Mair_upscaled.png', name: 'Mair' },
       { logo: 'assets/images/Partners White Text Without Background/Makani_upscaled.png', name: 'Makani' },
       { logo: 'assets/images/Partners White Text Without Background/Ministry-of-Human-Resources-&-Emiratisation-_upscaled.png', name: 'Ministry of Human Resources' },
       { logo: 'assets/images/Partners White Text Without Background/SAAS properties_upscaled.png', name: 'SAAS Properties' },
