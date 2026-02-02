@@ -12,7 +12,7 @@
     </div>
 
     <!-- Who We Are Section -->
-    <div class="section who-we-are scroll-reveal fade-in-up">
+    <div class="section who-we-are scroll-reveal fade-in-up" [attr.dir]="langService.currentLang() === 'ar' ? 'rtl' : 'ltr'">
       <div class="section-content">
         <h2 class="section-title gradient-text-animated">{{ langService.t('aboutUs.whoWeAre.title') }}</h2>
         <p class="section-subtitle">{{ langService.t('aboutUs.whoWeAre.subtitle') }}</p>

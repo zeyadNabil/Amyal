@@ -11,6 +11,8 @@
   background: var(--bg-dark, #0a0a1a);
   z-index: 9999;
   overflow-y: auto;
+  overflow-x: hidden;
+  direction: inherit;
   transition: opacity 0.5s ease, visibility 0.5s ease;
   opacity: 1;
   visibility: visible;
@@ -20,6 +22,17 @@
   opacity: 0;
   visibility: hidden;
   pointer-events: none;
+}
+
+/* Prevent horizontal overflow in RTL so scrollbar stays on correct side */
+.shimmer-loading-overlay .container {
+  max-width: 100%;
+  overflow-x: hidden;
+}
+
+.shimmer-loading-overlay .shimmer-partners-track {
+  max-width: 100%;
+  overflow-x: hidden;
 }
 
 /* Shimmer Animation */

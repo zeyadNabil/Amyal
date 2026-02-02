@@ -342,11 +342,11 @@
     /* Force LTR direction for consistent scroll behavior */
     direction: ltr !important;
   }
-  
+
   .partners-slider-container::-webkit-scrollbar {
     display: none;
   }
-  
+
   /* Disable CSS animation - JS handles it */
   .partners-slider-track {
     animation: none !important;
@@ -927,15 +927,23 @@
     animation-duration: 50s;
   }
 
+  /* Hide timeline line on small screens – cards only */
   .process-timeline::before {
-    left: 40px;
-    transform: translateX(0) translateZ(0);
-    -webkit-transform: translateX(0) translateZ(0);
+    display: none !important;
+  }
+
+  .process-timeline {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
   }
 
   .process-step {
     flex-direction: row !important;
     transform: translateY(30px) !important;
+    margin-bottom: 0 !important;
+    align-items: flex-start;
+    gap: 1.25rem;
   }
 
   .process-step.scroll-reveal.active {
@@ -946,7 +954,8 @@
     position: relative !important;
     left: auto !important;
     transform: none !important;
-    margin-inline-end: 20px;
+    margin: 0 !important;
+    flex-shrink: 0;
   }
 
   .step-content {
@@ -954,17 +963,7 @@
     margin-inline-end: 0 !important;
     max-width: 100% !important;
     flex: 1;
-  }
-
-  /* RTL Support for Tablet */
-  [dir="rtl"] .process-timeline::before {
-    left: auto;
-    right: 40px;
-  }
-
-  [dir="rtl"] .step-number {
-    margin-inline-end: 0;
-    margin-inline-start: 20px;
+    min-width: 0;
   }
 }
 
@@ -1055,25 +1054,29 @@
     margin-bottom: 0.75rem;
   }
 
+  /* No line on mobile – cards only */
   .process-timeline::before {
-    left: 30px;
-    transform: translateX(0) translateZ(0);
-    -webkit-transform: translateX(0) translateZ(0);
+    display: none !important;
+  }
+
+  .process-timeline {
+    gap: 1.25rem;
   }
 
   .process-step {
     flex-direction: row !important;
-    margin-bottom: 40px;
+    margin-bottom: 0 !important;
+    gap: 1rem;
   }
 
   .step-number {
-    width: 60px;
-    height: 60px;
-    font-size: 1.5rem;
+    width: 56px;
+    height: 56px;
+    font-size: 1.4rem;
     position: relative !important;
     left: auto !important;
     transform: none !important;
-    margin-inline-end: 15px;
+    margin: 0 !important;
     flex-shrink: 0;
   }
 
@@ -1083,17 +1086,7 @@
     max-width: 100% !important;
     padding: 20px;
     flex: 1;
-  }
-
-  /* RTL Support for Mobile */
-  [dir="rtl"] .process-timeline::before {
-    left: auto;
-    right: 30px;
-  }
-
-  [dir="rtl"] .step-number {
-    margin-inline-end: 0;
-    margin-inline-start: 15px;
+    min-width: 0;
   }
 }
 
@@ -1173,17 +1166,24 @@
     padding: 1.5rem;
   }
 
+  /* No line on small mobile */
   .process-timeline::before {
-    left: 25px;
-    transform: translateX(0) translateZ(0);
-    -webkit-transform: translateX(0) translateZ(0);
+    display: none !important;
+  }
+
+  .process-timeline {
+    gap: 1rem;
+  }
+
+  .process-step {
+    gap: 0.75rem;
   }
 
   .step-number {
-    width: 50px;
-    height: 50px;
+    width: 48px;
+    height: 48px;
     font-size: 1.2rem;
-    margin-inline-end: 12px;
+    margin: 0 !important;
   }
 
   .step-content {
@@ -1191,17 +1191,6 @@
     margin-inline-end: 0 !important;
     max-width: 100% !important;
     padding: 15px;
-  }
-
-  /* RTL Support for Small Mobile */
-  [dir="rtl"] .process-timeline::before {
-    left: auto;
-    right: 25px;
-  }
-
-  [dir="rtl"] .step-number {
-    margin-inline-end: 0;
-    margin-inline-start: 12px;
   }
 }
 

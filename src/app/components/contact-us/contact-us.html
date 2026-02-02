@@ -27,7 +27,7 @@
               </div>
               <div class="contact-info-text">
                 <h5>{{ langService.t('contact.phone') }} (UAE)</h5>
-                <p><a href="tel:+971504612803" class="contact-link">+971 50 461 2803</a></p>
+                <p><a href="tel:+971504612803" class="contact-link" dir="ltr">+971 50 461 2803</a></p>
               </div>
             </div>
 
@@ -39,7 +39,7 @@
               </div>
               <div class="contact-info-text">
                 <h5>{{ langService.t('contact.phone') }} (USA)</h5>
-                <p><a href="tel:+14079277483" class="contact-link">{{ langService.t('contact.usaPhone') }}</a></p>
+                <p><a href="tel:+14079277483" class="contact-link" dir="ltr">{{ langService.t('contact.usaPhone') }}</a></p>
               </div>
             </div>
 
@@ -141,7 +141,7 @@
               type="tel"
               class="form-control"
               [placeholder]="langService.t('contact.phonePlaceholder')"
-              [attr.dir]="langService.currentLang() === 'ar' ? 'rtl' : 'ltr'"
+              dir="ltr"
               formControlName="phone"
               [class.is-invalid]="phone?.invalid && phone?.touched">
             @if (phone?.invalid && phone?.touched) {
@@ -232,7 +232,7 @@
               </div>
               <div class="contact-info-text">
                 <h5>{{ langService.t('contact.phone') }}</h5>
-                <p><a href="tel:+14079277483" class="contact-link">{{ langService.t('contact.usaPhone') }}</a></p>
+                <p><a href="tel:+14079277483" class="contact-link" dir="ltr">{{ langService.t('contact.usaPhone') }}</a></p>
               </div>
             </div>
           </div>

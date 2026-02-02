@@ -588,11 +588,12 @@
   padding: 0 20px;
 }
 
-/* Card Slider Styles */
+/* Card Slider Styles - Force LTR for consistent behavior in RTL pages */
 .card-slider-wrapper {
   position: relative;
   width: 100%;
   padding: 20px 80px;
+  direction: ltr;
 }
 
 .card-slider-container {
@@ -605,6 +606,7 @@
   -moz-user-select: none;
   -ms-user-select: none;
   padding: 10px 0;
+  direction: ltr;
 }
 
 .card-slider-container:active {
@@ -803,6 +805,17 @@
 
 .slider-nav-next {
   right: -70px;
+}
+
+/* RTL: Swap arrow positions so they align with reading direction */
+[dir="rtl"] .slider-nav-prev {
+  left: auto;
+  right: -70px;
+}
+
+[dir="rtl"] .slider-nav-next {
+  right: auto;
+  left: -70px;
 }
 
 .galaxy-overlay {
@@ -1273,6 +1286,17 @@ body:has(.slider-lightbox-overlay) .chat-widget-container {
   right: 20px;
 }
 
+/* RTL: Swap lightbox arrow positions for correct reading direction */
+[dir="rtl"] .slider-lightbox-prev {
+  left: auto;
+  right: 20px;
+}
+
+[dir="rtl"] .slider-lightbox-next {
+  right: auto;
+  left: 20px;
+}
+
 .slider-lightbox-counter {
   position: absolute;
   bottom: 20px;
@@ -1315,6 +1339,16 @@ body:has(.slider-lightbox-overlay) .chat-widget-container {
 
   .slider-lightbox-next {
     right: 10px;
+  }
+
+  [dir="rtl"] .slider-lightbox-prev {
+    left: auto;
+    right: 10px;
+  }
+
+  [dir="rtl"] .slider-lightbox-next {
+    right: auto;
+    left: 10px;
   }
 
   .slider-lightbox-counter {
@@ -1557,6 +1591,16 @@ body:has(.slider-lightbox-overlay) .chat-widget-container {
     right: 10px;
   }
 
+  [dir="rtl"] .slider-nav-prev {
+    left: auto;
+    right: 10px;
+  }
+
+  [dir="rtl"] .slider-nav-next {
+    right: auto;
+    left: 10px;
+  }
+
   .card-slider-wrapper {
     padding: 20px 0;
   }
@@ -1751,6 +1795,16 @@ body:has(.slider-lightbox-overlay) .chat-widget-container {
 
   .slider-nav-next {
     right: 5px;
+  }
+
+  [dir="rtl"] .slider-nav-prev {
+    left: auto;
+    right: 5px;
+  }
+
+  [dir="rtl"] .slider-nav-next {
+    right: auto;
+    left: 5px;
   }
 
   .info-card {

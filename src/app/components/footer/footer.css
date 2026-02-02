@@ -1,247 +1,241 @@
 /* ========================================
-   FOOTER
+   FOOTER – works in both LTR and RTL (logical properties)
    ======================================== */
 
 .footer {
-    background: rgba(10, 14, 26, 0.95);
-    border-top: 1px solid rgba(255, 255, 255, 0.1);
-    padding: 3rem 0 1.5rem;
-    margin-top: 4rem;
+  background: rgba(10, 14, 26, 0.95);
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 3rem 0 1.5rem;
+  margin-top: 4rem;
 }
 
+/* Don’t override Bootstrap: .row and .col-* inherit direction from document */
 .footer-content {
-    margin-bottom: 2rem;
+  margin-bottom: 2rem;
 }
 
 .footer-column {
-    display: flex;
-    flex-direction: column;
+  display: flex;
+  flex-direction: column;
 }
 
-/* About Us Column */
+/* About column */
 .footer-about {
-    max-width: 20rem;
+  max-width: 20rem;
 }
 
 .footer-logo {
-    margin-bottom: 1.5rem;
+  margin-bottom: 1.5rem;
 }
 
 .footer-logo-img {
-    width: 7rem;
-    filter: drop-shadow(0 0 1.25rem rgba(147, 51, 234, 0.5));
+  width: 7rem;
 }
 
 .footer-description {
-    font-size: 0.9rem;
-    color: var(--gray);
-    line-height: 1.6;
-    margin-bottom: 1.5rem;
+  font-size: 0.9rem;
+  color: var(--gray);
+  line-height: 1.6;
+  margin-bottom: 1.5rem;
+  text-align: start;
 }
 
 .footer-contact-info {
-    display: flex;
-    flex-direction: column;
-    gap: 0.75rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  align-items: flex-start;
 }
 
 .contact-item {
-    font-size: 0.875rem;
-    color: var(--gray);
-    display: flex;
-    flex-direction: column;
-    gap: 0.25rem;
+  font-size: 0.875rem;
+  color: var(--gray);
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  align-items: flex-start;
+  text-align: start;
 }
 
 .contact-label {
-    font-weight: 600;
-    color: var(--white);
-    margin-bottom: 0.25rem;
+  font-weight: 600;
+  color: var(--white);
+  margin-block-end: 0.25rem;
 }
 
 .contact-link,
 .contact-text {
-    color: var(--gray);
-    text-decoration: none;
-    transition: color 0.3s ease;
+  color: var(--gray);
+  text-decoration: none;
+  transition: color 0.3s ease;
 }
 
 .contact-link:hover {
-    color: var(--purple);
+  color: var(--purple);
 }
 
-/* Footer Headings */
+/* Headings – start-aligned so they follow document direction */
 .footer-heading {
-    font-size: 1.1rem;
-    font-weight: 600;
-    color: var(--white);
-    margin-bottom: 1.25rem;
-    position: relative;
-    padding-bottom: 0.75rem;
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--white);
+  margin-bottom: 1.25rem;
+  position: relative;
+  padding-bottom: 0.75rem;
+  text-align: start;
 }
 
-/* Footer Lists */
+/* Lists – start-aligned */
 .footer-list {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-    display: flex;
-    flex-direction: column;
-    gap: 0.75rem;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  align-items: flex-start;
 }
 
 .footer-link {
-    color: var(--gray);
-    text-decoration: none;
-    font-size: 0.9rem;
-    transition: all 0.3s ease;
-    display: inline-flex;
-    align-items: center;
-    gap: 0.5rem;
-    cursor: pointer;
-    border-bottom: none;
+  color: var(--gray);
+  text-decoration: none;
+  font-size: 0.9rem;
+  transition: all 0.3s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  cursor: pointer;
+  border-bottom: none;
+  justify-content: flex-start;
 }
 
+/* Hover: use logical inset so it works in both LTR and RTL */
 .footer-link:hover {
-    color: var(--purple);
-    padding-left: 0.5rem;
-    transform: translateX(0.25rem);
+  color: var(--purple);
+  padding-inline-start: 0.5rem;
 }
 
-/* Social Media Links */
+/* Social */
 .footer-social-list .footer-link {
-    align-items: center;
+  align-items: center;
 }
 
 .social-link {
-    display: flex;
-    align-items: center;
-    gap: 0.75rem;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
 }
 
 .social-icon {
-    width: 1.25rem;
-    height: 1.25rem;
-    fill: currentColor;
-    transition: transform 0.3s ease;
+  width: 1.25rem;
+  height: 1.25rem;
+  fill: currentColor;
+  transition: transform 0.3s ease;
 }
 
 .social-link:hover .social-icon {
-    transform: scale(1.1);
-    color: var(--purple);
+  transform: scale(1.1);
+  color: var(--purple);
 }
 
-/* Footer Bottom */
+/* Footer bottom */
 .footer-bottom {
-    border-top: 1px solid rgba(255, 255, 255, 0.1);
-    padding-top: 1.5rem;
-    text-align: center;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  padding-top: 1.5rem;
+  text-align: center;
 }
 
 .footer-copyright {
-    font-size: 0.875rem;
-    color: var(--gray-dark);
-    margin: 0;
+  font-size: 0.875rem;
+  color: var(--gray-dark);
+  margin: 0;
 }
 
-/* ========================================
-   RTL SUPPORT
-   ======================================== */
-
+/* RTL: only fix things that can’t be done with logical properties (e.g. decorative ::after) */
 [dir="rtl"] .footer-heading::after {
-    display: none;
-}
-
-[dir="rtl"] .footer-link:hover {
-    padding-left: 0;
-    padding-right: 0.5rem;
-    transform: translateX(-0.25rem);
-}
-
-[dir="rtl"] .footer-content.row {
-    direction: rtl;
+  display: none;
 }
 
 /* ========================================
-   RESPONSIVE - TABLET LANDSCAPE (768px - 991px)
+   RESPONSIVE – TABLET LANDSCAPE (768px - 991px)
    ======================================== */
 
 @media (min-width: 768px) and (max-width: 991px) {
-    .footer-about {
-        max-width: 100%;
-    }
+  .footer-about {
+    max-width: 100%;
+  }
 }
 
 /* ========================================
-   RESPONSIVE - TABLET PORTRAIT (576px - 767px)
+   RESPONSIVE – TABLET PORTRAIT (576px - 767px)
    ======================================== */
 
 @media (min-width: 576px) and (max-width: 767px) {
-    .footer {
-        padding: 2rem 0 1rem;
-    }
+  .footer {
+    padding: 2rem 0 1rem;
+  }
 
-    .footer-about {
-        max-width: 100%;
-    }
+  .footer-about {
+    max-width: 100%;
+  }
 
-    .footer-heading {
-        font-size: 1rem;
-    }
+  .footer-heading {
+    font-size: 1rem;
+  }
 }
 
 /* ========================================
-   RESPONSIVE - MOBILE (≤575px)
+   RESPONSIVE – MOBILE (≤575px)
    ======================================== */
 
 @media (max-width: 575px) {
-    .footer {
-        padding: 2rem 0 1rem;
-    }
+  .footer {
+    padding: 2rem 0 1rem;
+  }
 
-    .footer-column {
-        text-align: center;
-    }
+  .footer-column {
+    text-align: center;
+  }
 
-    .footer-about {
-        max-width: 100%;
-    }
+  .footer-about {
+    max-width: 100%;
+  }
 
-    .footer-logo {
-        display: flex;
-        justify-content: center;
-    }
+  .footer-logo {
+    display: flex;
+    justify-content: center;
+  }
 
-    .footer-description {
-        text-align: center;
-    }
+  .footer-description {
+    text-align: center;
+  }
 
-    .footer-contact-info {
-        align-items: center;
-    }
+  .footer-contact-info {
+    align-items: center;
+  }
 
-    .contact-item {
-        font-size: 0.8rem;
-        text-align: center;
-        align-items: center;
-    }
+  .contact-item {
+    font-size: 0.8rem;
+    text-align: center;
+    align-items: center;
+  }
 
-    .footer-heading {
-        font-size: 1rem;
-        margin-bottom: 1rem;
-        text-align: center;
-    }
+  .footer-heading {
+    font-size: 1rem;
+    margin-bottom: 1rem;
+    text-align: center;
+  }
 
-    .footer-list {
-        align-items: center;
-    }
+  .footer-list {
+    align-items: center;
+  }
 
-    .footer-link {
-        font-size: 0.875rem;
-        justify-content: center;
-    }
+  .footer-link {
+    font-size: 0.875rem;
+    justify-content: center;
+  }
 
-    .social-link {
-        justify-content: center;
-    }
+  .social-link {
+    justify-content: center;
+  }
 }

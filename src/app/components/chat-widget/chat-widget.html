@@ -25,12 +25,12 @@
       <div class="chat-info">
         <div class="chat-phone">
           <i class="fas fa-phone"></i>
-          <a [href]="getPhoneLinkUAE()" class="phone-link">{{ phoneNumberUAE }}</a>
+          <a [href]="getPhoneLinkUAE()" class="phone-link" dir="ltr">{{ phoneNumberUAE }}</a>
           <span class="phone-label">({{ langService.t('contact.uae') }})</span>
         </div>
         <div class="chat-phone">
           <i class="fas fa-phone"></i>
-          <a [href]="getPhoneLinkUSA()" class="phone-link">{{ phoneNumberUSA }}</a>
+          <a [href]="getPhoneLinkUSA()" class="phone-link" dir="ltr">{{ phoneNumberUSA }}</a>
           <span class="phone-label">({{ langService.t('contact.usa') }})</span>
         </div>
         <p class="chat-message">{{ langService.t('contact.text') || 'Get in touch with us' }}</p>

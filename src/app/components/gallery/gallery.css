@@ -719,6 +719,17 @@ body:has(.lightbox-overlay) .chat-widget-container {
   right: 20px;
 }
 
+/* RTL: Swap lightbox arrow positions for correct reading direction */
+[dir="rtl"] .lightbox-prev {
+  left: auto;
+  right: 20px;
+}
+
+[dir="rtl"] .lightbox-next {
+  right: auto;
+  left: 20px;
+}
+
 .lightbox-counter {
   position: absolute;
   bottom: 20px;
@@ -761,6 +772,16 @@ body:has(.lightbox-overlay) .chat-widget-container {
 
   .lightbox-next {
     right: 10px;
+  }
+
+  [dir="rtl"] .lightbox-prev {
+    left: auto;
+    right: 10px;
+  }
+
+  [dir="rtl"] .lightbox-next {
+    right: auto;
+    left: 10px;
   }
 
   .lightbox-counter {
