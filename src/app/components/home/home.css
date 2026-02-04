@@ -350,18 +350,15 @@
   animation-play-state: paused;
 }
 
-/* Mobile: same continuous CSS animation as desktop (non-stop) */
+/* Mobile: same CSS animation as desktop, direction follows LTR/RTL so both English and Arabic work */
 @media (max-width: 768px) {
   .partners-slider-container {
     overflow: hidden;
-    /* Force LTR for consistent animation direction */
-    direction: ltr !important;
   }
 
   .partners-slider-track {
-    /* Keep CSS animation running non-stop on mobile */
-    animation: slidePartners 45s linear infinite;
-    direction: ltr !important;
+    animation-duration: 45s;
+    /* animation-name: from base (slidePartners) or [dir="rtl"] (slidePartnersRTL) */
   }
 }
 
