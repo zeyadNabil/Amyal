@@ -23,26 +23,28 @@
 
     <div class="chat-panel-content">
       <div class="chat-info">
-        <div class="chat-phone">
-          <i class="fas fa-phone"></i>
-          <a [href]="getPhoneLinkUAE()" class="phone-link" dir="ltr">{{ phoneNumberUAE }}</a>
-          <span class="phone-label">({{ langService.t('contact.uae') }})</span>
-        </div>
-        <div class="chat-phone">
-          <i class="fas fa-phone"></i>
-          <a [href]="getPhoneLinkUSA()" class="phone-link" dir="ltr">{{ phoneNumberUSA }}</a>
-          <span class="phone-label">({{ langService.t('contact.usa') }})</span>
-        </div>
+        <p class="chat-choose-label">{{ langService.t('contact.chooseNumber') || 'Choose a number to message on WhatsApp' }}</p>
+        @for (opt of phoneOptions; track opt.id) {
+          <button
+            type="button"
+            class="chat-phone-option"
+            [class.selected]="selectedPhone() === opt.id"
+            (click)="selectNumber(opt.id)">
+            <i class="fas fa-phone"></i>
+            <span class="phone-link" dir="ltr">{{ opt.number }}</span>
+            <span class="phone-label">({{ langService.t(opt.labelKey) }})</span>
+          </button>
+        }
         <p class="chat-message">{{ langService.t('contact.text') || 'Get in touch with us' }}</p>
       </div>
 
-      <a
-        routerLink="/contact-us"
+      <button
+        type="button"
         class="chat-send-btn"
-        (click)="navigateToContact()">
+        (click)="sendWhatsAppMessage()">
         <span>{{ langService.t('contact.submit') || 'Send Message' }}</span>
         <i class="fas fa-paper-plane"></i>
-      </a>
+      </button>
     </div>
   </div>
 </div>

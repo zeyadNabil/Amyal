@@ -12,13 +12,8 @@ import { ShimmerLoader } from '../shimmer-loader/shimmer-loader';
 })
 export class Home implements OnInit, OnDestroy {
   isLoaded = signal(false);
-  private counterTimers: Map<Element, any> = new Map();
-  
-  // Mobile partners slider
-  private mobileSliderInterval: any = null;
-  private isTouching = false;
-  private sliderContainer: HTMLElement | null = null;
-  private touchResumeTimeout: any = null;
+  private counterTimers: Map<Element, { intervalId?: number; timeoutId?: number }> = new Map();
+  private countersStarted = false;
 
   // Services data - will be initialized in ngOnInit
   services: Array<{ key: string; description: string }> = [];
@@ -61,12 +56,12 @@ export class Home implements OnInit, OnDestroy {
       { icon: 'assets/images/Icons/layers.png', value: 500, suffix: '+', label: this.langService.t('about.stat1') },
       { icon: 'assets/images/Icons/star.png', value: 15, suffix: '+', label: this.langService.t('about.stat2') },
       { icon: 'assets/images/Icons/smile.png', value: 98, suffix: '%', label: this.langService.t('about.stat3') },
-      { icon: 'assets/images/Icons/glope.png', value: 50, suffix: '+', label: this.langService.t('about.stat4') || 'Countries Served' }
+      { icon: 'assets/images/Icons/globe.png', value: 50, suffix: '+', label: this.langService.t('about.stat4') || 'Countries Served' }
     ];
 
     // Update features
     this.features = [
-      { icon: 'assets/images/Icons/festival.png', title: this.langService.t('home.features.innovativeDesign.title'), text: this.langService.t('home.features.innovativeDesign.text') },
+      { icon: 'assets/images/Icons/InnovativeDesign.png', title: this.langService.t('home.features.innovativeDesign.title'), text: this.langService.t('home.features.innovativeDesign.text') },
       { icon: 'assets/images/Icons/rocket.png', title: this.langService.t('home.features.onTimeDelivery.title'), text: this.langService.t('home.features.onTimeDelivery.text') },
       { icon: 'assets/images/Icons/team.png', title: this.langService.t('home.features.expertTeam.title'), text: this.langService.t('home.features.expertTeam.text') },
       { icon: 'assets/images/Icons/star.png', title: this.langService.t('home.features.qualityMaterials.title'), text: this.langService.t('home.features.qualityMaterials.text') },
@@ -108,7 +103,6 @@ export class Home implements OnInit, OnDestroy {
     this.initScrollAnimations();
     this.initCounterAnimations();
     this.initParallaxEffects();
-    this.initMobilePartnersSlider();
     // Ensure hero section has no transform applied
     setTimeout(() => {
       const hero = document.querySelector('.hero-section');
@@ -119,69 +113,8 @@ export class Home implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    // Cleanup mobile slider interval
-    if (this.mobileSliderInterval) {
-      cancelAnimationFrame(this.mobileSliderInterval);
-    }
-    if (this.touchResumeTimeout) {
-      clearTimeout(this.touchResumeTimeout);
-    }
+    this.stopCounterAnimations();
   }
-
-  initMobilePartnersSlider(): void {
-    // Only run on mobile
-    if (window.innerWidth > 768) return;
-
-    setTimeout(() => {
-      this.sliderContainer = document.querySelector('.partners-slider-container');
-      if (!this.sliderContainer) return;
-
-      const scrollSpeed = 1; // pixels per frame
-      const container = this.sliderContainer;
-
-      // Touch event handlers
-      container.addEventListener('touchstart', () => {
-        this.isTouching = true;
-        // Clear any pending resume timeout
-        if (this.touchResumeTimeout) {
-          clearTimeout(this.touchResumeTimeout);
-          this.touchResumeTimeout = null;
-        }
-      }, { passive: true });
-
-      container.addEventListener('touchend', () => {
-        // Resume after 2 seconds
-        this.touchResumeTimeout = setTimeout(() => {
-          this.isTouching = false;
-        }, 2000);
-      }, { passive: true });
-
-      // Auto-scroll with requestAnimationFrame for smooth performance
-      const autoScroll = () => {
-        if (!this.sliderContainer) {
-          return; // Stop if container is gone
-        }
-        
-        if (!this.isTouching) {
-          const halfWidth = this.sliderContainer.scrollWidth / 2;
-          
-          // Always scroll forward (LTR direction forced in CSS)
-          this.sliderContainer.scrollLeft += scrollSpeed;
-          
-          // Reset to start when reaching middle (seamless loop)
-          if (this.sliderContainer.scrollLeft >= halfWidth) {
-            this.sliderContainer.scrollLeft = 0;
-          }
-        }
-
-        this.mobileSliderInterval = requestAnimationFrame(autoScroll);
-      };
-
-      // Start auto-scroll
-      this.mobileSliderInterval = requestAnimationFrame(autoScroll);
-    }, 2500); // Wait for content to load
-  }
-
 
   @HostListener('window:scroll', [])
   onScroll(): void {
@@ -213,19 +146,17 @@ export class Home implements OnInit, OnDestroy {
 
   initCounterAnimations(): void {
     const observerOptions = {
-      threshold: 0.2, // Lower threshold for mobile
+      threshold: 0.2,
       rootMargin: '0px'
     };
 
     const observer = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          // Start infinite counter animation if not already running
-          if (this.counterTimers.size === 0) {
-            this.startInfiniteCounters();
-          }
+        if (entry.isIntersecting && !this.countersStarted) {
+          this.countersStarted = true;
+          // Delay so scroll-reveal (0.8s) on stat cards finishes first, then start counters
+          setTimeout(() => this.startInfiniteCounters(), 850);
         }
-        // Don't reset when leaving view - let counters keep running
       });
     }, observerOptions);
 
@@ -245,56 +176,54 @@ export class Home implements OnInit, OnDestroy {
   }
 
   stopCounterAnimations(): void {
-    // Clear all running timers
-    this.counterTimers.forEach((timer) => {
-      clearInterval(timer);
+    this.counterTimers.forEach((ids) => {
+      if (ids.intervalId != null) clearInterval(ids.intervalId);
+      if (ids.timeoutId != null) clearTimeout(ids.timeoutId);
     });
     this.counterTimers.clear();
   }
 
   startInfiniteCounters(): void {
-    // Stop any existing animations first
     this.stopCounterAnimations();
 
     const counters = document.querySelectorAll('.stat-number');
+    const duration = 2000;
+    const pauseDuration = 200;
+    const steps = 60;
 
     counters.forEach(counter => {
       const target = parseInt(counter.getAttribute('data-target') || '0');
       let current = 0;
-      const duration = 2000; // 2 seconds to count up
-      const pauseDuration = 200; // 0.2 seconds pause at max
-      const steps = 60;
       const increment = target / steps;
       const stepTime = duration / steps;
 
       const runCounter = () => {
         current = 0;
         counter.textContent = '0';
-        
-        const timer = setInterval(() => {
+
+        const intervalId = window.setInterval(() => {
           current += increment;
           if (current >= target) {
             current = target;
             counter.textContent = target.toString();
-            clearInterval(timer);
-            
-            // Pause at max, then restart
-            const restartTimer = setTimeout(() => {
+            clearInterval(intervalId);
+
+            const existing = this.counterTimers.get(counter) ?? {};
+            existing.intervalId = undefined;
+            this.counterTimers.set(counter, existing);
+
+            const timeoutId = window.setTimeout(() => {
               runCounter();
             }, pauseDuration);
-            
-            // Store restart timer for cleanup
-            this.counterTimers.set(counter, restartTimer as any);
+            this.counterTimers.set(counter, { ...this.counterTimers.get(counter), timeoutId });
           } else {
             counter.textContent = Math.floor(current).toString();
           }
         }, stepTime);
 
-        // Store the timer so we can clear it later
-        this.counterTimers.set(counter, timer);
+        this.counterTimers.set(counter, { intervalId, timeoutId: undefined });
       };
 
-      // Start the counter
       runCounter();
     });
   }

@@ -47,6 +47,13 @@
   z-index: 1;
 }
 
+/* Large screens: extra top spacing so the curved line doesn’t reach the stands photo */
+@media (min-width: 992px) {
+  .hero-section {
+    padding-top: calc(var(--nav-height) + 5rem);
+  }
+}
+
 .hero-content {
   max-width: 1400px;
   margin: 0 auto;
@@ -112,9 +119,9 @@
 
 .hero-stands-card:hover .hero-stands-card-inner {
   transform: translateY(-10px);
-  background: rgba(147, 51, 234, 0.1);
+  background: rgba(2, 125, 248, 0.1);
   border-color: var(--purple);
-  box-shadow: 0 20px 60px rgba(147, 51, 234, 0.4);
+  box-shadow: 0 20px 60px rgba(2, 125, 248, 0.4);
 }
 
 .hero-stands-image {
@@ -143,13 +150,6 @@
   margin-bottom: 0.5rem;
 }
 
-.gradient-text-animated {
-  background: linear-gradient(135deg, var(--pink) 0%, var(--purple) 50%, var(--blue) 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-}
-
 .hero-cta {
   display: flex;
   gap: 1.5rem;
@@ -168,12 +168,12 @@
   text-decoration: none;
   background: transparent;
   border: 2px solid;
-  border-image: linear-gradient(135deg, var(--pink), var(--purple), var(--blue)) 1;
+  border-image: linear-gradient(135deg, #0E37AD, #027DF8, #60CEFE, #F7F7F8) 1;
   border-radius: 50px;
   position: relative;
   overflow: hidden;
   transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-  box-shadow: 0 0 30px rgba(147, 51, 234, 0.4);
+  box-shadow: 0 0 30px rgba(2, 125, 248, 0.4), 0 0 0 1px rgba(247, 247, 248, 0.4);
   cursor: pointer;
 }
 
@@ -184,14 +184,14 @@
   left: -100%;
   width: 100%;
   height: 100%;
-  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.35), transparent);
   transition: left 0.6s ease;
 }
 
 .btn-glow:hover {
   transform: translateY(-5px) scale(1.05);
-  box-shadow: 0 0 50px rgba(147, 51, 234, 0.8), 0 0 80px rgba(255, 27, 158, 0.6);
-  border-image: linear-gradient(135deg, var(--blue), var(--purple), var(--pink)) 1;
+  box-shadow: 0 0 50px rgba(2, 125, 248, 0.8), 0 0 80px rgba(2, 125, 248, 0.6), 0 0 0 1px rgba(247, 247, 248, 0.6);
+  border-image: linear-gradient(135deg, #60CEFE, #F7F7F8, #027DF8, #0E37AD) 1;
 }
 
 .btn-glow:hover::before {
@@ -199,8 +199,28 @@
 }
 
 .btn-primary {
-  background: linear-gradient(135deg, var(--pink), var(--purple));
+  background: var(--gradient-blue-silver);
   border: none;
+  box-shadow: 0 0 30px rgba(2, 125, 248, 0.4), 0 0 0 1px rgba(247, 247, 248, 0.5);
+}
+
+.btn-primary:hover {
+  box-shadow: 0 0 50px rgba(2, 125, 248, 0.6), 0 0 0 1px rgba(247, 247, 248, 0.7);
+}
+
+.btn-primary .btn-text {
+  background: none;
+  color: var(--white);
+  -webkit-text-fill-color: var(--white);
+  font-weight: 700;
+}
+
+.btn-secondary .btn-text {
+  background: linear-gradient(135deg, #027DF8, #60CEFE, #F7F7F8);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  font-weight: 600;
 }
 
 .btn-secondary {
@@ -274,9 +294,9 @@
 
 .partners-slider-item:hover {
   transform: translateY(-5px) scale(1.05);
-  background: rgba(147, 51, 234, 0.1);
+  background: rgba(2, 125, 248, 0.1);
   border-color: var(--purple);
-  box-shadow: 0 10px 30px rgba(147, 51, 234, 0.3);
+  box-shadow: 0 10px 30px rgba(2, 125, 248, 0.3);
 }
 
 .partner-logo {
@@ -330,27 +350,17 @@
   animation-play-state: paused;
 }
 
-/* Mobile: JS-based auto-scroll + swipe */
+/* Mobile: same continuous CSS animation as desktop (non-stop) */
 @media (max-width: 768px) {
   .partners-slider-container {
-    overflow-x: auto;
-    -webkit-overflow-scrolling: touch;
-    scrollbar-width: none;
-    -ms-overflow-style: none;
-    mask-image: none;
-    -webkit-mask-image: none;
-    /* Force LTR direction for consistent scroll behavior */
+    overflow: hidden;
+    /* Force LTR for consistent animation direction */
     direction: ltr !important;
   }
 
-  .partners-slider-container::-webkit-scrollbar {
-    display: none;
-  }
-
-  /* Disable CSS animation - JS handles it */
   .partners-slider-track {
-    animation: none !important;
-    /* Force LTR for consistent scroll */
+    /* Keep CSS animation running non-stop on mobile */
+    animation: slidePartners 45s linear infinite;
     direction: ltr !important;
   }
 }
@@ -381,7 +391,7 @@
 
 .section-subtitle {
   font-size: clamp(1rem, 2vw, 1.25rem);
-  color: var(--gray);
+  color: var(--white);
   max-width: 600px;
   margin: 0 auto;
 }
@@ -426,9 +436,9 @@
 
 .service-card-animated:hover .service-card-inner {
   transform: translateY(-10px);
-  background: rgba(147, 51, 234, 0.1);
+  background: rgba(2, 125, 248, 0.1);
   border-color: var(--purple);
-  box-shadow: 0 20px 60px rgba(147, 51, 234, 0.4);
+  box-shadow: 0 20px 60px rgba(2, 125, 248, 0.4);
 }
 
 .service-icon-wrapper {
@@ -447,7 +457,7 @@
 
 .service-description {
   font-size: 1rem;
-  color: var(--gray);
+  color: var(--white);
   line-height: 1.6;
   margin-bottom: 1.5rem;
   flex-grow: 1;
@@ -524,9 +534,9 @@
 
 .stat-card-animated:hover {
   transform: translateY(-10px);
-  background: rgba(147, 51, 234, 0.15);
+  background: rgba(2, 125, 248, 0.15);
   border-color: var(--purple);
-  box-shadow: 0 20px 50px rgba(147, 51, 234, 0.4);
+  box-shadow: 0 20px 50px rgba(2, 125, 248, 0.4);
 }
 
 .stat-icon {
@@ -560,7 +570,7 @@
 
 .stat-label {
   font-size: 1rem;
-  color: var(--gray);
+  color: var(--white);
   font-weight: 600;
 }
 
@@ -599,9 +609,9 @@
 
 .feature-card-3d:hover .feature-card-front {
   transform: translateY(-10px);
-  background: rgba(147, 51, 234, 0.15);
+  background: rgba(2, 125, 248, 0.15);
   border-color: var(--purple);
-  box-shadow: 0 25px 70px rgba(147, 51, 234, 0.4);
+  box-shadow: 0 25px 70px rgba(2, 125, 248, 0.4);
 }
 
 .feature-number {
@@ -632,7 +642,7 @@
 
 .feature-text {
   font-size: 1rem;
-  color: var(--gray);
+  color: var(--white);
   line-height: 1.6;
 }
 
@@ -721,7 +731,7 @@
   transform: translateX(-50%);
   z-index: 3;
   flex-shrink: 0;
-  box-shadow: 0 10px 30px rgba(147, 51, 234, 0.3);
+  box-shadow: 0 10px 30px rgba(2, 125, 248, 0.3);
   border: 5px solid var(--bg-dark);
   box-sizing: border-box;
 }
@@ -749,8 +759,8 @@
 
 .process-step:hover .step-content {
   transform: translateY(-5px);
-  border-color: rgba(147, 51, 234, 0.5);
-  box-shadow: 0 15px 35px rgba(147, 51, 234, 0.2);
+  border-color: rgba(2, 125, 248, 0.5);
+  box-shadow: 0 15px 35px rgba(2, 125, 248, 0.2);
 }
 
 /* ========================================
@@ -833,7 +843,7 @@
 
 .cta-subtitle {
   font-size: clamp(1.1rem, 2vw, 1.5rem);
-  color: var(--gray);
+  color: var(--white);
   margin-bottom: 3rem;
 }
 

@@ -3,23 +3,73 @@
    ======================================== */
 
 :root {
-    /* Galaxy Colors */
+    /* Galaxy / dark theme backgrounds */
     --bg-dark: #0a0e1a;
     --bg-darker: #050810;
     --bg-navy: #141824;
-    --pink: #FF1B9E;
-    --pink-light: #FF4DB8;
-    --purple: #9333EA;
-    --purple-light: #A855F7;
-    --blue: #3B82F6;
-    --blue-light: #60A5FA;
+
+    /* Primary blue palette - logo colors */
+    --blue-bright: #60CEFE;
+    --blue-mid: #027DF8;
+    --blue-dark: #0E37AD;
+    --blue-light: #60CEFE;
+
+    /* Semantic aliases (used across components) */
+    --pink: #60CEFE;
+    --pink-light: #60CEFE;
+    --purple: #027DF8;
+    --purple-light: #60CEFE;
+    --blue: #0E37AD;
+    --blue-light: #60CEFE;
     --cyan: #06B6D4;
+
+    /* Silver - logo color */
+    --silver: #F7F7F8;
+    --silver-light: #F7F7F8;
+    --silver-dark: #E8E8EA;
+
+    /* Gradients - logo colors */
+    --gradient-primary: linear-gradient(135deg, #0E37AD 0%, #027DF8 50%, #60CEFE 100%);
+    --gradient-hero: linear-gradient(135deg, #0E37AD 0%, #027DF8 50%, #60CEFE 100%);
+    --gradient-vertical: linear-gradient(180deg, #0E37AD 0%, #027DF8 50%, #60CEFE 100%);
+
+    /* Blue to silver - logo colors (#0E37AD → #027DF8 → #60CEFE → #F7F7F8) */
+    --gradient-blue-silver: linear-gradient(
+      135deg,
+      #0E37AD 0%,
+      #0E37AD 8%,
+      #027DF8 25%,
+      #027DF8 45%,
+      #60CEFE 65%,
+      #60CEFE 85%,
+      #F7F7F8 100%
+    );
+    --gradient-text-blue-silver: linear-gradient(
+      90deg,
+      #0E37AD 0%,
+      #027DF8 30%,
+      #60CEFE 65%,
+      #F7F7F8 100%
+    );
+
     --white: #FFFFFF;
     --gray: #94A3B8;
     --gray-dark: #64748B;
 
-    /* Spacing */
     --nav-height: 80px;
+}
+
+/* ========================================
+   GRADIENT TEXT HEADERS (blue to silver)
+   ======================================== */
+
+.gradient-text,
+.gradient-text-animated {
+  background: var(--gradient-text-blue-silver);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  filter: drop-shadow(0 0 4px rgba(2, 125, 248, 0.2)) drop-shadow(0 0 10px rgba(2, 125, 248, 0.12)) drop-shadow(0 0 18px rgba(96, 206, 254, 0.08));
 }
 
 /* ========================================
@@ -57,35 +107,30 @@ html {
 
 ::-webkit-scrollbar-track {
     background: var(--bg-darker);
-    border-left: 1px solid rgba(147, 51, 234, 0.1);
+    border-left: 1px solid rgba(2, 125, 248, 0.1);
 }
 
 ::-webkit-scrollbar-thumb {
-    background: linear-gradient(
-        180deg,
-        var(--purple) 0%,
-        var(--pink) 50%,
-        var(--blue) 100%
-    );
+    background: var(--gradient-vertical);
     border-radius: 10px;
     border: 2px solid var(--bg-darker);
-    box-shadow: 0 0 10px rgba(147, 51, 234, 0.5);
+    box-shadow: 0 0 10px rgba(2, 125, 248, 0.5);
 }
 
 ::-webkit-scrollbar-thumb:hover {
     background: linear-gradient(
         180deg,
-        var(--purple-light) 0%,
-        var(--pink-light) 50%,
-        var(--blue-light) 100%
+        var(--blue-light) 0%,
+        var(--purple-light) 50%,
+        var(--blue-bright) 100%
     );
-    box-shadow: 0 0 20px rgba(147, 51, 234, 0.8);
+    box-shadow: 0 0 20px rgba(2, 125, 248, 0.8);
 }
 
 /* Firefox */
 * {
     scrollbar-width: thin;
-    scrollbar-color: var(--purple) var(--bg-darker);
+    scrollbar-color: var(--blue-mid) var(--bg-darker);
 }
 
 /* ========================================
@@ -198,41 +243,41 @@ html {
 
 #stars3 {
     background-image:
-        /* First row - colored stars */
+        /* First row - blue accent stars */
         radial-gradient(1px 1px at 75px 125px, var(--blue-light), transparent),
-        radial-gradient(1px 1px at 180px 25px, var(--purple-light), transparent),
+        radial-gradient(1px 1px at 180px 25px, var(--blue-bright), transparent),
         radial-gradient(1px 1px at 250px 200px, var(--pink-light), transparent),
         radial-gradient(2px 2px at 50px 50px, var(--cyan), transparent),
-        radial-gradient(1px 1px at 120px 80px, var(--purple-light), transparent),
+        radial-gradient(1px 1px at 120px 80px, var(--blue-bright), transparent),
         radial-gradient(1px 1px at 200px 150px, var(--blue-light), transparent),
         radial-gradient(2px 2px at 30px 180px, var(--pink-light), transparent),
         radial-gradient(1px 1px at 100px 30px, var(--cyan), transparent),
-        radial-gradient(1px 1px at 170px 100px, var(--purple-light), transparent),
+        radial-gradient(1px 1px at 170px 100px, var(--blue-bright), transparent),
         radial-gradient(2px 2px at 240px 60px, var(--blue-light), transparent),
         radial-gradient(1px 1px at 60px 140px, var(--pink-light), transparent),
         radial-gradient(1px 1px at 130px 10px, var(--cyan), transparent),
-        radial-gradient(2px 2px at 210px 170px, var(--purple-light), transparent),
+        radial-gradient(2px 2px at 210px 170px, var(--blue-bright), transparent),
         radial-gradient(1px 1px at 280px 40px, var(--blue-light), transparent),
         radial-gradient(1px 1px at 90px 190px, var(--pink-light), transparent),
         /* Second row */
         radial-gradient(2px 2px at 320px 120px, var(--cyan), transparent),
-        radial-gradient(1px 1px at 350px 70px, var(--purple-light), transparent),
+        radial-gradient(1px 1px at 350px 70px, var(--blue-bright), transparent),
         radial-gradient(1px 1px at 380px 160px, var(--blue-light), transparent),
         radial-gradient(2px 2px at 410px 30px, var(--pink-light), transparent),
         radial-gradient(1px 1px at 440px 110px, var(--cyan), transparent),
-        radial-gradient(1px 1px at 470px 20px, var(--purple-light), transparent),
+        radial-gradient(1px 1px at 470px 20px, var(--blue-bright), transparent),
         radial-gradient(2px 2px at 500px 140px, var(--blue-light), transparent),
         radial-gradient(1px 1px at 530px 80px, var(--pink-light), transparent),
         radial-gradient(1px 1px at 560px 180px, var(--cyan), transparent),
-        radial-gradient(2px 2px at 300px 50px, var(--purple-light), transparent),
+        radial-gradient(2px 2px at 300px 50px, var(--blue-bright), transparent),
         radial-gradient(1px 1px at 330px 190px, var(--blue-light), transparent),
         radial-gradient(1px 1px at 360px 100px, var(--pink-light), transparent),
         radial-gradient(2px 2px at 390px 40px, var(--cyan), transparent),
-        radial-gradient(1px 1px at 420px 150px, var(--purple-light), transparent),
+        radial-gradient(1px 1px at 420px 150px, var(--blue-bright), transparent),
         radial-gradient(1px 1px at 450px 10px, var(--blue-light), transparent),
         radial-gradient(2px 2px at 480px 130px, var(--pink-light), transparent),
         radial-gradient(1px 1px at 510px 60px, var(--cyan), transparent),
-        radial-gradient(1px 1px at 540px 170px, var(--purple-light), transparent);
+        radial-gradient(1px 1px at 540px 170px, var(--blue-bright), transparent);
     background-size: 600px 600px;
     background-repeat: repeat;
     animation: animateStars 200s linear infinite;
@@ -263,6 +308,14 @@ html {
     opacity: 0.8;
     will-change: transform;
     transform: translateZ(0);
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+/* Hide neon line when navbar is in scrolled state to avoid blue glow behind nav.
+   Use visibility so the path animation keeps running and resumes when back at top. */
+body.nav-scrolled .neon-lines {
+    visibility: hidden;
+    opacity: 0;
 }
 
 /* Fix for iPhone 14 Pro Max and similar tall mobile screens */
@@ -276,7 +329,7 @@ html {
 .neon-line-top {
     width: 100%;
     height: 100%;
-    filter: drop-shadow(0 0 8px rgba(255, 27, 158, 0.6));
+    filter: drop-shadow(0 0 8px rgba(2, 125, 248, 0.6));
     transform: translateZ(0);
 }
 
@@ -284,6 +337,7 @@ html {
     stroke-dasharray: 2000 150;
     stroke-dashoffset: 2150;
     animation: moveLine 20s linear infinite;
+    animation-play-state: running;
     will-change: stroke-dashoffset;
     transform: translateZ(0);
 }

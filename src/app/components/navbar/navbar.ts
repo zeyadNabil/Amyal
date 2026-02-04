@@ -24,16 +24,17 @@ export class Navbar implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit(): void {
+    document.body.classList.toggle('nav-scrolled', window.scrollY > 50);
     // Track route changes
     this.routerSubscription = this.router.events
       .pipe(filter(event => event instanceof NavigationEnd))
       .subscribe(() => {
         this.updateActiveRoute();
       });
-    
+
     // Initial check
     this.updateActiveRoute();
-    
+
     // Listen for Bootstrap collapse events
     this.setupMenuToggleListener();
   }
@@ -42,7 +43,7 @@ export class Navbar implements OnInit, OnDestroy {
     // Prevent body scroll when menu is open
     const navbarCollapse = document.getElementById('navbarContent');
     const toggleButton = document.querySelector('.navbar-toggler') as HTMLElement;
-    
+
     if (navbarCollapse && toggleButton) {
       // Listen for Bootstrap collapse events
       navbarCollapse.addEventListener('show.bs.collapse', () => {
@@ -50,24 +51,24 @@ export class Navbar implements OnInit, OnDestroy {
         navbarCollapse.style.display = 'block';
         void navbarCollapse.offsetHeight; // Force reflow
       });
-      
+
       navbarCollapse.addEventListener('shown.bs.collapse', () => {
         document.body.style.overflow = 'hidden';
         toggleButton.setAttribute('aria-expanded', 'true');
         this.isMenuToggling = false;
       });
-      
+
       navbarCollapse.addEventListener('hide.bs.collapse', () => {
         // Animation is starting to close
       });
-      
+
       navbarCollapse.addEventListener('hidden.bs.collapse', () => {
         document.body.style.overflow = '';
         toggleButton.setAttribute('aria-expanded', 'false');
         navbarCollapse.style.display = '';
         this.isMenuToggling = false;
       });
-      
+
       // Also listen for manual class changes (fallback)
       const observer = new MutationObserver((mutations) => {
         mutations.forEach((mutation) => {
@@ -83,7 +84,7 @@ export class Navbar implements OnInit, OnDestroy {
           }
         });
       });
-      
+
       observer.observe(navbarCollapse, {
         attributes: true,
         attributeFilter: ['class']
@@ -92,6 +93,7 @@ export class Navbar implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
+    document.body.classList.remove('nav-scrolled');
     if (this.routerSubscription) {
       this.routerSubscription.unsubscribe();
     }
@@ -134,33 +136,35 @@ export class Navbar implements OnInit, OnDestroy {
 
   @HostListener('window:scroll', [])
   onWindowScroll(): void {
-    this.isScrolled.set(window.scrollY > 50);
+    const scrolled = window.scrollY > 50;
+    this.isScrolled.set(scrolled);
+    document.body.classList.toggle('nav-scrolled', scrolled);
     this.updateActiveSection();
   }
 
   @HostListener('document:click', ['$event'])
   onDocumentClick(event: Event): void {
     const target = event.target as HTMLElement;
-    
+
     // Don't process clicks if menu is currently toggling
     if (this.isMenuToggling) {
       return;
     }
-    
+
     // Close dropdown if clicking outside
     const dropdown = target.closest('.nav-item.dropdown');
     if (!dropdown) {
       this.isDropdownOpen.set(false);
     }
-    
+
     // Close mobile menu if clicking outside
     const navbarContent = document.getElementById('navbarContent');
     const isMenuOpen = navbarContent && navbarContent.classList.contains('show');
-    
+
     if (isMenuOpen) {
       const clickedInsideNavbar = target.closest('#navbarContent');
       const clickedOnToggler = target.closest('.navbar-toggler');
-      
+
       // Close menu if click is outside both navbar content and toggler
       if (!clickedInsideNavbar && !clickedOnToggler) {
         this.closeMobileMenu();
@@ -193,7 +197,7 @@ export class Navbar implements OnInit, OnDestroy {
       });
       return;
     }
-    
+
     this.scrollToSectionElement(sectionId);
   }
 
@@ -225,32 +229,32 @@ export class Navbar implements OnInit, OnDestroy {
     if (this.isMenuToggling) {
       return;
     }
-    
+
     this.isMenuToggling = true;
     const navbarCollapse = document.getElementById('navbarContent');
     const toggleButton = document.querySelector('.navbar-toggler') as HTMLElement;
-    
+
     if (!navbarCollapse || !toggleButton) {
       this.isMenuToggling = false;
       return;
     }
-    
+
     const isCurrentlyOpen = navbarCollapse.classList.contains('show');
-    
+
     // Use Bootstrap's collapse API if available
     if ((window as any).bootstrap) {
       let collapseInstance = (window as any).bootstrap.Collapse.getInstance(navbarCollapse);
-      
+
       if (!collapseInstance) {
         // Initialize collapse if it doesn't exist with proper animation
         collapseInstance = new (window as any).bootstrap.Collapse(navbarCollapse, {
           toggle: false
         });
       }
-      
+
       // Force reflow to ensure smooth animation
       void navbarCollapse.offsetHeight;
-      
+
       if (isCurrentlyOpen) {
         collapseInstance.hide();
       } else {
@@ -278,7 +282,7 @@ export class Navbar implements OnInit, OnDestroy {
         document.body.style.overflow = 'hidden';
       }
     }
-    
+
     // Reset flag after animation completes
     setTimeout(() => {
       this.isMenuToggling = false;
@@ -290,12 +294,12 @@ export class Navbar implements OnInit, OnDestroy {
     if (this.isMenuToggling) {
       return;
     }
-    
+
     // Close Bootstrap collapse menu
     const navbarCollapse = document.getElementById('navbarContent');
     if (navbarCollapse && navbarCollapse.classList.contains('show')) {
       this.isMenuToggling = true;
-      
+
       // Use Bootstrap's collapse API if available
       if ((window as any).bootstrap) {
         const collapseInstance = (window as any).bootstrap.Collapse.getInstance(navbarCollapse);
@@ -322,7 +326,7 @@ export class Navbar implements OnInit, OnDestroy {
         // Restore body scroll
         document.body.style.overflow = '';
       }
-      
+
       // Reset flag after animation completes
       setTimeout(() => {
         this.isMenuToggling = false;

@@ -92,17 +92,19 @@
     top: 0;
     left: 0;
     width: 100%;
-    padding: 2rem 3rem;
+    padding: 1.25rem 3rem;
     background: transparent;
-    transition: all 0.3s ease;
+    /* Only transition background – no size/padding transition to avoid zoom effect */
+    transition: background 0.3s ease, backdrop-filter 0.3s ease, box-shadow 0.3s ease;
     z-index: 1000;
 }
 
 .navbar.scrolled {
-    padding: 1.5rem 3rem;
+    /* Keep same padding as base – only background changes on scroll */
+    padding: .5rem 2rem;
     background: rgba(10, 14, 26, 0.7);
     backdrop-filter: blur(10px);
-    box-shadow: 0 5px 20px rgba(147, 51, 234, 0.1);
+    box-shadow: 0 5px 20px rgba(2, 125, 248, 0.1);
 }
 
 .navbar-nav {
@@ -111,7 +113,7 @@
 }
 
 .nav-link {
-    color: var(--gray) !important;
+    color: var(--white) !important;
     font-weight: 500;
     font-size: 0.875rem;
     position: relative;
@@ -131,7 +133,7 @@
     left: 0;
     width: 0;
     height: 2px;
-    background: linear-gradient(90deg, var(--pink), var(--purple), var(--blue));
+    background: linear-gradient(90deg, #0E37AD 0%, #027DF8 40%, #60CEFE 75%, #F7F7F8 100%);
     transition: width 0.3s ease;
 }
 
@@ -163,8 +165,8 @@
 
 .lang-toggle-btn:hover {
     border-color: var(--pink);
-    background: rgba(255, 27, 158, 0.1);
-    box-shadow: 0 0 20px rgba(255, 27, 158, 0.3);
+    background: rgba(2, 125, 248, 0.1);
+    box-shadow: 0 0 20px rgba(2, 125, 248, 0.3);
     transform: translateY(-2px);
 }
 
@@ -186,11 +188,15 @@
 .navbar-logo {
     height: 400px;
     width: auto;
-    transition: filter 0.3s ease;
+    /* Only transition filter – never transition size so logo stays constant on scroll */
+    transition-property: filter;
+    transition-duration: 0.3s;
+    transition-timing-function: ease;
 }
 
+/* Keep logo same size when sticky – only background changes on scroll */
 .navbar.scrolled .navbar-logo {
-    height: 120px;
+    height: 400px;
 }
 
 .navbar-brand:hover .navbar-logo {
@@ -236,7 +242,7 @@
     visibility: hidden;
     transform: translateY(-10px);
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5), 0 0 20px rgba(147, 51, 234, 0.3);
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5), 0 0 20px rgba(2, 125, 248, 0.3);
     z-index: 1000;
     list-style: none;
 }
@@ -270,7 +276,7 @@
     display: flex;
     align-items: center;
     padding: 0.75rem 1.5rem;
-    color: var(--gray);
+    color: var(--white);
     text-decoration: none;
     font-size: 0.875rem;
     transition: all 0.3s ease;
@@ -289,7 +295,7 @@
     top: 0;
     bottom: 0;
     width: 3px;
-    background: linear-gradient(135deg, var(--pink), var(--purple), var(--blue));
+    background: linear-gradient(180deg, #0E37AD 0%, #027DF8 45%, #60CEFE 80%, #F7F7F8 100%);
     transform: scaleY(0);
     transition: transform 0.3s ease;
 }
@@ -298,7 +304,7 @@
 .dropdown-item:focus,
 .dropdown-item.active {
     color: var(--white);
-    background: rgba(147, 51, 234, 0.1);
+    background: rgba(2, 125, 248, 0.1);
     padding-left: 2rem;
 }
 
@@ -309,25 +315,25 @@
 }
 
 .dropdown-item.active {
-    background: rgba(147, 51, 234, 0.2);
+    background: rgba(2, 125, 248, 0.2);
     font-weight: 600;
 }
 
 /* Get Quote Button */
 .btn-get-quote {
-    background: linear-gradient(135deg, var(--pink), var(--purple), var(--blue));
+    background: var(--gradient-blue-silver);
     border-radius: 50px;
     padding: 0.5rem 1.5rem !important;
     color: var(--white) !important;
     font-weight: 600;
     margin-left: 1rem;
     transition: all 0.3s ease;
-    box-shadow: 0 0 20px rgba(147, 51, 234, 0.3);
+    box-shadow: 0 0 20px rgba(2, 125, 248, 0.3);
 }
 
 .btn-get-quote:hover {
     transform: translateY(-2px);
-    box-shadow: 0 5px 30px rgba(147, 51, 234, 0.5);
+    box-shadow: 0 5px 30px rgba(2, 125, 248, 0.5);
     color: var(--white) !important;
 }
 
@@ -371,7 +377,7 @@
 }
 
 [dir="rtl"] .dropdown-item.active {
-    background: rgba(147, 51, 234, 0.2);
+    background: rgba(2, 125, 248, 0.2);
     font-weight: 600;
 }
 
@@ -408,7 +414,7 @@
 }
 
 .navbar-toggler:focus {
-    box-shadow: 0 0 0 0.25rem rgba(147, 51, 234, 0.25);
+    box-shadow: 0 0 0 0.25rem rgba(2, 125, 248, 0.25);
 }
 
 .navbar-toggler-icon {
@@ -434,11 +440,11 @@
 
 @media (min-width: 1400px) {
     .navbar {
-        padding: 2rem 4rem;
+        padding: 1.25rem 4rem;
     }
 
     .navbar.scrolled {
-        padding: 1.5rem 4rem;
+        padding: 1.25rem 4rem;
     }
 
     .navbar-logo {
@@ -446,7 +452,7 @@
     }
 
     .navbar.scrolled .navbar-logo {
-        height: 130px;
+        height: 180px;
     }
 
     .dropdown-menu {
@@ -472,11 +478,11 @@
 
 @media (min-width: 1200px) and (max-width: 1399px) {
     .navbar {
-        padding: 2rem 3rem;
+        padding: 1.25rem 3rem;
     }
 
     .navbar.scrolled {
-        padding: 1.5rem 3rem;
+        padding: 1.25rem 3rem;
     }
 
     .navbar-logo {
@@ -484,7 +490,7 @@
     }
 
     .navbar.scrolled .navbar-logo {
-        height: 75px;
+        height: 100px;
     }
 
     .dropdown-menu {
@@ -514,7 +520,7 @@
     }
 
     .navbar.scrolled {
-        padding: 1.25rem 2.5rem;
+        padding: 1.75rem 2.5rem;
     }
 
     .navbar-logo {
@@ -522,7 +528,7 @@
     }
 
     .navbar.scrolled .navbar-logo {
-        height: 110px;
+        height: 140px;
     }
 
     .dropdown-menu {
@@ -551,11 +557,11 @@
 
 @media (min-width: 768px) and (max-width: 991px) {
     .navbar {
-        padding: 1.5rem 2rem;
+        padding: 1rem 2rem;
     }
 
     .navbar.scrolled {
-        padding: 1.25rem 2rem;
+        padding: 1rem 2rem;
     }
 
     .navbar-brand {
@@ -567,7 +573,7 @@
     }
 
     .navbar.scrolled .navbar-logo {
-        height: 100px;
+        height: 120px;
     }
 
     .navbar-toggler-icon {
@@ -956,7 +962,7 @@
     }
 
     .navbar.scrolled {
-        padding: 0.875rem 1.25rem;
+        padding: 1rem 1.25rem;
     }
 
     .navbar-brand {
@@ -1138,7 +1144,7 @@
     }
 
     .navbar.scrolled {
-        padding: 0.75rem 1rem;
+        padding: 0.875rem 1rem;
     }
 
     .navbar-brand {
@@ -1264,7 +1270,7 @@
     }
 
     .navbar.scrolled {
-        padding: 0.625rem 0.875rem;
+        padding: 0.75rem 0.875rem;
     }
 
     .navbar-brand {
@@ -1402,7 +1408,7 @@
     }
 
     .navbar.scrolled {
-        padding: 0.5rem 0.75rem;
+        padding: 0.625rem 0.75rem;
     }
 
     .navbar-logo {

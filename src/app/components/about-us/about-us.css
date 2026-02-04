@@ -39,7 +39,7 @@
 .about-title {
   font-size: 4rem;
   font-weight: 700;
-  background: linear-gradient(135deg, #FF1B9E 0%, #9333EA 50%, #3B82F6 100%);
+  background: var(--gradient-text-blue-silver);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -73,7 +73,7 @@
   display: inline-block;
   margin-left: 5px;
   font-weight: 400;
-  color: #9333EA;
+  color: var(--blue-mid);
   animation: blinkCursor 1s infinite;
   font-size: 4rem;
   vertical-align: middle;
@@ -122,7 +122,7 @@
   color: #fff;
   margin-bottom: 20px;
   text-align: center;
-  background: linear-gradient(135deg, #FF1B9E 0%, #9333EA 50%, #3B82F6 100%);
+  background: var(--gradient-text-blue-silver);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -217,15 +217,15 @@
 
 .feature-card:hover {
   transform: translateY(-10px) scale(1.02);
-  border-color: rgba(147, 51, 234, 0.5);
-  box-shadow: 0 20px 40px rgba(147, 51, 234, 0.2);
+  border-color: rgba(2, 125, 248, 0.5);
+  box-shadow: 0 20px 40px rgba(2, 125, 248, 0.2);
 }
 
 .feature-icon {
   width: 80px;
   height: 80px;
   margin: 0 auto 25px;
-  background: linear-gradient(135deg, #FF1B9E 0%, #9333EA 50%, #3B82F6 100%);
+  background: var(--gradient-primary);
   border-radius: 50%;
   display: flex;
   align-items: center;
@@ -247,8 +247,7 @@
   font-size: 1.4rem;
   font-weight: 700;
   margin-bottom: 15px;
-  /* All feature titles use galaxy gradient for consistency */
-  background: linear-gradient(135deg, #FF1B9E 0%, #9333EA 50%, #3B82F6 100%);
+  background: var(--gradient-text-blue-silver);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -303,8 +302,8 @@
 .mission-card:hover,
 .vision-card:hover {
   transform: translateY(-10px);
-  border-color: rgba(147, 51, 234, 0.5);
-  box-shadow: 0 20px 40px rgba(147, 51, 234, 0.2);
+  border-color: rgba(2, 125, 248, 0.5);
+  box-shadow: 0 20px 40px rgba(2, 125, 248, 0.2);
 }
 
 .card-header {
@@ -317,7 +316,7 @@
 .card-icon {
   width: 60px;
   height: 60px;
-  background: linear-gradient(135deg, #FF1B9E 0%, #9333EA 50%, #3B82F6 100%);
+  background: var(--gradient-primary);
   border-radius: 12px;
   display: flex;
   align-items: center;
@@ -363,7 +362,7 @@
   top: 0;
   bottom: 0;
   width: 2px;
-  background: linear-gradient(180deg, #FF1B9E 0%, #9333EA 50%, #3B82F6 100%);
+  background: var(--gradient-vertical);
   transform: translateX(-50%);
   z-index: 0;
 }
@@ -399,7 +398,7 @@
 .step-number {
   width: 80px;
   height: 80px;
-  background: linear-gradient(135deg, #FF1B9E 0%, #9333EA 50%, #3B82F6 100%);
+  background: var(--gradient-primary);
   border-radius: 50%;
   display: flex;
   align-items: center;
@@ -412,7 +411,7 @@
   transform: translateX(-50%);
   z-index: 3;
   flex-shrink: 0;
-  box-shadow: 0 10px 30px rgba(147, 51, 234, 0.3);
+  box-shadow: 0 10px 30px rgba(2, 125, 248, 0.3);
   border: 5px solid #0a0e1a;
   box-sizing: border-box;
 }
@@ -440,16 +439,15 @@
 
 .process-step:hover .step-content {
   transform: translateY(-5px);
-  border-color: rgba(147, 51, 234, 0.5);
-  box-shadow: 0 15px 35px rgba(147, 51, 234, 0.2);
+  border-color: rgba(2, 125, 248, 0.5);
+  box-shadow: 0 15px 35px rgba(2, 125, 248, 0.2);
 }
 
 .step-title {
   font-size: 1.5rem;
   font-weight: 700;
   margin-bottom: 10px;
-  /* All step titles use galaxy gradient for consistency */
-  background: linear-gradient(135deg, #FF1B9E 0%, #9333EA 50%, #3B82F6 100%);
+  background: var(--gradient-text-blue-silver);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -779,10 +777,3 @@
   }
 }
 
-/* Gradient Text (no bg animation) */
-.gradient-text-animated {
-  background: linear-gradient(135deg, var(--pink) 0%, var(--purple) 50%, var(--blue) 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-}
