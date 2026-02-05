@@ -73,7 +73,7 @@
         <div class="service-card-animated scroll-reveal" [style.--delay]="i * 0.1 + 's'">
           <div class="service-card-inner">
           <div class="service-icon-wrapper">
-            <div class="service-icon home-page-icon">
+            <div class="service-icon home-page-icon" [class.home-page-icon-larger]="getServiceIconSizeClass(service.key) === 'home-page-icon-larger'">
               <!-- Use custom icons for all services; swap file (same path/name) and size stays consistent -->
               <img [src]="getServiceIconPath(service.key)"
                    [alt]="langService.t('nav.' + service.key)">

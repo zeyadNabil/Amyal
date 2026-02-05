@@ -32,6 +32,18 @@
   display: block;
 }
 
+/* Icons whose source art is smaller (e.g. Exhibition Stand, Sign Board) – scale up so they match others */
+.home-page-icon-larger {
+  overflow: visible;
+}
+
+.home-page-icon-larger img {
+  width: var(--home-icon-img) !important;
+  height: var(--home-icon-img) !important;
+  transform: scale(1.28);
+  transform-origin: center center;
+}
+
 /* ========================================
    HERO SECTION
    ======================================== */
@@ -1078,6 +1090,11 @@
     --home-icon-img: 138px;
   }
 
+  /* Small-source icons (Exhibition Stand, Sign Board) scaled up more on tablet/mobile */
+  .home-page-icon-larger img {
+    transform: scale(1.35);
+  }
+
   .feature-title {
     font-size: 1.25rem;
   }
@@ -1194,6 +1211,11 @@
   :host {
     --home-icon-box: 165px;
     --home-icon-img: 138px;
+  }
+
+  /* Small-source icons scaled up even more on small mobile */
+  .home-page-icon-larger img {
+    transform: scale(1.42);
   }
 
   .stat-icon {

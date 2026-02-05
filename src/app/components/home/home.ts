@@ -384,6 +384,12 @@ export class Home implements OnInit, OnDestroy {
     return icons[key] || 'fa-star';
   }
 
+  /** Service keys whose icon images are smaller in the source file – use larger class so they match others */
+  getServiceIconSizeClass(key: string): string {
+    const largerIconKeys = ['exhibitionStand', 'exhibitionBoothDesign'];
+    return largerIconKeys.includes(key) ? 'home-page-icon-larger' : '';
+  }
+
   getServiceIconPath(key: string): string {
     // Map service keys to their custom icon paths
     const iconPaths: { [key: string]: string } = {
