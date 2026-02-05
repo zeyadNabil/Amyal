@@ -40,10 +40,6 @@
 .gallery-title {
   font-size: 4rem;
   font-weight: 700;
-  background: var(--gradient-text-blue-silver);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
   margin-bottom: 30px;
   text-transform: uppercase;
   letter-spacing: 3px;
@@ -54,6 +50,24 @@
   opacity: 0;
   transform: translateY(30px);
   transition: opacity 0.8s ease, transform 0.8s ease;
+  background: linear-gradient(
+    90deg,
+    #0E37AD 0%,
+    #027DF8 20%,
+    #60CEFE 40%,
+    #FFFFFF 50%,
+    #60CEFE 60%,
+    #027DF8 80%,
+    #0E37AD 100%
+  );
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.gallery-title.gradient-text-animated {
+  animation: shine 3s linear infinite;
 }
 
 .gallery-title.fade-in-up {

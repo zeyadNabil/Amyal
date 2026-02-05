@@ -63,18 +63,33 @@
    GRADIENT TEXT HEADERS (blue to silver)
    ======================================== */
 
-/* Gradient headers: soft “light from each word” glow – readable, not harsh */
+/* Gradient headers with smooth shine effect */
 .gradient-text,
 .gradient-text-animated {
-  background: var(--gradient-text-blue-silver);
+  background: linear-gradient(
+    90deg,
+    #0E37AD 0%,
+    #027DF8 20%,
+    #60CEFE 40%,
+    #FFFFFF 50%,
+    #60CEFE 60%,
+    #027DF8 80%,
+    #0E37AD 100%
+  );
+  background-size: 200% auto;
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
-  filter:
-    drop-shadow(0 0 2px rgba(2, 125, 248, 0.45))
-    drop-shadow(0 0 6px rgba(2, 125, 248, 0.28))
-    drop-shadow(0 0 14px rgba(96, 206, 254, 0.18))
-    drop-shadow(0 0 24px rgba(96, 206, 254, 0.1));
+  animation: shine 3s linear infinite;
+}
+
+@keyframes shine {
+  0% {
+    background-position: 200% center;
+  }
+  100% {
+    background-position: -200% center;
+  }
 }
 
 /* ========================================

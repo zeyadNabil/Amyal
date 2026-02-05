@@ -31,6 +31,24 @@
     font-weight: 800;
     margin-bottom: 1rem;
     line-height: 1.2;
+    background: linear-gradient(
+      90deg,
+      #0E37AD 0%,
+      #027DF8 20%,
+      #60CEFE 40%,
+      #FFFFFF 50%,
+      #60CEFE 60%,
+      #027DF8 80%,
+      #0E37AD 100%
+    );
+    background-size: 200% auto;
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.section-title.gradient-text-animated {
+    animation: shine 3s linear infinite;
 }
 
 .section-subtitle {

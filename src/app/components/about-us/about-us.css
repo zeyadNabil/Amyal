@@ -39,10 +39,6 @@
 .about-title {
   font-size: 4rem;
   font-weight: 700;
-  background: var(--gradient-text-blue-silver);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
   margin-bottom: 30px;
   text-transform: uppercase;
   letter-spacing: 3px;
@@ -53,6 +49,24 @@
   opacity: 0;
   transform: translateY(30px);
   animation: titleSlideIn 0.8s ease forwards;
+  background: linear-gradient(
+    90deg,
+    #0E37AD 0%,
+    #027DF8 20%,
+    #60CEFE 40%,
+    #FFFFFF 50%,
+    #60CEFE 60%,
+    #027DF8 80%,
+    #0E37AD 100%
+  );
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.about-title.gradient-text-animated {
+  animation: titleSlideIn 0.8s ease forwards, shine 3s linear infinite;
 }
 
 .about-title.fade-in-up {
