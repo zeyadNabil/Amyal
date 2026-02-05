@@ -15,6 +15,15 @@ export class Home implements OnInit, OnDestroy {
   private counterTimers: Map<Element, { intervalId?: number; timeoutId?: number }> = new Map();
   private countersStarted = false;
 
+  /** Mobile partners: auto-scroll pauses while user is touching */
+  private partnersSliderContainer: HTMLElement | null = null;
+  private partnersScrollRaf: number | null = null;
+  private partnersIsTouching = false;
+  private partnersResumeTimeout: ReturnType<typeof setTimeout> | null = null;
+  /** RTL scroll mode: reset when language (dir) changes so slider keeps working */
+  private partnersRtlUsesNegativeScroll: boolean | null = null;
+  private partnersLastDir: 'ltr' | 'rtl' | null = null;
+
   // Services data - will be initialized in ngOnInit
   services: Array<{ key: string; description: string }> = [];
 
@@ -33,8 +42,12 @@ export class Home implements OnInit, OnDestroy {
   constructor(public langService: LanguageService) {
     effect(() => {
       const lang = this.langService.currentLang();
-      // Update all translations when language changes
       this.updateTranslations();
+      // When language (and dir) changes, reset partners slider RTL state so it re-adapts and keeps auto-scrolling
+      if (typeof window !== 'undefined' && window.innerWidth <= 768) {
+        this.partnersLastDir = null;
+        this.partnersRtlUsesNegativeScroll = null;
+      }
     });
   }
 
@@ -103,6 +116,7 @@ export class Home implements OnInit, OnDestroy {
     this.initScrollAnimations();
     this.initCounterAnimations();
     this.initParallaxEffects();
+    this.initMobilePartnersSlider();
     // Ensure hero section has no transform applied
     setTimeout(() => {
       const hero = document.querySelector('.hero-section');
@@ -114,6 +128,96 @@ export class Home implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.stopCounterAnimations();
+    if (this.partnersScrollRaf != null) cancelAnimationFrame(this.partnersScrollRaf);
+    if (this.partnersResumeTimeout != null) clearTimeout(this.partnersResumeTimeout);
+  }
+
+  /** On mobile: auto-scroll partners strip; pause while user is swiping. Works in LTR and RTL. Re-adapts when language (dir) changes. */
+  private initMobilePartnersSlider(): void {
+    if (typeof window === 'undefined' || window.innerWidth > 768) return;
+
+    const afterLoad = () => {
+      const container = document.querySelector('.partners-slider-container') as HTMLElement | null;
+      if (!container) return;
+      this.partnersSliderContainer = container;
+
+      const scrollSpeed = 1;
+
+      container.addEventListener('touchstart', () => {
+        this.partnersIsTouching = true;
+        if (this.partnersResumeTimeout != null) {
+          clearTimeout(this.partnersResumeTimeout);
+          this.partnersResumeTimeout = null;
+        }
+      }, { passive: true });
+
+      container.addEventListener('touchend', () => {
+        this.partnersResumeTimeout = setTimeout(() => {
+          this.partnersIsTouching = false;
+        }, 1500);
+      }, { passive: true });
+
+      const getScrollPosition = (el: HTMLElement): number => {
+        const maxScroll = el.scrollWidth - el.clientWidth;
+        if (maxScroll <= 0) return 0;
+        const left = el.scrollLeft;
+        const isRtl = this.partnersLastDir === 'rtl';
+        if (!isRtl) return left;
+        if (this.partnersRtlUsesNegativeScroll === true) return -left;
+        if (this.partnersRtlUsesNegativeScroll === false) return left;
+        return left <= 0 ? -left : left;
+      };
+
+      const setScrollPosition = (el: HTMLElement, pos: number): void => {
+        const maxScroll = el.scrollWidth - el.clientWidth;
+        const isRtl = this.partnersLastDir === 'rtl';
+        if (!isRtl) {
+          el.scrollLeft = pos;
+          return;
+        }
+        if (this.partnersRtlUsesNegativeScroll === true) {
+          el.scrollLeft = -pos;
+          return;
+        }
+        if (this.partnersRtlUsesNegativeScroll === false) {
+          el.scrollLeft = pos;
+          return;
+        }
+        el.scrollLeft = -pos;
+        if (el.scrollLeft <= -1) this.partnersRtlUsesNegativeScroll = true;
+        else {
+          el.scrollLeft = pos;
+          this.partnersRtlUsesNegativeScroll = false;
+        }
+      };
+
+      const tick = () => {
+        const el = document.querySelector('.partners-slider-container') as HTMLElement | null;
+        if (!el) {
+          this.partnersScrollRaf = requestAnimationFrame(tick);
+          return;
+        }
+        const isRtl = document.documentElement.getAttribute('dir') === 'rtl';
+        const currentDir = isRtl ? 'rtl' : 'ltr';
+        if (this.partnersLastDir !== currentDir) {
+          this.partnersLastDir = currentDir;
+          this.partnersRtlUsesNegativeScroll = isRtl ? null : false;
+        }
+        if (this.partnersIsTouching) {
+          this.partnersScrollRaf = requestAnimationFrame(tick);
+          return;
+        }
+        const half = el.scrollWidth / 2;
+        let pos = getScrollPosition(el);
+        pos += scrollSpeed;
+        if (pos >= half) pos = 0;
+        setScrollPosition(el, pos);
+        this.partnersScrollRaf = requestAnimationFrame(tick);
+      };
+      this.partnersScrollRaf = requestAnimationFrame(tick);
+    };
+
+    setTimeout(afterLoad, 500);
   }
 
   @HostListener('window:scroll', [])

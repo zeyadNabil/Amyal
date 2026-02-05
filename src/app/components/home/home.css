@@ -225,6 +225,12 @@
 
 .btn-secondary {
   background: transparent;
+  border: none;
+  box-shadow: 0 0 30px rgba(2, 125, 248, 0.4);
+}
+
+.btn-secondary:hover {
+  box-shadow: 0 0 50px rgba(2, 125, 248, 0.8), 0 0 80px rgba(2, 125, 248, 0.6);
 }
 
 .btn-large {
@@ -350,15 +356,35 @@
   animation-play-state: paused;
 }
 
-/* Mobile: same CSS animation as desktop, direction follows LTR/RTL so both English and Arabic work */
+/* Mobile: touch swipe only – no auto-animation, scroll stays in bounds for English and Arabic */
 @media (max-width: 768px) {
   .partners-slider-container {
-    overflow: hidden;
+    overflow-x: auto;
+    overflow-y: hidden;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+    padding-inline: 1rem;
+    /* Contain scroll: no overscroll/bounce that feels like "going out" */
+    overscroll-behavior-x: contain;
   }
 
+  .partners-slider-container::-webkit-scrollbar {
+    display: none;
+  }
+
+  /* RTL: scroll and content flow right-to-left so it doesn't go off the page */
+  [dir="rtl"] .partners-slider-container {
+    direction: rtl;
+  }
+
+  [dir="rtl"] .partners-slider-track {
+    direction: rtl;
+  }
+
+  /* No animation on mobile – user swipes by hand only */
   .partners-slider-track {
-    animation-duration: 45s;
-    /* animation-name: from base (slidePartners) or [dir="rtl"] (slidePartnersRTL) */
+    animation: none !important;
   }
 }
 
@@ -934,9 +960,19 @@
     animation-duration: 50s;
   }
 
-  /* Hide timeline line on small screens – cards only */
+  /* Timeline line on mobile: left side (LTR) through step numbers (80px → center 40px) */
   .process-timeline::before {
-    display: none !important;
+    left: 40px;
+    right: auto;
+    transform: translateX(-50%) translateZ(0);
+    -webkit-transform: translateX(-50%) translateZ(0);
+  }
+
+  :host-context([dir="rtl"]) .process-timeline::before {
+    left: auto !important;
+    right: 40px !important;
+    transform: translateX(50%) translateZ(0);
+    -webkit-transform: translateX(50%) translateZ(0);
   }
 
   .process-timeline {
@@ -1036,9 +1072,10 @@
     max-width: 300px;
   }
 
+  /* Larger icons on small screens – same size for all home icons (services, stats, features) */
   :host {
-    --home-icon-box: 145px;
-    --home-icon-img: 115px;
+    --home-icon-box: 165px;
+    --home-icon-img: 138px;
   }
 
   .feature-title {
@@ -1061,9 +1098,19 @@
     margin-bottom: 0.75rem;
   }
 
-  /* No line on mobile – cards only */
+  /* Timeline line: left (LTR) / right (RTL) through step numbers (56px → center 28px) */
   .process-timeline::before {
-    display: none !important;
+    left: 28px;
+    right: auto;
+    transform: translateX(-50%) translateZ(0);
+    -webkit-transform: translateX(-50%) translateZ(0);
+  }
+
+  :host-context([dir="rtl"]) .process-timeline::before {
+    left: auto !important;
+    right: 28px !important;
+    transform: translateX(50%) translateZ(0);
+    -webkit-transform: translateX(50%) translateZ(0);
   }
 
   .process-timeline {
@@ -1143,9 +1190,10 @@
     padding: 1.25rem 0.5rem;
   }
 
+  /* Same icon size as 768px breakpoint – all home icons consistent and larger on mobile */
   :host {
-    --home-icon-box: 125px;
-    --home-icon-img: 100px;
+    --home-icon-box: 165px;
+    --home-icon-img: 138px;
   }
 
   .stat-icon {
@@ -1173,9 +1221,19 @@
     padding: 1.5rem;
   }
 
-  /* No line on small mobile */
+  /* Timeline line: left (LTR) / right (RTL) through step numbers (48px → center 24px) */
   .process-timeline::before {
-    display: none !important;
+    left: 24px;
+    right: auto;
+    transform: translateX(-50%) translateZ(0);
+    -webkit-transform: translateX(-50%) translateZ(0);
+  }
+
+  :host-context([dir="rtl"]) .process-timeline::before {
+    left: auto !important;
+    right: 24px !important;
+    transform: translateX(50%) translateZ(0);
+    -webkit-transform: translateX(50%) translateZ(0);
   }
 
   .process-timeline {

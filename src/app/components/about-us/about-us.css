@@ -543,9 +543,17 @@
     font-size: 2rem;
   }
 
-  /* Hide timeline line on small screens – cards only */
+  /* Timeline line on mobile: left (LTR) / right (RTL) through step numbers (80px → center 40px) */
   .process-timeline::before {
-    display: none !important;
+    left: 40px;
+    right: auto;
+    transform: translateX(-50%);
+  }
+
+  :host-context([dir="rtl"]) .process-timeline::before {
+    left: auto !important;
+    right: 40px !important;
+    transform: translateX(50%);
   }
 
   .process-timeline {
@@ -669,9 +677,17 @@
     font-size: 1.5rem;
   }
 
-  /* No line on mobile – cards only */
+  /* Timeline line: left (LTR) / right (RTL) through step numbers (56px → center 28px) */
   .process-timeline::before {
-    display: none !important;
+    left: 28px;
+    right: auto;
+    transform: translateX(-50%);
+  }
+
+  :host-context([dir="rtl"]) .process-timeline::before {
+    left: auto !important;
+    right: 28px !important;
+    transform: translateX(50%);
   }
 
   .process-timeline {
@@ -749,9 +765,17 @@
     padding: 25px 20px;
   }
 
-  /* No line on small mobile */
+  /* Timeline line: left (LTR) / right (RTL) through step numbers (48px → center 24px) */
   .process-timeline::before {
-    display: none !important;
+    left: 24px;
+    right: auto;
+    transform: translateX(-50%);
+  }
+
+  :host-context([dir="rtl"]) .process-timeline::before {
+    left: auto !important;
+    right: 24px !important;
+    transform: translateX(50%);
   }
 
   .process-timeline {

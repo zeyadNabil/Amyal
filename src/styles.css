@@ -63,13 +63,18 @@
    GRADIENT TEXT HEADERS (blue to silver)
    ======================================== */
 
+/* Gradient headers: soft “light from each word” glow – readable, not harsh */
 .gradient-text,
 .gradient-text-animated {
   background: var(--gradient-text-blue-silver);
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
-  filter: drop-shadow(0 0 4px rgba(2, 125, 248, 0.2)) drop-shadow(0 0 10px rgba(2, 125, 248, 0.12)) drop-shadow(0 0 18px rgba(96, 206, 254, 0.08));
+  filter:
+    drop-shadow(0 0 2px rgba(2, 125, 248, 0.45))
+    drop-shadow(0 0 6px rgba(2, 125, 248, 0.28))
+    drop-shadow(0 0 14px rgba(96, 206, 254, 0.18))
+    drop-shadow(0 0 24px rgba(96, 206, 254, 0.1));
 }
 
 /* ========================================
