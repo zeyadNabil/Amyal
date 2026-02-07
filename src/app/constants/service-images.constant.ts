@@ -31,12 +31,10 @@ export const SERVICE_IMAGES: { [key: string]: string[] } = {
   'mall-activation': [
   ],
   'brand-ambassadors-event-hosts': [
-    'assets/images/BRAND AMBASSADORS & EVENT HOSTS/BRAND AMBASSADORS & EVENT HOSTS.jpeg'
   ],
   'av-service': [
   ],
   'vehicle-branding-wrapping': [
-    'assets/images/VEHICLE BRANDING & WRAPPING/car1.jpeg',
     'assets/images/VEHICLE BRANDING & WRAPPING/car2.jpeg',
     'assets/images/VEHICLE BRANDING & WRAPPING/car3.jpeg'
   ],
@@ -44,6 +42,5 @@ export const SERVICE_IMAGES: { [key: string]: string[] } = {
     'assets/images/STICKERS & CUSTOM PRINTS/STICKERS & CUSTOM PRINTS.jpeg'
   ],
   'fabrication-manufacturing': [
-    'assets/images/FABRICATION & MANUFACTURING/MANUFACTURING.jpeg'
   ]
 };

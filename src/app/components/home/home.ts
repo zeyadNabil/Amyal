@@ -25,6 +25,12 @@ export class Home implements OnInit, OnDestroy {
   private partnersRtlUsesNegativeScroll: boolean | null = null;
   private partnersLastDir: 'ltr' | 'rtl' | null = null;
 
+  /** Desktop partners: click-and-drag */
+  private partnersIsMouseDown = false;
+  private partnersStartX = 0;
+  private partnersScrollLeftStart = 0;
+  private partnersHasDragged = false;
+
   // Services data - will be initialized in ngOnInit
   services: Array<{ key: string; description: string }> = [];
 
@@ -109,6 +115,7 @@ export class Home implements OnInit, OnDestroy {
     this.initCounterAnimations();
     this.initParallaxEffects();
     this.initMobilePartnersSlider();
+    this.initDesktopPartnersDrag();
     // Ensure hero section has no transform applied
     setTimeout(() => {
       const hero = document.querySelector('.hero-section');
@@ -207,6 +214,82 @@ export class Home implements OnInit, OnDestroy {
         this.partnersScrollRaf = requestAnimationFrame(tick);
       };
       this.partnersScrollRaf = requestAnimationFrame(tick);
+    };
+
+    setTimeout(afterLoad, 500);
+  }
+
+  /** On desktop: click-and-drag partners slider */
+  private initDesktopPartnersDrag(): void {
+    if (typeof window === 'undefined' || window.innerWidth <= 768) return;
+
+    const afterLoad = () => {
+      const container = document.querySelector('.partners-slider-container') as HTMLElement | null;
+      if (!container) return;
+
+      // Add cursor style
+      container.style.cursor = 'grab';
+      container.style.scrollBehavior = 'auto';
+
+      // Prevent default drag behavior on images
+      const images = container.querySelectorAll('img');
+      images.forEach(img => {
+        img.addEventListener('dragstart', (e) => e.preventDefault());
+      });
+
+      // Mouse down - start dragging
+      const handleMouseDown = (e: MouseEvent) => {
+        this.partnersIsMouseDown = true;
+        this.partnersHasDragged = false;
+        this.partnersStartX = e.pageX - container.offsetLeft;
+        this.partnersScrollLeftStart = container.scrollLeft;
+        container.style.cursor = 'grabbing';
+        container.style.userSelect = 'none';
+      };
+
+      // Mouse leave - stop dragging
+      const handleMouseLeave = () => {
+        this.partnersIsMouseDown = false;
+        container.style.cursor = 'grab';
+        container.style.userSelect = '';
+      };
+
+      // Mouse up - stop dragging
+      const handleMouseUp = () => {
+        this.partnersIsMouseDown = false;
+        container.style.cursor = 'grab';
+        container.style.userSelect = '';
+      };
+
+      // Mouse move - perform drag
+      const handleMouseMove = (e: MouseEvent) => {
+        if (!this.partnersIsMouseDown) return;
+        e.preventDefault();
+        
+        const x = e.pageX - container.offsetLeft;
+        const walk = (x - this.partnersStartX) * 1.5; // Smooth multiplier
+        
+        // Mark as dragged if moved more than 5px
+        if (Math.abs(walk) > 5) {
+          this.partnersHasDragged = true;
+        }
+        
+        container.scrollLeft = this.partnersScrollLeftStart - walk;
+      };
+
+      // Prevent click events when dragging
+      const handleClick = (e: MouseEvent) => {
+        if (this.partnersHasDragged) {
+          e.preventDefault();
+          e.stopPropagation();
+        }
+      };
+
+      container.addEventListener('mousedown', handleMouseDown);
+      container.addEventListener('mouseleave', handleMouseLeave);
+      container.addEventListener('mouseup', handleMouseUp);
+      container.addEventListener('mousemove', handleMouseMove);
+      container.addEventListener('click', handleClick, true);
     };
 
     setTimeout(afterLoad, 500);
