@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { LanguageService } from '../../services/language.service';
 import { ShimmerLoader } from '../shimmer-loader/shimmer-loader';
+import { PARTNER_IMAGES } from '../../constants/partner-images.constant';
 
 @Component({
   selector: 'app-home',
@@ -90,20 +91,11 @@ export class Home implements OnInit, OnDestroy {
       { title: this.langService.t('home.process.installation.title'), description: this.langService.t('home.process.installation.description') }
     ];
 
-    // Update partners
-    this.partners = [
-      { logo: 'assets/images/Partners White Text Without Background/baniyas-sc-seeklogo.png', name: 'Baniyas SC' },
-      { logo: 'assets/images/Partners White Text Without Background/craiyon_upscaled.png', name: 'Craiyon' },
-      { logo: 'assets/images/Partners White Text Without Background/emirates center for strategic studies and research_upscaled.png', name: 'Emirates Center' },
-      { logo: 'assets/images/Partners White Text Without Background/logo-en_upscaled.png', name: 'Logo' },
-      { logo: 'assets/images/Partners White Text Without Background/Makani_upscaled.png', name: 'Makani' },
-      { logo: 'assets/images/Partners White Text Without Background/Ministry-of-Human-Resources-&-Emiratisation-_upscaled.png', name: 'Ministry of Human Resources' },
-      { logo: 'assets/images/Partners White Text Without Background/SAAS properties_upscaled.png', name: 'SAAS Properties' },
-      { logo: 'assets/images/Partners White Text Without Background/umex_and_simtex_upscaled.png', name: 'UMEX & Simtex' },
-      { logo: 'assets/images/Amyal PNG Partners/mubadala.png', name: 'Mubadala' },
-      { logo: 'assets/images/Amyal PNG Partners/Shahat.png', name: 'Shahat' },
-      { logo: 'assets/images/Amyal PNG Partners/mair green.png', name: 'Mair Green' }
-    ];
+    // Update partners from constant file
+    this.partners = PARTNER_IMAGES.homeSlider.map((logo, index) => ({
+      logo,
+      name: `Partner ${index + 1}`
+    }));
   }
 
   ngOnInit(): void {

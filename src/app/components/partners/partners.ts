@@ -2,6 +2,7 @@ import { Component, OnInit, OnDestroy, signal, effect } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { LanguageService } from '../../services/language.service';
 import { ShimmerLoader } from '../shimmer-loader/shimmer-loader';
+import { PARTNER_IMAGES } from '../../constants/partner-images.constant';
 
 @Component({
   selector: 'app-partners',
@@ -16,27 +17,8 @@ export class Partners implements OnInit, OnDestroy {
   private fadeTimeout: any = null;
   private languageEffect: any = null;
 
-  // Partner images array
-  partners = [
-    'assets/images/Amyal PNG Partners/573521118_18541182556065137_6745484161360848157_n-Photoroom.png',
-    'assets/images/Amyal PNG Partners/ADSB.png-Photoroom.png',
-    'assets/images/Amyal PNG Partners/baniyas-sc-seeklogo.png',
-    'assets/images/Amyal PNG Partners/bawabat-alsharq-mall-logo.png',
-    'assets/images/Amyal PNG Partners/brand.png',
-    'assets/images/Amyal PNG Partners/craiyon.png',
-    'assets/images/Amyal PNG Partners/dubai-sports-council-thumb.png',
-    'assets/images/Amyal PNG Partners/emirates center for strategic studies and research.png',
-    'assets/images/Amyal PNG Partners/logo-en.png',
-    'assets/images/Amyal PNG Partners/Makani.png',
-    'assets/images/Amyal PNG Partners/Ministry-of-Human-Resources-&-Emiratisation-.png',
-    'assets/images/Amyal PNG Partners/MOCCAE_Horizontal-en.png',
-    'assets/images/Amyal PNG Partners/MOET_Horizontal_RGB_A.png',
-    'assets/images/Amyal PNG Partners/mubadala.png',
-    'assets/images/Amyal PNG Partners/SAAS properties.png',
-    'assets/images/Amyal PNG Partners/Shahat.png',
-    'assets/images/Amyal PNG Partners/umex_and_simtex.png',
-    'assets/images/Amyal PNG Partners/mair green.png'
-  ];
+  // Partner images array - loaded from constant file
+  partners = PARTNER_IMAGES.partnersPage;
 
   constructor(public langService: LanguageService) {
     // Watch for language changes and restart fade animation

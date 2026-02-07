@@ -25,9 +25,9 @@ export class ContactUs implements OnInit, OnDestroy {
     private fb: FormBuilder
   ) {
     this.contactForm = this.fb.group({
-      name: ['', [Validators.required, Validators.minLength(2)]],
+      name: ['', [Validators.minLength(2)]],
       email: ['', [Validators.required, Validators.email]],
-      phone: ['', [Validators.required]],
+      phone: ['', []],
       message: ['', [Validators.required, Validators.minLength(10)]]
     });
 
@@ -130,10 +130,50 @@ export class ContactUs implements OnInit, OnDestroy {
 
   onSubmit(): void {
     if (this.contactForm.valid) {
+      const formValues = this.contactForm.value;
+      
+      // Construct email details
+      const recipientEmail = 'Info@amyalmedia.ae';
+      
+      // Build subject with optional name and phone
+      let subject = 'Contact Form Submission';
+      if (formValues.name || formValues.phone) {
+        subject += ' - ';
+        if (formValues.name) {
+          subject += formValues.name;
+        }
+        if (formValues.phone) {
+          subject += (formValues.name ? ' | ' : '') + formValues.phone;
+        }
+      }
+      
+      // Build email body
+      let body = formValues.message || '';
+      
+      // Add sender details to body if available
+      if (formValues.name || formValues.email || formValues.phone) {
+        body += '\n\n---\n';
+        body += 'Contact Details:\n';
+        if (formValues.name) body += `Name: ${formValues.name}\n`;
+        if (formValues.email) body += `Email: ${formValues.email}\n`;
+        if (formValues.phone) body += `Phone: ${formValues.phone}\n`;
+      }
+      
+      // Detect mobile device
+      const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+      
+      if (isMobile) {
+        // Mobile: Use mailto directly
+        const mailtoLink = `mailto:${recipientEmail}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+        window.location.href = mailtoLink;
+      } else {
+        // Desktop: Open Gmail web compose
+        const gmailUrl = `https://mail.google.com/mail/?view=cm&fs=1&to=${recipientEmail}&su=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+        window.open(gmailUrl, '_blank');
+      }
+      
+      // Show brief feedback
       this.isSubmitting.set(true);
-      this.submitError.set(false);
-
-      // Simulate API call
       setTimeout(() => {
         this.isSubmitting.set(false);
         this.submitSuccess.set(true);
@@ -143,7 +183,7 @@ export class ContactUs implements OnInit, OnDestroy {
         setTimeout(() => {
           this.submitSuccess.set(false);
         }, 3000);
-      }, 1500);
+      }, 800);
     } else {
       // Mark all fields as touched to show validation errors
       Object.keys(this.contactForm.controls).forEach(key => {

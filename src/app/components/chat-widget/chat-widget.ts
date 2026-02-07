@@ -52,18 +52,46 @@ export class ChatWidget implements OnInit {
 
   /**
    * WhatsApp URL that opens the chat for the selected number.
-   * - Desktop: opens WhatsApp Desktop app if installed, otherwise WhatsApp Web.
+   * - Desktop: Uses whatsapp:// protocol to open WhatsApp Desktop app directly (if installed)
    * - Mobile: opens WhatsApp app if installed, otherwise web; app is preferred.
-   * Using wa.me lets the OS/browser choose app vs web.
    */
   getWhatsAppUrl(): string {
     const selected = this.phoneOptions.find(o => o.id === this.selectedPhone());
     const num = selected ? this.getNumberForWhatsApp(selected.number) : this.getNumberForWhatsApp(this.phoneOptions[0].number);
+    
+    // Check if desktop (non-mobile device)
+    const isDesktop = typeof window !== 'undefined' && 
+      !/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+    
+    // For desktop, use whatsapp:// protocol to open desktop app directly
+    if (isDesktop) {
+      return `whatsapp://send?phone=${num}`;
+    }
+    
+    // For mobile, use wa.me which automatically handles app vs web
     return `https://wa.me/${num}`;
   }
 
   sendWhatsAppMessage(): void {
-    window.open(this.getWhatsAppUrl(), '_blank', 'noopener,noreferrer');
+    const url = this.getWhatsAppUrl();
+    const isDesktop = typeof window !== 'undefined' && 
+      !/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+    
+    if (isDesktop) {
+      // Try to open desktop app first
+      window.location.href = url;
+      
+      // Fallback to web after a short delay if desktop app didn't open
+      setTimeout(() => {
+        const selected = this.phoneOptions.find(o => o.id === this.selectedPhone());
+        const num = selected ? this.getNumberForWhatsApp(selected.number) : this.getNumberForWhatsApp(this.phoneOptions[0].number);
+        // This will only open if user is still on the page (app didn't open)
+        window.open(`https://web.whatsapp.com/send?phone=${num}`, '_blank', 'noopener,noreferrer');
+      }, 1500);
+    } else {
+      // Mobile: just open the wa.me link
+      window.open(url, '_blank', 'noopener,noreferrer');
+    }
   }
 
   navigateToContact(): void {

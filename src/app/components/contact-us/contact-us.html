@@ -107,9 +107,7 @@
               [class.is-invalid]="name?.invalid && name?.touched">
             @if (name?.invalid && name?.touched) {
               <div class="invalid-feedback d-block">
-                @if (name?.errors?.['required']) {
-                  {{ langService.t('contact.validation.nameRequired') }}
-                }
+              
                 @if (name?.errors?.['minlength']) {
                   {{ langService.t('contact.validation.nameMinLength') }}
                 }
@@ -126,9 +124,7 @@
               [class.is-invalid]="email?.invalid && email?.touched">
             @if (email?.invalid && email?.touched) {
               <div class="invalid-feedback d-block">
-                @if (email?.errors?.['required']) {
-                  {{ langService.t('contact.validation.emailRequired') }}
-                }
+              
                 @if (email?.errors?.['email']) {
                   {{ langService.t('contact.validation.emailInvalid') }}
                 }
@@ -199,7 +195,9 @@
             allowfullscreen=""
             loading="lazy"
             referrerpolicy="no-referrer-when-downgrade"
-            title="Amyal Location - Abu Dhabi, UAE">
+            title="Abu Dhabi-Al Bateen
+Al Ahliyah Building-Block C 
+Office No. 9">
           </iframe>
         </div>
       </div>
