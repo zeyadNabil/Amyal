@@ -630,6 +630,7 @@
   overflow: hidden;
   cursor: grab;
   user-select: none;
+  touch-action: pan-x pinch-zoom;
   -webkit-user-select: none;
   -moz-user-select: none;
   -ms-user-select: none;
