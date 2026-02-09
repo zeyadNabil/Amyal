@@ -24,5 +24,6 @@ export const localStore = {
 };
 
 export function isLocalDev(): boolean {
-  return !process.env.VERCEL_ENV || process.env.VERCEL_ENV === 'development';
+  // Only use local storage when NOT in Vercel (no VERCEL_ENV set)
+  return !process.env.VERCEL_ENV;
 }
