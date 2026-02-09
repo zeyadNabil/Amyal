@@ -75,7 +75,6 @@
 }
 
 .required {
-  color: #ff6b6b
   color: var(--white);
   font-size: 1.1rem;
 }
