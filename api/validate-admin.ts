@@ -21,6 +21,11 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     const adminPassword = process.env.ADMIN_PASSWORD || 'admin123';
     const { password } = req.body;
     
+    console.log('Password validation attempt');
+    console.log('Env var exists:', !!process.env.ADMIN_PASSWORD);
+    console.log('Password received length:', password?.length);
+    console.log('Expected password length:', adminPassword?.length);
+    
     if (password === adminPassword) {
       return res.status(200)
         .setHeader('Content-Type', 'application/json')
@@ -30,7 +35,16 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       return res.status(401)
         .setHeader('Content-Type', 'application/json')
         .setHeader('Access-Control-Allow-Origin', '*')
-        .json({ success: false, isValid: false, error: 'Invalid password' });
+        .json({ 
+          success: false, 
+          isValid: false, 
+          error: 'Invalid password',
+          debug: {
+            hasEnvVar: !!process.env.ADMIN_PASSWORD,
+            receivedLength: password?.length,
+            expectedLength: adminPassword?.length
+          }
+        });
     }
   } catch (error) {
     console.error('Error validating admin password:', error);
