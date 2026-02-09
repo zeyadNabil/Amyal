@@ -14,10 +14,25 @@
                 [(ngModel)]="password"
                 (keyup.enter)="authenticate()"
                 placeholder="Admin Password"
+                [disabled]="isAuthenticating()"
                 class="form-control">
             </div>
-            <button (click)="authenticate()" class="btn-primary">
-              Login
+            
+            @if (authError()) {
+              <div class="alert alert-danger">
+                {{ authError() }}
+              </div>
+            }
+            
+            <button 
+              (click)="authenticate()" 
+              [disabled]="isAuthenticating()"
+              class="btn-primary">
+              @if (isAuthenticating()) {
+                <span>Validating...</span>
+              } @else {
+                <span>Login</span>
+              }
             </button>
           </div>
         </div>

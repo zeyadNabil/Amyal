@@ -17,6 +17,8 @@ export class Admin implements OnInit {
   password = '';
   isAuthenticated = signal(false);
   activeTab = signal<'theme' | 'reviews'>('theme');
+  authError = signal('');
+  isAuthenticating = signal(false);
   
   // Theme management
   themeForm: Theme = {
@@ -50,11 +52,38 @@ export class Admin implements OnInit {
     }
   }
 
-  authenticate(): void {
-    // Simple check - in real app you'd validate against backend
-    if (this.password) {
-      this.isAuthenticated.set(true);
-      this.loadReviewsForManagement();
+  async authenticate(): Promise<void> {
+    if (!this.password) {
+      this.authError.set('Please enter a password');
+      return;
+    }
+
+    this.isAuthenticating.set(true);
+    this.authError.set('');
+
+    try {
+      const response = await fetch('/api/validate-admin', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ password: this.password })
+      });
+
+      const result = await response.json();
+
+      if (result.isValid) {
+        this.isAuthenticated.set(true);
+        await this.loadReviewsForManagement();
+      } else {
+        this.authError.set(result.error || 'Invalid password');
+        this.password = '';
+      }
+    } catch (error) {
+      console.error('Authentication error:', error);
+      this.authError.set('Authentication failed. Please try again.');
+    } finally {
+      this.isAuthenticating.set(false);
     }
   }
 
