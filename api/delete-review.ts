@@ -1,5 +1,5 @@
 import type { VercelRequest, VercelResponse } from '@vercel/node';
-import { getRedisClient } from './redis-client';
+import { Redis } from '@upstash/redis';
 
 interface Review {
   id: string;
@@ -47,7 +47,10 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     }
 
     let reviewsData: string | null;
-    const redis = getRedisClient();
+    const redis = new Redis({
+      url: process.env.UPSTASH_REDIS_REST_URL!,
+      token: process.env.UPSTASH_REDIS_REST_TOKEN!,
+    });
     reviewsData = await redis.get('reviews-list');
 
     const reviews: Review[] = reviewsData 
@@ -55,8 +58,6 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       : [];
 
     const filteredReviews = reviews.filter(r => r.id !== body.reviewId);
-
-    const redis = getRedisClient();
     await redis.set('reviews-list', JSON.stringify(filteredReviews));
 
     return res.status(200)

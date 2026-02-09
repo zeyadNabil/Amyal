@@ -1,5 +1,5 @@
 import type { VercelRequest, VercelResponse } from '@vercel/node';
-import { getRedisClient } from './redis-client';
+import { Redis } from '@upstash/redis';
 
 interface Review {
   id: string;
@@ -49,7 +49,10 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     // Get Redis client
     let reviewsData: string | null;
     try {
-      const redis = getRedisClient();
+      const redis = new Redis({
+        url: process.env.UPSTASH_REDIS_REST_URL!,
+        token: process.env.UPSTASH_REDIS_REST_TOKEN!,
+      });
       reviewsData = await redis.get('reviews-list');
     } catch (redisError) {
       console.error('Redis connection error:', redisError);
@@ -76,7 +79,10 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
 
     // Save to Redis
     try {
-      const redis = getRedisClient();
+      const redis = new Redis({
+        url: process.env.UPSTASH_REDIS_REST_URL!,
+        token: process.env.UPSTASH_REDIS_REST_TOKEN!,
+      });
       await redis.set('reviews-list', JSON.stringify(reviews));
     } catch (redisError) {
       console.error('Redis save error:', redisError);
