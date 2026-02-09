@@ -25,17 +25,8 @@ export class ThemeService {
       );
       this.currentTheme.set(theme);
       
-      // Only apply theme if it's been customized (different from default)
-      const defaultTheme = this.getDefaultTheme();
-      const isCustomized = 
-        theme.primaryColor !== defaultTheme.primaryColor ||
-        theme.secondaryColor !== defaultTheme.secondaryColor ||
-        theme.accentColor !== defaultTheme.accentColor ||
-        theme.backgroundColor !== defaultTheme.backgroundColor;
-      
-      if (isCustomized) {
-        this.applyTheme(theme);
-      }
+      // Always apply the theme (whether default or customized)
+      this.applyTheme(theme);
     } catch (error) {
       console.error('Error loading theme:', error);
     }

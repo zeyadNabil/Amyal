@@ -41,8 +41,9 @@ export class Admin implements OnInit {
     public langService: LanguageService
   ) {}
 
-  ngOnInit(): void {
-    // Load current theme
+  async ngOnInit(): Promise<void> {
+    // Load the latest theme from backend
+    await this.themeService.loadTheme();
     const currentTheme = this.themeService.currentTheme();
     if (currentTheme) {
       this.themeForm = { ...currentTheme };
@@ -72,6 +73,12 @@ export class Admin implements OnInit {
     
     if (result.success) {
       this.themeMessage.set('Theme updated successfully! ✓');
+      // Reload the current theme to get updated values
+      await this.themeService.loadTheme();
+      const currentTheme = this.themeService.currentTheme();
+      if (currentTheme) {
+        this.themeForm = { ...currentTheme };
+      }
     } else {
       this.themeMessage.set(result.error || 'Failed to update theme');
     }
