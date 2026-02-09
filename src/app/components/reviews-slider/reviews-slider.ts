@@ -42,6 +42,11 @@ export class ReviewsSlider implements OnInit, OnDestroy {
     this.initDesktopReviewsDrag();
   }
 
+  ngOnDestroy(): void {
+    if (this.reviewsScrollRaf != null) cancelAnimationFrame(this.reviewsScrollRaf);
+    if (this.reviewsResumeTimeout != null) clearTimeout(this.reviewsResumeTimeout);
+  }
+
   getStars(rating: number): string {
     return '⭐'.repeat(rating);
   }
