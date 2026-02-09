@@ -1,6 +1,7 @@
 import { Injectable, signal, computed } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
+import { Observable, tap } from 'rxjs';
 
 export interface Translations {
   nav: {
@@ -149,8 +150,7 @@ export class LanguageService {
     private http: HttpClient,
     private router: Router
   ) {
-    const savedLang = localStorage.getItem('lang') || 'en';
-    this.loadLanguage(savedLang);
+    // Language will be loaded by APP_INITIALIZER before app starts
   }
 
 
@@ -159,6 +159,23 @@ export class LanguageService {
     // Preserve current route when switching language
     const currentRoute = this.router.url;
     this.loadLanguage(newLang, currentRoute);
+  }
+
+  // Observable version for APP_INITIALIZER
+  loadLanguageSync(lang: string): Observable<Translations> {
+    return this.http.get<Translations>(`assets/i18n/${lang}.json`).pipe(
+      tap((data) => {
+        this.translationsSignal.set(data);
+        this.currentLangSignal.set(lang);
+
+        // Update HTML attributes
+        document.documentElement.lang = lang;
+        document.documentElement.dir = lang === 'ar' ? 'rtl' : 'ltr';
+
+        // Save preference
+        localStorage.setItem('lang', lang);
+      })
+    );
   }
 
   loadLanguage(lang: string, preserveRoute?: string): void {
