@@ -1,10 +1,11 @@
-import { Component, OnInit, AfterViewInit } from '@angular/core';
+import { Component, OnInit, AfterViewInit, HostListener, OnDestroy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterOutlet } from '@angular/router';
 import { Navbar } from './components/navbar/navbar';
 import { Footer } from './components/footer/footer';
 import { BackToTop } from './components/back-to-top/back-to-top';
 import { ChatWidget } from './components/chat-widget/chat-widget';
+import { ImageManagerService } from './services/image-manager.service';
 
 @Component({
   selector: 'app-root',
@@ -19,8 +20,60 @@ import { ChatWidget } from './components/chat-widget/chat-widget';
   templateUrl: './app.html',
   styleUrl: './app.css'
 })
-export class App implements OnInit, AfterViewInit {
+export class App implements OnInit, AfterViewInit, OnDestroy {
   title = 'amyal-angular';
+  private scrollTimeout: any;
+  private ticking = false;
+  private lastScale = 1;
+  private zoomTimeout: any;
+  private isZooming = false;
+
+  constructor(private imageManager: ImageManagerService) {}
+
+  @HostListener('window:resize')
+  onResize() {
+    // Detect zoom changes on mobile
+    if (typeof window !== 'undefined' && window.visualViewport) {
+      const currentScale = window.visualViewport.scale || 1;
+      
+      if (Math.abs(currentScale - this.lastScale) > 0.01) {
+        // Zoom detected - freeze interactions temporarily
+        this.isZooming = true;
+        document.body.classList.add('zooming');
+        
+        clearTimeout(this.zoomTimeout);
+        this.zoomTimeout = setTimeout(() => {
+          this.isZooming = false;
+          document.body.classList.remove('zooming');
+          this.lastScale = currentScale;
+          
+          // Request memory cleanup after zoom
+          this.requestMemoryCleanup();
+        }, 300);
+      }
+    }
+  }
+
+  @HostListener('window:scroll')
+  onScroll() {
+    // Don't process scroll events during zoom
+    if (this.isZooming) return;
+    
+    // Use requestAnimationFrame to throttle scroll events efficiently
+    if (!this.ticking && typeof document !== 'undefined') {
+      window.requestAnimationFrame(() => {
+        document.body.classList.add('scrolling');
+        this.ticking = false;
+      });
+      this.ticking = true;
+      
+      // Remove class after scrolling stops (increased delay for stability)
+      clearTimeout(this.scrollTimeout);
+      this.scrollTimeout = setTimeout(() => {
+        document.body.classList.remove('scrolling');
+      }, 200);
+    }
+  }
 
   ngOnInit(): void {
     // Ensure stars are continuously visible
@@ -32,6 +85,37 @@ export class App implements OnInit, AfterViewInit {
     setTimeout(() => {
       this.ensureStarsCoverage();
     }, 100);
+  }
+
+  private requestMemoryCleanup(): void {
+    // Force garbage collection hint for browsers that support it
+    if (typeof window !== 'undefined') {
+      if ((window as any).gc) {
+        try {
+          (window as any).gc();
+        } catch (e) {
+          // Ignore errors
+        }
+      }
+      
+      // Trigger a microtask to allow cleanup
+      Promise.resolve().then(() => {
+        // Empty promise to trigger GC opportunity
+      });
+    }
+  }
+
+  ngOnDestroy(): void {
+    // Cleanup
+    if (this.scrollTimeout) {
+      clearTimeout(this.scrollTimeout);
+    }
+    if (this.zoomTimeout) {
+      clearTimeout(this.zoomTimeout);
+    }
+    if (typeof document !== 'undefined') {
+      document.body.classList.remove('scrolling', 'zooming');
+    }
   }
 
   private ensureStarsCoverage(): void {

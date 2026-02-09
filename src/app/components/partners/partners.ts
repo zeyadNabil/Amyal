@@ -1,12 +1,11 @@
 import { Component, OnInit, OnDestroy, signal, effect } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { LanguageService } from '../../services/language.service';
-import { ShimmerLoader } from '../shimmer-loader/shimmer-loader';
 import { PARTNER_IMAGES } from '../../constants/partner-images.constant';
 
 @Component({
   selector: 'app-partners',
-  imports: [CommonModule, ShimmerLoader],
+  imports: [CommonModule],
   templateUrl: './partners.html',
   styleUrl: './partners.css'
 })
@@ -18,7 +17,10 @@ export class Partners implements OnInit, OnDestroy {
   private languageEffect: any = null;
 
   // Partner images array - loaded from constant file
-  partners = PARTNER_IMAGES.partnersPage;
+  get partners(): string[] {
+    const isMobile = typeof window !== 'undefined' && window.innerWidth < 768;
+    return isMobile ? PARTNER_IMAGES.partnersPage.slice(0, 48) : PARTNER_IMAGES.partnersPage;
+  }
 
   constructor(public langService: LanguageService) {
     // Watch for language changes and restart fade animation
@@ -36,8 +38,8 @@ export class Partners implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    // Simulate loading time to show shimmer effect
-    setTimeout(() => this.isLoaded.set(true), 1500);
+    // Load content immediately
+    this.isLoaded.set(true);
     this.initScrollAnimations();
     this.animateOnLoad();
     // Start fade animation after a delay

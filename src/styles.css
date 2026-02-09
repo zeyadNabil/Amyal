@@ -110,10 +110,18 @@ body {
     position: relative;
     min-height: 100vh;
     transition: opacity 0.3s ease;
+    /* Ensure body width is stable during zoom */
+    width: 100%;
 }
 
 html {
     scroll-behavior: smooth;
+    /* Prevent text resize on zoom - improves stability */
+    -webkit-text-size-adjust: 100%;
+    -ms-text-size-adjust: 100%;
+    text-size-adjust: 100%;
+    /* Disable zoom completely on touch devices */
+    touch-action: pan-x pan-y;
 }
 
 /* ========================================
@@ -408,4 +416,159 @@ body.nav-scrolled .neon-lines {
     opacity: 0.6;
 }
 
+/* ========================================
+   PERFORMANCE OPTIMIZATIONS
+   Prevents crashes on zoom + scroll
+   ======================================== */
+
+/* GPU acceleration for images - offloads rendering to GPU */
+img {
+    /* Force GPU rendering for smoother zoom/scroll */
+    transform: translateZ(0);
+    -webkit-transform: translateZ(0);
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+    
+    /* Maintain image quality and responsiveness */
+    max-width: 100%;
+    height: auto;
+    display: block;
+}
+
+/* Optimize all card/section containers */
+.gallery-image,
+.partner-logo,
+.service-card,
+.card {
+    /* Isolate rendering to prevent full page recalculation */
+    contain: layout style;
+}
+
+/* Aggressive mobile optimizations */
+@media (max-width: 768px) {
+    /* Reduce image quality on mobile to save memory */
+    img {
+        image-rendering: auto;
+    }
+    
+    /* Simplify shadows and effects */
+    * {
+        text-shadow: none !important;
+    }
+    
+    .gallery-item,
+    .partner-card,
+    .service-card {
+        /* Reduce visual complexity on mobile */
+        box-shadow: 0 2px 8px rgba(0,0,0,0.2) !important;
+    }
+}
+
+/* Optimize scrolling performance */
+.scroll-reveal,
+.fade-in-up,
+.partner-logo,
+.gallery-image,
+.service-card,
+.portfolio-item,
+.card {
+    /* Use CSS containment for isolated rendering */
+    contain: layout style paint;
+    content-visibility: auto;
+    /* Remove will-change to reduce memory */
+    will-change: auto;
+}
+
+/* During active scrolling, aggressively reduce computation */
+body.scrolling * {
+    pointer-events: none;
+    /* Disable all animations during scroll */
+    animation-play-state: paused !important;
+    /* Disable all transitions during scroll */
+    transition: none !important;
+}
+
+/* Freeze everything during zoom to prevent crash */
+body.zooming * {
+    pointer-events: none !important;
+    animation-play-state: paused !important;
+    transition: none !important;
+    transform: translateZ(0) !important;
+    will-change: auto !important;
+}
+
+body.zooming {
+    overflow: hidden !important;
+}
+
+/* Optimize animations during zoom */
+@media (prefers-reduced-motion: no-preference) {
+    * {
+        /* Ensure smooth animations without crash */
+        animation-duration: inherit;
+        transition-duration: inherit;
+    }
+}
+
+/* Prevent layout shift on responsive images */
+img[loading="lazy"] {
+    min-height: 100px;
+}
+
+/* Additional aggressive optimizations for zoom stability */
+@media (hover: none) and (pointer: coarse) {
+    /* Mobile-specific optimizations */
+    * {
+        /* Disable expensive backdrop filters on mobile */
+        backdrop-filter: none !important;
+        -webkit-backdrop-filter: none !important;
+    }
+    
+    /* Simplify visual effects on mobile during interaction */
+    body.scrolling *,
+    body.zooming * {
+        box-shadow: none !important;
+        text-shadow: none !important;
+        filter: none !important;
+    }
+    
+    /* Limit image rendering quality during zoom/scroll */
+    body.scrolling img,
+    body.zooming img {
+        image-rendering: auto;
+        will-change: auto;
+    }
+}
+
+/* Loading spinner for infinite scroll */
+.spinner-border {
+    display: inline-block;
+    width: 2rem;
+    height: 2rem;
+    vertical-align: text-bottom;
+    border: 0.25em solid currentColor;
+    border-right-color: transparent;
+    border-radius: 50%;
+    animation: spinner-border 0.75s linear infinite;
+}
+
+@keyframes spinner-border {
+    to { transform: rotate(360deg); }
+}
+
+.text-primary {
+    color: var(--blue-bright) !important;
+}
+
+.visually-hidden {
+    position: absolute !important;
+    width: 1px !important;
+    height: 1px !important;
+    padding: 0 !important;
+    margin: -1px !important;
+    overflow: hidden !important;
+    clip: rect(0, 0, 0, 0) !important;
+    white-space: nowrap !important;
+    border: 0 !important;
+}
 

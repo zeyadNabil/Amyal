@@ -1,6 +1,3 @@
-<!-- Shimmer Loader -->
-<app-shimmer-loader [layout]="'services'" [isLoading]="!isLoaded()" [itemCount]="6"></app-shimmer-loader>
-
 <!-- Service Content -->
 @if (isLoaded()) {
   <div class="service-page" [class.content-loaded]="isLoaded()">
@@ -69,6 +66,7 @@
                     <div class="card-image-wrapper" (click)="openImage(image)">
                       <img [src]="image"
                            class="card-slider-image"
+                           loading="lazy"
                            [alt]="langService.t('nav.' + getServiceKey()) + ' - Image ' + (i + 1)">
                       <div class="galaxy-overlay"></div>
                     </div>

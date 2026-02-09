@@ -1,6 +1,3 @@
-<!-- Shimmer Loader -->
-<app-shimmer-loader [layout]="'grid'" [isLoading]="!isLoaded()" [itemCount]="15"></app-shimmer-loader>
-
 <section class="partners-page" [class.content-loaded]="isLoaded()">
   <div class="container">
     <!-- Header Section -->
@@ -20,8 +17,7 @@
               <img
                 [src]="partner"
                 [alt]="'Partner ' + ($index + 1)"
-                class="partner-image"
-                loading="lazy">
+                class="partner-image">
             </div>
           </div>
           </div>

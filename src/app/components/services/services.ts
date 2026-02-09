@@ -3,13 +3,12 @@ import { CommonModule, Location } from '@angular/common';
 import { ActivatedRoute, RouterModule } from '@angular/router';
 import { LanguageService } from '../../services/language.service';
 import { SERVICE_IMAGES } from '../../constants/service-images.constant';
-import { ShimmerLoader } from '../shimmer-loader/shimmer-loader';
 
 // Add FontAwesome icons if not already imported
 
 @Component({
   selector: 'app-services',
-  imports: [CommonModule, RouterModule, ShimmerLoader],
+  imports: [CommonModule, RouterModule],
   templateUrl: './services.html',
   styleUrl: './services.css'
 })
