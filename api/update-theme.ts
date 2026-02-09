@@ -1,6 +1,5 @@
 import type { VercelRequest, VercelResponse } from '@vercel/node';
 import { getRedisClient } from './redis-client';
-import { localStore, isLocalDev } from './local-storage';
 
 export default async function handler(req: VercelRequest, res: VercelResponse) {
   // Handle CORS preflight
@@ -43,12 +42,8 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       updatedAt: new Date().toISOString()
     };
 
-    if (isLocalDev()) {
-      await localStore.set('current-theme', JSON.stringify(theme));
-    } else {
-      const redis = getRedisClient();
-      await redis.set('current-theme', JSON.stringify(theme));
-    }
+    const redis = getRedisClient();
+    await redis.set('current-theme', JSON.stringify(theme));
 
     return res.status(200)
       .setHeader('Content-Type', 'application/json')

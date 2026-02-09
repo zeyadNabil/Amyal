@@ -1,6 +1,5 @@
 import type { VercelRequest, VercelResponse } from '@vercel/node';
 import { getRedisClient } from './redis-client';
-import { localStore, isLocalDev } from './local-storage';
 
 interface Review {
   id: string;
@@ -48,13 +47,8 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     }
 
     let reviewsData: string | null;
-    
-    if (isLocalDev()) {
-      reviewsData = await localStore.get('reviews-list');
-    } else {
-      const redis = getRedisClient();
-      reviewsData = await redis.get('reviews-list');
-    }
+    const redis = getRedisClient();
+    reviewsData = await redis.get('reviews-list');
 
     const reviews: Review[] = reviewsData 
       ? (typeof reviewsData === 'string' ? JSON.parse(reviewsData) : reviewsData)
@@ -62,12 +56,8 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
 
     const filteredReviews = reviews.filter(r => r.id !== body.reviewId);
 
-    if (isLocalDev()) {
-      await localStore.set('reviews-list', JSON.stringify(filteredReviews));
-    } else {
-      const redis = getRedisClient();
-      await redis.set('reviews-list', JSON.stringify(filteredReviews));
-    }
+    const redis = getRedisClient();
+    await redis.set('reviews-list', JSON.stringify(filteredReviews));
 
     return res.status(200)
       .setHeader('Content-Type', 'application/json')

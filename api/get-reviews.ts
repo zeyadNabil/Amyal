@@ -1,6 +1,5 @@
 import type { VercelRequest, VercelResponse } from '@vercel/node';
 import { getRedisClient } from './redis-client';
-import { localStore, isLocalDev } from './local-storage';
 
 export default async function handler(req: VercelRequest, res: VercelResponse) {
   // Handle CORS preflight
@@ -14,19 +13,15 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
   try {
     let reviewsData: string | null;
 
-    if (isLocalDev()) {
-      reviewsData = await localStore.get('reviews-list');
-    } else {
-      try {
-        const redis = getRedisClient();
-        reviewsData = await redis.get('reviews-list');
-      } catch (redisError) {
-        console.error('Redis connection error:', redisError);
-        return res.status(500)
-          .setHeader('Content-Type', 'application/json')
-          .setHeader('Access-Control-Allow-Origin', '*')
-          .json({ error: 'Database connection failed. Please check environment variables.' });
-      }
+    try {
+      const redis = getRedisClient();
+      reviewsData = await redis.get('reviews-list');
+    } catch (redisError) {
+      console.error('Redis connection error:', redisError);
+      return res.status(500)
+        .setHeader('Content-Type', 'application/json')
+        .setHeader('Access-Control-Allow-Origin', '*')
+        .json({ error: 'Database connection failed. Please check environment variables.' });
     }
     
     if (!reviewsData) {
