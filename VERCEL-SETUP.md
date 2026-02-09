@@ -34,6 +34,8 @@ Your serverless backend has been successfully migrated from Netlify to Vercel wi
 
 ## 🚀 Setup Instructions
 
+✅ **Status**: Upstash Redis Connected!
+
 ### 1. Install Dependencies
 ```bash
 npm install
