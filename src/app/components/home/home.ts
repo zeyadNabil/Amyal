@@ -4,10 +4,11 @@ import { RouterModule } from '@angular/router';
 import { LanguageService } from '../../services/language.service';
 import { ShimmerLoader } from '../shimmer-loader/shimmer-loader';
 import { PARTNER_IMAGES } from '../../constants/partner-images.constant';
+import { ReviewsSlider } from '../reviews-slider/reviews-slider';
 
 @Component({
   selector: 'app-home',
-  imports: [CommonModule, RouterModule, ShimmerLoader],
+  imports: [CommonModule, RouterModule, ShimmerLoader, ReviewsSlider],
   templateUrl: './home.html',
   styleUrl: './home.css'
 })

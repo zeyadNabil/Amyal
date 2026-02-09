@@ -1,0 +1,241 @@
+<section class="admin-page">
+  <div class="container">
+    <!-- Login Screen -->
+    @if (!isAuthenticated()) {
+      <div class="admin-login">
+        <div class="login-card">
+          <h1 class="admin-title gradient-text-animated">🔐 Admin Access</h1>
+          <p class="admin-subtitle">Enter admin password to continue</p>
+          
+          <div class="login-form">
+            <div class="form-group">
+              <input
+                type="password"
+                [(ngModel)]="password"
+                (keyup.enter)="authenticate()"
+                placeholder="Admin Password"
+                class="form-control">
+            </div>
+            <button (click)="authenticate()" class="btn-primary">
+              Login
+            </button>
+          </div>
+        </div>
+      </div>
+    }
+    
+    <!-- Admin Dashboard -->
+    @if (isAuthenticated()) {
+      <div class="admin-dashboard">
+        <h1 class="admin-title gradient-text-animated">⚙️ Admin Dashboard</h1>
+        
+        <!-- Tabs -->
+        <div class="admin-tabs">
+          <button
+            (click)="switchTab('theme')"
+            [class.active]="activeTab() === 'theme'"
+            class="tab-button">
+            🎨 Theme Manager
+          </button>
+          <button
+            (click)="switchTab('reviews')"
+            [class.active]="activeTab() === 'reviews'"
+            class="tab-button">
+            ⭐ Review Manager
+          </button>
+        </div>
+        
+        <!-- Theme Manager Tab -->
+        @if (activeTab() === 'theme') {
+          <div class="tab-content">
+            <div class="section-header">
+              <h2>Theme Customization</h2>
+              <p>Customize your website colors and see changes applied instantly across all pages</p>
+            </div>
+            
+            <!-- Color Guide Info Box -->
+            <div class="info-box color-guide">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="10"></circle>
+                <path d="M12 16v-4"></path>
+                <path d="M12 8h.01"></path>
+              </svg>
+              <div class="info-content">
+                <h4>How Colors Work:</h4>
+                <ul>
+                  <li><strong>Primary Blue:</strong> Main buttons, navigation links, call-to-action elements</li>
+                  <li><strong>Mid Blue:</strong> Secondary buttons, hover effects, step numbers, stats</li>
+                  <li><strong>Bright Cyan:</strong> Highlights, accents, stars in background, active states</li>
+                  <li><strong>Gradients:</strong> Hero sections, banners, animated headers, scrollbar</li>
+                  <li><strong>Background:</strong> Main page background (dark theme recommended)</li>
+                </ul>
+                <p class="note"><strong>Note:</strong> Text color changes require careful contrast testing. Keep white for best readability.</p>
+              </div>
+            </div>
+            
+            @if (themeMessage()) {
+              <div class="alert" [class.alert-success]="themeMessage().includes('✓')">
+                {{ themeMessage() }}
+              </div>
+            }
+            
+            <div class="theme-form">
+              <div class="row g-4">
+                <div class="col-md-6">
+                  <div class="color-input-group">
+                    <label>
+                      Primary Blue
+                      <span class="color-description">Main buttons, CTAs, navigation links, base gradient color</span>
+                    </label>
+                    <div class="color-picker">
+                      <input type="color" [(ngModel)]="themeForm.primaryColor">
+                      <input type="text" [(ngModel)]="themeForm.primaryColor" class="form-control" placeholder="#0E37AD">
+                    </div>
+                    <div class="color-preview" [style.background]="themeForm.primaryColor"></div>
+                  </div>
+                </div>
+                
+                <div class="col-md-6">
+                  <div class="color-input-group">
+                    <label>
+                      Mid Blue
+                      <span class="color-description">Secondary buttons, step numbers, stats numbers, hover effects</span>
+                    </label>
+                    <div class="color-picker">
+                      <input type="color" [(ngModel)]="themeForm.secondaryColor">
+                      <input type="text" [(ngModel)]="themeForm.secondaryColor" class="form-control" placeholder="#027DF8">
+                    </div>
+                    <div class="color-preview" [style.background]="themeForm.secondaryColor"></div>
+                  </div>
+                </div>
+                
+                <div class="col-md-6">
+                  <div class="color-input-group">
+                    <label>
+                      Bright Cyan
+                      <span class="color-description">Highlights, colored stars, accents, end of gradients</span>
+                    </label>
+                    <div class="color-picker">
+                      <input type="color" [(ngModel)]="themeForm.accentColor">
+                      <input type="text" [(ngModel)]="themeForm.accentColor" class="form-control" placeholder="#60CEFE">
+                    </div>
+                    <div class="color-preview" [style.background]="themeForm.accentColor"></div>
+                  </div>
+                </div>
+                
+                <div class="col-md-6">
+                  <div class="color-input-group">
+                    <label>
+                      Background Color
+                      <span class="color-description">Main page background (dark colors recommended for galaxy theme)</span>
+                    </label>
+                    <div class="color-picker">
+                      <input type="color" [(ngModel)]="themeForm.backgroundColor">
+                      <input type="text" [(ngModel)]="themeForm.backgroundColor" class="form-control" placeholder="#0a0e1a">
+                    </div>
+                    <div class="color-preview" [style.background]="themeForm.backgroundColor"></div>
+                  </div>
+                </div>
+                
+                <div class="col-md-6">
+                  <div class="color-input-group">
+                    <label>
+                      Text Color
+                      <span class="color-description">⚠️ Main text color (keep white unless changing entire theme)</span>
+                    </label>
+                    <div class="color-picker">
+                      <input type="color" [(ngModel)]="themeForm.textColor">
+                      <input type="text" [(ngModel)]="themeForm.textColor" class="form-control" placeholder="#FFFFFF">
+                    </div>
+                    <div class="color-preview" [style.background]="themeForm.textColor"></div>
+                  </div>
+                </div>
+                
+                <div class="col-md-6">
+                  <div class="color-input-group">
+                    <label>
+                      Gradient Start
+                      <span class="color-description">Start color for hero sections, banners (usually same as Primary Blue)</span>
+                    </label>
+                    <div class="color-picker">
+                      <input type="color" [(ngModel)]="themeForm.gradientStart">
+                      <input type="text" [(ngModel)]="themeForm.gradientStart" class="form-control" placeholder="#0E37AD">
+                    </div>
+                    <div class="color-preview gradient-preview" 
+                         [style.background]="'linear-gradient(135deg, ' + themeForm.gradientStart + ', ' + themeForm.gradientEnd + ')'"></div>
+                  </div>
+                </div>
+                
+                <div class="col-md-6">
+                  <div class="color-input-group">
+                    <label>
+                      Gradient End
+                      <span class="color-description">End color for gradients (usually same as Bright Cyan)</span>
+                    </label>
+                    <div class="color-picker">
+                      <input type="color" [(ngModel)]="themeForm.gradientEnd">
+                      <input type="text" [(ngModel)]="themeForm.gradientEnd" class="form-control" placeholder="#60CEFE">
+                    </div>
+                    <div class="color-preview gradient-preview" 
+                         [style.background]="'linear-gradient(135deg, ' + themeForm.gradientStart + ', ' + themeForm.gradientEnd + ')'"></div>
+                  </div>
+                </div>
+              </div>
+              
+              <div class="button-group">
+                <button (click)="saveTheme()" [disabled]="themeSaving()" class="btn-primary">
+                  {{ themeSaving() ? 'Saving...' : 'Save Theme & Apply Changes' }}
+                </button>
+                <button (click)="resetTheme()" class="btn-secondary">
+                  Reset to Amyal Brand Colors
+                </button>
+              </div>
+            </div>
+          </div>
+        }
+        
+        <!-- Review Manager Tab -->
+        @if (activeTab() === 'reviews') {
+          <div class="tab-content">
+            <div class="section-header">
+              <h2>Review Management</h2>
+              <p>Manage customer reviews</p>
+            </div>
+            
+            @if (reviewMessage()) {
+              <div class="alert" [class.alert-success]="reviewMessage().includes('✓')">
+                {{ reviewMessage() }}
+              </div>
+            }
+            
+            @if (reviewsToManage().length === 0) {
+              <div class="empty-state">
+                <p>No reviews yet</p>
+              </div>
+            }
+            
+            <div class="reviews-list">
+              @for (review of reviewsToManage(); track review.id) {
+                <div class="review-card">
+                  <div class="review-header">
+                    <div>
+                      <h3>{{ review.name }}</h3>
+                      <div class="review-rating">{{ getStars(review.rating) }}</div>
+                    </div>
+                    <div class="review-actions">
+                      <span class="review-date">{{ formatDate(review.createdAt) }}</span>
+                      <button (click)="deleteReview(review.id)" class="btn-delete">
+                        🗑️ Delete
+                      </button>
+                    </div>
+                  </div>
+                  <p class="review-message">{{ review.message }}</p>
+                </div>
+              }
+            </div>
+          </div>
+        }
+      </div>
+    }
+  </div>
+</section>

@@ -5,6 +5,7 @@ import { Navbar } from './components/navbar/navbar';
 import { Footer } from './components/footer/footer';
 import { BackToTop } from './components/back-to-top/back-to-top';
 import { ChatWidget } from './components/chat-widget/chat-widget';
+import { ThemeService } from './services/theme.service';
 
 @Component({
   selector: 'app-root',
@@ -21,6 +22,10 @@ import { ChatWidget } from './components/chat-widget/chat-widget';
 })
 export class App implements OnInit, AfterViewInit {
   title = 'amyal-angular';
+
+  constructor(private themeService: ThemeService) {
+    // Theme service will auto-load on construction
+  }
 
   ngOnInit(): void {
     // Ensure stars are continuously visible

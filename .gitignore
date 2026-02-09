@@ -41,3 +41,16 @@ __screenshots__/
 # System files
 .DS_Store
 Thumbs.db
+
+# Environment variables
+.env
+.env.local
+
+# Netlify
+.netlify/
+
+# Vercel
+.vercel
+
+# Local development storage
+.local-storage/

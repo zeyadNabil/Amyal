@@ -1,0 +1,43 @@
+<section class="reviews-slider-section">
+  <div class="container">
+    <div class="section-header scroll-reveal">
+      <h2 class="section-title gradient-text-animated">{{ langService.t('reviews.title') || '⭐ Customer Reviews' }}</h2>
+      <p class="section-subtitle">{{ langService.t('reviews.subtitle') || 'What our clients say about us' }}</p>
+    </div>
+  </div>
+  
+  @if (reviews().length === 0) {
+    <div class="container">
+      <div class="empty-reviews">
+        <p>{{ langService.t('reviews.noReviews') || 'No reviews yet. Be the first to share your experience!' }}</p>
+      </div>
+    </div>
+  }
+  
+  @if (reviews().length > 0) {
+    <div class="reviews-slider-container">
+      <div class="reviews-slider-track">
+        @for (review of reviews(); track review.id) {
+          <div class="review-card-slider">
+            <div class="review-rating">{{ getStars(review.rating) }}</div>
+            <p class="review-message">"{{ review.message }}"</p>
+            <div class="review-author">
+              <strong>{{ review.name }}</strong>
+              <span class="review-date">{{ formatDate(review.createdAt) }}</span>
+            </div>
+          </div>
+        }
+      </div>
+    </div>
+  }
+  
+  <!-- Action Button -->
+  <div class="container">
+    <div class="reviews-actions">
+      <a routerLink="/add-review" class="btn-add-review">
+        <i class="fas fa-plus"></i>
+        {{ langService.t('reviews.addReview') || 'Add Your Review' }}
+      </a>
+    </div>
+  </div>
+</section>

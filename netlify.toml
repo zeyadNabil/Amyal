@@ -1,6 +1,13 @@
 [build]
   command = "npm run build"
   publish = "dist/amyal-angular/browser"
+  functions = "netlify/functions"
+
+[dev]
+  command = "ng serve"
+  targetPort = 4200
+  framework = "#static"
+  autoLaunch = false
 
 [[redirects]]
   from = "/*"
@@ -9,3 +16,10 @@
 
 [build.environment]
   NODE_VERSION = "20"
+  NG_DISABLE_VERSION_CHECK = "1"
+
+[dev.environment]
+  NG_DISABLE_VERSION_CHECK = "1"
+
+[functions]
+  directory = "netlify/functions"

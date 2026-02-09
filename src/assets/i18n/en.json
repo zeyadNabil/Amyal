@@ -320,5 +320,35 @@
       "overview": "Our fabrication and manufacturing capabilities allow us to produce custom-built structures, stands, displays, and event components with precision and reliability. Using high-quality materials and skilled craftsmanship, we handle metal, wood, acrylic, and mixed-material fabrication. This in-house capability ensures quality control, timely delivery, and cost-effective solutions for all your project needs.",
       "features": "Hoarding Structures|Hoarding Branding|Street Lamppost Branding|Fence Branding|Custom Metal & Acrylic Fabrication|Event Structures & Frames"
     }
+  },
+  "reviews": {
+    "title": "⭐ Customer Reviews",
+    "subtitle": "What our clients say about us",
+    "noReviews": "No reviews yet. Be the first to share your experience!",
+    "refresh": "Refresh Reviews",
+    "refreshing": "Refreshing...",
+    "addReview": "Add Your Review"
+  },
+  "reviewForm": {
+    "title": "⭐ Share Your Experience",
+    "subtitle": "We value your feedback and would love to hear from you",
+    "name": "Your Name",
+    "namePlaceholder": "Enter your name",
+    "rating": "Rating",
+    "stars": "stars",
+    "message": "Your Review",
+    "messagePlaceholder": "Share your experience with us...",
+    "characters": "characters",
+    "submit": "Submit Review",
+    "submitting": "Submitting...",
+    "success": "Thank you for your review! ✓",
+    "info": "Your review will be visible to other visitors shortly after submission.",
+    "errorName": "Please enter your name",
+    "errorMessage": "Please enter your review message",
+    "errorMinLength": "Review must be at least 10 characters"
+  },
+  "common": {
+    "back": "Back to Home"
   }
 }
+

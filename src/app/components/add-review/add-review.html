@@ -1,0 +1,90 @@
+<section class="add-review-page">
+  <div class="container">
+    <div class="review-form-container">
+      
+      <!-- Header -->
+      <div class="form-header">
+        <h1 class="form-title gradient-text-animated">
+          {{ langService.t('reviewForm.title') || '⭐ Share Your Experience' }}
+        </h1>
+        <p class="form-subtitle">
+          {{ langService.t('reviewForm.subtitle') || 'We value your feedback and would love to hear from you' }}
+        </p>
+      </div>
+
+      <!-- Form -->
+      <form (ngSubmit)="submitReview()" class="review-form">
+        <!-- Name Input -->
+        <div class="form-group">
+          <label for="name">
+            {{ langService.t('reviewForm.name') || 'Your Name' }}
+            <span class="required">*</span>
+          </label>
+          <input
+            type="text"
+            id="name"
+            [(ngModel)]="name"
+            name="name"
+            [placeholder]="langService.t('reviewForm.namePlaceholder') || 'Enter your name'"
+            class="form-control"
+            required>
+        </div>
+
+        <!-- Rating Input -->
+        <div class="form-group">
+          <label>
+            {{ langService.t('reviewForm.rating') || 'Rating' }}
+            <span class="required">*</span>
+          </label>
+          <div class="star-rating">
+            @for (star of [1, 2, 3, 4, 5]; track star) {
+              <i
+                [class]="getStarClass(star)"
+                (click)="setRating(star)"
+                class="star-icon"></i>
+            }
+          </div>
+          <p class="rating-text">{{ rating }} / 5 {{ langService.t('reviewForm.stars') || 'stars' }}</p>
+        </div>
+
+        <!-- Message Input -->
+        <div class="form-group">
+          <label for="message">
+            {{ langService.t('reviewForm.message') || 'Your Review' }}
+            <span class="required">*</span>
+          </label>
+          <textarea
+            id="message"
+            [(ngModel)]="message"
+            name="message"
+            rows="6"
+            [placeholder]="langService.t('reviewForm.messagePlaceholder') || 'Share your experience with us...'"
+            class="form-control"
+            required></textarea>
+          <small class="char-count">{{ message.length }} {{ langService.t('reviewForm.characters') || 'characters' }}</small>
+        </div>
+
+        <!-- Submit Message -->
+        @if (submitMessage()) {
+          <div class="alert" [class.alert-success]="submitSuccess()" [class.alert-error]="!submitSuccess()">
+            {{ submitMessage() }}
+          </div>
+        }
+
+        <!-- Submit Button -->
+        <button
+          type="submit"
+          [disabled]="isSubmitting()"
+          class="btn-submit">
+          @if (isSubmitting()) {
+            <i class="fas fa-spinner fa-spin"></i>
+            {{ langService.t('reviewForm.submitting') || 'Submitting...' }}
+          } @else {
+            <i class="fas fa-paper-plane"></i>
+            {{ langService.t('reviewForm.submit') || 'Submit Review' }}
+          }
+        </button>
+      </form>
+    </div>
+  </div>
+</section>

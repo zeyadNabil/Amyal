@@ -5,6 +5,8 @@ import { Gallery } from './components/gallery/gallery';
 import { AboutUs } from './components/about-us/about-us';
 import { ContactUs } from './components/contact-us/contact-us';
 import { Partners } from './components/partners/partners';
+import { Admin } from './components/admin/admin';
+import { AddReview } from './components/add-review/add-review';
 
 export const routes: Routes = [
   {
@@ -30,6 +32,14 @@ export const routes: Routes = [
   {
     path: 'partners',
     component: Partners
+  },
+  {
+    path: 'admin',
+    component: Admin
+  },
+  {
+    path: 'add-review',
+    component: AddReview
   },
   {
     path: '**',

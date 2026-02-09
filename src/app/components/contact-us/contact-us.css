@@ -13,7 +13,7 @@
 }
 
 .contact-us-section {
-    padding: calc(var(--nav-height) + 4rem) 0 8rem;
+    padding: calc(var(--nav-height) + 1.5rem) 0 8rem;
     min-height: 100vh;
     position: relative;
     overflow-x: hidden;
