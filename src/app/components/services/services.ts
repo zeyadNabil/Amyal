@@ -3,13 +3,12 @@ import { CommonModule, Location } from '@angular/common';
 import { ActivatedRoute, RouterModule } from '@angular/router';
 import { LanguageService } from '../../services/language.service';
 import { SERVICE_IMAGES } from '../../constants/service-images.constant';
-import { ShimmerLoader } from '../shimmer-loader/shimmer-loader';
 
 // Add FontAwesome icons if not already imported
 
 @Component({
   selector: 'app-services',
-  imports: [CommonModule, RouterModule, ShimmerLoader],
+  imports: [CommonModule, RouterModule],
   templateUrl: './services.html',
   styleUrl: './services.css'
 })
@@ -298,9 +297,13 @@ export class Services implements OnInit, OnDestroy, AfterViewInit {
     this.snapToNearestCard();
   }
 
-  // Touch handlers
+  // Touch handlers - allow pinch-zoom: never preventDefault when 2+ fingers (pinch gesture)
   onTouchStart(event: TouchEvent): void {
-    if (event.touches.length > 0) {
+    if (event.touches.length > 1) {
+      this.isDragging.set(false);
+      return;
+    }
+    if (event.touches.length === 1) {
       this.isDragging.set(true);
       this.dragStartX.set(event.touches[0].clientX);
       this.dragCurrentX.set(event.touches[0].clientX);
@@ -308,6 +311,7 @@ export class Services implements OnInit, OnDestroy, AfterViewInit {
   }
 
   onTouchMove(event: TouchEvent): void {
+    if (event.touches.length >= 2) return;
     if (!this.isDragging() || event.touches.length === 0) return;
 
     event.preventDefault();

@@ -8,6 +8,57 @@
   --home-icon-img: 240px;
 }
 
+/* Desktop: slightly smaller icons site-wide, equal-height cards, feature icons a bit smaller */
+@media (min-width: 992px) {
+  :host {
+    --home-icon-box: 220px;
+    --home-icon-img: 185px;
+  }
+
+  /* Equal height: stats cards */
+  .stats-section .row > [class*="col"] {
+    display: flex;
+  }
+  .stats-section .stat-card-animated {
+    flex: 1;
+    min-height: 0;
+  }
+
+  /* Equal height: service cards */
+  .services-card-col .service-card-animated {
+    flex: 1;
+    display: flex;
+    min-height: 0;
+  }
+  .services-card-col .service-card-inner {
+    flex: 1;
+    min-height: 0;
+  }
+
+  /* Equal height: feature cards (the 6 cards) */
+  .features-section .row > [class*="col"] {
+    display: flex;
+  }
+  .features-section .feature-card-3d {
+    flex: 1;
+    min-height: 0;
+  }
+
+  /* Slightly smaller icons for the 6 feature cards only */
+  .features-section .feature-icon-large.home-page-icon {
+    width: 200px;
+    height: 200px;
+    min-width: 200px;
+    min-height: 200px;
+    max-width: 200px;
+    max-height: 200px;
+  }
+  .features-section .feature-icon-large.home-page-icon img {
+    width: 170px !important;
+    height: 170px !important;
+  }
+}
+
 /* Shared class for all home page icon wrappers (services, stats, features) */
 .home-page-icon {
   width: var(--home-icon-box);
@@ -565,6 +616,10 @@
   position: relative;
   overflow: hidden;
   transition: all 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
 
 .stat-card-animated:hover {
@@ -577,6 +632,22 @@
 .stat-icon {
   margin-bottom: 1rem;
   /* Sizing from .home-page-icon */
+}
+
+/* Desktop: slightly smaller stats icons and keep them centered */
+@media (min-width: 992px) {
+  .stats-section .stat-icon.home-page-icon {
+    width: 180px;
+    height: 180px;
+    min-width: 180px;
+    min-height: 180px;
+    max-width: 180px;
+    max-height: 180px;
+  }
+  .stats-section .stat-icon.home-page-icon img {
+    width: 155px !important;
+    height: 155px !important;
+  }
 }
 
 .stat-number-wrapper {
@@ -1087,10 +1158,10 @@
     max-width: 300px;
   }
 
-  /* Larger icons on small screens – same size for all home icons (services, stats, features) */
+  /* Smaller icons on tablet/small screens – same size for all home icons (services, stats, features) */
   :host {
-    --home-icon-box: 165px;
-    --home-icon-img: 138px;
+    --home-icon-box: 140px;
+    --home-icon-img: 118px;
   }
 
   /* Small-source icons (Exhibition Stand, Sign Board) scaled up more on tablet/mobile */
@@ -1107,15 +1178,27 @@
   }
 
   .stat-card-animated {
-    padding: 1.5rem 0.75rem;
+    padding: 1rem 0.5rem;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
   }
 
+  .service-card-inner {
+    padding: 1.25rem;
+  }
+
+  .feature-card-3d {
+    min-height: 320px;
+  }
+
+  .feature-card-front {
+    padding: 1.25rem;
+  }
+
   .stat-icon {
-    margin-bottom: 0.75rem;
+    margin-bottom: 0.5rem;
   }
 
   /* Timeline line: left (LTR) / right (RTL) through step numbers (56px → center 28px) */
@@ -1207,13 +1290,25 @@
   }
 
   .stat-card-animated {
-    padding: 1.25rem 0.5rem;
+    padding: 0.85rem 0.4rem;
   }
 
-  /* Same icon size as 768px breakpoint – all home icons consistent and larger on mobile */
+  .service-card-inner {
+    padding: 1rem;
+  }
+
+  .feature-card-3d {
+    min-height: 280px;
+  }
+
+  .feature-card-front {
+    padding: 1rem;
+  }
+
+  /* Smaller icons on mobile – all home icons consistent */
   :host {
-    --home-icon-box: 270px;
-    --home-icon-img: 240px;
+    --home-icon-box: 160px;
+    --home-icon-img: 135px;
   }
 
   /* Small-source icons scaled up even more on small mobile */
@@ -1236,14 +1331,6 @@
   .feature-text {
     font-size: 0.85rem;
     line-height: 1.5;
-  }
-
-  .feature-card-3d {
-    min-height: 500px;
-  }
-
-  .feature-card-front {
-    padding: 1.5rem;
   }
 
   /* Timeline line: left (LTR) / right (RTL) through step numbers (48px → center 24px) */

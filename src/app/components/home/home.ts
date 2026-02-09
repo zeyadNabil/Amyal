@@ -2,13 +2,12 @@ import { Component, OnInit, OnDestroy, HostListener, signal, effect } from '@ang
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { LanguageService } from '../../services/language.service';
-import { ShimmerLoader } from '../shimmer-loader/shimmer-loader';
 import { PARTNER_IMAGES } from '../../constants/partner-images.constant';
 import { ReviewsSlider } from '../reviews-slider/reviews-slider';
 
 @Component({
   selector: 'app-home',
-  imports: [CommonModule, RouterModule, ShimmerLoader, ReviewsSlider],
+  imports: [CommonModule, RouterModule, ReviewsSlider],
   templateUrl: './home.html',
   styleUrl: './home.css'
 })
@@ -109,9 +108,8 @@ export class Home implements OnInit, OnDestroy {
     // Initialize all translations
     this.updateTranslations();
 
-    // Simulate loading time to show shimmer effect (adjust time as needed)
-    // Change to lower value like 500-1000 for production, or keep 2000 to see effect
-    setTimeout(() => this.isLoaded.set(true), 2000);
+    // Load content immediately
+    this.isLoaded.set(true);
     this.initScrollAnimations();
     this.initCounterAnimations();
     this.initParallaxEffects();

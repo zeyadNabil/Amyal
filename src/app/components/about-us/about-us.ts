@@ -1,11 +1,10 @@
 import { Component, OnInit, OnDestroy, signal, effect } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { LanguageService } from '../../services/language.service';
-import { ShimmerLoader } from '../shimmer-loader/shimmer-loader';
 
 @Component({
   selector: 'app-about-us',
-  imports: [CommonModule, ShimmerLoader],
+  imports: [CommonModule],
   templateUrl: './about-us.html',
   styleUrl: './about-us.css'
 })
@@ -32,8 +31,8 @@ export class AboutUs implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    // Simulate loading time to show shimmer effect
-    setTimeout(() => this.isLoaded.set(true), 1500);
+    // Load content immediately
+    this.isLoaded.set(true);
     this.initScrollAnimations();
     this.animateOnLoad();
     // Start fade animation after a delay

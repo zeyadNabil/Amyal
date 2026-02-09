@@ -2,11 +2,10 @@ import { Component, OnInit, OnDestroy, signal, effect } from '@angular/core';
 import { CommonModule, Location } from '@angular/common';
 import { LanguageService } from '../../services/language.service';
 import { SERVICE_IMAGES } from '../../constants/service-images.constant';
-import { ShimmerLoader } from '../shimmer-loader/shimmer-loader';
 
 @Component({
   selector: 'app-gallery',
-  imports: [CommonModule, ShimmerLoader],
+  imports: [CommonModule],
   templateUrl: './gallery.html',
   styleUrl: './gallery.css'
 })
@@ -30,7 +29,11 @@ export class Gallery implements OnInit, OnDestroy {
     Object.values(SERVICE_IMAGES).forEach(images => {
       allImages.push(...images);
     });
-    return [...new Set(allImages)];
+    const uniqueImages = [...new Set(allImages)];
+    
+    // Limit to 36 images on mobile to prevent memory issues
+    const isMobile = typeof window !== 'undefined' && window.innerWidth < 768;
+    return isMobile ? uniqueImages.slice(0, 36) : uniqueImages;
   }
 
   // Arabic numerals mapping
@@ -60,8 +63,8 @@ export class Gallery implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    // Simulate loading time to show shimmer effect
-    setTimeout(() => this.isLoaded.set(true), 1500);
+    // Load content immediately
+    this.isLoaded.set(true);
     this.initScrollAnimations();
     this.initImageAnimations();
     this.animateOnLoad();
