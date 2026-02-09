@@ -17,8 +17,16 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     if (isLocalDev()) {
       reviewsData = await localStore.get('reviews-list');
     } else {
-      const redis = getRedisClient();
-      reviewsData = await redis.get('reviews-list');
+      try {
+        const redis = getRedisClient();
+        reviewsData = await redis.get('reviews-list');
+      } catch (redisError) {
+        console.error('Redis connection error:', redisError);
+        return res.status(500)
+          .setHeader('Content-Type', 'application/json')
+          .setHeader('Access-Control-Allow-Origin', '*')
+          .json({ error: 'Database connection failed. Please check environment variables.' });
+      }
     }
     
     if (!reviewsData) {

@@ -53,9 +53,21 @@ export class ReviewService {
       return { success: false, error: 'Failed to submit review' };
     } catch (error: any) {
       console.error('Error submitting review:', error);
+      
+      // Better error extraction
+      let errorMessage = 'Failed to submit review';
+      
+      if (error.error && typeof error.error === 'object') {
+        errorMessage = error.error.error || error.error.message || error.message || errorMessage;
+      } else if (error.error && typeof error.error === 'string') {
+        errorMessage = error.error;
+      } else if (error.message) {
+        errorMessage = error.message;
+      }
+      
       return { 
         success: false, 
-        error: error.error?.error || 'Failed to submit review' 
+        error: errorMessage
       };
     }
   }
