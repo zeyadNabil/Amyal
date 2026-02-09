@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy, HostListener, signal } from '@angular/core';
+import { Component, OnInit, OnDestroy, HostListener, signal, computed } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { ReviewService } from '../../services/review.service';
@@ -13,7 +13,8 @@ import { Review } from '../../models/api.models';
   styleUrl: './reviews-slider.css'
 })
 export class ReviewsSlider implements OnInit, OnDestroy {
-  reviews = signal<Review[]>([]);
+  // Use computed signal that automatically updates when service reviews change
+  reviews = computed(() => this.reviewService.reviews().filter(r => r.approved));
   
   // Desktop drag functionality
   private reviewsSliderContainer: HTMLElement | null = null;
@@ -35,19 +36,10 @@ export class ReviewsSlider implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit(): void {
-    this.loadReviews();
+    // Reviews are now loaded automatically by the service
+    // and updates via computed signal
     this.initMobileReviewsSlider();
     this.initDesktopReviewsDrag();
-  }
-
-  ngOnDestroy(): void {
-    if (this.reviewsScrollRaf != null) cancelAnimationFrame(this.reviewsScrollRaf);
-    if (this.reviewsResumeTimeout != null) clearTimeout(this.reviewsResumeTimeout);
-  }
-
-  async loadReviews(): Promise<void> {
-    const approvedReviews = this.reviewService.getApprovedReviews();
-    this.reviews.set(approvedReviews);
   }
 
   getStars(rating: number): string {
