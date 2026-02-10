@@ -50,13 +50,55 @@ export class ThemeService {
     root.style.setProperty('--pink-light', theme.accentColor);
     root.style.setProperty('--purple-light', theme.accentColor);
     
-    // Update gradients using the 3 main colors
-    root.style.setProperty('--gradient-primary', `linear-gradient(135deg, ${theme.primaryColor} 0%, ${theme.secondaryColor} 50%, ${theme.accentColor} 100%)`);
-    root.style.setProperty('--gradient-hero', `linear-gradient(135deg, ${theme.primaryColor} 0%, ${theme.secondaryColor} 50%, ${theme.accentColor} 100%)`);
-    root.style.setProperty('--gradient-vertical', `linear-gradient(180deg, ${theme.primaryColor} 0%, ${theme.secondaryColor} 50%, ${theme.accentColor} 100%)`);
+    // Update gradients using gradientStart and gradientEnd from theme
+    root.style.setProperty('--gradient-primary', 
+      `linear-gradient(135deg, ${theme.gradientStart} 0%, ${theme.secondaryColor} 50%, ${theme.gradientEnd} 100%)`);
+    root.style.setProperty('--gradient-hero', 
+      `linear-gradient(135deg, ${theme.gradientStart} 0%, ${theme.secondaryColor} 50%, ${theme.gradientEnd} 100%)`);
+    root.style.setProperty('--gradient-vertical', 
+      `linear-gradient(180deg, ${theme.gradientStart} 0%, ${theme.secondaryColor} 50%, ${theme.gradientEnd} 100%)`);
+    
+    // Update gradient-blue-silver (used in some components)
+    root.style.setProperty('--gradient-blue-silver',
+      `linear-gradient(135deg, ${theme.gradientStart} 0%, ${theme.secondaryColor} 45%, ${theme.gradientEnd} 85%, ${theme.textColor} 100%)`);
+    root.style.setProperty('--gradient-text-blue-silver',
+      `linear-gradient(90deg, ${theme.gradientStart} 0%, ${theme.secondaryColor} 30%, ${theme.gradientEnd} 65%, ${theme.textColor} 100%)`);
     
     // Update background
     root.style.setProperty('--bg-dark', theme.backgroundColor);
+    
+    // Update text color
+    root.style.setProperty('--white', theme.textColor);
+    
+    // Update animated gradient text (used in headers)
+    const animatedGradient = `linear-gradient(90deg, 
+      ${theme.gradientStart} 0%, 
+      ${theme.secondaryColor} 20%, 
+      ${theme.gradientEnd} 40%, 
+      ${theme.textColor} 50%, 
+      ${theme.gradientEnd} 60%, 
+      ${theme.secondaryColor} 80%, 
+      ${theme.gradientStart} 100%)`;
+    
+    // Apply to gradient text elements dynamically
+    const style = document.createElement('style');
+    style.id = 'dynamic-theme-style';
+    const existingStyle = document.getElementById('dynamic-theme-style');
+    if (existingStyle) {
+      existingStyle.remove();
+    }
+    style.innerHTML = `
+      .gradient-text,
+      .gradient-text-animated {
+        background: ${animatedGradient};
+        background-size: 200% auto;
+        -webkit-background-clip: text;
+        background-clip: text;
+        -webkit-text-fill-color: transparent;
+        animation: shine 5s linear infinite;
+      }
+    `;
+    document.head.appendChild(style);
   }
 
   async updateTheme(theme: Theme, password: string): Promise<{ success: boolean; error?: string }> {
