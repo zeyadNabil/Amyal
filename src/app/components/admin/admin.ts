@@ -21,6 +21,7 @@ export class Admin implements OnInit {
   isAuthenticating = signal(false);
   
   // Theme management
+  advancedMode = signal(false); // Toggle for simple/advanced theming
   themeForm: Theme = {
     primaryColor: '#0E37AD',      // --blue (dark blue for buttons, headers)
     secondaryColor: '#027DF8',    // --purple (mid blue for accents)
@@ -94,9 +95,42 @@ export class Admin implements OnInit {
     }
   }
 
+  toggleAdvancedMode(): void {
+    this.advancedMode.set(!this.advancedMode());
+    // When switching to simple mode, auto-sync gradients
+    if (!this.advancedMode()) {
+      this.syncGradients();
+    }
+  }
+
+  onPrimaryColorChange(): void {
+    // In simple mode, auto-sync gradient start with primary color
+    if (!this.advancedMode()) {
+      this.themeForm.gradientStart = this.themeForm.primaryColor;
+    }
+  }
+
+  onAccentColorChange(): void {
+    // In simple mode, auto-sync gradient end with accent color
+    if (!this.advancedMode()) {
+      this.themeForm.gradientEnd = this.themeForm.accentColor;
+    }
+  }
+
+  syncGradients(): void {
+    // Sync gradients with primary and accent colors
+    this.themeForm.gradientStart = this.themeForm.primaryColor;
+    this.themeForm.gradientEnd = this.themeForm.accentColor;
+  }
+
   async saveTheme(): Promise<void> {
     this.themeSaving.set(true);
     this.themeMessage.set('');
+    
+    // Ensure gradients are synced in simple mode before saving
+    if (!this.advancedMode()) {
+      this.syncGradients();
+    }
     
     const result = await this.themeService.updateTheme(this.themeForm, this.password);
     
@@ -120,6 +154,10 @@ export class Admin implements OnInit {
 
   resetTheme(): void {
     this.themeForm = this.themeService.getDefaultTheme();
+    // If in simple mode, ensure gradients are synced
+    if (!this.advancedMode()) {
+      this.syncGradients();
+    }
   }
 
   async loadReviewsForManagement(): Promise<void> {

@@ -68,6 +68,22 @@
               <p>Customize your website colors and see changes applied instantly across all pages</p>
             </div>
             
+            <!-- Advanced Mode Toggle -->
+            <div class="advanced-toggle">
+              <label class="toggle-switch">
+                <input type="checkbox" [checked]="advancedMode()" (change)="toggleAdvancedMode()">
+                <span class="toggle-slider"></span>
+              </label>
+              <div class="toggle-label">
+                <strong>Advanced Mode</strong>
+                <p>@if (advancedMode()) {
+                  Control gradient colors independently from main colors
+                } @else {
+                  Simple mode - gradients auto-sync with primary & accent colors
+                }</p>
+              </div>
+            </div>
+            
             <!-- Color Guide Info Box -->
             <div class="info-box color-guide">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -84,7 +100,11 @@
                   <li><strong>Gradients:</strong> Hero sections, banners, animated headers, scrollbar</li>
                   <li><strong>Background:</strong> Main page background (dark theme recommended)</li>
                 </ul>
-                <p class="note"><strong>Note:</strong> Text color changes require careful contrast testing. Keep white for best readability.</p>
+                @if (!advancedMode()) {
+                  <p class="note"><strong>Simple Mode:</strong> Gradient Start = Primary Blue | Gradient End = Bright Cyan (auto-synced)</p>
+                } @else {
+                  <p class="note"><strong>Advanced Mode:</strong> Full control over gradient colors independently</p>
+                }
               </div>
             </div>
             
@@ -96,11 +116,11 @@
             
             <div class="theme-form">
               <div class="row g-4">
-                <div class="col-md-6">
-                  <div class="color-input-group">
-                    <label>
-                      Primary Blue
-                      <span class="color-description">Main buttons, CTAs, navigation links, base gradient color</span>
+                <div class="col-md-6"> @if (!advancedMode()) {<strong>(→ Gradient Start)</strong>}</span>
+                    </label>
+                    <div class="color-picker">
+                      <input type="color" [(ngModel)]="themeForm.primaryColor" (change)="onPrimaryColorChange()">
+                      <input type="text" [(ngModel)]="themeForm.primaryColor" (change)="onPrimaryColorChange()vigation links, base gradient color</span>
                     </label>
                     <div class="color-picker">
                       <input type="color" [(ngModel)]="themeForm.primaryColor">
@@ -128,11 +148,11 @@
                   <div class="color-input-group">
                     <label>
                       Bright Cyan
-                      <span class="color-description">Highlights, colored stars, accents, end of gradients</span>
+                      <span class="color-description">Highlights, stars, hover accents @if (!advancedMode()) {<strong>(→ Gradient End)</strong>}</span>
                     </label>
                     <div class="color-picker">
-                      <input type="color" [(ngModel)]="themeForm.accentColor">
-                      <input type="text" [(ngModel)]="themeForm.accentColor" class="form-control" placeholder="#60CEFE">
+                      <input type="color" [(ngModel)]="themeForm.accentColor" (change)="onAccentColorChange()">
+                      <input type="text" [(ngModel)]="themeForm.accentColor" (change)="onAccentColorChange()" class="form-control" placeholder="#60CEFE">
                     </div>
                     <div class="color-preview" [style.background]="themeForm.accentColor"></div>
                   </div>
@@ -166,35 +186,38 @@
                   </div>
                 </div>
                 
-                <div class="col-md-6">
-                  <div class="color-input-group">
-                    <label>
-                      Gradient Start
-                      <span class="color-description">Start color for hero sections, banners (usually same as Primary Blue)</span>
-                    </label>
-                    <div class="color-picker">
-                      <input type="color" [(ngModel)]="themeForm.gradientStart">
-                      <input type="text" [(ngModel)]="themeForm.gradientStart" class="form-control" placeholder="#0E37AD">
+                <!-- Advanced Mode Only: Gradient Controls -->
+                @if (advancedMode()) {
+                  <div class="col-md-6">
+                    <div class="color-input-group">
+                      <label>
+                        Gradient Start
+                        <span class="color-description">Start color for gradients (independent control in advanced mode)</span>
+                      </label>
+                      <div class="color-picker">
+                        <input type="color" [(ngModel)]="themeForm.gradientStart">
+                        <input type="text" [(ngModel)]="themeForm.gradientStart" class="form-control" placeholder="#0E37AD">
+                      </div>
+                      <div class="color-preview gradient-preview" 
+                           [style.background]="'linear-gradient(135deg, ' + themeForm.gradientStart + ', ' + themeForm.gradientEnd + ')'"></div>
                     </div>
-                    <div class="color-preview gradient-preview" 
-                         [style.background]="'linear-gradient(135deg, ' + themeForm.gradientStart + ', ' + themeForm.gradientEnd + ')'"></div>
                   </div>
-                </div>
-                
-                <div class="col-md-6">
-                  <div class="color-input-group">
-                    <label>
-                      Gradient End
-                      <span class="color-description">End color for gradients (usually same as Bright Cyan)</span>
-                    </label>
-                    <div class="color-picker">
-                      <input type="color" [(ngModel)]="themeForm.gradientEnd">
-                      <input type="text" [(ngModel)]="themeForm.gradientEnd" class="form-control" placeholder="#60CEFE">
+                  
+                  <div class="col-md-6">
+                    <div class="color-input-group">
+                      <label>
+                        Gradient End
+                        <span class="color-description">End color for gradients (independent control in advanced mode)</span>
+                      </label>
+                      <div class="color-picker">
+                        <input type="color" [(ngModel)]="themeForm.gradientEnd">
+                        <input type="text" [(ngModel)]="themeForm.gradientEnd" class="form-control" placeholder="#60CEFE">
+                      </div>
+                      <div class="color-preview gradient-preview" 
+                           [style.background]="'linear-gradient(135deg, ' + themeForm.gradientStart + ', ' + themeForm.gradientEnd + ')'"></div>
                     </div>
-                    <div class="color-preview gradient-preview" 
-                         [style.background]="'linear-gradient(135deg, ' + themeForm.gradientStart + ', ' + themeForm.gradientEnd + ')'"></div>
                   </div>
-                </div>
+                }
               </div>
               
               <div class="button-group">
