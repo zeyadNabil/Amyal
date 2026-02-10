@@ -116,15 +116,20 @@
             
             <div class="theme-form">
               <div class="row g-4">
-                <div class="col-md-6"> @if (!advancedMode()) {<strong>(→ Gradient Start)</strong>}</span>
+                <div class="col-md-6">
+                  <div class="color-input-group">
+                    <label>
+                      Primary Blue
+                      <span class="color-description">
+                        Main buttons, CTAs, navigation links
+                        @if (!advancedMode()) {
+                          <strong> (→ Gradient Start)</strong>
+                        }
+                      </span>
                     </label>
                     <div class="color-picker">
                       <input type="color" [(ngModel)]="themeForm.primaryColor" (change)="onPrimaryColorChange()">
-                      <input type="text" [(ngModel)]="themeForm.primaryColor" (change)="onPrimaryColorChange()vigation links, base gradient color</span>
-                    </label>
-                    <div class="color-picker">
-                      <input type="color" [(ngModel)]="themeForm.primaryColor">
-                      <input type="text" [(ngModel)]="themeForm.primaryColor" class="form-control" placeholder="#0E37AD">
+                      <input type="text" [(ngModel)]="themeForm.primaryColor" (change)="onPrimaryColorChange()" class="form-control" placeholder="#0E37AD">
                     </div>
                     <div class="color-preview" [style.background]="themeForm.primaryColor"></div>
                   </div>
@@ -148,7 +153,12 @@
                   <div class="color-input-group">
                     <label>
                       Bright Cyan
-                      <span class="color-description">Highlights, stars, hover accents @if (!advancedMode()) {<strong>(→ Gradient End)</strong>}</span>
+                      <span class="color-description">
+                        Highlights, stars, hover accents
+                        @if (!advancedMode()) {
+                          <strong> (→ Gradient End)</strong>
+                        }
+                      </span>
                     </label>
                     <div class="color-picker">
                       <input type="color" [(ngModel)]="themeForm.accentColor" (change)="onAccentColorChange()">
