@@ -26,8 +26,8 @@ export class ReviewService {
         this.http.get<Review[]>(`${this.apiUrl}/get-reviews`)
       );
       this.reviews.set(reviews);
-    } catch (error) {
-      console.error('Error loading reviews:', error);
+    } catch {
+      // API may be unavailable (e.g. dev without backend)
       this.reviews.set([]);
     } finally {
       this.isLoading.set(false);

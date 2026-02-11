@@ -13,7 +13,9 @@
     "test": "ng test",
     "deploy": "vercel --prod",
     "generate:partners": "node scripts/generate-partner-images.js",
-    "watch:partners": "node scripts/watch-partner-images.js"
+    "watch:partners": "node scripts/watch-partner-images.js",
+    "dev:api": "node scripts/dev-api.js",
+    "start:full": "npm run generate:partners && concurrently \"npm run dev:api\" \"ng serve\""
   },
   "prettier": {
     "printWidth": 100,

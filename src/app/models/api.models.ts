@@ -7,6 +7,23 @@ export interface Theme {
   gradientStart: string;
   gradientEnd: string;
   updatedAt?: string;
+  name?: string;
+  id?: string;
+  /** Advanced mode only */
+  borderColor?: string;
+  backgroundColorDarker?: string;
+  backgroundColorNavy?: string;
+  mutedTextColor?: string;
+  linkColor?: string;
+  cardBorderColor?: string;
+}
+
+/** Saved theme preset with name for admin selection */
+export interface SavedTheme {
+  id: string;
+  name: string;
+  theme: Theme;
+  createdAt: string;
 }
 
 export interface Review {

@@ -77,9 +77,9 @@
               <div class="toggle-label">
                 <strong>Advanced Mode</strong>
                 <p>@if (advancedMode()) {
-                  Control gradient colors independently from main colors
+                  13+ color pickers: gradients, borders, backgrounds, muted text, links, cards. Full control over every visual element.
                 } @else {
-                  Simple mode - gradients auto-sync with primary & accent colors
+                  Default: 5 essential colors (Primary Dark/Mid/Light, Background, Text). Gradients auto-derive for a cohesive look.
                 }</p>
               </div>
             </div>
@@ -92,18 +92,22 @@
                 <path d="M12 8h.01"></path>
               </svg>
               <div class="info-content">
-                <h4>How Colors Work:</h4>
+                <h4>What Each Color Changes:</h4>
                 <ul>
-                  <li><strong>Primary Blue:</strong> Main buttons, navigation links, call-to-action elements</li>
-                  <li><strong>Mid Blue:</strong> Secondary buttons, hover effects, step numbers, stats</li>
-                  <li><strong>Bright Cyan:</strong> Highlights, accents, stars in background, active states</li>
-                  <li><strong>Gradients:</strong> Hero sections, banners, animated headers, scrollbar</li>
-                  <li><strong>Background:</strong> Main page background (dark theme recommended)</li>
+                  <li><strong>Primary Color Dark:</strong> Main buttons, nav active links, tab borders</li>
+                  <li><strong>Primary Color:</strong> Secondary buttons, step numbers, stat numbers, gradient mid-point, scrollbar</li>
+                  <li><strong>Primary Color Light:</strong> Highlights, star colors, hover accents, gradient end</li>
+                  <li><strong>Background / Text:</strong> Page background and body text</li>
+                  @if (advancedMode()) {
+                    <li><strong>Gradient Start/End:</strong> Hero banners, animated headers, gradient text</li>
+                    <li><strong>Border, Background Darker/Navy:</strong> Card borders, scrollbar track, section backgrounds</li>
+                    <li><strong>Muted Text, Link, Card Border:</strong> Subtle text, links, card outlines</li>
+                  }
                 </ul>
                 @if (!advancedMode()) {
-                  <p class="note"><strong>Simple Mode:</strong> Gradient Start = Primary Blue | Gradient End = Bright Cyan (auto-synced)</p>
+                  <p class="note"><strong>Default:</strong> Gradient Start = Primary Dark | Gradient End = Primary Light (auto-synced)</p>
                 } @else {
-                  <p class="note"><strong>Advanced Mode:</strong> Full control over gradient colors independently</p>
+                  <p class="note"><strong>Advanced:</strong> All colors are independently controllable</p>
                 }
               </div>
             </div>
@@ -113,18 +117,51 @@
                 {{ themeMessage() }}
               </div>
             }
+
+            <!-- Saved Themes Section -->
+            <div class="saved-themes-section">
+              <h3>Saved Themes</h3>
+              <p>Save your current theme with a name and apply it later</p>
+              <div class="saved-themes-row">
+                <div class="saved-themes-select">
+                  <select class="form-control" [(ngModel)]="selectedSavedThemeId">
+                    <option value="">-- Select a saved theme --</option>
+                    @for (t of themeService.savedThemes(); track t.id) {
+                      <option [value]="t.id">{{ t.name }}</option>
+                    }
+                  </select>
+                  <button 
+                    class="btn-apply-preset" 
+                    [disabled]="!selectedSavedThemeId || applyingPreset()"
+                    (click)="selectedSavedThemeId && applySavedTheme(selectedSavedThemeId)">
+                    {{ applyingPreset() ? 'Applying...' : 'Apply' }}
+                  </button>
+                </div>
+                <div class="save-preset-row">
+                  <input 
+                    type="text" 
+                    class="form-control save-preset-input" 
+                    [(ngModel)]="savedThemeName" 
+                    placeholder="Theme name (e.g. Ocean Blue)">
+                  <button 
+                    (click)="saveThemePreset()" 
+                    [disabled]="savingPreset() || !savedThemeName.trim()" 
+                    class="btn-save-preset">
+                    {{ savingPreset() ? 'Saving...' : 'Save current theme' }}
+                  </button>
+                </div>
+              </div>
+            </div>
             
             <div class="theme-form">
               <div class="row g-4">
                 <div class="col-md-6">
                   <div class="color-input-group">
                     <label>
-                      Primary Blue
+                      Primary Color Dark
                       <span class="color-description">
                         Main buttons, CTAs, navigation links
-                        @if (!advancedMode()) {
-                          <strong> (→ Gradient Start)</strong>
-                        }
+                        @if (!advancedMode()) { <strong> (→ Gradient Start)</strong> }
                       </span>
                     </label>
                     <div class="color-picker">
@@ -138,8 +175,8 @@
                 <div class="col-md-6">
                   <div class="color-input-group">
                     <label>
-                      Mid Blue
-                      <span class="color-description">Secondary buttons, step numbers, stats numbers, hover effects</span>
+                      Primary Color
+                      <span class="color-description">Secondary buttons, step numbers, stats, gradient mid-point</span>
                     </label>
                     <div class="color-picker">
                       <input type="color" [(ngModel)]="themeForm.secondaryColor">
@@ -152,12 +189,10 @@
                 <div class="col-md-6">
                   <div class="color-input-group">
                     <label>
-                      Bright Cyan
+                      Primary Color Light
                       <span class="color-description">
                         Highlights, stars, hover accents
-                        @if (!advancedMode()) {
-                          <strong> (→ Gradient End)</strong>
-                        }
+                        @if (!advancedMode()) { <strong> (→ Gradient End)</strong> }
                       </span>
                     </label>
                     <div class="color-picker">
@@ -196,13 +231,13 @@
                   </div>
                 </div>
                 
-                <!-- Advanced Mode Only: Gradient Controls -->
+                <!-- Advanced Mode Only: Extra Controls -->
                 @if (advancedMode()) {
                   <div class="col-md-6">
                     <div class="color-input-group">
                       <label>
                         Gradient Start
-                        <span class="color-description">Start color for gradients (independent control in advanced mode)</span>
+                        <span class="color-description">Hero banners, animated headers</span>
                       </label>
                       <div class="color-picker">
                         <input type="color" [(ngModel)]="themeForm.gradientStart">
@@ -217,7 +252,7 @@
                     <div class="color-input-group">
                       <label>
                         Gradient End
-                        <span class="color-description">End color for gradients (independent control in advanced mode)</span>
+                        <span class="color-description">Gradient end, gradient text</span>
                       </label>
                       <div class="color-picker">
                         <input type="color" [(ngModel)]="themeForm.gradientEnd">
@@ -225,6 +260,90 @@
                       </div>
                       <div class="color-preview gradient-preview" 
                            [style.background]="'linear-gradient(135deg, ' + themeForm.gradientStart + ', ' + themeForm.gradientEnd + ')'"></div>
+                    </div>
+                  </div>
+
+                  <div class="col-md-6">
+                    <div class="color-input-group">
+                      <label>
+                        Border Color
+                        <span class="color-description">Borders, dividers, inputs</span>
+                      </label>
+                      <div class="color-picker">
+                        <input type="color" [(ngModel)]="themeForm.borderColor">
+                        <input type="text" [(ngModel)]="themeForm.borderColor" class="form-control" placeholder="#1e293b">
+                      </div>
+                      <div class="color-preview" [style.background]="themeForm.borderColor"></div>
+                    </div>
+                  </div>
+
+                  <div class="col-md-6">
+                    <div class="color-input-group">
+                      <label>
+                        Background Darker
+                        <span class="color-description">Scrollbar track, darker areas</span>
+                      </label>
+                      <div class="color-picker">
+                        <input type="color" [(ngModel)]="themeForm.backgroundColorDarker">
+                        <input type="text" [(ngModel)]="themeForm.backgroundColorDarker" class="form-control" placeholder="#050810">
+                      </div>
+                      <div class="color-preview" [style.background]="themeForm.backgroundColorDarker"></div>
+                    </div>
+                  </div>
+
+                  <div class="col-md-6">
+                    <div class="color-input-group">
+                      <label>
+                        Background Navy
+                        <span class="color-description">Card backgrounds, sections</span>
+                      </label>
+                      <div class="color-picker">
+                        <input type="color" [(ngModel)]="themeForm.backgroundColorNavy">
+                        <input type="text" [(ngModel)]="themeForm.backgroundColorNavy" class="form-control" placeholder="#141824">
+                      </div>
+                      <div class="color-preview" [style.background]="themeForm.backgroundColorNavy"></div>
+                    </div>
+                  </div>
+
+                  <div class="col-md-6">
+                    <div class="color-input-group">
+                      <label>
+                        Muted Text Color
+                        <span class="color-description">Subtle text, descriptions</span>
+                      </label>
+                      <div class="color-picker">
+                        <input type="color" [(ngModel)]="themeForm.mutedTextColor">
+                        <input type="text" [(ngModel)]="themeForm.mutedTextColor" class="form-control" placeholder="#94A3B8">
+                      </div>
+                      <div class="color-preview" [style.background]="themeForm.mutedTextColor"></div>
+                    </div>
+                  </div>
+
+                  <div class="col-md-6">
+                    <div class="color-input-group">
+                      <label>
+                        Link Color
+                        <span class="color-description">Links, interactive text</span>
+                      </label>
+                      <div class="color-picker">
+                        <input type="color" [(ngModel)]="themeForm.linkColor">
+                        <input type="text" [(ngModel)]="themeForm.linkColor" class="form-control" placeholder="#60CEFE">
+                      </div>
+                      <div class="color-preview" [style.background]="themeForm.linkColor"></div>
+                    </div>
+                  </div>
+
+                  <div class="col-md-6">
+                    <div class="color-input-group">
+                      <label>
+                        Card Border Color
+                        <span class="color-description">Card outlines, panels</span>
+                      </label>
+                      <div class="color-picker">
+                        <input type="color" [(ngModel)]="themeForm.cardBorderColor">
+                        <input type="text" [(ngModel)]="themeForm.cardBorderColor" class="form-control" placeholder="#334155">
+                      </div>
+                      <div class="color-preview" [style.background]="themeForm.cardBorderColor"></div>
                     </div>
                   </div>
                 }

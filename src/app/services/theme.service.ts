@@ -1,6 +1,6 @@
 import { Injectable, signal } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Theme } from '../models/api.models';
+import { Theme, SavedTheme } from '../models/api.models';
 import { firstValueFrom } from 'rxjs';
 
 @Injectable({
@@ -9,13 +9,10 @@ import { firstValueFrom } from 'rxjs';
 export class ThemeService {
   private apiUrl = '/api';
   currentTheme = signal<Theme | null>(null);
+  savedThemes = signal<SavedTheme[]>([]);
 
   constructor(private http: HttpClient) {
     this.loadTheme();
-  }
-
-  private isLocalDev(): boolean {
-    return window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
   }
 
   async loadTheme(): Promise<void> {
@@ -24,11 +21,69 @@ export class ThemeService {
         this.http.get<Theme>(`${this.apiUrl}/get-theme`)
       );
       this.currentTheme.set(theme);
-      
-      // Always apply the theme (whether default or customized)
       this.applyTheme(theme);
-    } catch (error) {
-      console.error('Error loading theme:', error);
+    } catch {
+      // API unavailable (e.g. dev without backend) - use default theme so app works
+      const defaultTheme = this.getDefaultTheme();
+      this.currentTheme.set(defaultTheme);
+      this.applyTheme(defaultTheme);
+    }
+  }
+
+  async loadSavedThemes(): Promise<void> {
+    try {
+      const list = await firstValueFrom(
+        this.http.get<SavedTheme[]>(`${this.apiUrl}/saved-themes`)
+      );
+      this.savedThemes.set(Array.isArray(list) ? list : []);
+    } catch {
+      this.savedThemes.set([]);
+    }
+  }
+
+  async saveThemePreset(name: string, theme: Theme, password: string): Promise<{ success: boolean; error?: string }> {
+    try {
+      const response = await firstValueFrom(
+        this.http.post<{ success: boolean }>(`${this.apiUrl}/saved-themes`, {
+          name: name.trim(),
+          theme,
+          password
+        })
+      );
+      if (response?.success) {
+        await this.loadSavedThemes();
+        return { success: true };
+      }
+      return { success: false, error: 'Failed to save theme' };
+    } catch (error: unknown) {
+      const err = error as { status?: number };
+      return {
+        success: false,
+        error: err?.status === 401 ? 'Invalid password' : 'Failed to save theme preset'
+      };
+    }
+  }
+
+  async applyThemePreset(id: string, password: string): Promise<{ success: boolean; theme?: Theme; error?: string }> {
+    try {
+      const response = await firstValueFrom(
+        this.http.post<{ success: boolean; theme: Theme }>(`${this.apiUrl}/apply-theme-preset`, {
+          id,
+          password
+        })
+      );
+      if (response?.success && response.theme) {
+        this.currentTheme.set(response.theme);
+        this.applyTheme(response.theme);
+        return { success: true, theme: response.theme };
+      }
+      return { success: false, error: 'Failed to apply theme' };
+    } catch (error: unknown) {
+      const err = error as { status?: number };
+      return {
+        success: false,
+        error: err?.status === 401 ? 'Invalid password' : err?.status === 404 ? 'Theme not found' : 'Failed to apply theme'
+      };
     }
   }
 
@@ -64,11 +119,16 @@ export class ThemeService {
     root.style.setProperty('--gradient-text-blue-silver',
       `linear-gradient(90deg, ${theme.gradientStart} 0%, ${theme.secondaryColor} 30%, ${theme.gradientEnd} 65%, ${theme.textColor} 100%)`);
     
-    // Update background
     root.style.setProperty('--bg-dark', theme.backgroundColor);
-    
-    // Update text color
     root.style.setProperty('--white', theme.textColor);
+
+    // Advanced mode only
+    if (theme.borderColor) root.style.setProperty('--border-color', theme.borderColor);
+    if (theme.backgroundColorDarker) root.style.setProperty('--bg-darker', theme.backgroundColorDarker);
+    if (theme.backgroundColorNavy) root.style.setProperty('--bg-navy', theme.backgroundColorNavy);
+    if (theme.mutedTextColor) root.style.setProperty('--gray', theme.mutedTextColor);
+    if (theme.linkColor) root.style.setProperty('--link-color', theme.linkColor);
+    if (theme.cardBorderColor) root.style.setProperty('--card-border-color', theme.cardBorderColor);
     
     // Update animated gradient text (used in headers)
     const animatedGradient = `linear-gradient(90deg, 
@@ -127,15 +187,20 @@ export class ThemeService {
   }
 
   getDefaultTheme(): Theme {
-    // Match exact values from styles.css :root variables
     return {
-      primaryColor: '#0E37AD',       // --blue (dark blue)
-      secondaryColor: '#027DF8',     // --purple (mid blue)
-      accentColor: '#60CEFE',        // --blue-bright (bright cyan blue)
-      backgroundColor: '#0a0e1a',    // --bg-dark
-      textColor: '#FFFFFF',          // --white (not applied unless changed)
-      gradientStart: '#0E37AD',      // --blue-dark (gradient start)
-      gradientEnd: '#60CEFE'         // --blue-bright (gradient end)
+      primaryColor: '#0E37AD',
+      secondaryColor: '#027DF8',
+      accentColor: '#60CEFE',
+      backgroundColor: '#0a0e1a',
+      textColor: '#FFFFFF',
+      gradientStart: '#0E37AD',
+      gradientEnd: '#60CEFE',
+      borderColor: '#1e293b',
+      backgroundColorDarker: '#050810',
+      backgroundColorNavy: '#141824',
+      mutedTextColor: '#94A3B8',
+      linkColor: '#60CEFE',
+      cardBorderColor: '#334155'
     };
   }
 }

@@ -23,16 +23,26 @@ export class Admin implements OnInit {
   // Theme management
   advancedMode = signal(false); // Toggle for simple/advanced theming
   themeForm: Theme = {
-    primaryColor: '#0E37AD',      // --blue (dark blue for buttons, headers)
-    secondaryColor: '#027DF8',    // --purple (mid blue for accents)
-    accentColor: '#60CEFE',       // --blue-bright (bright cyan for highlights)
-    backgroundColor: '#0a0e1a',   // --bg-dark (page background)
-    textColor: '#FFFFFF',         // --white (text color)
-    gradientStart: '#0E37AD',     // gradient start color
-    gradientEnd: '#60CEFE'        // gradient end color
+    primaryColor: '#0E37AD',
+    secondaryColor: '#027DF8',
+    accentColor: '#60CEFE',
+    backgroundColor: '#0a0e1a',
+    textColor: '#FFFFFF',
+    gradientStart: '#0E37AD',
+    gradientEnd: '#60CEFE',
+    borderColor: '#1e293b',
+    backgroundColorDarker: '#050810',
+    backgroundColorNavy: '#141824',
+    mutedTextColor: '#94A3B8',
+    linkColor: '#60CEFE',
+    cardBorderColor: '#334155'
   };
   themeMessage = signal('');
   themeSaving = signal(false);
+  savedThemeName = '';
+  selectedSavedThemeId = '';
+  savingPreset = signal(false);
+  applyingPreset = signal(false);
   
   // Review management
   reviewsToManage = signal<Review[]>([]);
@@ -45,11 +55,11 @@ export class Admin implements OnInit {
   ) {}
 
   async ngOnInit(): Promise<void> {
-    // Load the latest theme from backend
     await this.themeService.loadTheme();
+    await this.themeService.loadSavedThemes();
     const currentTheme = this.themeService.currentTheme();
     if (currentTheme) {
-      this.themeForm = { ...currentTheme };
+      this.themeForm = { ...this.themeForm, ...currentTheme };
     }
   }
 
@@ -97,9 +107,16 @@ export class Admin implements OnInit {
 
   toggleAdvancedMode(): void {
     this.advancedMode.set(!this.advancedMode());
-    // When switching to simple mode, auto-sync gradients
     if (!this.advancedMode()) {
       this.syncGradients();
+    } else {
+      // When switching to advanced, ensure advanced fields have defaults
+      this.themeForm.borderColor ??= '#1e293b';
+      this.themeForm.backgroundColorDarker ??= '#050810';
+      this.themeForm.backgroundColorNavy ??= '#141824';
+      this.themeForm.mutedTextColor ??= '#94A3B8';
+      this.themeForm.linkColor ??= this.themeForm.accentColor;
+      this.themeForm.cardBorderColor ??= '#334155';
     }
   }
 
@@ -154,10 +171,44 @@ export class Admin implements OnInit {
 
   resetTheme(): void {
     this.themeForm = this.themeService.getDefaultTheme();
-    // If in simple mode, ensure gradients are synced
     if (!this.advancedMode()) {
       this.syncGradients();
     }
+  }
+
+  async saveThemePreset(): Promise<void> {
+    const name = this.savedThemeName?.trim();
+    if (!name) {
+      this.themeMessage.set('Please enter a theme name');
+      setTimeout(() => this.themeMessage.set(''), 3000);
+      return;
+    }
+    this.savingPreset.set(true);
+    this.themeMessage.set('');
+    if (!this.advancedMode()) this.syncGradients();
+    const result = await this.themeService.saveThemePreset(name, this.themeForm, this.password);
+    if (result.success) {
+      this.themeMessage.set(`Theme "${name}" saved successfully! ✓`);
+      this.savedThemeName = '';
+    } else {
+      this.themeMessage.set(result.error || 'Failed to save theme');
+    }
+    this.savingPreset.set(false);
+    setTimeout(() => this.themeMessage.set(''), 3000);
+  }
+
+  async applySavedTheme(id: string): Promise<void> {
+    this.applyingPreset.set(true);
+    this.themeMessage.set('');
+    const result = await this.themeService.applyThemePreset(id, this.password);
+    if (result.success && result.theme) {
+      this.themeForm = { ...result.theme };
+      this.themeMessage.set('Theme applied successfully! ✓');
+    } else {
+      this.themeMessage.set(result.error || 'Failed to apply theme');
+    }
+    this.applyingPreset.set(false);
+    setTimeout(() => this.themeMessage.set(''), 3000);
   }
 
   async loadReviewsForManagement(): Promise<void> {

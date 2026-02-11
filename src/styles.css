@@ -56,6 +56,11 @@
     --gray: #94A3B8;
     --gray-dark: #64748B;
 
+    /* Themeable via admin (advanced mode) */
+    --border-color: #1e293b;
+    --link-color: #60CEFE;
+    --card-border-color: #334155;
+
     --nav-height: 80px;
 }
 
