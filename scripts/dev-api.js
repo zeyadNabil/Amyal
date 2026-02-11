@@ -114,6 +114,16 @@ const handlers = {
     if (body.password !== ADMIN_PASSWORD) {
       return { status: 401, data: { error: 'Unauthorized' } };
     }
+    if (body.action === 'apply' && body.id) {
+      const list = readJson('saved-themes') || [];
+      const found = list.find(t => t.id === body.id);
+      if (!found) {
+        return { status: 404, data: { error: 'Saved theme not found' } };
+      }
+      const theme = { ...found.theme, updatedAt: new Date().toISOString() };
+      writeJson('current-theme', theme);
+      return { status: 200, data: { success: true, theme } };
+    }
     if (!body.name || !String(body.name).trim()) {
       return { status: 400, data: { error: 'Theme name is required' } };
     }
@@ -129,22 +139,6 @@ const handlers = {
     list.push(saved);
     writeJson('saved-themes', list);
     return { status: 200, data: { success: true, saved } };
-  },
-  'POST /api/apply-theme-preset': async (body) => {
-    if (body.password !== ADMIN_PASSWORD) {
-      return { status: 401, data: { error: 'Unauthorized' } };
-    }
-    if (!body.id) {
-      return { status: 400, data: { error: 'Theme ID is required' } };
-    }
-    const list = readJson('saved-themes') || [];
-    const found = list.find(t => t.id === body.id);
-    if (!found) {
-      return { status: 404, data: { error: 'Saved theme not found' } };
-    }
-    const theme = { ...found.theme, updatedAt: new Date().toISOString() };
-    writeJson('current-theme', theme);
-    return { status: 200, data: { success: true, theme } };
   },
   'POST /api/validate-admin': async (body) => {
     if (body.password === ADMIN_PASSWORD) {

@@ -67,7 +67,8 @@ export class ThemeService {
   async applyThemePreset(id: string, password: string): Promise<{ success: boolean; theme?: Theme; error?: string }> {
     try {
       const response = await firstValueFrom(
-        this.http.post<{ success: boolean; theme: Theme }>(`${this.apiUrl}/apply-theme-preset`, {
+        this.http.post<{ success: boolean; theme: Theme }>(`${this.apiUrl}/saved-themes`, {
+          action: 'apply',
           id,
           password
         })

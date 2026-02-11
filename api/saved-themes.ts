@@ -55,20 +55,40 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
 
     if (req.method === 'POST') {
       const adminPassword = process.env.ADMIN_PASSWORD || 'admin123';
-      const body = req.body as { name?: string; theme?: Theme; password?: string };
+      const body = req.body as { action?: string; id?: string; name?: string; theme?: Theme; password?: string };
       if (body?.password !== adminPassword) {
         return res.status(401)
           .setHeader('Content-Type', 'application/json')
           .setHeader('Access-Control-Allow-Origin', '*')
           .json({ error: 'Unauthorized' });
       }
+
+      // Apply preset: action=apply, id=themeId
+      if (body.action === 'apply' && body.id) {
+        const raw = await redis.get('saved-themes');
+        const list: SavedTheme[] = raw ? (typeof raw === 'string' ? JSON.parse(raw) : raw) : [];
+        const found = list.find((t) => t.id === body.id);
+        if (!found) {
+          return res.status(404)
+            .setHeader('Content-Type', 'application/json')
+            .setHeader('Access-Control-Allow-Origin', '*')
+            .json({ error: 'Saved theme not found' });
+        }
+        const theme = { ...found.theme, updatedAt: new Date().toISOString() };
+        await redis.set('current-theme', JSON.stringify(theme));
+        return res.status(200)
+          .setHeader('Content-Type', 'application/json')
+          .setHeader('Access-Control-Allow-Origin', '*')
+          .json({ success: true, theme });
+      }
+
+      // Save preset: name, theme
       if (!body?.name?.trim()) {
         return res.status(400)
           .setHeader('Content-Type', 'application/json')
           .setHeader('Access-Control-Allow-Origin', '*')
           .json({ error: 'Theme name is required' });
       }
-
       const theme: Theme = body.theme || defaultTheme;
       const raw = await redis.get('saved-themes');
       const list: SavedTheme[] = raw ? (typeof raw === 'string' ? JSON.parse(raw) : raw) : [];
