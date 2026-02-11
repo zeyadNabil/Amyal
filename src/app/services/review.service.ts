@@ -23,7 +23,7 @@ export class ReviewService {
     this.isLoading.set(true);
     try {
       const reviews = await firstValueFrom(
-        this.http.get<Review[]>(`${this.apiUrl}/get-reviews`)
+        this.http.get<Review[]>(`${this.apiUrl}/reviews`)
       );
       this.reviews.set(reviews);
     } catch {
@@ -37,7 +37,7 @@ export class ReviewService {
   async submitReview(name: string, rating: number, message: string): Promise<{ success: boolean; error?: string }> {
     try {
       const response = await firstValueFrom(
-        this.http.post<{ success: boolean; review: Review }>(`${this.apiUrl}/submit-review`, {
+        this.http.post<{ success: boolean; review: Review }>(`${this.apiUrl}/reviews`, {
           name,
           rating,
           message
@@ -75,7 +75,8 @@ export class ReviewService {
   async deleteReview(reviewId: string, password: string): Promise<{ success: boolean; error?: string }> {
     try {
       const response = await firstValueFrom(
-        this.http.post<{ success: boolean }>(`${this.apiUrl}/delete-review`, {
+        this.http.post<{ success: boolean }>(`${this.apiUrl}/reviews`, {
+          action: 'delete',
           reviewId,
           password
         })

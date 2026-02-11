@@ -18,7 +18,7 @@ export class ThemeService {
   async loadTheme(): Promise<void> {
     try {
       const theme = await firstValueFrom(
-        this.http.get<Theme>(`${this.apiUrl}/get-theme`)
+        this.http.get<Theme>(`${this.apiUrl}/theme`)
       );
       this.currentTheme.set(theme);
       this.applyTheme(theme);
@@ -33,7 +33,7 @@ export class ThemeService {
   async loadSavedThemes(): Promise<void> {
     try {
       const list = await firstValueFrom(
-        this.http.get<SavedTheme[]>(`${this.apiUrl}/saved-themes`)
+        this.http.get<SavedTheme[]>(`${this.apiUrl}/theme?list=presets`)
       );
       this.savedThemes.set(Array.isArray(list) ? list : []);
     } catch {
@@ -44,7 +44,8 @@ export class ThemeService {
   async saveThemePreset(name: string, theme: Theme, password: string): Promise<{ success: boolean; error?: string }> {
     try {
       const response = await firstValueFrom(
-        this.http.post<{ success: boolean }>(`${this.apiUrl}/saved-themes`, {
+        this.http.post<{ success: boolean }>(`${this.apiUrl}/theme`, {
+          action: 'save',
           name: name.trim(),
           theme,
           password
@@ -67,7 +68,7 @@ export class ThemeService {
   async applyThemePreset(id: string, password: string): Promise<{ success: boolean; theme?: Theme; error?: string }> {
     try {
       const response = await firstValueFrom(
-        this.http.post<{ success: boolean; theme: Theme }>(`${this.apiUrl}/saved-themes`, {
+        this.http.post<{ success: boolean; theme: Theme }>(`${this.apiUrl}/theme`, {
           action: 'apply',
           id,
           password
@@ -165,7 +166,7 @@ export class ThemeService {
   async updateTheme(theme: Theme, password: string): Promise<{ success: boolean; error?: string }> {
     try {
       const response = await firstValueFrom(
-        this.http.post<{ success: boolean; theme: Theme }>(`${this.apiUrl}/update-theme`, {
+        this.http.post<{ success: boolean; theme: Theme }>(`${this.apiUrl}/theme`, {
           ...theme,
           password
         })

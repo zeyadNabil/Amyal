@@ -74,13 +74,34 @@ function parseBody(req) {
 }
 
 const handlers = {
-  'GET /api/get-theme': async () => {
+  'GET /api/theme': async (body, req) => {
+    if (req?.url?.includes('list=presets')) {
+      const s = readJson('saved-themes');
+      return Array.isArray(s) ? s : [];
+    }
     const t = readJson('current-theme');
     return t || defaultTheme;
   },
-  'POST /api/update-theme': async (body) => {
+  'POST /api/theme': async (body) => {
     if (body.password !== ADMIN_PASSWORD) {
       return { status: 401, data: { error: 'Unauthorized' } };
+    }
+    if (body.action === 'apply' && body.id) {
+      const list = readJson('saved-themes') || [];
+      const found = list.find(t => t.id === body.id);
+      if (!found) return { status: 404, data: { error: 'Saved theme not found' } };
+      const theme = { ...found.theme, updatedAt: new Date().toISOString() };
+      writeJson('current-theme', theme);
+      return { status: 200, data: { success: true, theme } };
+    }
+    if (body.action === 'save' && body.name && String(body.name).trim()) {
+      const theme = body.theme || defaultTheme;
+      const list = readJson('saved-themes') || [];
+      const id = `theme-${Date.now()}-${Math.random().toString(36).slice(2, 9)}`;
+      const saved = { id, name: String(body.name).trim(), theme: { ...theme, updatedAt: new Date().toISOString() }, createdAt: new Date().toISOString() };
+      list.push(saved);
+      writeJson('saved-themes', list);
+      return { status: 200, data: { success: true, saved } };
     }
     const theme = {
       ...defaultTheme,
@@ -102,43 +123,26 @@ const handlers = {
     writeJson('current-theme', theme);
     return { status: 200, data: { success: true, theme } };
   },
-  'GET /api/get-reviews': async () => {
+  'GET /api/reviews': async () => {
     const r = readJson('reviews-list');
     return Array.isArray(r) ? r : [];
   },
-  'GET /api/saved-themes': async () => {
-    const s = readJson('saved-themes');
-    return Array.isArray(s) ? s : [];
-  },
-  'POST /api/saved-themes': async (body) => {
-    if (body.password !== ADMIN_PASSWORD) {
-      return { status: 401, data: { error: 'Unauthorized' } };
+  'POST /api/reviews': async (body) => {
+    if (body.action === 'delete') {
+      if (body.password !== ADMIN_PASSWORD) return { status: 401, data: { error: 'Unauthorized' } };
+      if (!body.reviewId) return { status: 400, data: { error: 'Review ID required' } };
+      const list = readJson('reviews-list') || [];
+      const filtered = list.filter(r => r.id !== body.reviewId);
+      writeJson('reviews-list', filtered);
+      return { status: 200, data: { success: true } };
     }
-    if (body.action === 'apply' && body.id) {
-      const list = readJson('saved-themes') || [];
-      const found = list.find(t => t.id === body.id);
-      if (!found) {
-        return { status: 404, data: { error: 'Saved theme not found' } };
-      }
-      const theme = { ...found.theme, updatedAt: new Date().toISOString() };
-      writeJson('current-theme', theme);
-      return { status: 200, data: { success: true, theme } };
-    }
-    if (!body.name || !String(body.name).trim()) {
-      return { status: 400, data: { error: 'Theme name is required' } };
-    }
-    const theme = body.theme || defaultTheme;
-    const list = readJson('saved-themes') || [];
-    const id = `theme-${Date.now()}-${Math.random().toString(36).slice(2, 9)}`;
-    const saved = {
-      id,
-      name: String(body.name).trim(),
-      theme: { ...theme, updatedAt: new Date().toISOString() },
-      createdAt: new Date().toISOString()
-    };
-    list.push(saved);
-    writeJson('saved-themes', list);
-    return { status: 200, data: { success: true, saved } };
+    if (!body.name || !body.rating || !body.message) return { status: 400, data: { error: 'Missing required fields' } };
+    if (body.rating < 1 || body.rating > 5) return { status: 400, data: { error: 'Rating must be between 1 and 5' } };
+    const list = readJson('reviews-list') || [];
+    const newReview = { id: Date.now().toString(), name: String(body.name).trim(), rating: Number(body.rating), message: String(body.message).trim(), createdAt: new Date().toISOString(), approved: true };
+    list.unshift(newReview);
+    writeJson('reviews-list', list);
+    return { status: 201, data: { success: true, review: newReview } };
   },
   'POST /api/validate-admin': async (body) => {
     if (body.password === ADMIN_PASSWORD) {
@@ -170,7 +174,7 @@ const server = http.createServer(async (req, res) => {
     if (req.method === 'POST') {
       body = await parseBody(req);
     }
-    const result = await handler(body);
+    const result = await handler(body, req);
     if (result && typeof result.status === 'number') {
       jsonRes(res, result.status, result.data);
     } else {
