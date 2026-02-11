@@ -54,18 +54,19 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
         return send(200, { success: true });
       }
 
-      // Submit review (no action or action=submit)
-      if (!body.name || !body.rating || !body.message) {
-        return send(400, { error: 'Missing required fields' });
+      // Submit review (no action or action=submit) - name is optional (Anonymous User if empty)
+      if (body.rating == null || !body.message) {
+        return send(400, { error: 'Missing required fields (rating and message required)' });
       }
       if (Number(body.rating) < 1 || Number(body.rating) > 5) {
         return send(400, { error: 'Rating must be between 1 and 5' });
       }
       const data = await redis.get('reviews-list');
       const reviews: Review[] = data ? (typeof data === 'string' ? JSON.parse(data) : data) : [];
+      const nameValue = body.name != null ? String(body.name).trim() : '';
       const newReview: Review = {
         id: Date.now().toString(),
-        name: String(body.name).trim(),
+        name: nameValue || 'Anonymous User',
         rating: Number(body.rating),
         message: String(body.message).trim(),
         createdAt: new Date().toISOString(),

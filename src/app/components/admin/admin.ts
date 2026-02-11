@@ -5,11 +5,12 @@ import { ThemeService } from '../../services/theme.service';
 import { ReviewService } from '../../services/review.service';
 import { Theme, Review } from '../../models/api.models';
 import { LanguageService } from '../../services/language.service';
+import { ConfirmModalComponent } from '../confirm-modal/confirm-modal';
 
 @Component({
   selector: 'app-admin',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, ConfirmModalComponent],
   templateUrl: './admin.html',
   styleUrl: './admin.css'
 })
@@ -47,6 +48,8 @@ export class Admin implements OnInit {
   // Review management
   reviewsToManage = signal<Review[]>([]);
   reviewMessage = signal('');
+  deleteConfirmVisible = signal(false);
+  reviewToDelete = signal<string | null>(null);
 
   constructor(
     public themeService: ThemeService,
@@ -216,20 +219,30 @@ export class Admin implements OnInit {
     this.reviewsToManage.set(this.reviewService.reviews());
   }
 
-  async deleteReview(reviewId: string): Promise<void> {
-    if (!confirm('Are you sure you want to delete this review?')) {
-      return;
-    }
-    
+  openDeleteConfirm(reviewId: string): void {
+    this.reviewToDelete.set(reviewId);
+    this.deleteConfirmVisible.set(true);
+  }
+
+  closeDeleteConfirm(): void {
+    this.deleteConfirmVisible.set(false);
+    this.reviewToDelete.set(null);
+  }
+
+  async confirmDelete(): Promise<void> {
+    const reviewId = this.reviewToDelete();
+    if (!reviewId) return;
+
+    this.closeDeleteConfirm();
     const result = await this.reviewService.deleteReview(reviewId, this.password);
-    
+
     if (result.success) {
       this.reviewMessage.set('Review deleted successfully! ✓');
       this.loadReviewsForManagement();
     } else {
       this.reviewMessage.set(result.error || 'Failed to delete review');
     }
-    
+
     setTimeout(() => this.reviewMessage.set(''), 3000);
   }
 

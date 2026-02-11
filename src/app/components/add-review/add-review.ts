@@ -31,12 +31,6 @@ export class AddReview {
   }
 
   async submitReview(): Promise<void> {
-    // Validate
-    if (!this.name.trim()) {
-      this.submitMessage.set(this.langService.t('reviewForm.errorName') || 'Please enter your name');
-      return;
-    }
-
     if (!this.message.trim()) {
       this.submitMessage.set(this.langService.t('reviewForm.errorMessage') || 'Please enter your review message');
       return;
@@ -50,8 +44,9 @@ export class AddReview {
     this.isSubmitting.set(true);
     this.submitMessage.set('');
 
+    const displayName = this.name.trim() || (this.langService.t('reviewForm.anonymous') || 'Anonymous User');
     const result = await this.reviewService.submitReview(
-      this.name.trim(),
+      displayName,
       this.rating,
       this.message.trim()
     );

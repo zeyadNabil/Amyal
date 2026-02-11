@@ -57,54 +57,71 @@
 
 .review-card-slider {
   min-width: 350px;
-  max-width: 3rgba(255, 255, 255, 0.05);
+  max-width: 350px;
+  background: rgba(255, 255, 255, 0.04);
   border: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: 20px;
-  padding: 30px;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+  border-radius: 16px;
+  padding: 28px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
   transition: all 0.3s ease;
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: 18px;
+  position: relative;
+  overflow: hidden;
+}
+
+.review-card-slider::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: var(--gradient-primary, linear-gradient(135deg, var(--secondary), var(--accent)));
+  opacity: 0.8;
 }
 
 .review-card-slider:hover {
-  transform: translateY(-5px);
-  background: rgba(255, 255, 255, 0.08);
-  box-shadow: 0 15px 40px rgba(var(--secondary-rgb), 0.4);
-  border-color: rgba(var(--secondary-rgb), 0.3);
+  transform: translateY(-6px);
+  background: rgba(255, 255, 255, 0.06);
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.35), 0 0 30px rgba(var(--secondary-rgb), 0.15);
+  border-color: rgba(var(--secondary-rgb), 0.25);
 }
 
 .review-rating {
-  font-size: 1.5rem;
-  text-align: center;
+  font-size: 1.35rem;
+  text-align: left;
+  letter-spacing: 2px;
 }
 
 .review-message {
   color: rgba(255, 255, 255, 0.9);
-  line-height: 1.6;
-  font-style: italic;
+  line-height: 1.65;
+  font-size: 1.05rem;
   flex: 1;
-  text-align: center;
+  text-align: left;
+  padding-left: 0;
 }
 
 .review-author {
-  text-align: center;
-  padding-top: 15px;
-  border-top: 2px solid rgba(255, 255, 255, 0.1);
+  text-align: left;
+  padding-top: 14px;
+  border-top: 1px solid rgba(255, 255, 255, 0.12);
   display: flex;
   flex-direction: column;
-  gap: 5px;
+  gap: 4px;
 }
 
 .review-author strong {
   color: var(--white);
-  font-size: 1.1rem;
+  font-size: 1rem;
+  font-weight: 600;
 }
 
 .review-date {
-  color: rgba(255, 255, 255, 0.6);
-  font-size: 0.9rem;
+  color: rgba(255, 255, 255, 0.55);
+  font-size: 0.85rem;
 }
 
 .reviews-actions {

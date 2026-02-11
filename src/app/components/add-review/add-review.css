@@ -91,6 +91,12 @@
 .required {
   color: #dc3545;
 }
+
+.optional {
+  color: var(--gray);
+  font-weight: 400;
+  font-size: 0.9rem;
+}
 .form-control {
   width: 100%;
   padding: 1rem 1.5rem;
@@ -121,17 +127,36 @@ textarea.form-control {
   min-height: 150px;
 }
 
-.star-rating {
+.star-rating-input {
   display: flex;
-  background: rgba(255, 255, 255, 0.2);
-  transition: all 0.2s ease;
+  gap: 8px;
+  align-items: center;
+  padding: 1rem 1.25rem;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.05);
+  transition: all 0.3s ease;
 }
 
-.star-icon:hover {
-  transform: scale(1.1);
+.star-rating-input:focus-within {
+  border-color: var(--purple);
+  background: rgba(var(--secondary-rgb), 0.1);
+  box-shadow: 0 0 20px rgba(var(--secondary-rgb), 0.2);
 }
 
-.star-icon.active {
+.star-rating-input .star-icon {
+  font-size: 1.75rem;
+  color: rgba(255, 255, 255, 0.3);
+  cursor: pointer;
+  transition: transform 0.2s, color 0.2s;
+}
+
+.star-rating-input .star-icon:hover {
+  transform: scale(1.15);
+  color: #ffc107;
+}
+
+.star-rating-input .star-icon.active {
   color: #ffc107;
 }
 
@@ -239,7 +264,7 @@ textarea.form-control {
     font-size: 1rem;
   }
   
-  .star-rating {
+  .star-rating-input {
     font-size: 2rem;
     justify-content: center;
   }

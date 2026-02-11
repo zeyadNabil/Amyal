@@ -14,20 +14,19 @@
 
       <!-- Form -->
       <form (ngSubmit)="submitReview()" class="review-form">
-        <!-- Name Input -->
+        <!-- Name Input (optional) -->
         <div class="form-group">
           <label for="name">
             {{ langService.t('reviewForm.name') || 'Your Name' }}
-            <span class="required">*</span>
+            <span class="optional">({{ langService.t('reviewForm.optional') || 'optional' }})</span>
           </label>
           <input
             type="text"
             id="name"
             [(ngModel)]="name"
             name="name"
-            [placeholder]="langService.t('reviewForm.namePlaceholder') || 'Enter your name'"
-            class="form-control"
-            required>
+            [placeholder]="langService.t('reviewForm.namePlaceholder') || 'Enter your name (leave empty for Anonymous)'"
+            class="form-control">
         </div>
 
         <!-- Rating Input -->
@@ -36,7 +35,7 @@
             {{ langService.t('reviewForm.rating') || 'Rating' }}
             <span class="required">*</span>
           </label>
-          <div class="star-rating">
+          <div class="star-rating-input">
             @for (star of [1, 2, 3, 4, 5]; track star) {
               <i
                 [class]="getStarClass(star)"
