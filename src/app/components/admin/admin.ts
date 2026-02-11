@@ -225,8 +225,11 @@ export class Admin implements OnInit {
   }
 
   closeDeleteConfirm(): void {
-    this.deleteConfirmVisible.set(false);
-    this.reviewToDelete.set(null);
+    // Run in next tick so change detection reliably picks up the update after the modal's event
+    setTimeout(() => {
+      this.deleteConfirmVisible.set(false);
+      this.reviewToDelete.set(null);
+    }, 0);
   }
 
   async confirmDelete(): Promise<void> {

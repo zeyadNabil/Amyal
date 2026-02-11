@@ -44,6 +44,7 @@ import { CommonModule } from '@angular/common';
       z-index: 9999;
       padding: 20px;
       animation: fadeIn 0.2s ease;
+      cursor: pointer;
     }
 
     @keyframes fadeIn {
@@ -59,6 +60,8 @@ import { CommonModule } from '@angular/common';
       width: 100%;
       box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5);
       animation: slideUp 0.3s ease;
+      cursor: default;
+      pointer-events: auto;
     }
 
     @keyframes slideUp {
