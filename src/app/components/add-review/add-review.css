@@ -38,16 +38,7 @@
   font-weight: 800;
   margin-bottom: 1rem;
   line-height: 1.2;
-  background: linear-gradient(
-    90deg,
-    #0E37AD 0%,
-    #027DF8 20%,
-    #60CEFE 40%,
-    #FFFFFF 50%,
-    #60CEFE 60%,
-    #027DF8 80%,
-    #0E37AD 100%
-  );
+  background: var(--gradient-text-blue-silver);
   background-size: 200% auto;
   -webkit-background-clip: text;
   background-clip: text;
@@ -121,8 +112,8 @@
 .form-control:focus {
   outline: none;
   border-color: var(--purple);
-  background: rgba(40, 142, 242, 0.1);
-  box-shadow: 0 0 20px rgba(40, 142, 242, 0.2);
+  background: rgba(var(--secondary-rgb), 0.1);
+  box-shadow: 0 0 20px rgba(var(--secondary-rgb), 0.2);
 }
 
 textarea.form-control {
@@ -191,7 +182,7 @@ textarea.form-control {
   position: relative;
   overflow: hidden;
   transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-  box-shadow: 0 0 30px rgba(2, 125, 248, 0.4), 0 0 0 1px rgba(247, 247, 248, 0.5);
+  box-shadow: 0 0 30px rgba(var(--secondary-rgb), 0.4), 0 0 0 1px rgba(247, 247, 248, 0.5);
   cursor: pointer;
   margin-top: 10px;
 }
@@ -210,7 +201,7 @@ textarea.form-control {
 .info-box {
   margin-top: 30px;
   padding: 20px;
-  background: rgba(2, 125, 248, 0.1);
+  background: rgba(var(--secondary-rgb), 0.1);
   border-left: 4px solid var(--blue);
   border-radius: 10px;
   display: flex;

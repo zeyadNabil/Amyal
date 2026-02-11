@@ -124,7 +124,7 @@
               <p>Save your current theme with a name and apply it later</p>
               <div class="saved-themes-row">
                 <div class="saved-themes-select">
-                  <select class="form-control" [(ngModel)]="selectedSavedThemeId">
+                  <select class="form-control theme-dropdown-select" [(ngModel)]="selectedSavedThemeId">
                     <option value="">-- Select a saved theme --</option>
                     @for (t of themeService.savedThemes(); track t.id) {
                       <option [value]="t.id">{{ t.name }}</option>

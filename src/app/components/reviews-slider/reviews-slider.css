@@ -71,8 +71,8 @@
 .review-card-slider:hover {
   transform: translateY(-5px);
   background: rgba(255, 255, 255, 0.08);
-  box-shadow: 0 15px 40px rgba(2, 125, 248, 0.4);
-  border-color: rgba(2, 125, 248, 0.3);
+  box-shadow: 0 15px 40px rgba(var(--secondary-rgb), 0.4);
+  border-color: rgba(var(--secondary-rgb), 0.3);
 }
 
 .review-rating {
@@ -131,7 +131,7 @@
   position: relative;
   overflow: hidden;
   transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-  box-shadow: 0 0 30px rgba(2, 125, 248, 0.4), 0 0 0 1px rgba(247, 247, 248, 0.5);
+  box-shadow: 0 0 30px rgba(var(--secondary-rgb), 0.4), 0 0 0 1px rgba(247, 247, 248, 0.5);
   cursor: pointer;
 }
 
@@ -148,7 +148,7 @@
 
 .btn-add-review:hover {
   transform: translateY(-5px) scale(1.05);
-  box-shadow: 0 0 50px rgba(2, 125, 248, 0.8), 0 0 80px rgba(2, 125, 248, 0.6), 0 0 0 1px rgba(247, 247, 248, 0.6);
+  box-shadow: 0 0 50px rgba(var(--secondary-rgb), 0.8), 0 0 80px rgba(var(--secondary-rgb), 0.6), 0 0 0 1px rgba(247, 247, 248, 0.6);
 }
 
 .btn-add-review:hover::before {

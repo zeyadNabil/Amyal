@@ -104,7 +104,7 @@
     padding: .5rem 2rem;
     background: rgba(10, 14, 26, 0.7);
     backdrop-filter: blur(10px);
-    box-shadow: 0 5px 20px rgba(2, 125, 248, 0.1);
+    box-shadow: 0 5px 20px rgba(var(--secondary-rgb), 0.1);
 }
 
 .navbar-nav {
@@ -133,7 +133,7 @@
     left: 0;
     width: 0;
     height: 2px;
-    background: linear-gradient(90deg, #0E37AD 0%, #027DF8 40%, #60CEFE 75%, #F7F7F8 100%);
+    background: var(--gradient-text-blue-silver);
     transition: width 0.3s ease;
 }
 
@@ -165,8 +165,8 @@
 
 .lang-toggle-btn:hover {
     border-color: var(--pink);
-    background: rgba(2, 125, 248, 0.1);
-    box-shadow: 0 0 20px rgba(2, 125, 248, 0.3);
+    background: rgba(var(--secondary-rgb), 0.1);
+    box-shadow: 0 0 20px rgba(var(--secondary-rgb), 0.3);
     transform: translateY(-2px);
 }
 
@@ -242,7 +242,7 @@
     visibility: hidden;
     transform: translateY(-10px);
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5), 0 0 20px rgba(2, 125, 248, 0.3);
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5), 0 0 20px rgba(var(--secondary-rgb), 0.3);
     z-index: 1000;
     list-style: none;
 }
@@ -295,7 +295,7 @@
     top: 0;
     bottom: 0;
     width: 3px;
-    background: linear-gradient(180deg, #0E37AD 0%, #027DF8 45%, #60CEFE 80%, #F7F7F8 100%);
+    background: var(--gradient-vertical);
     transform: scaleY(0);
     transition: transform 0.3s ease;
 }
@@ -304,7 +304,7 @@
 .dropdown-item:focus,
 .dropdown-item.active {
     color: var(--white);
-    background: rgba(2, 125, 248, 0.1);
+    background: rgba(var(--secondary-rgb), 0.1);
     padding-left: 2rem;
 }
 
@@ -315,7 +315,7 @@
 }
 
 .dropdown-item.active {
-    background: rgba(2, 125, 248, 0.2);
+    background: rgba(var(--secondary-rgb), 0.2);
     font-weight: 600;
 }
 
@@ -328,12 +328,12 @@
     font-weight: 600;
     margin-left: 1rem;
     transition: all 0.3s ease;
-    box-shadow: 0 0 20px rgba(2, 125, 248, 0.3);
+    box-shadow: 0 0 20px rgba(var(--secondary-rgb), 0.3);
 }
 
 .btn-get-quote:hover {
     transform: translateY(-2px);
-    box-shadow: 0 5px 30px rgba(2, 125, 248, 0.5);
+    box-shadow: 0 5px 30px rgba(var(--secondary-rgb), 0.5);
     color: var(--white) !important;
 }
 
@@ -377,7 +377,7 @@
 }
 
 [dir="rtl"] .dropdown-item.active {
-    background: rgba(2, 125, 248, 0.2);
+    background: rgba(var(--secondary-rgb), 0.2);
     font-weight: 600;
 }
 
@@ -414,7 +414,7 @@
 }
 
 .navbar-toggler:focus {
-    box-shadow: 0 0 0 0.25rem rgba(2, 125, 248, 0.25);
+    box-shadow: 0 0 0 0.25rem rgba(var(--secondary-rgb), 0.25);
 }
 
 .navbar-toggler-icon {

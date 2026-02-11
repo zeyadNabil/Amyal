@@ -101,16 +101,7 @@
 .admin-title {
   font-size: 2.5rem;
   margin-bottom: 15px;
-  background: linear-gradient(
-    90deg,
-    #0E37AD 0%,
-    #027DF8 20%,
-    #60CEFE 40%,
-    #FFFFFF 50%,
-    #60CEFE 60%,
-    #027DF8 80%,
-    #0E37AD 100%
-  );
+  background: var(--gradient-text-blue-silver);
   background-size: 200% auto;
   -webkit-background-clip: text;
   background-clip: text;
@@ -119,7 +110,7 @@
 }
 
 .admin-subtitle {
-  color: rgba(255, 255, 255, 0.8);
+  color: var(--gray);
   margin-bottom: 30px;
 }
 
@@ -144,8 +135,8 @@
 .form-control:focus {
   outline: none;
   border-color: var(--purple);
-  background: rgba(40, 142, 242, 0.1);
-  box-shadow: 0 0 20px rgba(40, 142, 242, 0.2);
+  background: rgba(var(--secondary-rgb), 0.1);
+  box-shadow: 0 0 20px rgba(var(--secondary-rgb), 0.2);
 }
 
 .form-control::placeholder {
@@ -163,12 +154,12 @@
   font-weight: 600;
   cursor: pointer;
   transition: all 0.3s ease;
-  box-shadow: 0 0 30px rgba(2, 125, 248, 0.4);
+  box-shadow: 0 0 30px rgba(var(--secondary-rgb), 0.4);
 }
 
 .btn-primary:hover:not(:disabled) {
   transform: translateY(-2px);
-  box-shadow: 0 0 50px rgba(2, 125, 248, 0.6);
+  box-shadow: 0 0 50px rgba(var(--secondary-rgb), 0.6);
 }
 
 .btn-primary:disabled {
@@ -335,8 +326,8 @@
 
 /* Saved Themes Section */
 .saved-themes-section {
-  background: rgba(2, 125, 248, 0.06);
-  border: 1px solid rgba(2, 125, 248, 0.2);
+  background: rgba(var(--secondary-rgb), 0.06);
+  border: 1px solid rgba(var(--secondary-rgb), 0.2);
   border-radius: 12px;
   padding: 20px;
   margin-bottom: 25px;
@@ -372,6 +363,25 @@
   min-width: 200px;
 }
 
+/* Theme dropdown - uses theme colors, readable options */
+.theme-dropdown-select {
+  background: var(--bg-navy) !important;
+  color: var(--white) !important;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  appearance: auto;
+}
+
+.theme-dropdown-select option {
+  background: var(--bg-navy) !important;
+  color: var(--white) !important;
+  padding: 10px 12px;
+}
+
+.theme-dropdown-select option:checked {
+  background: rgba(var(--secondary-rgb), 0.4) !important;
+  color: #fff !important;
+}
+
 .btn-apply-preset {
   padding: 10px 20px;
   background: var(--gradient-primary);
@@ -385,7 +395,7 @@
 
 .btn-apply-preset:hover:not(:disabled) {
   transform: translateY(-1px);
-  box-shadow: 0 4px 15px rgba(2, 125, 248, 0.5);
+  box-shadow: 0 4px 15px rgba(var(--secondary-rgb), 0.5);
 }
 
 .btn-apply-preset:disabled {
@@ -427,8 +437,8 @@
 }
 
 .color-guide {
-  background: rgba(2, 125, 248, 0.08);
-  border: 1px solid rgba(2, 125, 248, 0.3);
+  background: rgba(var(--secondary-rgb), 0.08);
+  border: 1px solid rgba(var(--secondary-rgb), 0.3);
   border-radius: 15px;
   padding: 25px;
   margin-bottom: 30px;
@@ -500,8 +510,8 @@
 }
 
 .review-card:hover {
-  box-shadow: 0 5px 20px rgba(2, 125, 248, 0.3);
-  border-color: rgba(2, 125, 248, 0.3);
+  box-shadow: 0 5px 20px rgba(var(--secondary-rgb), 0.3);
+  border-color: rgba(var(--secondary-rgb), 0.3);
 }
 
 .review-header {
@@ -590,7 +600,7 @@
   }
   
   .tab-button.active {
-    border-left-color: #667eea;
+    border-left-color: var(--blue);
     border-bottom-color: transparent;
   }
   

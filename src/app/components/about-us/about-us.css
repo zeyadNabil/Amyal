@@ -49,16 +49,7 @@
   opacity: 0;
   transform: translateY(30px);
   animation: titleSlideIn 0.8s ease forwards;
-  background: linear-gradient(
-    90deg,
-    #0E37AD 0%,
-    #027DF8 20%,
-    #60CEFE 40%,
-    #FFFFFF 50%,
-    #60CEFE 60%,
-    #027DF8 80%,
-    #0E37AD 100%
-  );
+  background: var(--gradient-text-blue-silver);
   background-size: 200% auto;
   -webkit-background-clip: text;
   background-clip: text;
@@ -236,8 +227,8 @@
 
 .feature-card:hover {
   transform: translateY(-10px) scale(1.02);
-  border-color: rgba(2, 125, 248, 0.5);
-  box-shadow: 0 20px 40px rgba(2, 125, 248, 0.2);
+  border-color: rgba(var(--secondary-rgb), 0.5);
+  box-shadow: 0 20px 40px rgba(var(--secondary-rgb), 0.2);
   z-index: 100;
   position: relative;
 }
@@ -323,8 +314,8 @@
 .mission-card:hover,
 .vision-card:hover {
   transform: translateY(-10px);
-  border-color: rgba(2, 125, 248, 0.5);
-  box-shadow: 0 20px 40px rgba(2, 125, 248, 0.2);
+  border-color: rgba(var(--secondary-rgb), 0.5);
+  box-shadow: 0 20px 40px rgba(var(--secondary-rgb), 0.2);
 }
 
 .card-header {
@@ -432,7 +423,7 @@
   transform: translateX(-50%);
   z-index: 3;
   flex-shrink: 0;
-  box-shadow: 0 10px 30px rgba(2, 125, 248, 0.3);
+  box-shadow: 0 10px 30px rgba(var(--secondary-rgb), 0.3);
   border: 5px solid #0a0e1a;
   box-sizing: border-box;
 }
@@ -461,8 +452,8 @@
 
 .process-step:hover .step-content {
   transform: translateY(-5px);
-  border-color: rgba(2, 125, 248, 0.5);
-  box-shadow: 0 15px 35px rgba(2, 125, 248, 0.2);
+  border-color: rgba(var(--secondary-rgb), 0.5);
+  box-shadow: 0 15px 35px rgba(var(--secondary-rgb), 0.2);
   z-index: 100;
   position: relative;
 }

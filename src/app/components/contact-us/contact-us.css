@@ -33,13 +33,13 @@
     line-height: 1.2;
     background: linear-gradient(
       90deg,
-      #0E37AD 0%,
-      #027DF8 20%,
-      #60CEFE 40%,
-      #FFFFFF 50%,
-      #60CEFE 60%,
-      #027DF8 80%,
-      #0E37AD 100%
+      var(--blue) 0%,
+      var(--purple) 20%,
+      var(--blue-light) 40%,
+      var(--white) 50%,
+      var(--blue-light) 60%,
+      var(--purple) 80%,
+      var(--blue) 100%
     );
     background-size: 200% auto;
     -webkit-background-clip: text;
@@ -125,9 +125,9 @@
 
 .contact-item:hover {
     transform: translateX(10px);
-    background: rgba(40, 142, 242, 0.1);
+    background: rgba(var(--secondary-rgb), 0.1);
     border-color: var(--purple);
-    box-shadow: 0 10px 30px rgba(40, 142, 242, 0.2);
+    box-shadow: 0 10px 30px rgba(var(--secondary-rgb), 0.2);
 }
 
 @media (max-width: 768px) {
@@ -195,7 +195,7 @@
     background: var(--gradient-hero);
     border-color: transparent;
     transform: translateY(-5px);
-    box-shadow: 0 10px 25px rgba(40, 142, 242, 0.4);
+    box-shadow: 0 10px 25px rgba(var(--secondary-rgb), 0.4);
     color: var(--white);
 }
 
@@ -204,7 +204,7 @@
     margin-top: 3rem;
     border-radius: 20px;
     overflow: hidden;
-    box-shadow: 0 20px 60px rgba(40, 142, 242, 0.3);
+    box-shadow: 0 20px 60px rgba(var(--secondary-rgb), 0.3);
     border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
@@ -267,8 +267,8 @@
 .form-control:focus {
     outline: none;
     border-color: var(--purple);
-    background: rgba(40, 142, 242, 0.1);
-    box-shadow: 0 0 20px rgba(40, 142, 242, 0.2);
+    background: rgba(var(--secondary-rgb), 0.1);
+    box-shadow: 0 0 20px rgba(var(--secondary-rgb), 0.2);
 }
 
 .form-control::placeholder {
@@ -365,7 +365,7 @@ textarea.form-control {
     position: relative;
     overflow: hidden;
     transition: all 0.3s ease;
-    box-shadow: 0 0 30px rgba(2, 125, 248, 0.4);
+    box-shadow: 0 0 30px rgba(var(--secondary-rgb), 0.4);
     cursor: pointer;
     width: 100%;
     max-width: 100%;
@@ -385,7 +385,7 @@ textarea.form-control {
 
 .btn-glow:hover:not(:disabled) {
     transform: translateY(-3px);
-    box-shadow: 0 0 50px rgba(2, 125, 248, 0.8), 0 0 80px rgba(2, 125, 248, 0.6);
+    box-shadow: 0 0 50px rgba(var(--secondary-rgb), 0.8), 0 0 80px rgba(var(--secondary-rgb), 0.6);
 }
 
 .btn-glow:hover:not(:disabled)::before {
@@ -398,7 +398,7 @@ textarea.form-control {
 }
 
 .btn-text {
-    background: linear-gradient(135deg, #027DF8, #60CEFE, #F7F7F8);
+    background: var(--gradient-blue-silver);
     -webkit-background-clip: text;
     background-clip: text;
     -webkit-text-fill-color: transparent;

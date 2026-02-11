@@ -89,10 +89,18 @@ export class ThemeService {
     }
   }
 
+  private hexToRgb(hex: string): string {
+    const m = hex.replace(/^#/, '').match(/(.{2})/g);
+    if (!m) return '2, 125, 248';
+    return m.map((x) => parseInt(x, 16)).join(', ');
+  }
+
   applyTheme(theme: Theme): void {
     const root = document.documentElement;
-    
-    // Update primary blue (dark blue) - used for main buttons/headers
+    root.style.setProperty('--primary-rgb', this.hexToRgb(theme.primaryColor));
+    root.style.setProperty('--secondary-rgb', this.hexToRgb(theme.secondaryColor));
+    root.style.setProperty('--accent-rgb', this.hexToRgb(theme.accentColor));
+
     root.style.setProperty('--blue', theme.primaryColor);
     root.style.setProperty('--blue-dark', theme.primaryColor);
     
