@@ -29,7 +29,7 @@
 }
 
 .reviews-slider-container {
-  overflow-x: auto;
+  overflow-x: scroll;
   overflow-y: hidden;
   scrollbar-width: none;
   -ms-overflow-style: none;
@@ -38,6 +38,7 @@
   user-select: none;
   width: 100%;
   touch-action: pan-x;
+  overscroll-behavior-x: contain;
 }
 
 .reviews-slider-container::-webkit-scrollbar {

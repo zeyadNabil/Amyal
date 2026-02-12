@@ -30,8 +30,6 @@ export class ReviewsSlider implements OnInit, OnDestroy, AfterViewInit {
   private reviewsIsTouching = false;
   private reviewsResumeTimeout: ReturnType<typeof setTimeout> | null = null;
   private reviewsScrollRaf: number | null = null;
-  private reviewsRtlUsesNegativeScroll: boolean | null = null;
-  private reviewsLastDir: 'ltr' | 'rtl' | null = null;
 
 
   constructor(
@@ -45,6 +43,7 @@ export class ReviewsSlider implements OnInit, OnDestroy, AfterViewInit {
   }
 
   ngOnInit(): void {
+    this.initTouchDrag();
     this.initMobileReviewsSlider();
     this.initDesktopReviewsDrag();
   }
@@ -81,6 +80,30 @@ export class ReviewsSlider implements OnInit, OnDestroy, AfterViewInit {
     return new Date(dateString).toLocaleDateString();
   }
 
+  /** Touch-drag: works on mobile and touch devices */
+  private touchStartX = 0;
+  private touchScrollStart = 0;
+
+  private initTouchDrag(): void {
+    const afterLoad = () => {
+      const container = document.querySelector('.reviews-slider-container') as HTMLElement | null;
+      if (!container) return;
+
+      container.addEventListener('touchstart', (e: TouchEvent) => {
+        this.touchStartX = e.touches[0].clientX;
+        this.touchScrollStart = container.scrollLeft;
+      }, { passive: true });
+
+      container.addEventListener('touchmove', (e: TouchEvent) => {
+        const x = e.touches[0].clientX;
+        const walk = this.touchStartX - x;
+        container.scrollLeft = this.touchScrollStart + walk;
+        e.preventDefault();
+      }, { passive: false });
+    };
+    setTimeout(afterLoad, 500);
+  }
+
   /** Mobile: auto-scroll reviews (pause while user swiping) */
   private initMobileReviewsSlider(): void {
     if (typeof window === 'undefined' || window.innerWidth > 768) return;
@@ -106,61 +129,25 @@ export class ReviewsSlider implements OnInit, OnDestroy, AfterViewInit {
         }, 1500);
       }, { passive: true });
 
-      const getScrollPosition = (el: HTMLElement): number => {
-        const maxScroll = el.scrollWidth - el.clientWidth;
-        if (maxScroll <= 0) return 0;
-        const left = el.scrollLeft;
-        const isRtl = this.reviewsLastDir === 'rtl';
-        if (!isRtl) return left;
-        if (this.reviewsRtlUsesNegativeScroll === true) return -left;
-        if (this.reviewsRtlUsesNegativeScroll === false) return left;
-        return left <= 0 ? -left : left;
-      };
-
-      const setScrollPosition = (el: HTMLElement, pos: number): void => {
-        const maxScroll = el.scrollWidth - el.clientWidth;
-        const isRtl = this.reviewsLastDir === 'rtl';
-        if (!isRtl) {
-          el.scrollLeft = pos;
-          return;
-        }
-        if (this.reviewsRtlUsesNegativeScroll === true) {
-          el.scrollLeft = -pos;
-          return;
-        }
-        if (this.reviewsRtlUsesNegativeScroll === false) {
-          el.scrollLeft = pos;
-          return;
-        }
-        el.scrollLeft = -pos;
-        if (el.scrollLeft <= -1) this.reviewsRtlUsesNegativeScroll = true;
-        else {
-          el.scrollLeft = pos;
-          this.reviewsRtlUsesNegativeScroll = false;
-        }
-      };
-
       const tick = () => {
         const el = document.querySelector('.reviews-slider-container') as HTMLElement | null;
         if (!el) {
           this.reviewsScrollRaf = requestAnimationFrame(tick);
           return;
         }
-        const isRtl = document.documentElement.getAttribute('dir') === 'rtl';
-        const currentDir = isRtl ? 'rtl' : 'ltr';
-        if (this.reviewsLastDir !== currentDir) {
-          this.reviewsLastDir = currentDir;
-          this.reviewsRtlUsesNegativeScroll = isRtl ? null : false;
-        }
         if (this.reviewsIsTouching) {
           this.reviewsScrollRaf = requestAnimationFrame(tick);
           return;
         }
+        const maxScroll = el.scrollWidth - el.clientWidth;
+        if (maxScroll <= 0) {
+          this.reviewsScrollRaf = requestAnimationFrame(tick);
+          return;
+        }
         const half = el.scrollWidth / 2;
-        let pos = getScrollPosition(el);
-        pos += scrollSpeed;
+        let pos = el.scrollLeft + scrollSpeed;
         if (pos >= half) pos = 0;
-        setScrollPosition(el, pos);
+        el.scrollLeft = pos;
         this.reviewsScrollRaf = requestAnimationFrame(tick);
       };
       this.reviewsScrollRaf = requestAnimationFrame(tick);
@@ -186,18 +173,14 @@ export class ReviewsSlider implements OnInit, OnDestroy, AfterViewInit {
       });
 
       const handleMouseDown = (e: MouseEvent) => {
+        if ((e.target as HTMLElement).closest('a') || (e.target as HTMLElement).closest('button')) return;
         this.reviewsIsMouseDown = true;
         this.reviewsHasDragged = false;
-        this.reviewsStartX = e.pageX - container.offsetLeft;
+        const rect = container.getBoundingClientRect();
+        this.reviewsStartX = e.clientX - rect.left;
         this.reviewsScrollLeftStart = container.scrollLeft;
         container.style.cursor = 'grabbing';
         container.style.userSelect = 'none';
-      };
-
-      const handleMouseLeave = () => {
-        this.reviewsIsMouseDown = false;
-        container.style.cursor = 'grab';
-        container.style.userSelect = '';
       };
 
       const handleMouseUp = () => {
@@ -209,14 +192,12 @@ export class ReviewsSlider implements OnInit, OnDestroy, AfterViewInit {
       const handleMouseMove = (e: MouseEvent) => {
         if (!this.reviewsIsMouseDown) return;
         e.preventDefault();
-        
-        const x = e.pageX - container.offsetLeft;
+        const rect = container.getBoundingClientRect();
+        const x = e.clientX - rect.left;
         const walk = (x - this.reviewsStartX) * 1.5;
-        
         if (Math.abs(walk) > 5) {
           this.reviewsHasDragged = true;
         }
-        
         container.scrollLeft = this.reviewsScrollLeftStart - walk;
       };
 
@@ -228,9 +209,9 @@ export class ReviewsSlider implements OnInit, OnDestroy, AfterViewInit {
       };
 
       container.addEventListener('mousedown', handleMouseDown);
-      container.addEventListener('mouseleave', handleMouseLeave);
-      container.addEventListener('mouseup', handleMouseUp);
-      container.addEventListener('mousemove', handleMouseMove);
+      document.addEventListener('mouseup', handleMouseUp);
+      document.addEventListener('mousemove', handleMouseMove);
+      container.addEventListener('mouseleave', handleMouseUp);
       container.addEventListener('click', handleClick, true);
     };
 
