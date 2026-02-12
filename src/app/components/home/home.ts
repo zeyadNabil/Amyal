@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy, HostListener, signal, effect } from '@angular/core';
+import { Component, OnInit, OnDestroy, HostListener, signal, effect, AfterViewInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { LanguageService } from '../../services/language.service';
@@ -10,7 +10,7 @@ import { PARTNER_IMAGES } from '../../constants/partner-images.constant';
   templateUrl: './home.html',
   styleUrl: './home.css'
 })
-export class Home implements OnInit, OnDestroy {
+export class Home implements OnInit, OnDestroy, AfterViewInit {
   isLoaded = signal(false);
   private counterTimers: Map<Element, { intervalId?: number; timeoutId?: number }> = new Map();
   private countersStarted = false;
@@ -119,6 +119,44 @@ export class Home implements OnInit, OnDestroy {
       const hero = document.querySelector('.hero-section');
       if (hero) {
         (hero as HTMLElement).style.transform = 'none';
+      }
+    }, 100);
+  }
+
+  ngAfterViewInit(): void {
+    // Ensure video plays - Enhanced for all browsers and mobile
+    setTimeout(() => {
+      const video = document.querySelector('.hero-video-background') as HTMLVideoElement;
+      if (video) {
+        // Ensure muted for autoplay policy
+        video.muted = true;
+        video.setAttribute('muted', '');
+        video.defaultMuted = true;
+        video.playsInline = true;
+        video.setAttribute('playsinline', '');
+        video.setAttribute('webkit-playsinline', '');
+        
+        // Force load and play
+        video.load();
+        
+        // Attempt to play immediately
+        const attemptPlay = () => {
+          const playPromise = video.play();
+          if (playPromise !== undefined) {
+            playPromise.catch(err => {
+              console.warn('Video autoplay failed:', err);
+            });
+          }
+        };
+        
+        attemptPlay();
+        
+        // Mobile: Also try on touchstart
+        const mobilePlay = () => {
+          video.play().catch(() => {});
+          document.removeEventListener('touchstart', mobilePlay);
+        };
+        document.addEventListener('touchstart', mobilePlay, { once: true, passive: true });
       }
     }, 100);
   }

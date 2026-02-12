@@ -1,9 +1,28 @@
 <!-- Hero Section -->
 <section id="home" class="hero-section" [class.content-loaded]="isLoaded()">
-  <div class="container">
+  <!-- Video Background -->
+  <video 
+    class="hero-video-background" 
+    autoplay 
+    loop 
+    muted 
+    playsinline
+    preload="auto"
+    defaultMuted
+    webkit-playsinline
+    x-webkit-airplay="deny"
+    disablePictureInPicture>
+    <source src="assets/images/home_video.mp4" type="video/mp4">
+    Your browser does not support the video tag.
+  </video>
+  
+  <!-- Overlay for better text visibility -->
+  <div class="hero-video-overlay"></div>
+  
+  <div class="container hero-content-container">
     <div class="row hero-content align-items-center">
-      <!-- Left Side: Text Content -->
-      <div class="col-12 col-md-6 hero-text-content">
+      <!-- Left aligned Text Content with Shadow -->
+      <div class="col-12 col-lg-8 hero-text-content">
         <h1 class="hero-title">
           <span class="text-line">{{ langService.t('hero.title') }}</span>
           <span class="text-line gradient-text-animated">{{ langService.t('hero.titleGradient') }}</span>
@@ -17,15 +36,6 @@
           <a routerLink="/contact-us" class="btn-glow btn-secondary">
             <span class="btn-text">{{ langService.t('nav.contact') }}</span>
           </a>
-        </div>
-      </div>
-
-      <!-- Right Side: Stands Photo in Rectangle Card -->
-      <div class="col-12 col-md-6 hero-stands-col">
-        <div class="hero-stands-card scroll-reveal">
-          <div class="hero-stands-card-inner">
-            <img src="assets/images/Stands Photo.png" alt="Exhibition Stands" class="hero-stands-image">
-          </div>
         </div>
       </div>
     </div>
