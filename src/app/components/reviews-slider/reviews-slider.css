@@ -1,6 +1,5 @@
 .reviews-slider-section {
   padding: 80px 0;
-  overflow: hidden;
 }
 
 .section-header {
@@ -34,9 +33,11 @@
   overflow-y: hidden;
   scrollbar-width: none;
   -ms-overflow-style: none;
+  -webkit-overflow-scrolling: touch;
   cursor: grab;
   user-select: none;
   width: 100%;
+  touch-action: pan-x;
 }
 
 .reviews-slider-container::-webkit-scrollbar {
@@ -59,7 +60,7 @@
 
 .reviews-slider-wrapper.scrollable {
   justify-content: flex-start;
-  padding-left: 15px;
+  padding-inline-start: 15px;
 }
 
 .reviews-slider-track {
@@ -236,9 +237,25 @@
   }
 }
 
-/* RTL: Keep cards identical to English - LTR layout, no change */
-[dir="rtl"] .reviews-slider-track,
+/* RTL: Keep cards identical to English - LTR layout, name/date stay left */
+[dir="rtl"] .reviews-slider-track {
+  direction: ltr;
+}
 [dir="rtl"] .review-card-slider {
   direction: ltr;
+  unicode-bidi: isolate;
   text-align: left;
+}
+[dir="rtl"] .review-card-slider .review-rating,
+[dir="rtl"] .review-card-slider .review-message,
+[dir="rtl"] .review-card-slider .review-author,
+[dir="rtl"] .review-card-slider .review-author-info,
+[dir="rtl"] .review-card-slider .review-author strong,
+[dir="rtl"] .review-card-slider .review-date {
+  text-align: left;
+  direction: ltr;
+}
+[dir="rtl"] .review-card-slider .review-author {
+  flex-direction: row;
+  justify-content: flex-start;
 }
