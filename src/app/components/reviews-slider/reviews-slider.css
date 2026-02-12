@@ -47,12 +47,19 @@
   cursor: grabbing;
 }
 
+.reviews-slider-wrapper {
+  min-width: 100%;
+  display: flex;
+  justify-content: center;
+  padding: 20px 0;
+}
+
 .reviews-slider-track {
   display: flex;
   gap: 30px;
-  padding: 20px 0 20px 15px;
   animation: none;
   justify-content: flex-start;
+  flex-shrink: 0;
 }
 
 .review-card-slider {
