@@ -93,13 +93,7 @@
   font-size: 1.1rem;
   text-align: left;
   letter-spacing: 2px;
-  margin-bottom: 12px;
-}
-
-.review-divider {
-  height: 1px;
-  background: rgba(255, 255, 255, 0.12);
-  margin: 12px 0;
+  margin-bottom: 10px;
 }
 
 .review-message {
@@ -119,7 +113,7 @@
   display: flex;
   align-items: center;
   gap: 12px;
-  margin-top: 8px;
+  margin-top: 12px;
 }
 
 .review-avatar {
