@@ -72,6 +72,10 @@
   flex-shrink: 0;
 }
 
+.reviews-slider-wrapper.scrollable .reviews-slider-track {
+  padding-inline-end: 40px;
+}
+
 .review-card-slider {
   min-width: 280px;
   max-width: 280px;
@@ -215,6 +219,14 @@
 @media (max-width: 768px) {
   .reviews-slider-section {
     padding: 60px 0;
+  }
+  
+  .reviews-slider-wrapper.scrollable {
+    padding-inline-start: 20px;
+  }
+  
+  .reviews-slider-wrapper.scrollable .reviews-slider-track {
+    padding-inline-end: 30px;
   }
   
   .section-title {

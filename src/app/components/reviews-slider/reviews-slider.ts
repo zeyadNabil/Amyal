@@ -43,7 +43,6 @@ export class ReviewsSlider implements OnInit, OnDestroy, AfterViewInit {
   }
 
   ngOnInit(): void {
-    this.initTouchDrag();
     this.initMobileReviewsSlider();
     this.initDesktopReviewsDrag();
   }
@@ -78,30 +77,6 @@ export class ReviewsSlider implements OnInit, OnDestroy, AfterViewInit {
 
   formatDate(dateString: string): string {
     return new Date(dateString).toLocaleDateString();
-  }
-
-  /** Touch-drag: works on mobile and touch devices */
-  private touchStartX = 0;
-  private touchScrollStart = 0;
-
-  private initTouchDrag(): void {
-    const afterLoad = () => {
-      const container = document.querySelector('.reviews-slider-container') as HTMLElement | null;
-      if (!container) return;
-
-      container.addEventListener('touchstart', (e: TouchEvent) => {
-        this.touchStartX = e.touches[0].clientX;
-        this.touchScrollStart = container.scrollLeft;
-      }, { passive: true });
-
-      container.addEventListener('touchmove', (e: TouchEvent) => {
-        const x = e.touches[0].clientX;
-        const walk = this.touchStartX - x;
-        container.scrollLeft = this.touchScrollStart + walk;
-        e.preventDefault();
-      }, { passive: false });
-    };
-    setTimeout(afterLoad, 500);
   }
 
   /** Mobile: auto-scroll reviews (pause while user swiping) */
