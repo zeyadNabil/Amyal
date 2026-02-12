@@ -50,8 +50,16 @@
 .reviews-slider-wrapper {
   min-width: 100%;
   display: flex;
-  justify-content: center;
   padding: 20px 0;
+}
+
+.reviews-slider-wrapper.centered {
+  justify-content: center;
+}
+
+.reviews-slider-wrapper.scrollable {
+  justify-content: flex-start;
+  padding-left: 15px;
 }
 
 .reviews-slider-track {
@@ -228,11 +236,9 @@
   }
 }
 
-/* RTL Support */
-[dir="rtl"] .reviews-slider-track {
-  direction: ltr;
-}
-
+/* RTL: Keep cards identical to English - LTR layout, no change */
+[dir="rtl"] .reviews-slider-track,
 [dir="rtl"] .review-card-slider {
-  direction: rtl;
+  direction: ltr;
+  text-align: left;
 }

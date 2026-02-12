@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy, HostListener, signal, computed } from '@angular/core';
+import { Component, OnInit, OnDestroy, AfterViewInit, HostListener, signal, computed, effect } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { ReviewService } from '../../services/review.service';
@@ -12,9 +12,12 @@ import { Review } from '../../models/api.models';
   templateUrl: './reviews-slider.html',
   styleUrl: './reviews-slider.css'
 })
-export class ReviewsSlider implements OnInit, OnDestroy {
+export class ReviewsSlider implements OnInit, OnDestroy, AfterViewInit {
   // Use computed signal that automatically updates when service reviews change
   reviews = computed(() => this.reviewService.reviews().filter(r => r.approved));
+
+  // When false: cards fit, center them. When true: overflow, use flex-start so first card is visible
+  sliderHasOverflow = signal(false);
   
   // Desktop drag functionality
   private reviewsSliderContainer: HTMLElement | null = null;
@@ -30,16 +33,39 @@ export class ReviewsSlider implements OnInit, OnDestroy {
   private reviewsRtlUsesNegativeScroll: boolean | null = null;
   private reviewsLastDir: 'ltr' | 'rtl' | null = null;
 
+
   constructor(
     public reviewService: ReviewService,
     public langService: LanguageService
-  ) {}
+  ) {
+    effect(() => {
+      this.reviews();
+      setTimeout(() => this.checkSliderOverflow(), 0);
+    });
+  }
 
   ngOnInit(): void {
-    // Reviews are now loaded automatically by the service
-    // and updates via computed signal
     this.initMobileReviewsSlider();
     this.initDesktopReviewsDrag();
+  }
+
+  ngAfterViewInit(): void {
+    setTimeout(() => this.checkSliderOverflow(), 100);
+  }
+
+  @HostListener('window:resize')
+  onResize(): void {
+    this.checkSliderOverflow();
+  }
+
+  private checkSliderOverflow(): void {
+    if (typeof document === 'undefined' || this.reviews().length === 0) return;
+    const container = document.querySelector('.reviews-slider-container') as HTMLElement | null;
+    if (!container) return;
+    const hasOverflow = container.scrollWidth > container.clientWidth;
+    if (this.sliderHasOverflow() !== hasOverflow) {
+      this.sliderHasOverflow.set(hasOverflow);
+    }
   }
 
   ngOnDestroy(): void {

@@ -16,7 +16,7 @@
   
   @if (reviews().length > 0) {
     <div class="reviews-slider-container">
-      <div class="reviews-slider-wrapper">
+      <div class="reviews-slider-wrapper" [class.centered]="!sliderHasOverflow()" [class.scrollable]="sliderHasOverflow()">
         <div class="reviews-slider-track">
         @for (review of reviews(); track review.id) {
           <div class="review-card-slider">
