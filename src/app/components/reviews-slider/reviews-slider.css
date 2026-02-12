@@ -56,17 +56,17 @@
 }
 
 .review-card-slider {
-  min-width: 350px;
-  max-width: 350px;
+  min-width: 280px;
+  max-width: 280px;
   background: rgba(255, 255, 255, 0.04);
   border: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: 16px;
-  padding: 28px;
+  border-radius: 12px;
+  padding: 20px 22px;
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
   transition: all 0.3s ease;
   display: flex;
   flex-direction: column;
-  gap: 18px;
+  gap: 0;
   position: relative;
   overflow: hidden;
 }
@@ -90,38 +90,67 @@
 }
 
 .review-rating {
-  font-size: 1.35rem;
+  font-size: 1.1rem;
   text-align: left;
   letter-spacing: 2px;
+  margin-bottom: 12px;
+}
+
+.review-divider {
+  height: 1px;
+  background: rgba(255, 255, 255, 0.12);
+  margin: 12px 0;
 }
 
 .review-message {
   color: rgba(255, 255, 255, 0.9);
-  line-height: 1.65;
-  font-size: 1.05rem;
+  line-height: 1.55;
+  font-size: 0.95rem;
   flex: 1;
   text-align: left;
-  padding-left: 0;
+  margin: 0;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
 }
 
 .review-author {
-  text-align: left;
-  padding-top: 14px;
-  border-top: 1px solid rgba(255, 255, 255, 0.12);
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-top: 8px;
+}
+
+.review-avatar {
+  width: 40px;
+  height: 40px;
+  min-width: 40px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 1rem;
+}
+
+.review-author-info {
   display: flex;
   flex-direction: column;
-  gap: 4px;
+  gap: 2px;
 }
 
 .review-author strong {
   color: var(--white);
-  font-size: 1rem;
+  font-size: 0.95rem;
   font-weight: 600;
 }
 
 .review-date {
   color: rgba(255, 255, 255, 0.55);
-  font-size: 0.85rem;
+  font-size: 0.8rem;
 }
 
 .reviews-actions {
@@ -182,9 +211,9 @@
   }
   
   .review-card-slider {
-    min-width: 280px;
-    max-width: 280px;
-    padding: 25px;
+    min-width: 260px;
+    max-width: 260px;
+    padding: 18px 20px;
   }
   
   .reviews-actions {

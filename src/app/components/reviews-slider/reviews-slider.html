@@ -20,10 +20,17 @@
         @for (review of reviews(); track review.id) {
           <div class="review-card-slider">
             <div class="review-rating">{{ getStars(review.rating) }}</div>
-            <p class="review-message">"{{ review.message }}"</p>
+            <div class="review-divider"></div>
+            <p class="review-message">{{ review.message }}</p>
+            <div class="review-divider"></div>
             <div class="review-author">
-              <strong>{{ review.name }}</strong>
-              <span class="review-date">{{ formatDate(review.createdAt) }}</span>
+              <div class="review-avatar">
+                <i class="fas fa-user"></i>
+              </div>
+              <div class="review-author-info">
+                <strong>{{ review.name }}</strong>
+                <span class="review-date">{{ formatDate(review.createdAt) }}</span>
+              </div>
             </div>
           </div>
         }
