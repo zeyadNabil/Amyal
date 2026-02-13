@@ -34,6 +34,11 @@ export class Home implements OnInit, OnDestroy, AfterViewInit {
   private videoVisibilityHandler?: () => void;
   private videoFocusHandler?: () => void;
   private videoPageShowHandler?: (event: PageTransitionEvent) => void;
+  
+  /** Video freeze detection */
+  private videoElement: HTMLVideoElement | null = null;
+  private lastVideoTime = 0;
+  private videoCheckInterval: any = null;
 
   // Services data - will be initialized in ngOnInit
   services: Array<{ key: string; description: string }> = [];
@@ -129,66 +134,83 @@ export class Home implements OnInit, OnDestroy, AfterViewInit {
   }
 
   ngAfterViewInit(): void {
-    // Ensure video plays - Enhanced for all browsers and mobile
+    // Ensure video plays - Enhanced with freeze detection and auto-restart
     setTimeout(() => {
       const video = document.querySelector('.hero-video-background') as HTMLVideoElement;
-      if (video) {
-        // Ensure muted for autoplay policy
-        video.muted = true;
-        video.setAttribute('muted', '');
-        video.defaultMuted = true;
-        video.playsInline = true;
-        video.setAttribute('playsinline', '');
-        video.setAttribute('webkit-playsinline', '');
-        
-        // Force load and play
+      if (!video) return;
+      
+      this.videoElement = video;
+      
+      // Setup video attributes
+      video.muted = true;
+      video.setAttribute('muted', '');
+      video.defaultMuted = true;
+      video.playsInline = true;
+      video.setAttribute('playsinline', '');
+      video.setAttribute('webkit-playsinline', '');
+      video.loop = true;
+      video.setAttribute('loop', '');
+      
+      const videoSrc = video.currentSrc || video.src;
+      
+      const restartVideo = () => {
+        console.log('Restarting video...');
+        video.src = videoSrc;
         video.load();
+        const playPromise = video.play();
+        if (playPromise) {
+          playPromise.catch(err => console.warn('Play failed:', err));
+        }
+        this.lastVideoTime = 0;
+      };
+      
+      // Initial play
+      video.load();
+      setTimeout(() => restartVideo(), 100);
+      
+      // Freeze detection - check if video time is progressing
+      this.videoCheckInterval = setInterval(() => {
+        if (document.hidden) return; // Don't check when page is hidden
         
-        // Attempt to play immediately
-        const attemptPlay = () => {
-          const playPromise = video.play();
-          if (playPromise !== undefined) {
-            playPromise.catch(err => {
-              console.warn('Video autoplay failed:', err);
-            });
-          }
-        };
+        const currentTime = video.currentTime;
         
-        attemptPlay();
+        // If video should be playing but time hasn't changed
+        if (!video.paused && currentTime === this.lastVideoTime && currentTime > 0) {
+          console.log('Video frozen detected! Restarting...');
+          restartVideo();
+        }
         
-        // Handle page visibility changes - resume video when user returns to app
-        this.videoVisibilityHandler = () => {
-          if (!document.hidden && video.paused) {
-            video.play().catch(() => {});
-          }
-        };
-        
-        // Handle when window regains focus
-        this.videoFocusHandler = () => {
-          if (video.paused) {
-            video.play().catch(() => {});
-          }
-        };
-        
-        // Handle when page is restored from cache (iOS Safari)
-        this.videoPageShowHandler = (event: PageTransitionEvent) => {
-          if (event.persisted && video.paused) {
-            video.play().catch(() => {});
-          }
-        };
-        
-        // Add event listeners
-        document.addEventListener('visibilitychange', this.videoVisibilityHandler);
-        window.addEventListener('focus', this.videoFocusHandler);
-        window.addEventListener('pageshow', this.videoPageShowHandler);
-        
-        // Mobile: Also try on touchstart
-        const mobilePlay = () => {
-          video.play().catch(() => {});
-          document.removeEventListener('touchstart', mobilePlay);
-        };
-        document.addEventListener('touchstart', mobilePlay, { once: true, passive: true });
-      }
+        this.lastVideoTime = currentTime;
+      }, 1000);
+      
+      // Handle visibility change - reload the video
+      this.videoVisibilityHandler = () => {
+        if (!document.hidden) {
+          console.log('Page visible - force reload video');
+          setTimeout(() => restartVideo(), 200);
+        }
+      };
+      
+      // Handle when window regains focus
+      this.videoFocusHandler = () => {
+        setTimeout(() => restartVideo(), 200);
+      };
+      
+      // Handle when page is restored from cache (iOS Safari)
+      this.videoPageShowHandler = (event: PageTransitionEvent) => {
+        setTimeout(() => restartVideo(), 200);
+      };
+      
+      // Add event listeners
+      document.addEventListener('visibilitychange', this.videoVisibilityHandler);
+      window.addEventListener('focus', this.videoFocusHandler);
+      window.addEventListener('pageshow', this.videoPageShowHandler);
+      
+      // Mobile: Also try on touchstart
+      const mobilePlay = () => {
+        restartVideo();
+      };
+      document.addEventListener('touchstart', mobilePlay, { once: true, passive: true });
     }, 100);
   }
 
@@ -208,10 +230,15 @@ export class Home implements OnInit, OnDestroy, AfterViewInit {
       window.removeEventListener('pageshow', this.videoPageShowHandler);
     }
     
+    // Clean up video freeze detection
+    if (this.videoCheckInterval) {
+      clearInterval(this.videoCheckInterval);
+    }
+    
     // Pause video on component destroy
-    const video = document.querySelector('.hero-video-background') as HTMLVideoElement;
-    if (video) {
-      video.pause();
+    if (this.videoElement) {
+      this.videoElement.pause();
+      this.videoElement = null;
     }
   }
 
