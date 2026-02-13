@@ -140,6 +140,11 @@
     z-index: 10001;
 }
 
+/* Hide neon line on home page */
+.navbar.on-home .nav-link::after {
+    display: none;
+}
+
 .nav-link:hover::after,
 .nav-link.active::after {
     width: 100%;

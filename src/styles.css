@@ -346,6 +346,11 @@ body.nav-scrolled .neon-lines {
     opacity: 0;
 }
 
+/* Hide neon wave on home page only */
+body.on-home-page .neon-lines {
+    display: none;
+}
+
 /* Fix for iPhone 14 Pro Max and similar tall mobile screens */
 @media (max-width: 479px) and (min-height: 800px) {
     .neon-lines {

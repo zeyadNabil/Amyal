@@ -30,6 +30,11 @@ export class Home implements OnInit, OnDestroy, AfterViewInit {
   private partnersScrollLeftStart = 0;
   private partnersHasDragged = false;
 
+  /** Video event handlers for proper cleanup */
+  private videoVisibilityHandler?: () => void;
+  private videoFocusHandler?: () => void;
+  private videoPageShowHandler?: (event: PageTransitionEvent) => void;
+
   // Services data - will be initialized in ngOnInit
   services: Array<{ key: string; description: string }> = [];
 
@@ -151,6 +156,32 @@ export class Home implements OnInit, OnDestroy, AfterViewInit {
         
         attemptPlay();
         
+        // Handle page visibility changes - resume video when user returns to app
+        this.videoVisibilityHandler = () => {
+          if (!document.hidden && video.paused) {
+            video.play().catch(() => {});
+          }
+        };
+        
+        // Handle when window regains focus
+        this.videoFocusHandler = () => {
+          if (video.paused) {
+            video.play().catch(() => {});
+          }
+        };
+        
+        // Handle when page is restored from cache (iOS Safari)
+        this.videoPageShowHandler = (event: PageTransitionEvent) => {
+          if (event.persisted && video.paused) {
+            video.play().catch(() => {});
+          }
+        };
+        
+        // Add event listeners
+        document.addEventListener('visibilitychange', this.videoVisibilityHandler);
+        window.addEventListener('focus', this.videoFocusHandler);
+        window.addEventListener('pageshow', this.videoPageShowHandler);
+        
         // Mobile: Also try on touchstart
         const mobilePlay = () => {
           video.play().catch(() => {});
@@ -165,6 +196,23 @@ export class Home implements OnInit, OnDestroy, AfterViewInit {
     this.stopCounterAnimations();
     if (this.partnersScrollRaf != null) cancelAnimationFrame(this.partnersScrollRaf);
     if (this.partnersResumeTimeout != null) clearTimeout(this.partnersResumeTimeout);
+    
+    // Clean up video event listeners
+    if (this.videoVisibilityHandler) {
+      document.removeEventListener('visibilitychange', this.videoVisibilityHandler);
+    }
+    if (this.videoFocusHandler) {
+      window.removeEventListener('focus', this.videoFocusHandler);
+    }
+    if (this.videoPageShowHandler) {
+      window.removeEventListener('pageshow', this.videoPageShowHandler);
+    }
+    
+    // Pause video on component destroy
+    const video = document.querySelector('.hero-video-background') as HTMLVideoElement;
+    if (video) {
+      video.pause();
+    }
   }
 
   /** On mobile: auto-scroll partners strip; pause while user is swiping. Works in LTR and RTL. Re-adapts when language (dir) changes. */
