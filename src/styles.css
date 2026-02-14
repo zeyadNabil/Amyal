@@ -560,6 +560,23 @@ body.on-home-page .neon-lines {
   }
 }
 
+/* Brand Ambassadors & Event Hosts - full image, no clipping */
+.service-slider-section .slider-card.brand-ambassadors-card .card-image-wrapper {
+  aspect-ratio: unset !important;
+  height: auto !important;
+  overflow: visible !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+}
+
+.service-slider-section .slider-card.brand-ambassadors-card .card-slider-image {
+  width: 100% !important;
+  height: auto !important;
+  object-fit: contain !important;
+  object-position: center center !important;
+}
+
 /* Stats section: larger numbers and sign (+ / %) on small screens */
 @media (max-width: 768px) {
   .stats-section .stat-number {

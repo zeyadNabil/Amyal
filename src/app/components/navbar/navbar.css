@@ -1595,5 +1595,14 @@
         background-clip: text;
         -webkit-text-fill-color: transparent;
     }
+
+    /* Keep dropdown arrow visible when active (parent has transparent color) */
+    .nav-link.dropdown-toggle.active .dropdown-arrow {
+        stroke: #60CEFE !important;
+    }
+
+    [dir="rtl"] .nav-link.dropdown-toggle.active .dropdown-arrow {
+        stroke: #0E37AD !important;
+    }
 }
 

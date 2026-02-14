@@ -62,7 +62,7 @@
                  [style.gap.px]="gapPx()">
               @for (image of getServiceImages(); track image; let i = $index) {
                 <div class="card-slider-item" [style.width.px]="cardWidthPx() || 280">
-                  <div class="service-card slider-card">
+                  <div class="service-card slider-card" [class.brand-ambassadors-card]="serviceType() === 'brand-ambassadors-event-hosts'">
                     <div class="card-image-wrapper" (click)="openImage(image)">
                       <img [src]="image"
                            class="card-slider-image"
