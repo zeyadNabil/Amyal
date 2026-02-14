@@ -124,12 +124,12 @@
     z-index: 1;
     padding-bottom: 3rem;
   }
-  
+
   /* Content positioned with padding to avoid navbar */
   .hero-content-container {
     padding-top: 160px;
   }
-  
+
   /* Ensure video starts from absolute top on mobile */
   .hero-video-background {
     top: 0;
@@ -137,7 +137,7 @@
     min-height: 55vh;
     object-fit: cover;
   }
-  
+
   .hero-video-overlay {
     top: 0;
   }
@@ -229,7 +229,7 @@
   margin-bottom: 2.5rem;
   position: relative;
   color: #ffffff;
-  text-shadow: 
+  text-shadow:
     2px 2px 8px rgba(0, 0, 0, 0.8),
     4px 4px 16px rgba(0, 0, 0, 0.6),
     0 0 20px rgba(0, 0, 0, 0.5);
@@ -239,7 +239,7 @@
   display: block;
   margin-bottom: 0.5rem;
   color: #ffffff;
-  text-shadow: 
+  text-shadow:
     0 0 5px rgba(255, 255, 255, 0.4),
     0 0 10px rgba(255, 255, 255, 0.2);
   animation: whiteShine 2s ease-in-out infinite;
@@ -247,12 +247,12 @@
 
 @keyframes whiteShine {
   0%, 100% {
-    text-shadow: 
+    text-shadow:
       0 0 5px rgba(255, 255, 255, 0.4),
       0 0 10px rgba(255, 255, 255, 0.2);
   }
   50% {
-    text-shadow: 
+    text-shadow:
       0 0 8px rgba(255, 255, 255, 0.5),
       0 0 12px rgba(255, 255, 255, 0.3);
   }
@@ -755,6 +755,16 @@
   font-weight: 600;
 }
 
+/* Big screens: slightly smaller stat numbers */
+@media (min-width: 992px) {
+  .stat-number {
+    font-size: 3.25rem;
+  }
+
+  .stat-suffix {
+    font-size: 1.85rem;
+  }
+}
 
 /* ========================================
    FEATURES SECTION - 3D CARDS
@@ -1223,9 +1233,6 @@
   [dir="rtl"] .hero-stands-image-wrapper {
     padding-right: 0;
   }
-  .hero-title {
-    font-size: clamp(3rem, 7vw, 5rem);
-  }
 
   .hero-cta {
     flex-direction: column;
@@ -1236,7 +1243,20 @@
 
   .btn-glow {
     width: 100%;
-    max-width: 300px;
+    max-width: 280px;
+    padding: 1rem 2.25rem;
+    font-size: 1rem;
+  }
+
+  .btn-primary,
+  .btn-secondary {
+    padding: 0.95rem 2.25rem;
+    font-size: 1rem;
+  }
+
+  .btn-large {
+    padding: 1.2rem 3rem;
+    font-size: 1.05rem;
   }
 
   /* Smaller icons on tablet/small screens – same size for all home icons (services, stats, features) */
@@ -1365,6 +1385,27 @@
     border-radius: 15px;
   }
 
+  .btn-glow {
+    max-width: 260px;
+    padding: 0.9rem 2rem;
+    font-size: 0.95rem;
+  }
+
+  .btn-primary,
+  .btn-secondary {
+    padding: 0.85rem 2rem;
+    font-size: 0.95rem;
+  }
+
+  .btn-large {
+    padding: 1rem 2.5rem;
+    font-size: 0.98rem;
+  }
+
+  .section-title {
+    font-size: clamp(2rem, 5.5vw, 3.25rem);
+  }
+
   .stat-card-animated {
     padding: 0.85rem 0.4rem;
   }
@@ -1394,10 +1435,6 @@
 
   .stat-icon {
     margin-bottom: 0.5rem;
-  }
-
-  .stat-number {
-    font-size: 2.5rem;
   }
 
   .feature-title {

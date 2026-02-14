@@ -87,12 +87,25 @@
    NAVBAR BASE STYLES
    ======================================== */
 
+/* Prevent navbar from breaking - compact layout on all desktop sizes */
+#mainNav .container-fluid {
+    flex-wrap: nowrap;
+}
+
+#mainNav .navbar-nav {
+    flex-wrap: nowrap;
+}
+
+#mainNav .nav-item {
+    flex-shrink: 0;
+}
+
 .navbar {
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
-    padding: 1.25rem 3rem;
+    padding: 0.75rem 2rem;
     background: transparent;
     /* Only transition background – no size/padding transition to avoid zoom effect */
     transition: background 0.3s ease, backdrop-filter 0.3s ease, box-shadow 0.3s ease;
@@ -101,22 +114,22 @@
 }
 
 .navbar.scrolled {
-    /* Keep same padding as base – only background changes on scroll */
-    padding: .5rem 2rem;
+    /* Compact padding when scrolled */
+    padding: 0.5rem 1.5rem;
     background: rgba(10, 14, 26, 0.7);
     backdrop-filter: blur(10px);
     box-shadow: 0 5px 20px rgba(2, 125, 248, 0.1);
 }
 
 .navbar-nav {
-    gap: 2rem;
+    gap: 1.5rem;
     align-items: center;
 }
 
 .nav-link {
     color: var(--white) !important;
     font-weight: 500;
-    font-size: 0.875rem;
+    font-size: 0.9rem;
     position: relative;
     transition: all 0.3s ease;
     padding: 0.5rem 0 !important;
@@ -140,9 +153,15 @@
     z-index: 10001;
 }
 
-/* Hide neon line on home page */
+/* Hide neon line on home page - but show underline for active link on bigger screens */
 .navbar.on-home .nav-link::after {
     display: none;
+}
+
+@media (min-width: 992px) {
+    .navbar.on-home .nav-link.active::after {
+        display: block !important;
+    }
 }
 
 .nav-link:hover::after,
@@ -194,7 +213,7 @@
 }
 
 .navbar-logo {
-    height: 400px;
+    height: 70px;
     width: auto;
     /* Only transition filter – never transition size so logo stays constant on scroll */
     transition-property: filter;
@@ -204,7 +223,7 @@
 
 /* Keep logo same size when sticky – only background changes on scroll */
 .navbar.scrolled .navbar-logo {
-    height: 400px;
+    height: 70px;
 }
 
 .navbar-brand:hover .navbar-logo {
@@ -444,39 +463,47 @@
 
 /* ========================================
    RESPONSIVE - LARGE DESKTOP (≥1400px)
+   Compact navbar to prevent breakdown
    ======================================== */
 
 @media (min-width: 1400px) {
     .navbar {
-        padding: 1.25rem 4rem;
+        padding: 0.85rem 2.5rem;
     }
 
     .navbar.scrolled {
-        padding: 1.25rem 4rem;
+        padding: 0.6rem 2rem;
     }
 
     .navbar-logo {
-        height: 180px;
+        height: 108px;
     }
 
     .navbar.scrolled .navbar-logo {
-        height: 180px;
+        height: 108px;
     }
 
     .dropdown-menu {
-        min-width: 20rem;
+        min-width: 18rem;
     }
 
     .navbar-nav {
-        gap: 2.5rem;
+        gap: 1.75rem;
     }
 
     .nav-link {
-        font-size: 0.9rem;
+        font-size: 0.95rem;
     }
 
     .btn-get-quote {
+        font-size: 0.95rem;
+        padding: 0.5rem 1.25rem !important;
+    }
+
+    .lang-toggle-btn {
         font-size: 0.9rem;
+        padding: 0.5rem 1rem;
+        min-width: 75px;
     }
 }
 
@@ -486,57 +513,19 @@
 
 @media (min-width: 1200px) and (max-width: 1399px) {
     .navbar {
-        padding: 1.25rem 3rem;
+        padding: 0.75rem 2rem;
     }
 
     .navbar.scrolled {
-        padding: 1.25rem 3rem;
+        padding: 0.55rem 1.5rem;
     }
 
     .navbar-logo {
-        height: 100px;
+        height: 95px;
     }
 
     .navbar.scrolled .navbar-logo {
-        height: 100px;
-    }
-
-    .dropdown-menu {
-        min-width: 18rem;
-    }
-
-    .navbar-nav {
-        gap: 2rem;
-    }
-
-    .nav-link {
-        font-size: 0.875rem;
-    }
-
-    .btn-get-quote {
-        font-size: 0.875rem;
-    }
-}
-
-/* ========================================
-   RESPONSIVE - LAPTOP (992px - 1199px)
-   ======================================== */
-
-@media (min-width: 992px) and (max-width: 1199px) {
-    .navbar {
-        padding: 1.75rem 2.5rem;
-    }
-
-    .navbar.scrolled {
-        padding: 1.75rem 2.5rem;
-    }
-
-    .navbar-logo {
-        height: 140px;
-    }
-
-    .navbar.scrolled .navbar-logo {
-        height: 140px;
+        height: 95px;
     }
 
     .dropdown-menu {
@@ -548,14 +537,70 @@
     }
 
     .nav-link {
+        font-size: 0.9rem;
+    }
+
+    .btn-get-quote {
+        font-size: 0.9rem;
+        padding: 0.45rem 1.1rem !important;
+    }
+
+    .lang-toggle-btn {
+        font-size: 0.88rem;
+        min-width: 70px;
+    }
+}
+
+/* ========================================
+   RESPONSIVE - LAPTOP (992px - 1199px)
+   Compact to prevent navbar breakdown
+   ======================================== */
+
+@media (min-width: 992px) and (max-width: 1199px) {
+    .navbar {
+        padding: 0.65rem 1.5rem;
+    }
+
+    .navbar.scrolled {
+        padding: 0.5rem 1.25rem;
+    }
+
+    .navbar-logo {
+        height: 82px;
+    }
+
+    .navbar.scrolled .navbar-logo {
+        height: 82px;
+    }
+
+    .dropdown-menu {
+        min-width: 14rem;
+    }
+
+    .navbar-nav {
+        gap: 1.25rem;
+    }
+
+    .nav-link {
         font-size: 0.85rem;
         white-space: nowrap;
     }
 
     .btn-get-quote {
-        padding: 0.5rem 1.25rem !important;
+        padding: 0.4rem 0.9rem !important;
         font-size: 0.85rem;
         white-space: nowrap;
+    }
+
+    .lang-toggle-btn {
+        font-size: 0.85rem;
+        padding: 0.4rem 0.75rem;
+        min-width: 65px;
+    }
+
+    .dropdown-item {
+        font-size: 0.85rem;
+        padding: 0.6rem 1rem;
     }
 }
 
@@ -565,11 +610,11 @@
 
 @media (min-width: 768px) and (max-width: 991px) {
     .navbar {
-        padding: 1rem 2rem;
+        padding: 0.6rem 1.5rem;
     }
 
     .navbar.scrolled {
-        padding: 1rem 2rem;
+        padding: 0.55rem 1.25rem;
     }
 
     .navbar-brand {
@@ -577,11 +622,11 @@
     }
 
     .navbar-logo {
-        height: 120px;
+        height: 78px;
     }
 
     .navbar.scrolled .navbar-logo {
-        height: 120px;
+        height: 78px;
     }
 
     .navbar-toggler-icon {
@@ -1367,8 +1412,8 @@
     }
 
     .dropdown-item {
-        padding: 0.5rem 0.625rem;
-        font-size: 0.75rem;
+        padding: 0.75rem 1rem;
+        font-size: 0.95rem;
     }
 
     .dropdown-item:hover,
@@ -1521,6 +1566,34 @@
         font-size: 1rem;
         padding: 0.625rem 1rem;
         min-width: 80px;
+    }
+}
+
+/* ========================================
+   SMALL SCREENS ONLY - Active state: gradient color, no underline
+   ======================================== */
+
+@media (max-width: 991px) {
+    .nav-link.active::after {
+        display: none !important;
+        width: 0 !important;
+    }
+
+    .nav-link.active {
+        color: transparent !important;
+        background: linear-gradient(90deg, #0E37AD 0%, #027DF8 40%, #60CEFE 75%, #F7F7F8 100%);
+        -webkit-background-clip: text;
+        background-clip: text;
+        -webkit-text-fill-color: transparent;
+    }
+
+    /* Dropdown toggle when active (Products & Services) */
+    .nav-link.dropdown-toggle.active {
+        color: transparent !important;
+        background: linear-gradient(90deg, #0E37AD 0%, #027DF8 40%, #60CEFE 75%, #F7F7F8 100%);
+        -webkit-background-clip: text;
+        background-clip: text;
+        -webkit-text-fill-color: transparent;
     }
 }
 

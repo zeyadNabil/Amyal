@@ -30,6 +30,37 @@
   font-display: swap;
 }
 
+/* Tajawal - Arabic font (geometric sans-serif, matches BunkenTech) */
+@font-face {
+  font-family: 'Tajawal';
+  src: url('assets/webfonts/tajawal-arabic-400-normal.woff2') format('woff2'),
+       url('assets/webfonts/tajawal-arabic-400-normal.woff') format('woff');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+  unicode-range: U+0600-06FF, U+0750-077F, U+0870-088E, U+0890-0891, U+0897-08E1, U+08E3-08FF, U+200C-200E, U+2010-2011, U+204F, U+2E41, U+FB50-FDFF, U+FE70-FE74, U+FE76-FEFC, U+102E0-102FB, U+10E60-10E7E, U+10EC2-10EC4, U+10EFC-10EFF;
+}
+
+@font-face {
+  font-family: 'Tajawal';
+  src: url('assets/webfonts/tajawal-arabic-500-normal.woff2') format('woff2'),
+       url('assets/webfonts/tajawal-arabic-500-normal.woff') format('woff');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+  unicode-range: U+0600-06FF, U+0750-077F, U+0870-088E, U+0890-0891, U+0897-08E1, U+08E3-08FF, U+200C-200E, U+2010-2011, U+204F, U+2E41, U+FB50-FDFF, U+FE70-FE74, U+FE76-FEFC, U+102E0-102FB, U+10E60-10E7E, U+10EC2-10EC4, U+10EFC-10EFF;
+}
+
+@font-face {
+  font-family: 'Tajawal';
+  src: url('assets/webfonts/tajawal-arabic-700-normal.woff2') format('woff2'),
+       url('assets/webfonts/tajawal-arabic-700-normal.woff') format('woff');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+  unicode-range: U+0600-06FF, U+0750-077F, U+0870-088E, U+0890-0891, U+0897-08E1, U+08E3-08FF, U+200C-200E, U+2010-2011, U+204F, U+2E41, U+FB50-FDFF, U+FE70-FE74, U+FE76-FEFC, U+102E0-102FB, U+10E60-10E7E, U+10EC2-10EC4, U+10EFC-10EFF;
+}
+
 :root {
     /* Galaxy / dark theme backgrounds */
     --bg-dark: #0a0e1a;
@@ -84,7 +115,7 @@
     --gray: #94A3B8;
     --gray-dark: #64748B;
 
-    --nav-height: 80px;
+    --nav-height: 64px;
 }
 
 /* ========================================
@@ -128,6 +159,8 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    scrollbar-width: thin;
+    scrollbar-color: var(--blue-mid) var(--bg-darker);
 }
 
 body {
@@ -143,68 +176,80 @@ body {
     font-size: 16px;
 }
 
-/* Mobile font size reduction */
+/* Mobile font sizes - INCREASED for better readability on small screens */
 @media (max-width: 768px) {
     body {
-        font-size: 14px;
+        font-size: 16px;
     }
-    
+
     h1 {
-        font-size: 2rem !important;
+        font-size: 2.15rem !important;
     }
-    
+
     h2 {
-        font-size: 1.75rem !important;
+        font-size: 1.9rem !important;
     }
-    
+
     h3 {
-        font-size: 1.5rem !important;
+        font-size: 1.6rem !important;
     }
-    
+
     h4 {
-        font-size: 1.25rem !important;
+        font-size: 1.35rem !important;
     }
-    
+
     h5 {
+        font-size: 1.2rem !important;
+    }
+
+    h6 {
         font-size: 1.1rem !important;
     }
-    
-    h6 {
-        font-size: 1rem !important;
+
+    .section-title,
+    .section-main-title,
+    .service-title,
+    .gallery-title,
+    .partners-title {
+        font-size: clamp(2rem, 5.5vw, 3.5rem) !important;
     }
-    
-    p, li, span, a {
-        font-size: 0.9rem !important;
+
+    p, li, span, a, .card-text, .section-text, .service-description, .feature-text, .stat-label {
+        font-size: 1rem !important;
     }
 }
 
 @media (max-width: 480px) {
-    body {
-        font-size: 13px;
-    }
-    
     h1 {
-        font-size: 1.75rem !important;
+        font-size: 1.9rem !important;
     }
-    
+
     h2 {
-        font-size: 1.5rem !important;
+        font-size: 1.6rem !important;
     }
-    
+
     h3 {
-        font-size: 1.3rem !important;
+        font-size: 1.45rem !important;
     }
-    
+
     h4 {
-        font-size: 1.15rem !important;
+        font-size: 1.25rem !important;
     }
-    
+
     h5, h6 {
-        font-size: 1rem !important;
+        font-size: 1.1rem !important;
     }
-    
-    p, li, span, a {
-        font-size: 0.85rem !important;
+
+    .section-title,
+    .section-main-title,
+    .service-title,
+    .gallery-title,
+    .partners-title {
+        font-size: clamp(1.75rem, 5vw, 3rem) !important;
+    }
+
+    p, li, span, a, .card-text, .section-text, .service-description, .feature-text, .stat-label {
+        font-size: 0.95rem !important;
     }
 }
 
@@ -247,12 +292,6 @@ html {
         var(--blue-bright) 100%
     );
     box-shadow: 0 0 20px rgba(2, 125, 248, 0.8);
-}
-
-/* Firefox */
-* {
-    scrollbar-width: thin;
-    scrollbar-color: var(--blue-mid) var(--bg-darker);
 }
 
 /* ========================================
@@ -506,6 +545,40 @@ body.on-home-page .neon-lines {
    RESPONSIVE
    ======================================== */
 
+/* Hero section: hero text on small screens (not the buttons) */
+@media (max-width: 768px) {
+  .hero-section .hero-title,
+  .hero-section .hero-title .text-line {
+    font-size: clamp(2rem, 5.5vw, 3.5rem) !important;
+  }
+}
+
+@media (max-width: 576px) {
+  .hero-section .hero-title,
+  .hero-section .hero-title .text-line {
+    font-size: clamp(1.75rem, 6vw, 3rem) !important;
+  }
+}
+
+/* Stats section: larger numbers and sign (+ / %) on small screens */
+@media (max-width: 768px) {
+  .stats-section .stat-number {
+    font-size: 3.25rem !important;
+  }
+  .stats-section .stat-suffix {
+    font-size: 1.6rem !important;
+  }
+}
+
+@media (max-width: 576px) {
+  .stats-section .stat-number {
+    font-size: 3rem !important;
+  }
+  .stats-section .stat-suffix {
+    font-size: 1.4rem !important;
+  }
+}
+
 /* ========================================
    RTL SUPPORT
    ======================================== */
@@ -514,10 +587,26 @@ body.on-home-page .neon-lines {
 
 
 [dir="rtl"] body {
-    font-family: 'Inter', 'Cairo', 'Arial', sans-serif;
+    font-family: 'Tajawal', 'Cairo', 'Arial', sans-serif;
 }
 
-
+/* RTL: Use Tajawal for headings (matches BunkenTech Bold in Arabic) */
+[dir="rtl"] h1,
+[dir="rtl"] h2,
+[dir="rtl"] h3,
+[dir="rtl"] h4,
+[dir="rtl"] h5,
+[dir="rtl"] h6,
+[dir="rtl"] .hero-title,
+[dir="rtl"] .section-title,
+[dir="rtl"] .section-main-title,
+[dir="rtl"] .gallery-title,
+[dir="rtl"] .partners-title,
+[dir="rtl"] .feature-title,
+[dir="rtl"] .service-title {
+    font-family: 'Tajawal', 'Cairo', 'Arial', sans-serif !important;
+    font-weight: 700;
+}
 
 /* Footer styles are now in footer component CSS */
 
@@ -542,7 +631,7 @@ img {
     -webkit-transform: translateZ(0);
     backface-visibility: hidden;
     -webkit-backface-visibility: hidden;
-    
+
     /* Maintain image quality and responsiveness */
     max-width: 100%;
     height: auto;
@@ -564,12 +653,12 @@ img {
     img {
         image-rendering: auto;
     }
-    
+
     /* Simplify shadows and effects */
     * {
         text-shadow: none !important;
     }
-    
+
     .gallery-item,
     .partner-card,
     .service-card {
@@ -637,7 +726,7 @@ img[loading="lazy"] {
         backdrop-filter: none !important;
         -webkit-backdrop-filter: none !important;
     }
-    
+
     /* Simplify visual effects on mobile during interaction */
     body.scrolling *,
     body.zooming * {
@@ -645,7 +734,7 @@ img[loading="lazy"] {
         text-shadow: none !important;
         filter: none !important;
     }
-    
+
     /* Limit image rendering quality during zoom/scroll */
     body.scrolling img,
     body.zooming img {

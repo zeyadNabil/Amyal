@@ -25,6 +25,7 @@
              routerLink="/"
              routerLinkActive="active"
              [routerLinkActiveOptions]="{exact: true}"
+             [class.active]="isHomeActive()"
              (click)="handleNavClick('home')"
              role="button">
             {{ langService.t('nav.home') }}
