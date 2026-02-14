@@ -1,6 +1,6 @@
 <!-- Service Content -->
 @if (isLoaded()) {
-  <div class="service-page" [class.content-loaded]="isLoaded()">
+  <div class="service-page" [class.content-loaded]="isLoaded()" [attr.data-service]="serviceType()">
     <div class="container">
     <!-- Header Section -->
     <div class="service-header">
@@ -62,13 +62,15 @@
                  [style.gap.px]="gapPx()">
               @for (image of getServiceImages(); track image; let i = $index) {
                 <div class="card-slider-item" [style.width.px]="cardWidthPx() || 280">
-                  <div class="service-card slider-card">
+                  <div class="service-card slider-card" [class.transparent-card]="serviceType() === 'brand-ambassadors-event-hosts'">
                     <div class="card-image-wrapper" (click)="openImage(image)">
                       <img [src]="image"
                            class="card-slider-image"
                            loading="lazy"
                            [alt]="langService.t('nav.' + getServiceKey()) + ' - Image ' + (i + 1)">
-                      <div class="galaxy-overlay"></div>
+                      @if (serviceType() !== 'brand-ambassadors-event-hosts') {
+                        <div class="galaxy-overlay"></div>
+                      }
                     </div>
                   </div>
                 </div>

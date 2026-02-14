@@ -127,7 +127,7 @@
   
   /* Content positioned with padding to avoid navbar */
   .hero-content-container {
-    padding-top: 140px;
+    padding-top: 160px;
   }
   
   /* Ensure video starts from absolute top on mobile */
@@ -545,7 +545,7 @@
 
 .section-title {
   font-size: clamp(2.5rem, 5vw, 4.5rem);
-  font-weight: 800;
+  font-weight: 900;
   margin-bottom: 1rem;
   line-height: 1.2;
 }
@@ -1224,7 +1224,7 @@
     padding-right: 0;
   }
   .hero-title {
-    font-size: clamp(1.75rem, 4.5vw, 3.2rem);
+    font-size: clamp(3rem, 7vw, 5rem);
   }
 
   .hero-cta {

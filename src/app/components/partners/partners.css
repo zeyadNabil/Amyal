@@ -14,7 +14,7 @@
 
 .partners-page {
   min-height: 100vh;
-  padding: calc(var(--nav-height) + 4rem) 2rem 4rem;
+  padding: calc(var(--nav-height) + 5rem) 2rem 4rem;
   position: relative;
 }
 
@@ -27,7 +27,7 @@
 
 .partners-title {
   font-size: clamp(2.5rem, 5vw, 4rem);
-  font-weight: 800;
+  font-weight: 900;
   margin-bottom: 0;
   text-transform: uppercase;
   letter-spacing: 2px;
