@@ -49,15 +49,15 @@
   justify-content: center;
   opacity: 0;
   transform: translateY(30px);
-  animation: titleSlideIn 0.8s ease forwards;
+  animation: titleSlideIn 0.5s ease forwards;
 }
 
 .service-title.gradient-text-animated {
-  animation: titleSlideIn 0.8s ease forwards, shine 3s linear infinite;
+  animation: titleSlideIn 0.5s ease forwards, shine 3s linear infinite;
 }
 
 .fade-title {
-  transition: opacity 0.8s ease, transform 0.8s ease;
+  transition: opacity 0.4s ease, transform 0.4s ease;
 }
 
 .fade-title.fade-out {
@@ -586,7 +586,7 @@
 /* Animations */
 .fade-in {
   opacity: 0;
-  animation: fadeIn 0.8s ease forwards;
+  animation: fadeIn 0.4s ease forwards;
 }
 
 @keyframes fadeIn {
@@ -598,7 +598,7 @@
 .scroll-reveal {
   opacity: 0;
   transform: translateY(30px);
-  transition: opacity 0.8s ease, transform 0.8s ease;
+  transition: opacity 0.4s ease, transform 0.4s ease;
 }
 
 .scroll-reveal.active {
@@ -630,7 +630,7 @@
   overflow: hidden;
   cursor: grab;
   user-select: none;
-  touch-action: pan-x pinch-zoom;
+  touch-action: pan-y pinch-zoom;
   -webkit-user-select: none;
   -moz-user-select: none;
   -ms-user-select: none;
@@ -1410,12 +1410,12 @@ body:has(.slider-lightbox-overlay) .chat-widget-container {
 .animate-card {
   opacity: 0;
   transform: translateY(30px);
-  transition: opacity 0.8s ease, transform 0.8s ease;
+  transition: opacity 0.4s ease, transform 0.4s ease;
 }
 
 .scroll-reveal.active .animate-card {
-  animation: cardFadeIn 0.8s ease forwards;
-  animation-delay: calc(var(--i, 0) * 0.1s);
+  animation: cardFadeIn 0.4s ease forwards;
+  animation-delay: calc(var(--i, 0) * 0.05s);
 }
 
 @keyframes cardFadeIn {
@@ -1528,6 +1528,19 @@ body:has(.slider-lightbox-overlay) .chat-widget-container {
 
   .section-title {
     font-size: 1.5rem;
+  }
+
+  /* Disable staggered card animations on mobile to prevent blinking */
+  .animate-card {
+    opacity: 1 !important;
+    transform: none !important;
+    animation: none !important;
+    transition: none !important;
+  }
+
+  .scroll-reveal.active .animate-card {
+    animation: none !important;
+  }
   }
 
   .section-text {

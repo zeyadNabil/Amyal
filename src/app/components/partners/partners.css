@@ -59,7 +59,7 @@
 }
 
 .fade-title {
-  transition: opacity 0.8s ease, transform 0.8s ease;
+  transition: opacity 0.4s ease, transform 0.4s ease;
 }
 
 .fade-title.fade-out {
@@ -255,7 +255,7 @@
 .fade-in-up {
   opacity: 0;
   transform: translateY(30px);
-  animation: fadeInUp 0.8s ease forwards;
+  animation: fadeInUp 0.4s ease forwards;
 }
 
 @keyframes fadeInUp {
@@ -268,7 +268,7 @@
 .scroll-reveal {
   opacity: 0;
   transform: translateY(30px);
-  transition: opacity 0.8s ease, transform 0.8s ease;
+  transition: opacity 0.4s ease, transform 0.4s ease;
 }
 
 .scroll-reveal.active {
@@ -325,6 +325,16 @@
 
   .partner-image {
     padding: 1rem;
+  }
+
+  /* Simplify animations on mobile for better performance */
+  .scroll-reveal {
+    transition: opacity 0.3s ease !important;
+    transform: none !important;
+  }
+
+  .scroll-reveal.active {
+    opacity: 1 !important;
   }
 }
 

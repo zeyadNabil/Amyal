@@ -433,11 +433,27 @@
 
 .navbar-toggler {
     border: 1px solid rgba(255, 255, 255, 0.1);
-    padding: 0.5rem 0.75rem;
+    padding: 0.75rem 1rem;
     width: auto;
     height: auto;
     z-index: 1001;
     position: relative;
+    min-width: 48px;
+    min-height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Expand clickable area beyond visible button */
+.navbar-toggler::before {
+    content: '';
+    position: absolute;
+    top: -10px;
+    left: -10px;
+    right: -10px;
+    bottom: -10px;
+    z-index: -1;
 }
 
 .navbar-toggler:focus {
@@ -446,8 +462,8 @@
 
 .navbar-toggler-icon {
     background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba(255, 255, 255, 0.8)' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
-    width: 1.2em;
-    height: 1.2em;
+    width: 1.5em;
+    height: 1.5em;
     background-size: 100%;
 }
 
@@ -630,8 +646,14 @@
     }
 
     .navbar-toggler-icon {
-        width: 1.2em;
-        height: 1.2em;
+        width: 1.5em;
+        height: 1.5em;
+    }
+
+    .navbar-toggler {
+        padding: 0.75rem 1rem;
+        min-width: 50px;
+        min-height: 50px;
     }
 
     .navbar-collapse {
@@ -851,8 +873,14 @@
     }
 
     .navbar-toggler-icon {
-        width: 1.1em;
-        height: 1.1em;
+        width: 1.5em;
+        height: 1.5em;
+    }
+
+    .navbar-toggler {
+        padding: 0.8rem 1.1rem;
+        min-width: 52px;
+        min-height: 52px;
     }
 
     .navbar-collapse {
@@ -1026,8 +1054,14 @@
     }
 
     .navbar-toggler-icon {
-        width: 1em;
-        height: 1em;
+        width: 1.6em;
+        height: 1.6em;
+    }
+
+    .navbar-toggler {
+        padding: 0.85rem 1.15rem;
+        min-width: 54px;
+        min-height: 54px;
     }
 
     .navbar-collapse {
@@ -1210,8 +1244,14 @@
     }
 
     .navbar-toggler-icon {
-        width: 0.9em;
-        height: 0.9em;
+        width: 1.5em;
+        height: 1.5em;
+    }
+
+    .navbar-toggler {
+        padding: 0.85rem 1.15rem;
+        min-width: 54px;
+        min-height: 54px;
     }
 
     .navbar-collapse {
@@ -1337,8 +1377,14 @@
     }
 
     .navbar-toggler-icon {
-        width: 0.85em;
-        height: 0.85em;
+        width: 1.5em;
+        height: 1.5em;
+    }
+
+    .navbar-toggler {
+        padding: 0.9rem 1.2rem;
+        min-width: 56px;
+        min-height: 56px;
     }
 
     .navbar-collapse {
@@ -1475,8 +1521,14 @@
     }
 
     .navbar-toggler-icon {
-        width: 0.75em;
-        height: 0.75em;
+        width: 1.4em;
+        height: 1.4em;
+    }
+
+    .navbar-toggler {
+        padding: 0.9rem 1.2rem;
+        min-width: 54px;
+        min-height: 54px;
     }
 
     .navbar-collapse {

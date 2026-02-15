@@ -33,6 +33,9 @@ export class Services implements OnInit, OnDestroy, AfterViewInit {
   isDragging = signal(false);
   dragStartX = signal(0);
   dragCurrentX = signal(0);
+  dragStartY = signal(0);
+  dragCurrentY = signal(0);
+  isHorizontalSwipe = signal<boolean | null>(null);
   currentCardIndex = signal(0);
   cardsVisible = signal(3);
   /** Exposed for template - makes slider responsive for any number of cards */
@@ -301,12 +304,16 @@ export class Services implements OnInit, OnDestroy, AfterViewInit {
   onTouchStart(event: TouchEvent): void {
     if (event.touches.length > 1) {
       this.isDragging.set(false);
+      this.isHorizontalSwipe.set(null);
       return;
     }
     if (event.touches.length === 1) {
       this.isDragging.set(true);
       this.dragStartX.set(event.touches[0].clientX);
       this.dragCurrentX.set(event.touches[0].clientX);
+      this.dragStartY.set(event.touches[0].clientY);
+      this.dragCurrentY.set(event.touches[0].clientY);
+      this.isHorizontalSwipe.set(null); // Reset swipe direction
     }
   }
 
@@ -314,26 +321,53 @@ export class Services implements OnInit, OnDestroy, AfterViewInit {
     if (event.touches.length >= 2) return;
     if (!this.isDragging() || event.touches.length === 0) return;
 
-    event.preventDefault();
     this.dragCurrentX.set(event.touches[0].clientX);
-    const diff = this.dragStartX() - this.dragCurrentX();
-    const newOffset = this.sliderOffset() - diff;
+    this.dragCurrentY.set(event.touches[0].clientY);
 
-    // Calculate bounds
-    const maxOffset = 0;
-    const minOffset = -((this.getServiceImages().length - this.cardsVisible()) * (this.cardWidth + this.gap));
+    // Determine swipe direction on first move
+    if (this.isHorizontalSwipe() === null) {
+      const deltaX = Math.abs(this.dragCurrentX() - this.dragStartX());
+      const deltaY = Math.abs(this.dragCurrentY() - this.dragStartY());
+      
+      // Need minimum movement to determine direction - increased threshold for better detection
+      if (deltaX > 10 || deltaY > 10) {
+        // Consider it horizontal only if X movement is significantly more than Y
+        this.isHorizontalSwipe.set(deltaX > deltaY * 1.5);
+      }
+    }
 
-    // Clamp the offset
-    const clampedOffset = Math.max(minOffset, Math.min(maxOffset, newOffset));
-    this.sliderOffset.set(clampedOffset);
-    this.dragStartX.set(this.dragCurrentX());
+    // Only handle horizontal swipe for slider, allow vertical scroll
+    if (this.isHorizontalSwipe() === true) {
+      event.preventDefault(); // Prevent vertical scroll only for horizontal swipes
+      const diff = this.dragStartX() - this.dragCurrentX();
+      const newOffset = this.sliderOffset() - diff;
+
+      // Calculate bounds
+      const maxOffset = 0;
+      const minOffset = -((this.getServiceImages().length - this.cardsVisible()) * (this.cardWidth + this.gap));
+
+      // Clamp the offset
+      const clampedOffset = Math.max(minOffset, Math.min(maxOffset, newOffset));
+      this.sliderOffset.set(clampedOffset);
+      this.dragStartX.set(this.dragCurrentX());
+    } else if (this.isHorizontalSwipe() === false) {
+      // Vertical swipe detected, stop slider dragging to allow page scroll
+      this.isDragging.set(false);
+    }
   }
 
   onTouchEnd(event: TouchEvent): void {
     if (!this.isDragging()) return;
 
     this.isDragging.set(false);
-    this.snapToNearestCard();
+    
+    // Only snap if it was a horizontal swipe
+    if (this.isHorizontalSwipe() === true) {
+      this.snapToNearestCard();
+    }
+    
+    // Reset swipe direction
+    this.isHorizontalSwipe.set(null);
   }
 
   private snapToNearestCard(): void {
@@ -755,13 +789,18 @@ export class Services implements OnInit, OnDestroy, AfterViewInit {
 
   private initScrollAnimations(): void {
     setTimeout(() => {
+      const observerOptions = {
+        threshold: 0.1,
+        rootMargin: '0px 0px -150px 0px'  // Trigger 150px before entering viewport for faster animation
+      };
+
       const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
           if (entry.isIntersecting) {
             entry.target.classList.add('active');
           }
         });
-      }, { threshold: 0.1 });
+      }, observerOptions);
 
       document.querySelectorAll('.scroll-reveal').forEach(el => observer.observe(el));
       // Immediately check which elements are already in viewport

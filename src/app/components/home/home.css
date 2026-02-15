@@ -881,7 +881,7 @@
   position: relative;
   opacity: 0;
   transform: translateY(30px) translateZ(0);
-  transition: opacity 0.8s ease, transform 0.8s ease;
+  transition: opacity 0.4s ease, transform 0.4s ease;
   will-change: transform, opacity;
   backface-visibility: hidden;
   -webkit-backface-visibility: hidden;
@@ -1092,7 +1092,7 @@
 .scroll-reveal {
   opacity: 0;
   transform: translateY(50px) translateZ(0);
-  transition: opacity 0.8s ease, transform 0.8s ease;
+  transition: opacity 0.4s ease, transform 0.4s ease;
   will-change: transform, opacity;
   backface-visibility: hidden;
   -webkit-backface-visibility: hidden;
@@ -1345,6 +1345,19 @@
     padding: 20px;
     flex: 1;
     min-width: 0;
+  }
+
+  /* Simplify animations on mobile for better performance */
+  .scroll-reveal {
+    transition: opacity 0.3s ease !important;
+  }
+
+  .scroll-reveal.active {
+    opacity: 1 !important;
+  }
+
+  .process-step {
+    transition: opacity 0.3s ease !important;
   }
 }
 
