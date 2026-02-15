@@ -162,6 +162,11 @@
     .navbar.on-home .nav-link.active::after {
         display: block !important;
     }
+    
+    /* Hide hamburger menu on desktop */
+    .navbar-toggler {
+        display: none !important;
+    }
 }
 
 .nav-link:hover::after,
