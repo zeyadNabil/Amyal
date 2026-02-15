@@ -242,7 +242,25 @@
   text-shadow:
     0 0 5px rgba(255, 255, 255, 0.4),
     0 0 10px rgba(255, 255, 255, 0.2);
-  animation: whiteShine 2s ease-in-out infinite;
+  animation: whiteShine 2s ease-in-out1 0.5infinite;
+}
+
+/* Mobile: Force smaller font size for hero title text */
+@media (max-width: 768px) {
+  .hero-title .text-line {
+    font-size: 1.4rem !important;
+    white-space: nowrap;
+  }
+  
+  .hero-title {
+    text-align: center;
+    width: 100%;
+    overflow: visible;
+  }
+  
+  .hero-text-content {
+    overflow-x: visible;
+  }
 }
 
 @keyframes whiteShine {
