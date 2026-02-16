@@ -2,6 +2,65 @@
    GALAXY THEME - AMYAL
    ======================================== */
 
+/* ========================================
+   CUSTOM FONTS
+   ======================================== */
+
+@font-face {
+  font-family: 'BunkenTech';
+  src: url('assets/webfonts/BunkenTechSansStdWide-Med.otf') format('opentype');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'BunkenTech SC';
+  src: url('assets/webfonts/BunkenTechSansSCWide-Med.otf') format('opentype');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'BunkenTech Bold';
+  src: url('assets/webfonts/Bunken Tech Sans SC Wide W01Bd.ttf') format('truetype');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* 29ltbukra - Arabic font (modern sans-serif, matches BunkenTech) */
+@font-face {
+  font-family: '29ltbukra';
+  src: url('assets/webfonts/29ltbukralight.otf') format('opentype'),
+       url('assets/webfonts/29ltbukralight.ttf') format('truetype');
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+  unicode-range: U+0600-06FF, U+0750-077F, U+0870-088E, U+0890-0891, U+0897-08E1, U+08E3-08FF, U+200C-200E, U+2010-2011, U+204F, U+2E41, U+FB50-FDFF, U+FE70-FE74, U+FE76-FEFC, U+102E0-102FB, U+10E60-10E7E, U+10EC2-10EC4, U+10EFC-10EFF;
+}
+
+@font-face {
+  font-family: '29ltbukra';
+  src: url('assets/webfonts/29ltbukraregular.otf') format('opentype'),
+       url('assets/webfonts/29ltbukraregular.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+  unicode-range: U+0600-06FF, U+0750-077F, U+0870-088E, U+0890-0891, U+0897-08E1, U+08E3-08FF, U+200C-200E, U+2010-2011, U+204F, U+2E41, U+FB50-FDFF, U+FE70-FE74, U+FE76-FEFC, U+102E0-102FB, U+10E60-10E7E, U+10EC2-10EC4, U+10EFC-10EFF;
+}
+
+@font-face {
+  font-family: '29ltbukra';
+  src: url('assets/webfonts/29ltbukrabold.otf') format('opentype'),
+       url('assets/webfonts/29ltbukrabold.ttf') format('truetype');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+  unicode-range: U+0600-06FF, U+0750-077F, U+0870-088E, U+0890-0891, U+0897-08E1, U+08E3-08FF, U+200C-200E, U+2010-2011, U+204F, U+2E41, U+FB50-FDFF, U+FE70-FE74, U+FE76-FEFC, U+102E0-102FB, U+10E60-10E7E, U+10EC2-10EC4, U+10EFC-10EFF;
+}
+
 :root {
     /* Galaxy / dark theme backgrounds */
     --bg-dark: #0a0e1a;
@@ -109,10 +168,12 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    scrollbar-width: thin;
+    scrollbar-color: var(--blue-mid) var(--bg-darker);
 }
 
 body {
-    font-family: 'Inter', sans-serif;
+    font-family: 'BunkenTech', 'Inter', sans-serif;
     background-color: var(--bg-dark);
     color: var(--white);
     overflow-x: hidden;
@@ -121,6 +182,18 @@ body {
     transition: opacity 0.3s ease;
     /* Ensure body width is stable during zoom */
     width: 100%;
+    font-size: 16px;
+}
+
+/* Mobile font sizes - INCREASED for better readability on small screens */
+@media (max-width: 768px) {
+    body {
+        font-size: 16px;
+    }
+
+    h1 {
+        font-size: 2.15rem !important;
+    }
 }
 
 html {
