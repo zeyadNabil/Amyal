@@ -1,6 +1,5 @@
 .reviews-slider-section {
   padding: 80px 0;
-  overflow: hidden;
 }
 
 .section-header {
@@ -30,13 +29,16 @@
 }
 
 .reviews-slider-container {
-  overflow-x: auto;
+  overflow-x: scroll;
   overflow-y: hidden;
   scrollbar-width: none;
   -ms-overflow-style: none;
+  -webkit-overflow-scrolling: touch;
   cursor: grab;
   user-select: none;
   width: 100%;
+  touch-action: pan-x;
+  overscroll-behavior-x: contain;
 }
 
 .reviews-slider-container::-webkit-scrollbar {
@@ -47,12 +49,31 @@
   cursor: grabbing;
 }
 
+.reviews-slider-wrapper {
+  min-width: 100%;
+  display: flex;
+  padding: 20px 0;
+}
+
+.reviews-slider-wrapper.centered {
+  justify-content: center;
+}
+
+.reviews-slider-wrapper.scrollable {
+  justify-content: flex-start;
+  padding-inline-start: 15px;
+}
+
 .reviews-slider-track {
   display: flex;
   gap: 30px;
-  padding: 20px 0 20px 15px;
   animation: none;
   justify-content: flex-start;
+  flex-shrink: 0;
+}
+
+.reviews-slider-wrapper.scrollable .reviews-slider-track {
+  padding-inline-end: 40px;
 }
 
 .review-card-slider {
@@ -200,6 +221,14 @@
     padding: 60px 0;
   }
   
+  .reviews-slider-wrapper.scrollable {
+    padding-inline-start: 20px;
+  }
+  
+  .reviews-slider-wrapper.scrollable .reviews-slider-track {
+    padding-inline-end: 30px;
+  }
+  
   .section-title {
     font-size: 2rem;
   }
@@ -221,11 +250,25 @@
   }
 }
 
-/* RTL Support */
+/* RTL: Keep cards identical to English - LTR layout, name/date stay left */
 [dir="rtl"] .reviews-slider-track {
   direction: ltr;
 }
-
 [dir="rtl"] .review-card-slider {
-  direction: rtl;
+  direction: ltr;
+  unicode-bidi: isolate;
+  text-align: left;
+}
+[dir="rtl"] .review-card-slider .review-rating,
+[dir="rtl"] .review-card-slider .review-message,
+[dir="rtl"] .review-card-slider .review-author,
+[dir="rtl"] .review-card-slider .review-author-info,
+[dir="rtl"] .review-card-slider .review-author strong,
+[dir="rtl"] .review-card-slider .review-date {
+  text-align: left;
+  direction: ltr;
+}
+[dir="rtl"] .review-card-slider .review-author {
+  flex-direction: row;
+  justify-content: flex-start;
 }
