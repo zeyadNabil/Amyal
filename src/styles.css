@@ -244,6 +244,47 @@ html {
 }
 
 /* ========================================
+   TYPOGRAPHY - CUSTOM FONTS
+   ======================================== */
+
+/* Use BunkenTech Bold for major headings and titles */
+.hero-title,
+.service-title,
+.section-title,
+.section-main-title,
+.gallery-title,
+.partners-title,
+.feature-title {
+    font-family: 'BunkenTech Bold', 'BunkenTech', 'Inter', sans-serif !important;
+}
+
+/* ========================================
+   RTL SUPPORT
+   ======================================== */
+
+[dir="rtl"] body {
+    font-family: '29ltbukra', 'Cairo', 'Arial', sans-serif;
+}
+
+/* RTL: Use 29ltbukra for headings (matches BunkenTech Bold in Arabic) */
+[dir="rtl"] h1,
+[dir="rtl"] h2,
+[dir="rtl"] h3,
+[dir="rtl"] h4,
+[dir="rtl"] h5,
+[dir="rtl"] h6,
+[dir="rtl"] .hero-title,
+[dir="rtl"] .section-title,
+[dir="rtl"] .section-main-title,
+[dir="rtl"] .gallery-title,
+[dir="rtl"] .partners-title,
+[dir="rtl"] .feature-title,
+[dir="rtl"] .service-title {
+    font-family: '29ltbukra', 'Cairo', 'Arial', sans-serif !important;
+    font-weight: 700;
+}
+
+/* ========================================
    ANIMATED STARRY BACKGROUND
    ======================================== */
 
@@ -479,13 +520,6 @@ body.nav-scrolled .neon-lines {
    ======================================== */
 
 /* Navbar styles are now in navbar component CSS */
-
-
-[dir="rtl"] body {
-    font-family: 'Inter', 'Cairo', 'Arial', sans-serif;
-}
-
-
 
 /* Footer styles are now in footer component CSS */
 
