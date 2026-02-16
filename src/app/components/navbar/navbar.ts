@@ -126,6 +126,11 @@ export class Navbar implements OnInit, OnDestroy {
     }
   }
 
+  isHomeActive(): boolean {
+    const url = this.router.url.split('?')[0];
+    return url === '/' || url === '';
+  }
+
   isServiceActive(serviceId: string): boolean {
     return this.activeServiceRoute() === serviceId;
   }

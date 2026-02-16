@@ -157,7 +157,7 @@ export class Gallery implements OnInit, OnDestroy {
   initScrollAnimations(): void {
     const observerOptions = {
       threshold: 0.1,
-      rootMargin: '0px 0px -50px 0px'
+      rootMargin: '0px 0px -150px 0px'
     };
 
     this.scrollObserver = new IntersectionObserver((entries) => {

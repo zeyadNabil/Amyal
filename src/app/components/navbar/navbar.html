@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-lg navbar-dark" id="mainNav" [class.scrolled]="isScrolled()">
+<nav class="navbar navbar-expand-lg navbar-dark" id="mainNav" [class.scrolled]="isScrolled()" [class.on-home]="activeSection() === 'home'">
   <div class="container-fluid">
     <!-- Logo -->
     <a class="navbar-brand" routerLink="/" (click)="handleNavClick('home')" role="button">
@@ -25,6 +25,7 @@
              routerLink="/"
              routerLinkActive="active"
              [routerLinkActiveOptions]="{exact: true}"
+             [class.active]="isHomeActive()"
              (click)="handleNavClick('home')"
              role="button">
             {{ langService.t('nav.home') }}

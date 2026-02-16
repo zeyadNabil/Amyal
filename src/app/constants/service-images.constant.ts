@@ -31,6 +31,7 @@ export const SERVICE_IMAGES: { [key: string]: string[] } = {
   'mall-activation': [
   ],
   'brand-ambassadors-event-hosts': [
+    'assets/images/BRAND AMBASSADORS & EVENT HOSTS/07.png'
   ],
   'av-service': [
   ],
@@ -42,5 +43,7 @@ export const SERVICE_IMAGES: { [key: string]: string[] } = {
     'assets/images/STICKERS & CUSTOM PRINTS/STICKERS & CUSTOM PRINTS.jpeg'
   ],
   'fabrication-manufacturing': [
+    'assets/images/FABRICATION & MANUFACTURING/1.jpeg',
+    'assets/images/FABRICATION & MANUFACTURING/2.jpeg'
   ]
 };

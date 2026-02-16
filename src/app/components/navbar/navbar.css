@@ -87,38 +87,53 @@
    NAVBAR BASE STYLES
    ======================================== */
 
+/* Prevent navbar from breaking - compact layout on all desktop sizes */
+#mainNav .container-fluid {
+    flex-wrap: nowrap;
+}
+
+#mainNav .navbar-nav {
+    flex-wrap: nowrap;
+}
+
+#mainNav .nav-item {
+    flex-shrink: 0;
+}
+
 .navbar {
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
-    padding: 1.25rem 3rem;
+    padding: 0.75rem 2rem;
     background: transparent;
     /* Only transition background – no size/padding transition to avoid zoom effect */
     transition: background 0.3s ease, backdrop-filter 0.3s ease, box-shadow 0.3s ease;
-    z-index: 1000;
+    z-index: 10000;
+    overflow: visible;
 }
 
 .navbar.scrolled {
-    /* Keep same padding as base – only background changes on scroll */
-    padding: .5rem 2rem;
+    /* Compact padding when scrolled */
+    padding: 0.5rem 1.5rem;
     background: rgba(10, 14, 26, 0.7);
     backdrop-filter: blur(10px);
     box-shadow: 0 5px 20px rgba(var(--secondary-rgb), 0.1);
 }
 
 .navbar-nav {
-    gap: 2rem;
+    gap: 1.5rem;
     align-items: center;
 }
 
 .nav-link {
     color: var(--white) !important;
     font-weight: 500;
-    font-size: 0.875rem;
+    font-size: 0.9rem;
     position: relative;
     transition: all 0.3s ease;
     padding: 0.5rem 0 !important;
+    z-index: 10001;
 }
 
 .nav-link:hover,
@@ -135,6 +150,23 @@
     height: 2px;
     background: var(--gradient-text-blue-silver);
     transition: width 0.3s ease;
+    z-index: 10001;
+}
+
+/* Hide neon line on home page - but show underline for active link on bigger screens */
+.navbar.on-home .nav-link::after {
+    display: none;
+}
+
+@media (min-width: 992px) {
+    .navbar.on-home .nav-link.active::after {
+        display: block !important;
+    }
+    
+    /* Hide hamburger menu on desktop */
+    .navbar-toggler {
+        display: none !important;
+    }
 }
 
 .nav-link:hover::after,
@@ -161,6 +193,7 @@
     font-size: 0.875rem;
     font-weight: 500;
     min-width: 80px;
+    font-family: 'BunkenTech', '29ltbukra', 'Inter', 'Cairo', 'Arial', sans-serif;
 }
 
 .lang-toggle-btn:hover {
@@ -186,7 +219,7 @@
 }
 
 .navbar-logo {
-    height: 400px;
+    height: 70px;
     width: auto;
     /* Only transition filter – never transition size so logo stays constant on scroll */
     transition-property: filter;
@@ -196,7 +229,7 @@
 
 /* Keep logo same size when sticky – only background changes on scroll */
 .navbar.scrolled .navbar-logo {
-    height: 400px;
+    height: 70px;
 }
 
 .navbar-brand:hover .navbar-logo {
@@ -406,11 +439,27 @@
 
 .navbar-toggler {
     border: 1px solid rgba(255, 255, 255, 0.1);
-    padding: 0.5rem 0.75rem;
+    padding: 0.75rem 1rem;
     width: auto;
     height: auto;
     z-index: 1001;
     position: relative;
+    min-width: 48px;
+    min-height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Expand clickable area beyond visible button */
+.navbar-toggler::before {
+    content: '';
+    position: absolute;
+    top: -10px;
+    left: -10px;
+    right: -10px;
+    bottom: -10px;
+    z-index: -1;
 }
 
 .navbar-toggler:focus {
@@ -419,8 +468,8 @@
 
 .navbar-toggler-icon {
     background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba(255, 255, 255, 0.8)' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
-    width: 1.2em;
-    height: 1.2em;
+    width: 1.5em;
+    height: 1.5em;
     background-size: 100%;
 }
 
@@ -436,39 +485,47 @@
 
 /* ========================================
    RESPONSIVE - LARGE DESKTOP (≥1400px)
+   Compact navbar to prevent breakdown
    ======================================== */
 
 @media (min-width: 1400px) {
     .navbar {
-        padding: 1.25rem 4rem;
+        padding: 0.85rem 2.5rem;
     }
 
     .navbar.scrolled {
-        padding: 1.25rem 4rem;
+        padding: 0.6rem 2rem;
     }
 
     .navbar-logo {
-        height: 180px;
+        height: 108px;
     }
 
     .navbar.scrolled .navbar-logo {
-        height: 180px;
+        height: 108px;
     }
 
     .dropdown-menu {
-        min-width: 20rem;
+        min-width: 18rem;
     }
 
     .navbar-nav {
-        gap: 2.5rem;
+        gap: 1.75rem;
     }
 
     .nav-link {
-        font-size: 0.9rem;
+        font-size: 0.95rem;
     }
 
     .btn-get-quote {
+        font-size: 0.95rem;
+        padding: 0.5rem 1.25rem !important;
+    }
+
+    .lang-toggle-btn {
         font-size: 0.9rem;
+        padding: 0.5rem 1rem;
+        min-width: 75px;
     }
 }
 
@@ -478,57 +535,19 @@
 
 @media (min-width: 1200px) and (max-width: 1399px) {
     .navbar {
-        padding: 1.25rem 3rem;
+        padding: 0.75rem 2rem;
     }
 
     .navbar.scrolled {
-        padding: 1.25rem 3rem;
+        padding: 0.55rem 1.5rem;
     }
 
     .navbar-logo {
-        height: 100px;
+        height: 95px;
     }
 
     .navbar.scrolled .navbar-logo {
-        height: 100px;
-    }
-
-    .dropdown-menu {
-        min-width: 18rem;
-    }
-
-    .navbar-nav {
-        gap: 2rem;
-    }
-
-    .nav-link {
-        font-size: 0.875rem;
-    }
-
-    .btn-get-quote {
-        font-size: 0.875rem;
-    }
-}
-
-/* ========================================
-   RESPONSIVE - LAPTOP (992px - 1199px)
-   ======================================== */
-
-@media (min-width: 992px) and (max-width: 1199px) {
-    .navbar {
-        padding: 1.75rem 2.5rem;
-    }
-
-    .navbar.scrolled {
-        padding: 1.75rem 2.5rem;
-    }
-
-    .navbar-logo {
-        height: 140px;
-    }
-
-    .navbar.scrolled .navbar-logo {
-        height: 140px;
+        height: 95px;
     }
 
     .dropdown-menu {
@@ -540,14 +559,70 @@
     }
 
     .nav-link {
+        font-size: 0.9rem;
+    }
+
+    .btn-get-quote {
+        font-size: 0.9rem;
+        padding: 0.45rem 1.1rem !important;
+    }
+
+    .lang-toggle-btn {
+        font-size: 0.88rem;
+        min-width: 70px;
+    }
+}
+
+/* ========================================
+   RESPONSIVE - LAPTOP (992px - 1199px)
+   Compact to prevent navbar breakdown
+   ======================================== */
+
+@media (min-width: 992px) and (max-width: 1199px) {
+    .navbar {
+        padding: 0.65rem 1.5rem;
+    }
+
+    .navbar.scrolled {
+        padding: 0.5rem 1.25rem;
+    }
+
+    .navbar-logo {
+        height: 82px;
+    }
+
+    .navbar.scrolled .navbar-logo {
+        height: 82px;
+    }
+
+    .dropdown-menu {
+        min-width: 14rem;
+    }
+
+    .navbar-nav {
+        gap: 1.25rem;
+    }
+
+    .nav-link {
         font-size: 0.85rem;
         white-space: nowrap;
     }
 
     .btn-get-quote {
-        padding: 0.5rem 1.25rem !important;
+        padding: 0.4rem 0.9rem !important;
         font-size: 0.85rem;
         white-space: nowrap;
+    }
+
+    .lang-toggle-btn {
+        font-size: 0.85rem;
+        padding: 0.4rem 0.75rem;
+        min-width: 65px;
+    }
+
+    .dropdown-item {
+        font-size: 0.85rem;
+        padding: 0.6rem 1rem;
     }
 }
 
@@ -557,11 +632,11 @@
 
 @media (min-width: 768px) and (max-width: 991px) {
     .navbar {
-        padding: 1rem 2rem;
+        padding: 0.6rem 1.5rem;
     }
 
     .navbar.scrolled {
-        padding: 1rem 2rem;
+        padding: 0.55rem 1.25rem;
     }
 
     .navbar-brand {
@@ -569,16 +644,22 @@
     }
 
     .navbar-logo {
-        height: 120px;
+        height: 78px;
     }
 
     .navbar.scrolled .navbar-logo {
-        height: 120px;
+        height: 78px;
     }
 
     .navbar-toggler-icon {
-        width: 1.2em;
-        height: 1.2em;
+        width: 1.5em;
+        height: 1.5em;
+    }
+
+    .navbar-toggler {
+        padding: 0.75rem 1rem;
+        min-width: 50px;
+        min-height: 50px;
     }
 
     .navbar-collapse {
@@ -682,10 +763,6 @@
         font-size: 1.3rem;
         white-space: nowrap;
         padding: 0.75rem 0 !important;
-    }
-
-    .nav-link::after {
-        display: none;
     }
 
     .dropdown-toggle {
@@ -802,8 +879,14 @@
     }
 
     .navbar-toggler-icon {
-        width: 1.1em;
-        height: 1.1em;
+        width: 1.5em;
+        height: 1.5em;
+    }
+
+    .navbar-toggler {
+        padding: 0.8rem 1.1rem;
+        min-width: 52px;
+        min-height: 52px;
     }
 
     .navbar-collapse {
@@ -875,10 +958,6 @@
 
     .nav-link {
         font-size: 0.875rem;
-    }
-
-    .nav-link::after {
-        display: none;
     }
 
     .dropdown-menu {
@@ -959,10 +1038,12 @@
 @media (max-width: 575px) {
     .navbar {
         padding: 1rem 1.25rem;
+        overflow: visible;
     }
 
     .navbar.scrolled {
         padding: 1rem 1.25rem;
+        overflow: visible;
     }
 
     .navbar-brand {
@@ -979,8 +1060,14 @@
     }
 
     .navbar-toggler-icon {
-        width: 1em;
-        height: 1em;
+        width: 1.6em;
+        height: 1.6em;
+    }
+
+    .navbar-toggler {
+        padding: 0.85rem 1.15rem;
+        min-width: 54px;
+        min-height: 54px;
     }
 
     .navbar-collapse {
@@ -1056,10 +1143,13 @@
 
     .nav-link {
         font-size: 0.85rem;
+        z-index: 10001;
     }
 
+    /* Force show wave on mobile */
     .nav-link::after {
-        display: none;
+        display: block;
+        z-index: 10001;
     }
 
     .dropdown-menu {
@@ -1160,8 +1250,14 @@
     }
 
     .navbar-toggler-icon {
-        width: 0.9em;
-        height: 0.9em;
+        width: 1.5em;
+        height: 1.5em;
+    }
+
+    .navbar-toggler {
+        padding: 0.85rem 1.15rem;
+        min-width: 54px;
+        min-height: 54px;
     }
 
     .navbar-collapse {
@@ -1287,8 +1383,14 @@
     }
 
     .navbar-toggler-icon {
-        width: 0.85em;
-        height: 0.85em;
+        width: 1.5em;
+        height: 1.5em;
+    }
+
+    .navbar-toggler {
+        padding: 0.9rem 1.2rem;
+        min-width: 56px;
+        min-height: 56px;
     }
 
     .navbar-collapse {
@@ -1362,8 +1464,8 @@
     }
 
     .dropdown-item {
-        padding: 0.5rem 0.625rem;
-        font-size: 0.75rem;
+        padding: 0.75rem 1rem;
+        font-size: 0.95rem;
     }
 
     .dropdown-item:hover,
@@ -1425,8 +1527,14 @@
     }
 
     .navbar-toggler-icon {
-        width: 0.75em;
-        height: 0.75em;
+        width: 1.4em;
+        height: 1.4em;
+    }
+
+    .navbar-toggler {
+        padding: 0.9rem 1.2rem;
+        min-width: 54px;
+        min-height: 54px;
     }
 
     .navbar-collapse {
@@ -1516,6 +1624,43 @@
         font-size: 1rem;
         padding: 0.625rem 1rem;
         min-width: 80px;
+    }
+}
+
+/* ========================================
+   SMALL SCREENS ONLY - Active state: gradient color, no underline
+   ======================================== */
+
+@media (max-width: 991px) {
+    .nav-link.active::after {
+        display: none !important;
+        width: 0 !important;
+    }
+
+    .nav-link.active {
+        color: transparent !important;
+        background: linear-gradient(90deg, #0E37AD 0%, #027DF8 40%, #60CEFE 75%, #F7F7F8 100%);
+        -webkit-background-clip: text;
+        background-clip: text;
+        -webkit-text-fill-color: transparent;
+    }
+
+    /* Dropdown toggle when active (Products & Services) */
+    .nav-link.dropdown-toggle.active {
+        color: transparent !important;
+        background: linear-gradient(90deg, #0E37AD 0%, #027DF8 40%, #60CEFE 75%, #F7F7F8 100%);
+        -webkit-background-clip: text;
+        background-clip: text;
+        -webkit-text-fill-color: transparent;
+    }
+
+    /* Keep dropdown arrow visible when active (parent has transparent color) */
+    .nav-link.dropdown-toggle.active .dropdown-arrow {
+        stroke: #60CEFE !important;
+    }
+
+    [dir="rtl"] .nav-link.dropdown-toggle.active .dropdown-arrow {
+        stroke: #0E37AD !important;
     }
 }
 

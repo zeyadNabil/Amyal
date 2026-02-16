@@ -14,7 +14,7 @@
 
 .partners-page {
   min-height: 100vh;
-  padding: calc(var(--nav-height) + 1.5rem) 2rem 4rem;
+  padding: calc(var(--nav-height) + 5rem) 2rem 4rem;
   position: relative;
 }
 
@@ -27,7 +27,7 @@
 
 .partners-title {
   font-size: clamp(2.5rem, 5vw, 4rem);
-  font-weight: 800;
+  font-weight: 900;
   margin-bottom: 0;
   text-transform: uppercase;
   letter-spacing: 2px;
@@ -38,7 +38,16 @@
   opacity: 0;
   transform: translateY(30px);
   animation: titleSlideIn 0.8s ease forwards;
-  background: var(--gradient-text-blue-silver);
+  background: linear-gradient(
+    90deg,
+    #0E37AD 0%,
+    #027DF8 20%,
+    #60CEFE 40%,
+    #FFFFFF 50%,
+    #60CEFE 60%,
+    #027DF8 80%,
+    #0E37AD 100%
+  );
   background-size: 200% auto;
   -webkit-background-clip: text;
   background-clip: text;
@@ -50,7 +59,7 @@
 }
 
 .fade-title {
-  transition: opacity 0.8s ease, transform 0.8s ease;
+  transition: opacity 0.4s ease, transform 0.4s ease;
 }
 
 .fade-title.fade-out {
@@ -192,8 +201,8 @@
   background: linear-gradient(
     135deg,
     rgba(59, 7, 100, 0.25) 0%,
-    rgba(var(--secondary-rgb), 0.2) 25%,
-    rgba(var(--secondary-rgb), 0.22) 50%,
+    rgba(2, 125, 248, 0.2) 25%,
+    rgba(2, 125, 248, 0.22) 50%,
     rgba(59, 130, 246, 0.2) 75%,
     rgba(30, 58, 138, 0.25) 100%
   );
@@ -219,12 +228,12 @@
   height: 100%;
   background: radial-gradient(
     circle at 30% 50%,
-    rgba(var(--secondary-rgb), 0.15) 0%,
+    rgba(2, 125, 248, 0.15) 0%,
     transparent 50%
   ),
   radial-gradient(
     circle at 70% 70%,
-    rgba(var(--secondary-rgb), 0.12) 0%,
+    rgba(2, 125, 248, 0.12) 0%,
     transparent 50%
   ),
   radial-gradient(
@@ -246,7 +255,7 @@
 .fade-in-up {
   opacity: 0;
   transform: translateY(30px);
-  animation: fadeInUp 0.8s ease forwards;
+  animation: fadeInUp 0.4s ease forwards;
 }
 
 @keyframes fadeInUp {
@@ -257,9 +266,9 @@
 }
 
 .scroll-reveal {
-  opacity: 0;
-  transform: translateY(30px);
-  transition: opacity 0.8s ease, transform 0.8s ease;
+  opacity: 1;
+  transform: translateY(0);
+  transition: opacity 0.4s ease, transform 0.4s ease;
 }
 
 .scroll-reveal.active {
@@ -316,6 +325,16 @@
 
   .partner-image {
     padding: 1rem;
+  }
+
+  /* Simplify animations on mobile for better performance */
+  .scroll-reveal {
+    transition: opacity 0.3s ease !important;
+    transform: none !important;
+  }
+
+  .scroll-reveal.active {
+    opacity: 1 !important;
   }
 }
 

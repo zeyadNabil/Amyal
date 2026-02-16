@@ -9,6 +9,20 @@
   framework = "#static"
   autoLaunch = false
 
+# Force HTTPS redirect - happens before page loads
+[[redirects]]
+  from = "http://www.amyal-media.com/*"
+  to = "https://www.amyal-media.com/:splat"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "http://amyal-media.com/*"
+  to = "https://www.amyal-media.com/:splat"
+  status = 301
+  force = true
+
+# SPA fallback
 [[redirects]]
   from = "/*"
   to = "/index.html"

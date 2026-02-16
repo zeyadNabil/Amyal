@@ -14,7 +14,7 @@
 
 .about-us-page {
   min-height: auto;
-  padding-top: 140px;
+  padding-top: 160px;
   padding-bottom: 80px;
   position: relative;
   z-index: 1;
@@ -113,7 +113,7 @@
   margin-bottom: 100px;
   opacity: 0;
   transform: translateY(30px);
-  transition: opacity 0.8s ease, transform 0.8s ease;
+  transition: opacity 0.4s ease, transform 0.4s ease;
 }
 
 .section.scroll-reveal.active {
@@ -123,7 +123,7 @@
 
 .section-title {
   font-size: 2.5rem;
-  font-weight: 700;
+  font-weight: 900;
   color: #fff;
   margin-bottom: 20px;
   text-align: center;
@@ -212,8 +212,8 @@
   padding: 40px 30px;
   text-align: center;
   transition: all 0.4s ease;
-  opacity: 0;
-  transform: translateY(30px);
+  opacity: 1;
+  transform: translateY(0);
   flex: 1 1 auto;
   display: flex;
   flex-direction: column;
@@ -384,8 +384,8 @@
   align-items: center;
   margin-bottom: 60px;
   position: relative;
-  opacity: 0;
-  transform: translateY(30px);
+  opacity: 1;
+  transform: translateY(0);
   transition: opacity 0.8s ease, transform 0.8s ease;
 }
 
@@ -395,7 +395,7 @@
 
 .process-step:nth-child(even) {
   flex-direction: row-reverse;
-  transform: translateY(30px);
+  transform: translateY(0);
 }
 
 .process-step.scroll-reveal.active {
@@ -516,7 +516,7 @@
 .fade-in-up {
   opacity: 0;
   transform: translateY(30px);
-  animation: fadeInUp 0.8s ease forwards;
+  animation: fadeInUp 0.4s ease forwards;
 }
 
 @keyframes fadeInUp {
@@ -529,7 +529,7 @@
 .scroll-reveal {
   opacity: 0;
   transform: translateY(30px);
-  transition: opacity 0.8s ease, transform 0.8s ease;
+  transition: opacity 0.4s ease, transform 0.4s ease;
 }
 
 .scroll-reveal.active {
@@ -667,6 +667,16 @@
     width: 60px;
     height: 60px;
     margin-bottom: 20px;
+  }
+
+  /* Disable complex animations on mobile to prevent blinking */
+  .scroll-reveal {
+    transition: opacity 0.3s ease !important;
+    transform: none !important;
+  }
+
+  .scroll-reveal.active {
+    opacity: 1 !important;
   }
 
   .feature-icon svg {

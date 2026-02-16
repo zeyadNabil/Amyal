@@ -1,7 +1,7 @@
 <section class="partners-page" [class.content-loaded]="isLoaded()">
   <div class="container">
     <!-- Header Section -->
-    <div class="partners-header scroll-reveal">
+    <div class="partners-header">
       <h1 class="partners-title gradient-text-animated fade-title fade-in-up" [class.fade-out]="titleFadeState() === 'fade-out'" [class.fade-in]="titleFadeState() === 'fade-in'" [class.visible]="titleFadeState() === 'visible'">
         {{ langService.t('partners.title') }}
       </h1>
@@ -12,7 +12,7 @@
       <div class="row g-4">
         @for (partner of partners; track $index) {
           <div class="col-12 col-sm-6 col-md-4 col-lg-3">
-          <div class="partner-card scroll-reveal" [style.animation-delay]="($index * 0.1) + 's'" [class.partner-card-mair]="partner.includes('mair')" [class.partner-card-shahat]="partner.includes('Shahat')">
+          <div class="partner-card" [style.animation-delay]="($index * 0.1) + 's'" [class.partner-card-mair]="partner.includes('mair')" [class.partner-card-shahat]="partner.includes('Shahat')">
             <div class="partner-image-wrapper" (click)="openImage(partner)">
               <img
                 [src]="partner"

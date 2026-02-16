@@ -1,9 +1,28 @@
 <!-- Hero Section -->
 <section id="home" class="hero-section" [class.content-loaded]="isLoaded()">
-  <div class="container">
+  <!-- Video Background -->
+  <video
+    class="hero-video-background"
+    autoplay
+    loop
+    muted
+    playsinline
+    preload="auto"
+    defaultMuted
+    webkit-playsinline
+    x-webkit-airplay="deny"
+    disablePictureInPicture>
+    <source src="assets/images/home_video.mp4" type="video/mp4">
+    Your browser does not support the video tag.
+  </video>
+
+  <!-- Overlay for better text visibility -->
+  <div class="hero-video-overlay"></div>
+
+  <div class="container hero-content-container">
     <div class="row hero-content align-items-center">
-      <!-- Left Side: Text Content -->
-      <div class="col-12 col-md-6 hero-text-content">
+      <!-- Left aligned Text Content with Shadow -->
+      <div class="col-12 col-lg-8 hero-text-content">
         <h1 class="hero-title">
           <span class="text-line">{{ langService.t('hero.title') }}</span>
           <span class="text-line gradient-text-animated">{{ langService.t('hero.titleGradient') }}</span>
@@ -19,15 +38,6 @@
           </a>
         </div>
       </div>
-
-      <!-- Right Side: Stands Photo in Rectangle Card -->
-      <div class="col-12 col-md-6 hero-stands-col">
-        <div class="hero-stands-card scroll-reveal">
-          <div class="hero-stands-card-inner">
-            <img src="assets/images/Stands Photo.png" alt="Exhibition Stands" class="hero-stands-image">
-          </div>
-        </div>
-      </div>
     </div>
   </div>
 </section>
@@ -35,7 +45,7 @@
 <!-- Partners Slider Section -->
 <section class="partners-slider-section" [class.content-loaded]="isLoaded()">
   <div class="container">
-    <div class="section-header scroll-reveal">
+    <div class="section-header">
       <h2 class="section-title gradient-text-animated">{{ langService.t('nav.partners') }}</h2>
     </div>
   </div>
@@ -59,7 +69,7 @@
 <!-- Services Overview Section -->
 <section id="services" class="services-overview-section" [class.content-loaded]="isLoaded()">
   <div class="container">
-    <div class="section-header scroll-reveal">
+    <div class="section-header">
       <h2 class="section-title gradient-text-animated">{{ langService.t('nav.productsServices') }}</h2>
       <p class="section-subtitle">{{ langService.t('about.subtitle') }}</p>
     </div>
@@ -67,7 +77,7 @@
     <div class="row g-4 mt-4 services-cards-row">
       @for (service of services; track service.key; let i = $index) {
         <div class="col-12 col-md-6 col-lg-4 services-card-col">
-        <div class="service-card-animated scroll-reveal" [style.--delay]="i * 0.1 + 's'">
+        <div class="service-card-animated" [style.--delay]="i * 0.1 + 's'">
           <div class="service-card-inner">
           <div class="service-icon-wrapper">
             <div class="service-icon home-page-icon" [class.home-page-icon-larger]="getServiceIconSizeClass(service.key) === 'home-page-icon-larger'">
@@ -98,7 +108,7 @@
     <div class="row g-4">
       @for (stat of stats; track stat.label; let i = $index) {
         <div class="col-12 col-sm-6 col-lg-3">
-        <div class="stat-card-animated scroll-reveal">
+        <div class="stat-card-animated">
           <div class="stat-icon home-page-icon">
             <img [src]="stat.icon" [alt]="stat.label">
           </div>
@@ -120,7 +130,7 @@
 <!-- Features Section -->
 <section class="features-section" [class.content-loaded]="isLoaded()">
   <div class="container">
-    <div class="section-header scroll-reveal">
+    <div class="section-header">
       <h2 class="section-title gradient-text-animated">{{ langService.t('home.features.title') }}</h2>
       <p class="section-subtitle">{{ langService.t('home.features.subtitle') }}</p>
     </div>
@@ -128,7 +138,7 @@
     <div class="row g-4 mt-4">
       @for (feature of features; track feature.title; let i = $index) {
         <div class="col-12 col-md-6 col-lg-4">
-        <div class="feature-card-3d scroll-reveal">
+        <div class="feature-card-3d">
           <div class="feature-card-front">
             <div class="feature-number">{{ langService.t('home.numbers.' + (i + 1)) }}</div>
             <div class="feature-icon-large home-page-icon">
@@ -147,14 +157,14 @@
 <!-- Process/Workflow Section -->
 <section class="process-section" [class.content-loaded]="isLoaded()">
   <div class="container">
-    <div class="section-header scroll-reveal">
+    <div class="section-header">
       <h2 class="section-title gradient-text-animated">{{ langService.t('home.process.title') }}</h2>
       <p class="section-subtitle">{{ langService.t('home.process.subtitle') }}</p>
     </div>
 
     <div class="process-timeline">
       @for (step of processSteps; track step.title; let i = $index) {
-        <div class="process-step scroll-reveal">
+        <div class="process-step">
           <div class="step-number">{{ langService.t('home.numbers.' + (i + 1)) }}</div>
           <div class="step-content">
               <h3 class="step-title gradient-text-animated">{{ step.title }}</h3>
@@ -169,7 +179,7 @@
 <!-- CTA Section -->
 <section class="cta-section" [class.content-loaded]="isLoaded()">
   <div class="container">
-    <div class="cta-content scroll-reveal">
+    <div class="cta-content">
       <h2 class="cta-title gradient-text-animated">{{ langService.t('home.cta.title') }}</h2>
       <p class="cta-subtitle">{{ langService.t('home.cta.subtitle') }}</p>
       <div class="cta-buttons">

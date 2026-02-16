@@ -13,7 +13,7 @@
 }
 
 .contact-us-section {
-    padding: calc(var(--nav-height) + 1.5rem) 0 8rem;
+    padding: calc(var(--nav-height) + 5rem) 0 8rem;
     min-height: 100vh;
     position: relative;
     overflow-x: hidden;
@@ -24,22 +24,23 @@
 .section-header {
     text-align: center;
     margin-bottom: 4rem;
+    padding: 40px 0;
 }
 
 .section-title {
     font-size: clamp(2.5rem, 5vw, 4rem);
-    font-weight: 800;
+    font-weight: 900;
     margin-bottom: 1rem;
     line-height: 1.2;
     background: linear-gradient(
       90deg,
-      var(--blue) 0%,
-      var(--purple) 20%,
-      var(--blue-light) 40%,
-      var(--white) 50%,
-      var(--blue-light) 60%,
-      var(--purple) 80%,
-      var(--blue) 100%
+      #0E37AD 0%,
+      #027DF8 20%,
+      #60CEFE 40%,
+      #FFFFFF 50%,
+      #60CEFE 60%,
+      #027DF8 80%,
+      #0E37AD 100%
     );
     background-size: 200% auto;
     -webkit-background-clip: text;
@@ -62,7 +63,7 @@
 .fade-in-up {
     opacity: 0;
     transform: translateY(30px);
-    animation: fadeInUp 0.8s ease forwards;
+    animation: fadeInUp 0.4s ease forwards;
 }
 
 @keyframes fadeInUp {
@@ -73,7 +74,7 @@
 }
 
 .fade-title {
-    transition: opacity 0.8s ease, transform 0.8s ease;
+    transition: opacity 0.4s ease, transform 0.4s ease;
 }
 
 .fade-title.fade-out {
@@ -125,9 +126,9 @@
 
 .contact-item:hover {
     transform: translateX(10px);
-    background: rgba(var(--secondary-rgb), 0.1);
+    background: rgba(40, 142, 242, 0.1);
     border-color: var(--purple);
-    box-shadow: 0 10px 30px rgba(var(--secondary-rgb), 0.2);
+    box-shadow: 0 10px 30px rgba(40, 142, 242, 0.2);
 }
 
 @media (max-width: 768px) {
@@ -195,7 +196,7 @@
     background: var(--gradient-hero);
     border-color: transparent;
     transform: translateY(-5px);
-    box-shadow: 0 10px 25px rgba(var(--secondary-rgb), 0.4);
+    box-shadow: 0 10px 25px rgba(40, 142, 242, 0.4);
     color: var(--white);
 }
 
@@ -204,7 +205,7 @@
     margin-top: 3rem;
     border-radius: 20px;
     overflow: hidden;
-    box-shadow: 0 20px 60px rgba(var(--secondary-rgb), 0.3);
+    box-shadow: 0 20px 60px rgba(40, 142, 242, 0.3);
     border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
@@ -267,8 +268,8 @@
 .form-control:focus {
     outline: none;
     border-color: var(--purple);
-    background: rgba(var(--secondary-rgb), 0.1);
-    box-shadow: 0 0 20px rgba(var(--secondary-rgb), 0.2);
+    background: rgba(40, 142, 242, 0.1);
+    box-shadow: 0 0 20px rgba(40, 142, 242, 0.2);
 }
 
 .form-control::placeholder {
@@ -365,7 +366,7 @@ textarea.form-control {
     position: relative;
     overflow: hidden;
     transition: all 0.3s ease;
-    box-shadow: 0 0 30px rgba(var(--secondary-rgb), 0.4);
+    box-shadow: 0 0 30px rgba(2, 125, 248, 0.4);
     cursor: pointer;
     width: 100%;
     max-width: 100%;
@@ -385,7 +386,7 @@ textarea.form-control {
 
 .btn-glow:hover:not(:disabled) {
     transform: translateY(-3px);
-    box-shadow: 0 0 50px rgba(var(--secondary-rgb), 0.8), 0 0 80px rgba(var(--secondary-rgb), 0.6);
+    box-shadow: 0 0 50px rgba(2, 125, 248, 0.8), 0 0 80px rgba(2, 125, 248, 0.6);
 }
 
 .btn-glow:hover:not(:disabled)::before {
@@ -398,7 +399,7 @@ textarea.form-control {
 }
 
 .btn-text {
-    background: var(--gradient-blue-silver);
+    background: linear-gradient(135deg, #027DF8, #60CEFE, #F7F7F8);
     -webkit-background-clip: text;
     background-clip: text;
     -webkit-text-fill-color: transparent;
@@ -411,14 +412,9 @@ textarea.form-control {
 
 /* Scroll Reveal Animation */
 .scroll-reveal {
-    opacity: 0;
-    transform: translateY(30px);
-    transition: opacity 0.8s ease, transform 0.8s ease;
-}
-
-.scroll-reveal.active {
     opacity: 1;
     transform: translateY(0);
+  transition: opacity 0.4s ease, transform 0.4s ease;
 }
 
 /* ========================================
@@ -427,8 +423,7 @@ textarea.form-control {
 
 @media (max-width: 991px) {
   .contact-us-section {
-    margin-top: 8.5%;
-    padding: calc(var(--nav-height) + 2rem) 1rem 5rem;
+    padding: calc(var(--nav-height) + 4.8rem) 1rem 5rem;
     overflow-x: hidden;
   }
 
@@ -448,10 +443,12 @@ textarea.form-control {
 
 @media (max-width: 768px) {
   .contact-us-section {
-    margin-top: 11%;
-    padding-left: 1rem;
-    padding-right: 1rem;
+    padding: calc(var(--nav-height) + 6.5rem) 1rem 5rem;
     overflow-x: hidden;
+  }
+
+  .section-header {
+    padding: 20px 0;
   }
 
     .contact-item {
@@ -478,17 +475,41 @@ textarea.form-control {
         margin-left: 0;
         margin-right: 0;
     }
+
+    .btn-glow {
+        padding: 0.95rem 2.25rem;
+        font-size: 1rem;
+    }
+
+    .usa-location-section .contact-info-text p,
+    .usa-location-section .contact-info-text .contact-link {
+        font-size: 0.88rem;
+    }
+
+    .usa-location-section .contact-info-text h5 {
+        font-size: 0.92rem;
+    }
+
+  /* Simplify animations on mobile for better performance */
+  .scroll-reveal {
+    transition: opacity 0.3s ease !important;
+    transform: none !important;
+  }
+
+  .scroll-reveal.active {
+    opacity: 1 !important;
+  }
 }
 
 @media (max-width: 576px) {
   .contact-us-section {
-    margin-top: 13.5%;
-    padding: calc(var(--nav-height) + 1rem) 1rem 4rem;
+    padding: calc(var(--nav-height) + 6rem) 1rem 4rem;
     overflow-x: hidden;
   }
 
     .section-header {
         margin-bottom: 3rem;
+        padding: 15px 0;
     }
 
     .section-title {
@@ -536,5 +557,23 @@ textarea.form-control {
     .map-container iframe {
         height: 300px;
         max-width: 100%;
+    }
+
+    .btn-glow {
+        padding: 0.85rem 2rem;
+        font-size: 0.95rem;
+    }
+
+    .usa-location-section .contact-info-text p,
+    .usa-location-section .contact-info-text .contact-link {
+        font-size: 0.8rem;
+    }
+
+    .usa-location-section .contact-info-text h5 {
+        font-size: 0.88rem;
+    }
+
+    .usa-location-section {
+        padding: 2rem 1.5rem;
     }
 }

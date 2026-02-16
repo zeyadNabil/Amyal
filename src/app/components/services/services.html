@@ -16,7 +16,7 @@
 
     <!-- Video Section for Mall Activation and AV Service -->
     @if (hasVideo()) {
-      <div class="service-section service-video-section scroll-reveal">
+      <div class="service-section service-video-section">
         <div class="container">
           <div class="row">
             <div class="col-12">
@@ -44,7 +44,7 @@
 
     <!-- Card Slider Section -->
     @if (!hasVideo() && getServiceImages().length > 0) {
-      <div class="service-section service-slider-section scroll-reveal">
+      <div class="service-section service-slider-section">
       <div class="container">
         <div class="card-slider-wrapper">
           <div class="card-slider-container"
@@ -62,7 +62,7 @@
                  [style.gap.px]="gapPx()">
               @for (image of getServiceImages(); track image; let i = $index) {
                 <div class="card-slider-item" [style.width.px]="cardWidthPx() || 280">
-                  <div class="service-card slider-card">
+                  <div class="service-card slider-card" [class.brand-ambassadors-card]="serviceType() === 'brand-ambassadors-event-hosts'">
                     <div class="card-image-wrapper" (click)="openImage(image)">
                       <img [src]="image"
                            class="card-slider-image"
@@ -97,7 +97,7 @@
 
     <!-- Overview Section -->
     @if (getOverview() && hasContent()) {
-      <div class="service-section scroll-reveal">
+      <div class="service-section">
         <div class="row g-4 align-items-stretch justify-content-center">
           <div class="col-lg-8">
             <div class="service-card overview-card">
@@ -111,7 +111,7 @@
 
     <!-- Features Section with Icons/Images -->
     @if (getFeatures().length > 0) {
-      <div class="service-section scroll-reveal">
+      <div class="service-section">
         <h2 class="section-main-title gradient-text-animated">{{ langService.t('services.sections.features') }}</h2>
         <div class="row g-4">
           @for (feature of getFeatures(); track feature; let i = $index) {
@@ -133,7 +133,7 @@
 
     <!-- What Makes Different Section with Icons -->
     @if (getWhatMakesDifferent().length > 0) {
-      <div class="service-section scroll-reveal">
+      <div class="service-section">
         <h2 class="section-main-title gradient-text-animated">{{ langService.t('services.sections.whatMakesDifferent') }}</h2>
         <div class="row g-4">
           @for (item of getWhatMakesDifferent(); track item; let i = $index) {
@@ -154,7 +154,7 @@
 
     <!-- Benefits Section with Icons -->
     @if (getBenefits().length > 0) {
-      <div class="service-section scroll-reveal">
+      <div class="service-section">
         <h2 class="section-main-title gradient-text-animated">{{ langService.t('services.sections.benefits') }}</h2>
         <div class="row g-4">
           @for (benefit of getBenefits(); track benefit; let i = $index) {
@@ -175,7 +175,7 @@
 
     <!-- What We Deliver & Why Choose Side by Side -->
     @if (getWhatWeDeliver().length > 0 || getWhyChoose().length > 0) {
-      <div class="service-section scroll-reveal">
+      <div class="service-section">
         <div class="row g-4">
           <!-- What We Deliver -->
           @if (getWhatWeDeliver().length > 0) {
@@ -230,7 +230,7 @@
 
     <!-- Closing Text Section -->
     @if (getClosingText() && getClosingText().length > 0 && !getClosingText().startsWith('services.')) {
-      <div class="service-section scroll-reveal">
+      <div class="service-section">
         <div class="row">
           <div class="col-lg-10 mx-auto">
             <div class="service-card overview-card closing-card">
@@ -243,7 +243,7 @@
 
     <!-- Placeholder if no content -->
     @if (!hasContent()) {
-      <div class="service-section scroll-reveal">
+      <div class="service-section">
         <div class="row">
           <div class="col-lg-8 mx-auto">
             <div class="service-card overview-card">

@@ -1,6 +1,7 @@
 import { Component, OnInit, AfterViewInit, HostListener, OnDestroy } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RouterOutlet } from '@angular/router';
+import { RouterOutlet, Router, NavigationEnd } from '@angular/router';
+import { filter } from 'rxjs/operators';
 import { Navbar } from './components/navbar/navbar';
 import { Footer } from './components/footer/footer';
 import { BackToTop } from './components/back-to-top/back-to-top';
@@ -31,7 +32,8 @@ export class App implements OnInit, AfterViewInit, OnDestroy {
 
   constructor(
     private imageManager: ImageManagerService,
-    private themeService: ThemeService
+    private themeService: ThemeService,
+    private router: Router
   ) {
     // Theme service will auto-load on construction
   }
@@ -84,6 +86,24 @@ export class App implements OnInit, AfterViewInit, OnDestroy {
   ngOnInit(): void {
     // Ensure stars are continuously visible
     this.ensureStarsCoverage();
+    
+    // Track route changes to hide neon wave on home page
+    this.router.events.pipe(
+      filter(event => event instanceof NavigationEnd)
+    ).subscribe((event: NavigationEnd) => {
+      if (typeof document !== 'undefined') {
+        if (event.urlAfterRedirects === '/' || event.url === '/') {
+          document.body.classList.add('on-home-page');
+        } else {
+          document.body.classList.remove('on-home-page');
+        }
+      }
+    });
+    
+    // Set initial state
+    if (typeof document !== 'undefined' && this.router.url === '/') {
+      document.body.classList.add('on-home-page');
+    }
   }
 
   ngAfterViewInit(): void {
@@ -120,7 +140,7 @@ export class App implements OnInit, AfterViewInit, OnDestroy {
       clearTimeout(this.zoomTimeout);
     }
     if (typeof document !== 'undefined') {
-      document.body.classList.remove('scrolling', 'zooming');
+      document.body.classList.remove('scrolling', 'zooming', 'on-home-page');
     }
   }
 

@@ -85,7 +85,7 @@ export class ContactUs implements OnInit, OnDestroy {
   initScrollAnimations(): void {
     const observerOptions = {
       threshold: 0.15,
-      rootMargin: '0px 0px -50px 0px'
+      rootMargin: '0px 0px -150px 0px'
     };
 
     const observer = new IntersectionObserver((entries) => {
