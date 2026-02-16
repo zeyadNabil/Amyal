@@ -897,13 +897,13 @@
   align-items: center;
   margin-bottom: 60px;
   position: relative;
-  opacity: 0;
-  transform: translateY(30px) translateZ(0);
+  opacity: 1;
+  transform: translateY(0) translateZ(0);
   transition: opacity 0.4s ease, transform 0.4s ease;
   will-change: transform, opacity;
   backface-visibility: hidden;
   -webkit-backface-visibility: hidden;
-  -webkit-transform: translateY(30px) translateZ(0);
+  -webkit-transform: translateY(0) translateZ(0);
 }
 
 .process-step:nth-child(odd) {
@@ -912,8 +912,8 @@
 
 .process-step:nth-child(even) {
   flex-direction: row-reverse;
-  transform: translateY(30px) translateZ(0);
-  -webkit-transform: translateY(30px) translateZ(0);
+  transform: translateY(0) translateZ(0);
+  -webkit-transform: translateY(0) translateZ(0);
 }
 
 .process-step.scroll-reveal.active {
@@ -1108,13 +1108,13 @@
 }
 
 .scroll-reveal {
-  opacity: 0;
-  transform: translateY(50px) translateZ(0);
+  opacity: 1;
+  transform: translateY(0) translateZ(0);
   transition: opacity 0.4s ease, transform 0.4s ease;
   will-change: transform, opacity;
   backface-visibility: hidden;
   -webkit-backface-visibility: hidden;
-  -webkit-transform: translateY(50px) translateZ(0);
+  -webkit-transform: translateY(0) translateZ(0);
 }
 
 .scroll-reveal.active {
@@ -1179,7 +1179,7 @@
 
   .process-step {
     flex-direction: row !important;
-    transform: translateY(30px) !important;
+    transform: translateY(0) !important;
     margin-bottom: 0 !important;
     align-items: flex-start;
     gap: 1.25rem;

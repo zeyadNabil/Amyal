@@ -1,7 +1,7 @@
 <!-- Contact Us Page -->
 <section class="contact-us-section" [class.content-loaded]="isLoaded()">
   <div class="container">
-    <div class="section-header scroll-reveal">
+    <div class="section-header">
       <h1 class="section-title gradient-text gradient-text-animated fade-title fade-in-up" [class.fade-out]="titleFadeState() === 'fade-out'" [class.fade-in]="titleFadeState() === 'fade-in'" [class.visible]="titleFadeState() === 'visible'">
         {{ langService.t('contact.title') }}
       </h1>
@@ -11,12 +11,12 @@
     <div class="row g-5">
       <!-- Contact Information -->
       <div class="col-lg-6">
-        <div class="contact-info scroll-reveal">
+        <div class="contact-info">
           <h3 class="contact-heading gradient-text-animated">{{ langService.t('contact.heading') }}</h3>
           <p class="contact-text">{{ langService.t('contact.text') }}</p>
 
           <div class="contact-details">
-            <div class="contact-item scroll-reveal">
+            <div class="contact-item">
               <div class="contact-icon">
                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                   <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
@@ -28,7 +28,7 @@
               </div>
             </div>
 
-            <div class="contact-item scroll-reveal">
+            <div class="contact-item">
               <div class="contact-icon">
                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                   <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
@@ -40,7 +40,7 @@
               </div>
             </div>
 
-            <div class="contact-item scroll-reveal">
+            <div class="contact-item">
               <div class="contact-icon">
                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                   <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
@@ -53,7 +53,7 @@
               </div>
             </div>
 
-            <div class="contact-item scroll-reveal">
+            <div class="contact-item">
               <div class="contact-icon">
                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                   <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
@@ -67,7 +67,7 @@
             </div>
           </div>
 
-          <div class="social-links scroll-reveal">
+          <div class="social-links">
             <a href="#" class="social-link" aria-label="Facebook">
               <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
                 <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
@@ -94,7 +94,7 @@
 
       <!-- Contact Form -->
       <div class="col-lg-6">
-        <form [formGroup]="contactForm" (ngSubmit)="onSubmit()" class="contact-form scroll-reveal">
+        <form [formGroup]="contactForm" (ngSubmit)="onSubmit()" class="contact-form">
           <div class="form-group">
             <input
               type="text"
@@ -183,7 +183,7 @@
     <!-- Google Maps Embed - Full Width -->
     <div class="row g-5 mt-5">
       <div class="col-12">
-        <div class="map-container scroll-reveal">
+        <div class="map-container">
           <iframe
             src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3633.235334642!2d54.3773!3d24.4539!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3e5e66a70d2f1e5f%3A0x3f3e5e66a70d2f1e!2sAbu%20Dhabi%20-%20United%20Arab%20Emirates!5e0!3m2!1sen!2sus!4v1698765432109!5m2!1sen!2sus"
             width="100%"
@@ -203,10 +203,10 @@ Office No. 9">
     <!-- USA Location Section -->
     <div class="row g-5 mt-5">
       <div class="col-12">
-        <div class="usa-location-section scroll-reveal">
+        <div class="usa-location-section">
           <h3 class="section-title gradient-text gradient-text-animated">{{ langService.t('contact.usaLocation') }}</h3>
           <div class="contact-details">
-            <div class="contact-item scroll-reveal">
+            <div class="contact-item">
               <div class="contact-icon">
                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                   <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
@@ -219,7 +219,7 @@ Office No. 9">
               </div>
             </div>
 
-            <div class="contact-item scroll-reveal">
+            <div class="contact-item">
               <div class="contact-icon">
                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                   <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>

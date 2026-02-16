@@ -45,7 +45,7 @@
 <!-- Partners Slider Section -->
 <section class="partners-slider-section" [class.content-loaded]="isLoaded()">
   <div class="container">
-    <div class="section-header scroll-reveal">
+    <div class="section-header">
       <h2 class="section-title gradient-text-animated">{{ langService.t('nav.partners') }}</h2>
     </div>
   </div>
@@ -69,7 +69,7 @@
 <!-- Services Overview Section -->
 <section id="services" class="services-overview-section" [class.content-loaded]="isLoaded()">
   <div class="container">
-    <div class="section-header scroll-reveal">
+    <div class="section-header">
       <h2 class="section-title gradient-text-animated">{{ langService.t('nav.productsServices') }}</h2>
       <p class="section-subtitle">{{ langService.t('about.subtitle') }}</p>
     </div>
@@ -77,7 +77,7 @@
     <div class="row g-4 mt-4 services-cards-row">
       @for (service of services; track service.key; let i = $index) {
         <div class="col-12 col-md-6 col-lg-4 services-card-col">
-        <div class="service-card-animated scroll-reveal" [style.--delay]="i * 0.1 + 's'">
+        <div class="service-card-animated" [style.--delay]="i * 0.1 + 's'">
           <div class="service-card-inner">
           <div class="service-icon-wrapper">
             <div class="service-icon home-page-icon" [class.home-page-icon-larger]="getServiceIconSizeClass(service.key) === 'home-page-icon-larger'">
@@ -108,7 +108,7 @@
     <div class="row g-4">
       @for (stat of stats; track stat.label; let i = $index) {
         <div class="col-12 col-sm-6 col-lg-3">
-        <div class="stat-card-animated scroll-reveal">
+        <div class="stat-card-animated">
           <div class="stat-icon home-page-icon">
             <img [src]="stat.icon" [alt]="stat.label">
           </div>
@@ -127,7 +127,7 @@
 <!-- Features Section -->
 <section class="features-section" [class.content-loaded]="isLoaded()">
   <div class="container">
-    <div class="section-header scroll-reveal">
+    <div class="section-header">
       <h2 class="section-title gradient-text-animated">{{ langService.t('home.features.title') }}</h2>
       <p class="section-subtitle">{{ langService.t('home.features.subtitle') }}</p>
     </div>
@@ -135,7 +135,7 @@
     <div class="row g-4 mt-4">
       @for (feature of features; track feature.title; let i = $index) {
         <div class="col-12 col-md-6 col-lg-4">
-        <div class="feature-card-3d scroll-reveal">
+        <div class="feature-card-3d">
           <div class="feature-card-front">
             <div class="feature-number">{{ langService.t('home.numbers.' + (i + 1)) }}</div>
             <div class="feature-icon-large home-page-icon">
@@ -154,14 +154,14 @@
 <!-- Process/Workflow Section -->
 <section class="process-section" [class.content-loaded]="isLoaded()">
   <div class="container">
-    <div class="section-header scroll-reveal">
+    <div class="section-header">
       <h2 class="section-title gradient-text-animated">{{ langService.t('home.process.title') }}</h2>
       <p class="section-subtitle">{{ langService.t('home.process.subtitle') }}</p>
     </div>
 
     <div class="process-timeline">
       @for (step of processSteps; track step.title; let i = $index) {
-        <div class="process-step scroll-reveal">
+        <div class="process-step">
           <div class="step-number">{{ langService.t('home.numbers.' + (i + 1)) }}</div>
           <div class="step-content">
               <h3 class="step-title gradient-text-animated">{{ step.title }}</h3>
@@ -176,7 +176,7 @@
 <!-- CTA Section -->
 <section class="cta-section" [class.content-loaded]="isLoaded()">
   <div class="container">
-    <div class="cta-content scroll-reveal">
+    <div class="cta-content">
       <h2 class="cta-title gradient-text-animated">{{ langService.t('home.cta.title') }}</h2>
       <p class="cta-subtitle">{{ langService.t('home.cta.subtitle') }}</p>
       <div class="cta-buttons">

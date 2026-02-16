@@ -2,7 +2,7 @@
 <section class="gallery-page" [class.content-loaded]="isLoaded()">
   <div class="container">
     <!-- Gallery Header -->
-    <div class="gallery-header scroll-reveal">
+    <div class="gallery-header">
       <h1 class="gallery-title gradient-text-animated fade-title fade-in-up" [class.fade-out]="titleFadeState() === 'fade-out'" [class.fade-in]="titleFadeState() === 'fade-in'" [class.visible]="titleFadeState() === 'visible'">
         {{ langService.t('gallery.title') }}
       </h1>
@@ -17,7 +17,7 @@
       @for (image of galleryImages; track image; let i = $index) {
         <div class="col-12 col-sm-6 col-lg-4">
         <div
-          class="gallery-item fade-in-up scroll-reveal"
+          class="gallery-item fade-in-up"
           (click)="openImage(image)">
           <div class="gallery-image-wrapper">
             <img [src]="image" [alt]="langService.t('nav.gallery') + ' ' + (i + 1)" class="gallery-image">

@@ -596,8 +596,8 @@
 }
 
 .scroll-reveal {
-  opacity: 0;
-  transform: translateY(30px);
+  opacity: 1;
+  transform: translateY(0);
   transition: opacity 0.4s ease, transform 0.4s ease;
 }
 
@@ -1408,8 +1408,8 @@ body:has(.slider-lightbox-overlay) .chat-widget-container {
 }
 
 .animate-card {
-  opacity: 0;
-  transform: translateY(30px);
+  opacity: 1;
+  transform: translateY(0);
   transition: opacity 0.4s ease, transform 0.4s ease;
 }
 

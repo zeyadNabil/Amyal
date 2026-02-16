@@ -2,14 +2,14 @@
 <section class="about-us-page" [class.content-loaded]="isLoaded()">
   <div class="container">
     <!-- Page Header -->
-    <div class="about-header scroll-reveal">
+    <div class="about-header">
       <h1 class="about-title gradient-text-animated fade-title fade-in-up" [class.fade-out]="titleFadeState() === 'fade-out'" [class.fade-in]="titleFadeState() === 'fade-in'" [class.visible]="titleFadeState() === 'visible'">
         {{ langService.t('aboutUs.title') }}
       </h1>
     </div>
 
     <!-- Who We Are Section -->
-    <div class="section who-we-are scroll-reveal fade-in-up" [attr.dir]="langService.currentLang() === 'ar' ? 'rtl' : 'ltr'">
+    <div class="section who-we-are fade-in-up" [attr.dir]="langService.currentLang() === 'ar' ? 'rtl' : 'ltr'">
       <div class="section-content">
         <h2 class="section-title gradient-text-animated">{{ langService.t('aboutUs.whoWeAre.title') }}</h2>
         <p class="section-subtitle">{{ langService.t('aboutUs.whoWeAre.subtitle') }}</p>
@@ -22,11 +22,11 @@
     </div>
 
     <!-- Why Choose Us Section -->
-    <div class="section why-choose-us scroll-reveal fade-in-up">
+    <div class="section why-choose-us fade-in-up">
       <h2 class="section-title gradient-text-animated">{{ langService.t('aboutUs.whyChooseUs.title') }}</h2>
       <div class="row g-4">
         <div class="col-12 col-md-6 col-lg-4">
-        <div class="feature-card scroll-reveal fade-in-up">
+        <div class="feature-card fade-in-up">
           <div class="feature-icon">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
               <path d="M12 2L2 7L12 12L22 7L12 2Z"></path>
@@ -40,7 +40,7 @@
         </div>
 
         <div class="col-12 col-md-6 col-lg-4">
-        <div class="feature-card scroll-reveal fade-in-up">
+        <div class="feature-card fade-in-up">
           <div class="feature-icon">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
               <rect x="3" y="3" width="18" height="18" rx="2"></rect>
@@ -53,7 +53,7 @@
         </div>
 
         <div class="col-12 col-md-6 col-lg-4">
-        <div class="feature-card scroll-reveal fade-in-up">
+        <div class="feature-card fade-in-up">
           <div class="feature-icon">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
               <path d="M20 7H4C2.89543 7 2 7.89543 2 9V19C2 20.1046 2.89543 21 4 21H20C21.1046 21 22 20.1046 22 19V9C22 7.89543 21.1046 7 20 7Z"></path>
@@ -66,7 +66,7 @@
         </div>
 
         <div class="col-12 col-md-6 col-lg-4">
-        <div class="feature-card scroll-reveal fade-in-up">
+        <div class="feature-card fade-in-up">
           <div class="feature-icon">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
               <path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z"></path>
@@ -78,7 +78,7 @@
         </div>
 
         <div class="col-12 col-md-6 col-lg-4">
-        <div class="feature-card scroll-reveal fade-in-up">
+        <div class="feature-card fade-in-up">
           <div class="feature-icon">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
               <path d="M22 11.08V12C21.9988 14.1564 21.3005 16.2547 20.0093 17.9818C18.7182 19.7088 16.9033 20.9725 14.8354 21.5839C12.7674 22.1953 10.5573 22.1219 8.53447 21.3746C6.51168 20.6273 4.78465 19.2461 3.61096 17.4371C2.43727 15.628 1.87979 13.4881 2.02168 11.3363C2.16356 9.18455 2.99721 7.13631 4.39828 5.49706C5.79935 3.85781 7.69279 2.71537 9.79619 2.24013C11.8996 1.7649 14.1003 1.98232 16.07 2.85999"></path>
@@ -93,10 +93,10 @@
     </div>
 
     <!-- Mission & Vision Section -->
-    <div class="section mission-vision scroll-reveal fade-in-up">
+    <div class="section mission-vision fade-in-up">
       <div class="row g-4">
         <div class="col-12 col-lg-6">
-        <div class="mission-card scroll-reveal fade-in-up">
+        <div class="mission-card fade-in-up">
           <div class="card-header">
             <div class="card-icon">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -112,7 +112,7 @@
         </div>
 
         <div class="col-12 col-lg-6">
-        <div class="vision-card scroll-reveal fade-in-up">
+        <div class="vision-card fade-in-up">
           <div class="card-header">
             <div class="card-icon">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -129,10 +129,10 @@
     </div>
 
     <!-- How We Work Section -->
-    <div class="section how-we-work scroll-reveal fade-in-up">
+    <div class="section how-we-work fade-in-up">
       <h2 class="section-title">{{ langService.t('aboutUs.howWeWork.title') }}</h2>
       <div class="process-timeline">
-        <div class="process-step scroll-reveal fade-in-up">
+        <div class="process-step fade-in-up">
           <div class="step-number">1</div>
           <div class="step-content">
             <h3 class="step-title gradient-text-animated">{{ langService.t('aboutUs.howWeWork.step1.title') }}</h3>
@@ -140,7 +140,7 @@
           </div>
         </div>
 
-        <div class="process-step scroll-reveal fade-in-up">
+        <div class="process-step fade-in-up">
           <div class="step-number">2</div>
           <div class="step-content">
             <h3 class="step-title">{{ langService.t('aboutUs.howWeWork.step2.title') }}</h3>
@@ -148,7 +148,7 @@
           </div>
         </div>
 
-        <div class="process-step scroll-reveal fade-in-up">
+        <div class="process-step fade-in-up">
           <div class="step-number">3</div>
           <div class="step-content">
             <h3 class="step-title gradient-text-animated">{{ langService.t('aboutUs.howWeWork.step3.title') }}</h3>
@@ -156,7 +156,7 @@
           </div>
         </div>
 
-        <div class="process-step scroll-reveal fade-in-up">
+        <div class="process-step fade-in-up">
           <div class="step-number">4</div>
           <div class="step-content">
             <h3 class="step-title gradient-text-animated">{{ langService.t('aboutUs.howWeWork.step4.title') }}</h3>
