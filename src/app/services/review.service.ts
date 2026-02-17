@@ -1,18 +1,37 @@
-import { Injectable, signal } from '@angular/core';
+import { Injectable, signal, OnDestroy } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Review } from '../models/api.models';
 import { firstValueFrom } from 'rxjs';
 
+const REVIEWS_BROADCAST_CHANNEL = 'amyal-reviews-updated';
+
 @Injectable({
   providedIn: 'root'
 })
-export class ReviewService {
+export class ReviewService implements OnDestroy {
   private apiUrl = '/api';
   reviews = signal<Review[]>([]);
   isLoading = signal(false);
+  private broadcastChannel: BroadcastChannel | null = null;
 
   constructor(private http: HttpClient) {
     this.loadReviews();
+    this.setupCrossTabRefresh();
+  }
+
+  ngOnDestroy(): void {
+    this.broadcastChannel?.close();
+  }
+
+  /** Notify other tabs to refresh reviews (e.g. after add/delete from admin) */
+  private setupCrossTabRefresh(): void {
+    if (typeof BroadcastChannel === 'undefined') return;
+    this.broadcastChannel = new BroadcastChannel(REVIEWS_BROADCAST_CHANNEL);
+    this.broadcastChannel.onmessage = () => this.loadReviews();
+  }
+
+  private notifyOtherTabs(): void {
+    this.broadcastChannel?.postMessage({ type: 'reviews-updated' });
   }
 
   private isLocalDev(): boolean {
@@ -45,8 +64,8 @@ export class ReviewService {
       );
       
       if (response.success) {
-        // Refresh reviews list
         await this.loadReviews();
+        this.notifyOtherTabs();
         return { success: true };
       }
       
@@ -83,8 +102,8 @@ export class ReviewService {
       );
       
       if (response.success) {
-        // Refresh reviews list
         await this.loadReviews();
+        this.notifyOtherTabs();
         return { success: true };
       }
       

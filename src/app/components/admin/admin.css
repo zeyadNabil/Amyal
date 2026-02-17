@@ -708,16 +708,20 @@
   box-shadow: 0 4px 15px rgba(var(--secondary-rgb), 0.5);
 }
 
-/* Add Review Modal (overlay + dialog) */
+/* Add Review Modal (overlay + dialog) - above navbar (10001) */
 .add-review-modal-overlay {
   position: fixed;
   inset: 0;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
   background: rgba(0, 0, 0, 0.6);
   backdrop-filter: blur(4px);
   display: flex;
   align-items: center;
   justify-content: center;
-  z-index: 9999;
+  z-index: 100002;
   padding: 20px;
   animation: adminModalFadeIn 0.2s ease;
   cursor: pointer;

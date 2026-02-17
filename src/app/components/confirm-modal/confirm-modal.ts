@@ -41,7 +41,7 @@ import { CommonModule } from '@angular/common';
       display: flex;
       align-items: center;
       justify-content: center;
-      z-index: 9999;
+      z-index: 100002;
       padding: 20px;
       animation: fadeIn 0.2s ease;
       cursor: pointer;
