@@ -140,9 +140,9 @@
 }
 
 .review-avatar {
-  width: 40px;
-  height: 40px;
-  min-width: 40px;
+  width: 65px;
+  height: 65px;
+  min-width: 65px;
   border-radius: 50%;
   background: rgba(255, 255, 255, 0.08);
   border: 1px solid rgba(255, 255, 255, 0.15);
@@ -227,30 +227,30 @@
   .reviews-slider-section {
     padding: 60px 0;
   }
-  
+
   .reviews-slider-wrapper.scrollable {
     padding-inline-start: 20px;
   }
-  
+
   .reviews-slider-wrapper.scrollable .reviews-slider-track {
     padding-inline-end: 30px;
   }
-  
+
   .section-title {
     font-size: 2rem;
   }
-  
+
   .review-card-slider {
     min-width: 260px;
     max-width: 260px;
     padding: 18px 20px;
   }
-  
+
   .reviews-actions {
     flex-direction: column;
     align-items: stretch;
   }
-  
+
   .btn-add-review {
     width: 100%;
     justify-content: center;
