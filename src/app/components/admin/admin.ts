@@ -51,6 +51,15 @@ export class Admin implements OnInit {
   deleteConfirmVisible = signal(false);
   reviewToDelete = signal<string | null>(null);
 
+  // Add review modal (admin adds a review like users)
+  addReviewModalVisible = signal(false);
+  addReviewName = '';
+  addReviewRating = 5;
+  addReviewMessage = '';
+  addReviewSubmitting = signal(false);
+  addReviewSubmitMessage = signal('');
+  addReviewSuccess = signal(false);
+
   constructor(
     public themeService: ThemeService,
     public reviewService: ReviewService,
@@ -155,7 +164,7 @@ export class Admin implements OnInit {
     const result = await this.themeService.updateTheme(this.themeForm, this.password);
     
     if (result.success) {
-      this.themeMessage.set('Theme updated successfully! ✓');
+      this.themeMessage.set(this.langService.t('admin.themeUpdatedSuccess'));
       // Reload the current theme to get updated values
       await this.themeService.loadTheme();
       const currentTheme = this.themeService.currentTheme();
@@ -163,7 +172,7 @@ export class Admin implements OnInit {
         this.themeForm = { ...currentTheme };
       }
     } else {
-      this.themeMessage.set(result.error || 'Failed to update theme');
+      this.themeMessage.set(result.error || this.langService.t('admin.failedToUpdateTheme'));
     }
     
     this.themeSaving.set(false);
@@ -182,7 +191,7 @@ export class Admin implements OnInit {
   async saveThemePreset(): Promise<void> {
     const name = this.savedThemeName?.trim();
     if (!name) {
-      this.themeMessage.set('Please enter a theme name');
+      this.themeMessage.set(this.langService.t('admin.pleaseEnterThemeName'));
       setTimeout(() => this.themeMessage.set(''), 3000);
       return;
     }
@@ -191,10 +200,10 @@ export class Admin implements OnInit {
     if (!this.advancedMode()) this.syncGradients();
     const result = await this.themeService.saveThemePreset(name, this.themeForm, this.password);
     if (result.success) {
-      this.themeMessage.set(`Theme "${name}" saved successfully! ✓`);
+      this.themeMessage.set(this.langService.t('admin.themeSaveSuccess').replace('{{name}}', name));
       this.savedThemeName = '';
     } else {
-      this.themeMessage.set(result.error || 'Failed to save theme');
+      this.themeMessage.set(result.error || this.langService.t('admin.failedToSaveTheme'));
     }
     this.savingPreset.set(false);
     setTimeout(() => this.themeMessage.set(''), 3000);
@@ -206,9 +215,9 @@ export class Admin implements OnInit {
     const result = await this.themeService.applyThemePreset(id, this.password);
     if (result.success && result.theme) {
       this.themeForm = { ...result.theme };
-      this.themeMessage.set('Theme applied successfully! ✓');
+      this.themeMessage.set(this.langService.t('admin.themeAppliedSuccess'));
     } else {
-      this.themeMessage.set(result.error || 'Failed to apply theme');
+      this.themeMessage.set(result.error || this.langService.t('admin.failedToApplyTheme'));
     }
     this.applyingPreset.set(false);
     setTimeout(() => this.themeMessage.set(''), 3000);
@@ -240,10 +249,10 @@ export class Admin implements OnInit {
     const result = await this.reviewService.deleteReview(reviewId, this.password);
 
     if (result.success) {
-      this.reviewMessage.set('Review deleted successfully! ✓');
+      this.reviewMessage.set(this.langService.t('admin.reviewDeleted'));
       this.loadReviewsForManagement();
     } else {
-      this.reviewMessage.set(result.error || 'Failed to delete review');
+      this.reviewMessage.set(result.error || this.langService.t('admin.failedToDelete'));
     }
 
     setTimeout(() => this.reviewMessage.set(''), 3000);
@@ -255,5 +264,70 @@ export class Admin implements OnInit {
 
   formatDate(dateString: string): string {
     return new Date(dateString).toLocaleDateString();
+  }
+
+  openAddReviewModal(): void {
+    this.addReviewName = '';
+    this.addReviewRating = 5;
+    this.addReviewMessage = '';
+    this.addReviewSubmitMessage.set('');
+    this.addReviewSuccess.set(false);
+    this.addReviewModalVisible.set(true);
+  }
+
+  closeAddReviewModal(): void {
+    this.addReviewModalVisible.set(false);
+    this.addReviewName = '';
+    this.addReviewRating = 5;
+    this.addReviewMessage = '';
+    this.addReviewSubmitMessage.set('');
+  }
+
+  setAddReviewRating(r: number): void {
+    this.addReviewRating = r;
+  }
+
+  getAddReviewStarClass(starRating: number): string {
+    return starRating <= this.addReviewRating ? 'fas fa-star active' : 'far fa-star';
+  }
+
+  async submitAddReview(): Promise<void> {
+    if (!this.addReviewMessage.trim()) {
+      this.addReviewSubmitMessage.set(this.langService.t('reviewForm.errorMessage') || 'Please enter your review message');
+      this.addReviewSuccess.set(false);
+      return;
+    }
+    if (this.addReviewMessage.trim().length < 10) {
+      this.addReviewSubmitMessage.set(this.langService.t('reviewForm.errorMinLength') || 'Review must be at least 10 characters');
+      this.addReviewSuccess.set(false);
+      return;
+    }
+
+    this.addReviewSubmitting.set(true);
+    this.addReviewSubmitMessage.set('');
+
+    const displayName = this.addReviewName.trim() || (this.langService.t('reviewForm.anonymous') || 'Anonymous User');
+    const result = await this.reviewService.submitReview(
+      displayName,
+      this.addReviewRating,
+      this.addReviewMessage.trim()
+    );
+
+    if (result.success) {
+      this.addReviewSuccess.set(true);
+      this.addReviewSubmitMessage.set(this.langService.t('reviewForm.success') || 'Thank you for your review! ✓');
+      await this.loadReviewsForManagement();
+      this.addReviewName = '';
+      this.addReviewRating = 5;
+      this.addReviewMessage = '';
+      setTimeout(() => {
+        this.closeAddReviewModal();
+      }, 1500);
+    } else {
+      this.addReviewSuccess.set(false);
+      this.addReviewSubmitMessage.set(result.error || 'Failed to submit review');
+    }
+
+    this.addReviewSubmitting.set(false);
   }
 }

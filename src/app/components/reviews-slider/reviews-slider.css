@@ -8,8 +8,10 @@
 }
 
 .section-title {
-  font-size: 2.5rem;
-  margin-bottom: 15px;
+  font-size: clamp(2.5rem, 5vw, 4.5rem);
+  font-weight: 900;
+  margin-bottom: 1rem;
+  line-height: 1.2;
 }
 
 .section-subtitle {

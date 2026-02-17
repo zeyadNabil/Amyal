@@ -54,7 +54,7 @@ import { CommonModule } from '@angular/common';
 
     .modal-dialog {
       background: var(--bg-navy);
-      border: 1px solid rgba(255, 255, 255, 0.1);
+      border: 1px solid var(--border-color);
       border-radius: 16px;
       max-width: 420px;
       width: 100%;
@@ -80,7 +80,7 @@ import { CommonModule } from '@angular/common';
       align-items: center;
       justify-content: space-between;
       padding: 20px 24px;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      border-bottom: 1px solid var(--border-color);
     }
 
     .modal-title {
@@ -93,7 +93,7 @@ import { CommonModule } from '@angular/common';
     .modal-close {
       background: none;
       border: none;
-      color: rgba(255, 255, 255, 0.6);
+      color: var(--gray);
       cursor: pointer;
       padding: 4px;
       font-size: 1.2rem;
@@ -110,7 +110,7 @@ import { CommonModule } from '@angular/common';
 
     .modal-message {
       margin: 0;
-      color: rgba(255, 255, 255, 0.9);
+      color: var(--white);
       line-height: 1.6;
       font-size: 1rem;
     }
@@ -120,13 +120,13 @@ import { CommonModule } from '@angular/common';
       gap: 12px;
       justify-content: flex-end;
       padding: 20px 24px;
-      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      border-top: 1px solid var(--border-color);
     }
 
     .btn-cancel {
       padding: 10px 20px;
-      background: rgba(255, 255, 255, 0.08);
-      border: 1px solid rgba(255, 255, 255, 0.2);
+      background: rgba(var(--secondary-rgb), 0.1);
+      border: 1px solid var(--border-color);
       border-radius: 10px;
       color: var(--white);
       font-weight: 600;
@@ -135,7 +135,7 @@ import { CommonModule } from '@angular/common';
     }
 
     .btn-cancel:hover {
-      background: rgba(255, 255, 255, 0.12);
+      background: rgba(var(--secondary-rgb), 0.2);
     }
 
     .btn-confirm {
@@ -143,7 +143,7 @@ import { CommonModule } from '@angular/common';
       background: var(--gradient-primary);
       border: none;
       border-radius: 10px;
-      color: white;
+      color: var(--white);
       font-weight: 600;
       cursor: pointer;
       transition: all 0.2s;

@@ -1,11 +1,11 @@
-<section class="admin-page">
+<section class="admin-page" [attr.dir]="langService.currentLang() === 'ar' ? 'rtl' : 'ltr'">
   <div class="container">
     <!-- Login Screen -->
     @if (!isAuthenticated()) {
       <div class="admin-login">
         <div class="login-card">
-          <h1 class="admin-title gradient-text-animated">🔐 Admin Access</h1>
-          <p class="admin-subtitle">Enter admin password to continue</p>
+          <h1 class="admin-title gradient-text-animated">{{ langService.t('admin.loginTitle') }}</h1>
+          <p class="admin-subtitle">{{ langService.t('admin.loginSubtitle') }}</p>
           
           <div class="login-form">
             <div class="form-group">
@@ -13,7 +13,7 @@
                 type="password"
                 [(ngModel)]="password"
                 (keyup.enter)="authenticate()"
-                placeholder="Admin Password"
+                [placeholder]="langService.t('admin.passwordPlaceholder')"
                 [disabled]="isAuthenticating()"
                 class="form-control">
             </div>
@@ -29,9 +29,9 @@
               [disabled]="isAuthenticating()"
               class="btn-primary">
               @if (isAuthenticating()) {
-                <span>Validating...</span>
+                <span>{{ langService.t('admin.validating') }}</span>
               } @else {
-                <span>Login</span>
+                <span>{{ langService.t('admin.login') }}</span>
               }
             </button>
           </div>
@@ -42,7 +42,7 @@
     <!-- Admin Dashboard -->
     @if (isAuthenticated()) {
       <div class="admin-dashboard">
-        <h1 class="admin-title gradient-text-animated">⚙️ Admin Dashboard</h1>
+        <h1 class="admin-title gradient-text-animated">{{ langService.t('admin.dashboardTitle') }}</h1>
         
         <!-- Tabs -->
         <div class="admin-tabs">
@@ -50,13 +50,13 @@
             (click)="switchTab('theme')"
             [class.active]="activeTab() === 'theme'"
             class="tab-button">
-            🎨 Theme Manager
+            {{ langService.t('admin.themeManager') }}
           </button>
           <button
             (click)="switchTab('reviews')"
             [class.active]="activeTab() === 'reviews'"
             class="tab-button">
-            ⭐ Review Manager
+            {{ langService.t('admin.reviewManager') }}
           </button>
         </div>
         
@@ -64,8 +64,8 @@
         @if (activeTab() === 'theme') {
           <div class="tab-content">
             <div class="section-header">
-              <h2>Theme Customization</h2>
-              <p>Customize your website colors and see changes applied instantly across all pages</p>
+              <h2>{{ langService.t('admin.themeCustomization') }}</h2>
+              <p>{{ langService.t('admin.themeSubtitle') }}</p>
             </div>
             
             <!-- Advanced Mode Toggle -->
@@ -75,39 +75,34 @@
                 <span class="toggle-slider"></span>
               </label>
               <div class="toggle-label">
-                <strong>Advanced Mode</strong>
+                <strong>{{ langService.t('admin.advancedMode') }}</strong>
                 <p>@if (advancedMode()) {
-                  13+ color pickers: gradients, borders, backgrounds, muted text, links, cards. Full control over every visual element.
+                  {{ langService.t('admin.advancedModeDesc') }}
                 } @else {
-                  Default: 5 essential colors (Primary Dark/Mid/Light, Background, Text). Gradients auto-derive for a cohesive look.
+                  {{ langService.t('admin.advancedModeDefault') }}
                 }</p>
               </div>
             </div>
             
             <!-- Color Guide Info Box -->
             <div class="info-box color-guide">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <circle cx="12" cy="12" r="10"></circle>
-                <path d="M12 16v-4"></path>
-                <path d="M12 8h.01"></path>
-              </svg>
               <div class="info-content">
-                <h4>What Each Color Changes:</h4>
+                <h4>{{ langService.t('admin.colorGuideTitle') }}</h4>
                 <ul>
-                  <li><strong>Primary Color Dark:</strong> Main buttons, nav active links, tab borders</li>
-                  <li><strong>Primary Color:</strong> Secondary buttons, step numbers, stat numbers, gradient mid-point, scrollbar</li>
-                  <li><strong>Primary Color Light:</strong> Highlights, star colors, hover accents, gradient end</li>
-                  <li><strong>Background / Text:</strong> Page background and body text</li>
+                  <li>{{ langService.t('admin.primaryDark') }}</li>
+                  <li>{{ langService.t('admin.primary') }}</li>
+                  <li>{{ langService.t('admin.primaryLight') }}</li>
+                  <li>{{ langService.t('admin.backgroundText') }}</li>
                   @if (advancedMode()) {
-                    <li><strong>Gradient Start/End:</strong> Hero banners, animated headers, gradient text</li>
-                    <li><strong>Border, Background Darker/Navy:</strong> Card borders, scrollbar track, section backgrounds</li>
-                    <li><strong>Muted Text, Link, Card Border:</strong> Subtle text, links, card outlines</li>
+                    <li>{{ langService.t('admin.gradientStartEnd') }}</li>
+                    <li>{{ langService.t('admin.borderDarker') }}</li>
+                    <li>{{ langService.t('admin.mutedLinkCard') }}</li>
                   }
                 </ul>
                 @if (!advancedMode()) {
-                  <p class="note"><strong>Default:</strong> Gradient Start = Primary Dark | Gradient End = Primary Light (auto-synced)</p>
+                  <p class="note">{{ langService.t('admin.noteDefault') }}</p>
                 } @else {
-                  <p class="note"><strong>Advanced:</strong> All colors are independently controllable</p>
+                  <p class="note">{{ langService.t('admin.noteAdvanced') }}</p>
                 }
               </div>
             </div>
@@ -120,12 +115,12 @@
 
             <!-- Saved Themes Section -->
             <div class="saved-themes-section">
-              <h3>Saved Themes</h3>
-              <p>Save your current theme with a name and apply it later</p>
+              <h3>{{ langService.t('admin.savedThemes') }}</h3>
+              <p>{{ langService.t('admin.savedThemesSubtitle') }}</p>
               <div class="saved-themes-row">
                 <div class="saved-themes-select">
                   <select class="form-control theme-dropdown-select" [(ngModel)]="selectedSavedThemeId">
-                    <option value="">-- Select a saved theme --</option>
+                    <option value="">{{ langService.t('admin.selectSavedTheme') }}</option>
                     @for (t of themeService.savedThemes(); track t.id) {
                       <option [value]="t.id">{{ t.name }}</option>
                     }
@@ -134,7 +129,7 @@
                     class="btn-apply-preset" 
                     [disabled]="!selectedSavedThemeId || applyingPreset()"
                     (click)="selectedSavedThemeId && applySavedTheme(selectedSavedThemeId)">
-                    {{ applyingPreset() ? 'Applying...' : 'Apply' }}
+                    {{ applyingPreset() ? langService.t('admin.applying') : langService.t('admin.apply') }}
                   </button>
                 </div>
                 <div class="save-preset-row">
@@ -142,12 +137,12 @@
                     type="text" 
                     class="form-control save-preset-input" 
                     [(ngModel)]="savedThemeName" 
-                    placeholder="Theme name (e.g. Ocean Blue)">
+                    [placeholder]="langService.t('admin.themeNamePlaceholder')">
                   <button 
                     (click)="saveThemePreset()" 
                     [disabled]="savingPreset() || !savedThemeName.trim()" 
                     class="btn-save-preset">
-                    {{ savingPreset() ? 'Saving...' : 'Save current theme' }}
+                    {{ savingPreset() ? langService.t('admin.saving') : langService.t('admin.saveCurrentTheme') }}
                   </button>
                 </div>
               </div>
@@ -158,10 +153,10 @@
                 <div class="col-md-6">
                   <div class="color-input-group">
                     <label>
-                      Primary Color Dark
+                      {{ langService.t('admin.primaryColorDark') }}
                       <span class="color-description">
-                        Main buttons, CTAs, navigation links
-                        @if (!advancedMode()) { <strong> (→ Gradient Start)</strong> }
+                        {{ langService.t('admin.primaryColorDarkDesc') }}
+                        @if (!advancedMode()) { <strong> {{ langService.t('admin.gradientStartLabel') }}</strong> }
                       </span>
                     </label>
                     <div class="color-picker">
@@ -175,8 +170,8 @@
                 <div class="col-md-6">
                   <div class="color-input-group">
                     <label>
-                      Primary Color
-                      <span class="color-description">Secondary buttons, step numbers, stats, gradient mid-point</span>
+                      {{ langService.t('admin.primaryColor') }}
+                      <span class="color-description">{{ langService.t('admin.primaryColorDesc') }}</span>
                     </label>
                     <div class="color-picker">
                       <input type="color" [(ngModel)]="themeForm.secondaryColor">
@@ -189,10 +184,10 @@
                 <div class="col-md-6">
                   <div class="color-input-group">
                     <label>
-                      Primary Color Light
+                      {{ langService.t('admin.primaryColorLight') }}
                       <span class="color-description">
-                        Highlights, stars, hover accents
-                        @if (!advancedMode()) { <strong> (→ Gradient End)</strong> }
+                        {{ langService.t('admin.primaryColorLightDesc') }}
+                        @if (!advancedMode()) { <strong> {{ langService.t('admin.gradientEndLabel') }}</strong> }
                       </span>
                     </label>
                     <div class="color-picker">
@@ -206,8 +201,8 @@
                 <div class="col-md-6">
                   <div class="color-input-group">
                     <label>
-                      Background Color
-                      <span class="color-description">Main page background (dark colors recommended for galaxy theme)</span>
+                      {{ langService.t('admin.backgroundColor') }}
+                      <span class="color-description">{{ langService.t('admin.backgroundColorDesc') }}</span>
                     </label>
                     <div class="color-picker">
                       <input type="color" [(ngModel)]="themeForm.backgroundColor">
@@ -220,8 +215,8 @@
                 <div class="col-md-6">
                   <div class="color-input-group">
                     <label>
-                      Text Color
-                      <span class="color-description">⚠️ Main text color (keep white unless changing entire theme)</span>
+                      {{ langService.t('admin.textColor') }}
+                      <span class="color-description">{{ langService.t('admin.textColorDesc') }}</span>
                     </label>
                     <div class="color-picker">
                       <input type="color" [(ngModel)]="themeForm.textColor">
@@ -236,8 +231,8 @@
                   <div class="col-md-6">
                     <div class="color-input-group">
                       <label>
-                        Gradient Start
-                        <span class="color-description">Hero banners, animated headers</span>
+                        {{ langService.t('admin.gradientStart') }}
+                        <span class="color-description">{{ langService.t('admin.gradientStartDesc') }}</span>
                       </label>
                       <div class="color-picker">
                         <input type="color" [(ngModel)]="themeForm.gradientStart">
@@ -251,8 +246,8 @@
                   <div class="col-md-6">
                     <div class="color-input-group">
                       <label>
-                        Gradient End
-                        <span class="color-description">Gradient end, gradient text</span>
+                        {{ langService.t('admin.gradientEnd') }}
+                        <span class="color-description">{{ langService.t('admin.gradientEndDesc') }}</span>
                       </label>
                       <div class="color-picker">
                         <input type="color" [(ngModel)]="themeForm.gradientEnd">
@@ -266,8 +261,8 @@
                   <div class="col-md-6">
                     <div class="color-input-group">
                       <label>
-                        Border Color
-                        <span class="color-description">Borders, dividers, inputs</span>
+                        {{ langService.t('admin.borderColor') }}
+                        <span class="color-description">{{ langService.t('admin.borderColorDesc') }}</span>
                       </label>
                       <div class="color-picker">
                         <input type="color" [(ngModel)]="themeForm.borderColor">
@@ -280,8 +275,8 @@
                   <div class="col-md-6">
                     <div class="color-input-group">
                       <label>
-                        Background Darker
-                        <span class="color-description">Scrollbar track, darker areas</span>
+                        {{ langService.t('admin.backgroundDarker') }}
+                        <span class="color-description">{{ langService.t('admin.backgroundDarkerDesc') }}</span>
                       </label>
                       <div class="color-picker">
                         <input type="color" [(ngModel)]="themeForm.backgroundColorDarker">
@@ -294,8 +289,8 @@
                   <div class="col-md-6">
                     <div class="color-input-group">
                       <label>
-                        Background Navy
-                        <span class="color-description">Card backgrounds, sections</span>
+                        {{ langService.t('admin.backgroundNavy') }}
+                        <span class="color-description">{{ langService.t('admin.backgroundNavyDesc') }}</span>
                       </label>
                       <div class="color-picker">
                         <input type="color" [(ngModel)]="themeForm.backgroundColorNavy">
@@ -308,8 +303,8 @@
                   <div class="col-md-6">
                     <div class="color-input-group">
                       <label>
-                        Muted Text Color
-                        <span class="color-description">Subtle text, descriptions</span>
+                        {{ langService.t('admin.mutedTextColor') }}
+                        <span class="color-description">{{ langService.t('admin.mutedTextColorDesc') }}</span>
                       </label>
                       <div class="color-picker">
                         <input type="color" [(ngModel)]="themeForm.mutedTextColor">
@@ -322,8 +317,8 @@
                   <div class="col-md-6">
                     <div class="color-input-group">
                       <label>
-                        Link Color
-                        <span class="color-description">Links, interactive text</span>
+                        {{ langService.t('admin.linkColor') }}
+                        <span class="color-description">{{ langService.t('admin.linkColorDesc') }}</span>
                       </label>
                       <div class="color-picker">
                         <input type="color" [(ngModel)]="themeForm.linkColor">
@@ -336,8 +331,8 @@
                   <div class="col-md-6">
                     <div class="color-input-group">
                       <label>
-                        Card Border Color
-                        <span class="color-description">Card outlines, panels</span>
+                        {{ langService.t('admin.cardBorderColor') }}
+                        <span class="color-description">{{ langService.t('admin.cardBorderColorDesc') }}</span>
                       </label>
                       <div class="color-picker">
                         <input type="color" [(ngModel)]="themeForm.cardBorderColor">
@@ -351,10 +346,10 @@
               
               <div class="button-group">
                 <button (click)="saveTheme()" [disabled]="themeSaving()" class="btn-primary">
-                  {{ themeSaving() ? 'Saving...' : 'Save Theme & Apply Changes' }}
+                  {{ themeSaving() ? langService.t('admin.saving') : langService.t('admin.saveThemeApply') }}
                 </button>
                 <button (click)="resetTheme()" class="btn-secondary">
-                  Reset to Amyal Brand Colors
+                  {{ langService.t('admin.resetTheme') }}
                 </button>
               </div>
             </div>
@@ -364,9 +359,14 @@
         <!-- Review Manager Tab -->
         @if (activeTab() === 'reviews') {
           <div class="tab-content">
-            <div class="section-header">
-              <h2>Review Management</h2>
-              <p>Manage customer reviews</p>
+            <div class="section-header section-header-with-action">
+              <div>
+                <h2>{{ langService.t('admin.reviewManagement') }}</h2>
+                <p>{{ langService.t('admin.reviewManagementSubtitle') }}</p>
+              </div>
+              <button type="button" class="btn-add-review-admin" (click)="openAddReviewModal()">
+                {{ langService.t('admin.addReview') }}
+              </button>
             </div>
             
             @if (reviewMessage()) {
@@ -377,7 +377,7 @@
             
             @if (reviewsToManage().length === 0) {
               <div class="empty-state">
-                <p>No reviews yet</p>
+                <p>{{ langService.t('admin.noReviewsYet') }}</p>
               </div>
             }
             
@@ -392,7 +392,7 @@
                     <div class="review-actions">
                       <span class="review-date">{{ formatDate(review.createdAt) }}</span>
                       <button (click)="openDeleteConfirm(review.id)" class="btn-delete">
-                        🗑️ Delete
+                        {{ langService.t('admin.delete') }}
                       </button>
                     </div>
                   </div>
@@ -407,11 +407,87 @@
   </div>
   <app-confirm-modal
     [visible]="deleteConfirmVisible()"
-    title="Delete Review"
-    message="Are you sure you want to delete this review? This action cannot be undone."
-    confirmText="Delete"
-    cancelText="Cancel"
+    [title]="langService.t('admin.deleteReviewTitle')"
+    [message]="langService.t('admin.deleteReviewMessage')"
+    [confirmText]="langService.t('admin.delete')"
+    [cancelText]="langService.t('admin.cancel')"
     (confirm)="confirmDelete()"
     (cancel)="closeDeleteConfirm()">
   </app-confirm-modal>
+
+  <!-- Add Review Modal (same form as public add-review page) -->
+  @if (addReviewModalVisible()) {
+    <div class="modal-overlay add-review-modal-overlay" (click)="closeAddReviewModal()">
+      <div class="modal-dialog add-review-modal-dialog" (click)="$event.stopPropagation()">
+        <div class="modal-header">
+          <h3 class="modal-title">{{ langService.t('admin.addReviewModalTitle') }}</h3>
+          <button type="button" class="modal-close" (click)="closeAddReviewModal()" aria-label="Close">
+            <i class="fas fa-times"></i>
+          </button>
+        </div>
+        <form (ngSubmit)="submitAddReview()" class="add-review-modal-form">
+          <div class="modal-body">
+            <div class="form-group">
+              <label>
+                {{ langService.t('reviewForm.name') }}
+                <span class="optional">({{ langService.t('reviewForm.optional') }})</span>
+              </label>
+              <input
+                type="text"
+                [(ngModel)]="addReviewName"
+                name="addReviewName"
+                [placeholder]="langService.t('reviewForm.namePlaceholder')"
+                class="form-control">
+            </div>
+            <div class="form-group">
+              <label>
+                {{ langService.t('reviewForm.rating') }}
+                <span class="required">*</span>
+              </label>
+              <div class="star-rating-input">
+                @for (star of [1, 2, 3, 4, 5]; track star) {
+                  <i
+                    [class]="getAddReviewStarClass(star)"
+                    (click)="setAddReviewRating(star)"
+                    class="star-icon"></i>
+                }
+              </div>
+              <p class="rating-text">{{ addReviewRating }} / 5 {{ langService.t('reviewForm.stars') }}</p>
+            </div>
+            <div class="form-group">
+              <label>
+                {{ langService.t('reviewForm.message') }}
+                <span class="required">*</span>
+              </label>
+              <textarea
+                [(ngModel)]="addReviewMessage"
+                name="addReviewMessage"
+                rows="4"
+                [placeholder]="langService.t('reviewForm.messagePlaceholder')"
+                class="form-control"
+                required></textarea>
+              <small class="char-count">{{ addReviewMessage.length }} {{ langService.t('reviewForm.characters') }}</small>
+            </div>
+            @if (addReviewSubmitMessage()) {
+              <div class="alert" [class.alert-success]="addReviewSuccess()" [class.alert-error]="!addReviewSuccess()">
+                {{ addReviewSubmitMessage() }}
+              </div>
+            }
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn-cancel" (click)="closeAddReviewModal()">
+              {{ langService.t('admin.cancel') }}
+            </button>
+            <button type="submit" class="btn-confirm" [disabled]="addReviewSubmitting()">
+              @if (addReviewSubmitting()) {
+                {{ langService.t('reviewForm.submitting') }}
+              } @else {
+                {{ langService.t('reviewForm.submit') }}
+              }
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  }
 </section>
