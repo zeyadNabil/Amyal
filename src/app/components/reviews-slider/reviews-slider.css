@@ -140,9 +140,9 @@
 }
 
 .review-avatar {
-  width: 40px;
-  height: 40px;
-  min-width: 40px;
+  width: 52px;
+  height: 52px;
+  min-width: 52px;
   border-radius: 50%;
   background: rgba(255, 255, 255, 0.08);
   border: 1px solid rgba(255, 255, 255, 0.15);
@@ -153,8 +153,8 @@
 }
 
 .review-avatar-img {
-  width: 22px;
-  height: 22px;
+  width: 32px;
+  height: 32px;
   object-fit: contain;
 }
 
