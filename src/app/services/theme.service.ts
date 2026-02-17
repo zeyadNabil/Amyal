@@ -159,7 +159,14 @@ export class ThemeService {
     }
     style.innerHTML = `
       .gradient-text,
-      .gradient-text-animated {
+      .gradient-text-animated,
+      .section-title.gradient-text-animated,
+      .section-title.gradient-text,
+      .section-main-title.gradient-text-animated,
+      .about-title.gradient-text-animated,
+      .service-title.gradient-text-animated,
+      .partners-title.gradient-text-animated,
+      .gallery-title.gradient-text-animated {
         background: ${animatedGradient};
         background-size: 200% auto;
         -webkit-background-clip: text;

@@ -113,7 +113,7 @@
   backdrop-filter: blur(20px);
   border: 1px solid rgba(255, 255, 255, 0.1);
   border-radius: 20px;
-  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5), 0 0 60px rgba(2, 125, 248, 0.3);
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5), 0 0 60px rgba(var(--secondary-rgb), 0.3);
   opacity: 0;
   transform: translateY(20px) scale(0.9);
   pointer-events: none;
@@ -132,7 +132,7 @@
   align-items: center;
   justify-content: space-between;
   padding: 0.65rem 1rem;
-  background: linear-gradient(135deg, rgba(2, 125, 248, 0.2), rgba(2, 125, 248, 0.2));
+  background: linear-gradient(135deg, rgba(var(--secondary-rgb), 0.2), rgba(var(--secondary-rgb), 0.2));
   border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 }
 
@@ -201,13 +201,13 @@
 }
 
 .chat-phone-option:hover {
-  background: rgba(2, 125, 248, 0.1);
+  background: rgba(var(--secondary-rgb), 0.1);
   border-color: var(--purple);
   transform: translateX(5px);
 }
 
 .chat-phone-option.selected {
-  background: rgba(2, 125, 248, 0.2);
+  background: rgba(var(--secondary-rgb), 0.2);
   border-color: var(--purple);
   box-shadow: 0 0 0 1px var(--purple);
 }
@@ -262,7 +262,7 @@
   border: none;
   cursor: pointer;
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  box-shadow: 0 4px 15px rgba(2, 125, 248, 0.3);
+  box-shadow: 0 4px 15px rgba(var(--secondary-rgb), 0.3);
   position: relative;
   overflow: hidden;
   font-family: inherit;
@@ -281,7 +281,7 @@
 
 .chat-send-btn:hover {
   transform: translateY(-2px);
-  box-shadow: 0 6px 20px rgba(2, 125, 248, 0.5);
+  box-shadow: 0 6px 20px rgba(var(--secondary-rgb), 0.5);
   background: var(--gradient-hero);
 }
 
