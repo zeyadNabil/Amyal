@@ -149,8 +149,13 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  color: rgba(255, 255, 255, 0.7);
-  font-size: 1rem;
+  overflow: hidden;
+}
+
+.review-avatar-img {
+  width: 22px;
+  height: 22px;
+  object-fit: contain;
 }
 
 .review-author-info {
