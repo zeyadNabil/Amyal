@@ -34,7 +34,7 @@ export const routes: Routes = [
     component: Partners
   },
   {
-    path: 'admin',
+    path: 'x7k2m9qp3vn8wj4',
     component: Admin
   },
   {
