@@ -101,12 +101,6 @@
 .admin-title {
   font-size: 2.5rem;
   margin-bottom: 15px;
-  background: var(--gradient-text-blue-silver);
-  background-size: 200% auto;
-  -webkit-background-clip: text;
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
-  animation: shine 3s linear infinite;
 }
 
 .admin-subtitle {
