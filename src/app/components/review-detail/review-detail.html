@@ -1,10 +1,5 @@
 <section class="review-detail-page" [attr.dir]="langService.currentLang() === 'ar' ? 'rtl' : 'ltr'">
   <div class="container">
-    <a routerLink="/" fragment="reviews" class="back-link">
-      <i class="fas fa-arrow-left"></i>
-      {{ langService.t('reviewDetail.backToReviews') }}
-    </a>
-
     @if (notFound()) {
       <div class="review-detail-card review-not-found">
         <h1 class="detail-title">{{ langService.t('reviewDetail.notFound') }}</h1>

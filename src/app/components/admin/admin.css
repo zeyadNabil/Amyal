@@ -547,7 +547,8 @@
   border-radius: 8px;
   font-size: 0.9rem;
   font-weight: 600;
-  text-decoration: none;
+  cursor: pointer;
+  font-family: inherit;
   transition: all 0.2s ease;
 }
 
@@ -577,6 +578,20 @@
   color: var(--gray);
   line-height: 1.6;
   font-family: 'BunkenTech', '29ltbukra', 'Inter', 'Cairo', 'Arial', sans-serif;
+  margin: 0;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.review-message-expanded {
+  display: block;
+  -webkit-line-clamp: unset;
+  line-clamp: unset;
+  -webkit-box-orient: unset;
+  overflow: visible;
 }
 
 .empty-state {

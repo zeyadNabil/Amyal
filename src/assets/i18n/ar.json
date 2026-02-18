@@ -423,6 +423,7 @@
     "addReview": "إضافة رأي",
     "addReviewModalTitle": "إضافة رأي",
     "viewFullReview": "عرض الرأي كاملاً",
+    "showLess": "عرض أقل",
     "delete": "حذف",
     "deleteReviewTitle": "حذف الرأي",
     "deleteReviewMessage": "هل أنت متأكد من حذف هذا الرأي؟ لا يمكن التراجع عن هذا الإجراء.",

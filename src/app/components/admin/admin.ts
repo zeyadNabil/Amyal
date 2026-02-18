@@ -51,6 +51,7 @@ export class Admin implements OnInit {
   reviewMessage = signal('');
   deleteConfirmVisible = signal(false);
   reviewToDelete = signal<string | null>(null);
+  expandedReviewId = signal<string | null>(null);
 
   // Add review modal (admin adds a review like users)
   addReviewModalVisible = signal(false);
@@ -257,6 +258,10 @@ export class Admin implements OnInit {
     }
 
     setTimeout(() => this.reviewMessage.set(''), 3000);
+  }
+
+  toggleExpandReview(reviewId: string): void {
+    this.expandedReviewId.set(this.expandedReviewId() === reviewId ? null : reviewId);
   }
 
   getStars(rating: number): string {
