@@ -2,7 +2,7 @@
   <div class="container">
     @if (notFound()) {
       <div class="review-detail-card review-not-found">
-        <h1 class="detail-title">{{ langService.t('reviewDetail.notFound') }}</h1>
+        <p class="detail-title">{{ langService.t('reviewDetail.notFound') }}</p>
         <p class="detail-subtitle">{{ langService.t('reviewDetail.notFoundHint') }}</p>
         <a routerLink="/" class="btn-back-home">{{ langService.t('common.back') }}</a>
       </div>
@@ -16,7 +16,7 @@
               <img src="assets/images/Icons/user_icon.jpeg" alt="" class="detail-avatar-img">
             </div>
             <div class="detail-author-info">
-              <h1 class="detail-name">{{ r.name }}</h1>
+              <p class="detail-name">{{ r.name }}</p>
               <span class="detail-date">{{ formatDate(r.createdAt) }}</span>
             </div>
           </div>
