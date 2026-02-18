@@ -538,6 +538,25 @@
   font-size: 0.9rem;
 }
 
+.btn-view-review {
+  display: inline-block;
+  padding: 8px 15px;
+  background: rgba(var(--secondary-rgb), 0.2);
+  color: var(--blue-bright);
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  text-decoration: none;
+  transition: all 0.2s ease;
+}
+
+.btn-view-review:hover {
+  background: rgba(var(--secondary-rgb), 0.35);
+  color: var(--white);
+  transform: translateY(-1px);
+}
+
 .btn-delete {
   padding: 8px 15px;
   background: #dc3545;

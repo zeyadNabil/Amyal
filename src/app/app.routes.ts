@@ -7,6 +7,7 @@ import { ContactUs } from './components/contact-us/contact-us';
 import { Partners } from './components/partners/partners';
 import { Admin } from './components/admin/admin';
 import { AddReview } from './components/add-review/add-review';
+import { ReviewDetail } from './components/review-detail/review-detail';
 
 export const routes: Routes = [
   {
@@ -40,6 +41,10 @@ export const routes: Routes = [
   {
     path: 'add-review',
     component: AddReview
+  },
+  {
+    path: 'review/:id',
+    component: ReviewDetail
   },
   {
     path: '**',

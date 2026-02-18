@@ -1,0 +1,34 @@
+<section class="review-detail-page" [attr.dir]="langService.currentLang() === 'ar' ? 'rtl' : 'ltr'">
+  <div class="container">
+    <a routerLink="/" fragment="reviews" class="back-link">
+      <i class="fas fa-arrow-left"></i>
+      {{ langService.t('reviewDetail.backToReviews') }}
+    </a>
+
+    @if (notFound()) {
+      <div class="review-detail-card review-not-found">
+        <h1 class="detail-title">{{ langService.t('reviewDetail.notFound') }}</h1>
+        <p class="detail-subtitle">{{ langService.t('reviewDetail.notFoundHint') }}</p>
+        <a routerLink="/" class="btn-back-home">{{ langService.t('common.back') }}</a>
+      </div>
+    }
+
+    @if (review(); as r) {
+      <article class="review-detail-card">
+        <header class="detail-header">
+          <div class="detail-author">
+            <div class="detail-avatar">
+              <img src="assets/images/Icons/user_icon.jpeg" alt="" class="detail-avatar-img">
+            </div>
+            <div class="detail-author-info">
+              <h1 class="detail-name">{{ r.name }}</h1>
+              <span class="detail-date">{{ formatDate(r.createdAt) }}</span>
+            </div>
+          </div>
+          <div class="detail-rating">{{ getStars(r.rating) }}</div>
+        </header>
+        <div class="detail-message">{{ r.message }}</div>
+      </article>
+    }
+  </div>
+</section>

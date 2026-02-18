@@ -129,8 +129,24 @@
   font-family: 'BunkenTech', '29ltbukra', 'Inter', 'Cairo', 'Arial', sans-serif;
   display: -webkit-box;
   -webkit-line-clamp: 3;
+  line-clamp: 3;
   -webkit-box-orient: vertical;
   overflow: hidden;
+}
+
+.review-see-more {
+  display: inline-block;
+  margin-top: 8px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--blue-bright);
+  text-decoration: none;
+  transition: color 0.2s, transform 0.2s;
+}
+
+.review-see-more:hover {
+  color: var(--blue-light);
+  text-decoration: underline;
 }
 
 .review-author {

@@ -1,6 +1,7 @@
 import { Component, OnInit, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { RouterModule } from '@angular/router';
 import { ThemeService } from '../../services/theme.service';
 import { ReviewService } from '../../services/review.service';
 import { Theme, Review } from '../../models/api.models';
@@ -10,7 +11,7 @@ import { ConfirmModalComponent } from '../confirm-modal/confirm-modal';
 @Component({
   selector: 'app-admin',
   standalone: true,
-  imports: [CommonModule, FormsModule, ConfirmModalComponent],
+  imports: [CommonModule, FormsModule, RouterModule, ConfirmModalComponent],
   templateUrl: './admin.html',
   styleUrl: './admin.css'
 })

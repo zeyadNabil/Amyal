@@ -391,6 +391,9 @@
                     </div>
                     <div class="review-actions">
                       <span class="review-date">{{ formatDate(review.createdAt) }}</span>
+                      <a [routerLink]="['/review', review.id]" target="_blank" class="btn-view-review">
+                        {{ langService.t('admin.viewFullReview') }}
+                      </a>
                       <button (click)="openDeleteConfirm(review.id)" class="btn-delete">
                         {{ langService.t('admin.delete') }}
                       </button>

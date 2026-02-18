@@ -1,4 +1,4 @@
-<section class="reviews-slider-section">
+<section id="reviews" class="reviews-slider-section">
   <div class="container">
     <div class="section-header scroll-reveal">
       <h2 class="section-title gradient-text-animated">{{ langService.t('reviews.title') || 'Customer Reviews' }}</h2>
@@ -22,6 +22,7 @@
           <div class="review-card-slider" dir="ltr">
             <div class="review-rating">{{ getStars(review.rating) }}</div>
             <p class="review-message">{{ review.message }}</p>
+            <a [routerLink]="['/review', review.id]" class="review-see-more">{{ langService.t('reviews.seeMore') }}</a>
             <div class="review-author">
               <div class="review-avatar">
                 <img src="assets/images/Icons/user_icon.jpeg" alt="" class="review-avatar-img">

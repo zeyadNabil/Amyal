@@ -327,7 +327,13 @@
     "noReviews": "لا توجد مراجعات بعد. كن أول من يشارك تجربته!",
     "refresh": "تحديث المراجعات",
     "refreshing": "جاري التحديث...",
-    "addReview": "أضف رأيك"
+    "addReview": "أضف رأيك",
+    "seeMore": "اقرأ المزيد..."
+  },
+  "reviewDetail": {
+    "backToReviews": "العودة إلى المراجعات",
+    "notFound": "الرأي غير موجود",
+    "notFoundHint": "ربما تم حذف هذا الرأي أو الرابط غير صالح."
   },
   "reviewForm": {
     "title": "⭐ شارك تجربتك",
@@ -416,6 +422,7 @@
     "noReviewsYet": "لا توجد مراجعات بعد",
     "addReview": "إضافة رأي",
     "addReviewModalTitle": "إضافة رأي",
+    "viewFullReview": "عرض الرأي كاملاً",
     "delete": "حذف",
     "deleteReviewTitle": "حذف الرأي",
     "deleteReviewMessage": "هل أنت متأكد من حذف هذا الرأي؟ لا يمكن التراجع عن هذا الإجراء.",
