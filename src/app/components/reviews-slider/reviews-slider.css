@@ -126,6 +126,7 @@
   flex: 1;
   text-align: left;
   margin: 0;
+  font-family: 'BunkenTech', '29ltbukra', 'Inter', 'Cairo', 'Arial', sans-serif;
   display: -webkit-box;
   -webkit-line-clamp: 3;
   -webkit-box-orient: vertical;
@@ -140,9 +141,9 @@
 }
 
 .review-avatar {
-  width: 65px;
-  height: 65px;
-  min-width: 65px;
+  width: 50px;
+  height: 50px;
+  min-width: 50px;
   border-radius: 50%;
   background: rgba(255, 255, 255, 0.08);
   border: 1px solid rgba(255, 255, 255, 0.15);
@@ -153,9 +154,10 @@
 }
 
 .review-avatar-img {
-  width: 36px;
-  height: 36px;
-  object-fit: contain;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 50%;
 }
 
 .review-author-info {
@@ -168,6 +170,7 @@
   color: var(--white);
   font-size: 0.95rem;
   font-weight: 600;
+  font-family: 'BunkenTech', '29ltbukra', 'Inter', 'Cairo', 'Arial', sans-serif;
 }
 
 .review-date {

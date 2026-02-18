@@ -520,6 +520,7 @@
   font-size: 1.3rem;
   color: var(--white);
   margin-bottom: 5px;
+  font-family: 'BunkenTech', '29ltbukra', 'Inter', 'Cairo', 'Arial', sans-serif;
 }
 
 .review-rating {
@@ -556,6 +557,7 @@
 .review-message {
   color: var(--gray);
   line-height: 1.6;
+  font-family: 'BunkenTech', '29ltbukra', 'Inter', 'Cairo', 'Arial', sans-serif;
 }
 
 .empty-state {
