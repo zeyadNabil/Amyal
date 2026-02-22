@@ -12,7 +12,8 @@ export class ThemeService {
   savedThemes = signal<SavedTheme[]>([]);
 
   constructor(private http: HttpClient) {
-    this.loadTheme();
+    // Theme is now loaded via APP_INITIALIZER in app.config.ts
+    // This ensures it's loaded before app renders and users see latest admin changes
   }
 
   async loadTheme(): Promise<void> {
