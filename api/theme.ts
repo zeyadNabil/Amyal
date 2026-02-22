@@ -84,6 +84,18 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
         return send(200, { success: true, theme });
       }
 
+      // Delete preset: action=delete, id=themeId
+      if (body.action === 'delete' && body.id) {
+        const raw = await redis.get('saved-themes');
+        const list: SavedTheme[] = raw ? (typeof raw === 'string' ? JSON.parse(raw) : raw) : [];
+        const filtered = list.filter((t) => t.id !== body.id);
+        if (filtered.length === list.length) {
+          return send(404, { error: 'Saved theme not found' });
+        }
+        await redis.set('saved-themes', JSON.stringify(filtered));
+        return send(200, { success: true });
+      }
+
       // Save preset: action=save, name, theme
       if (body.action === 'save' && body.name && String(body.name).trim()) {
         const theme: Theme = (body.theme as Theme) || defaultTheme;

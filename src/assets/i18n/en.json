@@ -422,7 +422,7 @@
     "noReviewsYet": "No reviews yet",
     "addReview": "Add Review",
     "addReviewModalTitle": "Add Review",
-    "viewFullReview": "View full review",
+    "viewFullReview": "View full",
     "showLess": "Show less",
     "delete": "Delete",
     "deleteReviewTitle": "Delete Review",
@@ -437,6 +437,11 @@
     "pleaseEnterThemeName": "Please enter a theme name",
     "failedToSaveTheme": "Failed to save theme",
     "failedToApplyTheme": "Failed to apply theme",
+    "failedToDeleteTheme": "Failed to delete theme",
+    "deleteThemeTitle": "Delete Theme",
+    "deleteThemeMessage": "Are you sure you want to delete this saved theme? This action cannot be undone.",
+    "themeDeleted": "Theme deleted successfully! ✓",
+    "deleting": "Deleting...",
     "ratingOutOf": "{{rating}} / 5"
   },
   "common": {

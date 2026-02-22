@@ -65,6 +65,29 @@ export class ThemeService {
     }
   }
 
+  async deleteThemePreset(id: string, password: string): Promise<{ success: boolean; error?: string }> {
+    try {
+      const response = await firstValueFrom(
+        this.http.post<{ success: boolean }>(`${this.apiUrl}/theme`, {
+          action: 'delete',
+          id,
+          password
+        })
+      );
+      if (response?.success) {
+        await this.loadSavedThemes();
+        return { success: true };
+      }
+      return { success: false, error: 'Failed to delete theme' };
+    } catch (error: unknown) {
+      const err = error as { status?: number };
+      return {
+        success: false,
+        error: err?.status === 401 ? 'Invalid password' : err?.status === 404 ? 'Theme not found' : 'Failed to delete theme'
+      };
+    }
+  }
+
   async applyThemePreset(id: string, password: string): Promise<{ success: boolean; theme?: Theme; error?: string }> {
     try {
       const response = await firstValueFrom(

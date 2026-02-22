@@ -131,6 +131,12 @@
                     (click)="selectedSavedThemeId && applySavedTheme(selectedSavedThemeId)">
                     {{ applyingPreset() ? langService.t('admin.applying') : langService.t('admin.apply') }}
                   </button>
+                  <button 
+                    class="btn-delete-preset" 
+                    [disabled]="!selectedSavedThemeId || deletingPreset()"
+                    (click)="selectedSavedThemeId && openThemeDeleteConfirm(selectedSavedThemeId)">
+                    {{ deletingPreset() ? langService.t('admin.deleting') : langService.t('admin.delete') }}
+                  </button>
                 </div>
                 <div class="save-preset-row">
                   <input 
@@ -416,6 +422,15 @@
     [cancelText]="langService.t('admin.cancel')"
     (confirm)="confirmDelete()"
     (cancel)="closeDeleteConfirm()">
+  </app-confirm-modal>
+  <app-confirm-modal
+    [visible]="themeDeleteConfirmVisible()"
+    [title]="langService.t('admin.deleteThemeTitle')"
+    [message]="langService.t('admin.deleteThemeMessage')"
+    [confirmText]="langService.t('admin.delete')"
+    [cancelText]="langService.t('admin.cancel')"
+    (confirm)="confirmThemeDelete()"
+    (cancel)="closeThemeDeleteConfirm()">
   </app-confirm-modal>
 
   <!-- Add Review Modal (same form as public add-review page) -->

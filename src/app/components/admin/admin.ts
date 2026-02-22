@@ -45,6 +45,9 @@ export class Admin implements OnInit {
   selectedSavedThemeId = '';
   savingPreset = signal(false);
   applyingPreset = signal(false);
+  deletingPreset = signal(false);
+  themeDeleteConfirmVisible = signal(false);
+  themeToDeleteId = signal<string | null>(null);
   
   // Review management
   reviewsToManage = signal<Review[]>([]);
@@ -222,6 +225,41 @@ export class Admin implements OnInit {
       this.themeMessage.set(result.error || this.langService.t('admin.failedToApplyTheme'));
     }
     this.applyingPreset.set(false);
+    setTimeout(() => this.themeMessage.set(''), 3000);
+  }
+
+  openThemeDeleteConfirm(id: string): void {
+    this.themeToDeleteId.set(id);
+    this.themeDeleteConfirmVisible.set(true);
+  }
+
+  closeThemeDeleteConfirm(): void {
+    setTimeout(() => {
+      this.themeDeleteConfirmVisible.set(false);
+      this.themeToDeleteId.set(null);
+    }, 0);
+  }
+
+  async confirmThemeDelete(): Promise<void> {
+    const id = this.themeToDeleteId();
+    if (!id) return;
+
+    this.closeThemeDeleteConfirm();
+    this.deletingPreset.set(true);
+    this.themeMessage.set('');
+
+    const result = await this.themeService.deleteThemePreset(id, this.password);
+
+    if (result.success) {
+      this.themeMessage.set(this.langService.t('admin.themeDeleted'));
+      if (this.selectedSavedThemeId === id) {
+        this.selectedSavedThemeId = '';
+      }
+    } else {
+      this.themeMessage.set(result.error || this.langService.t('admin.failedToDeleteTheme'));
+    }
+
+    this.deletingPreset.set(false);
     setTimeout(() => this.themeMessage.set(''), 3000);
   }
 

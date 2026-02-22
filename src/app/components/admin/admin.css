@@ -396,6 +396,29 @@
   cursor: not-allowed;
 }
 
+/* Delete theme preset - same size/style as Apply, distinct color for destructive action */
+.btn-delete-preset {
+  padding: 10px 20px;
+  background: rgba(220, 53, 69, 0.9);
+  color: white;
+  border: none;
+  border-radius: 10px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.btn-delete-preset:hover:not(:disabled) {
+  background: #c82333;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 15px rgba(220, 53, 69, 0.5);
+}
+
+.btn-delete-preset:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
 .save-preset-row {
   display: flex;
   gap: 10px;
@@ -670,7 +693,35 @@
   
   .review-actions {
     width: 100%;
-    justify-content: space-between;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }
+
+  /* Saved themes: full-width select, buttons wrap on small screens */
+  .saved-themes-select {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .saved-themes-select select {
+    min-width: 0;
+  }
+
+  .saved-themes-select .btn-apply-preset,
+  .saved-themes-select .btn-delete-preset {
+    width: 100%;
+  }
+
+  .save-preset-row {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .save-preset-row .save-preset-input,
+  .save-preset-row .btn-save-preset {
+    width: 100%;
+    min-width: 0;
   }
 }
 

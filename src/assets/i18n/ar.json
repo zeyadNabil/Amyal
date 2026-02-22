@@ -422,7 +422,7 @@
     "noReviewsYet": "لا توجد مراجعات بعد",
     "addReview": "إضافة رأي",
     "addReviewModalTitle": "إضافة رأي",
-    "viewFullReview": "عرض الرأي كاملاً",
+    "viewFullReview": "عرض كامل",
     "showLess": "عرض أقل",
     "delete": "حذف",
     "deleteReviewTitle": "حذف الرأي",
@@ -437,6 +437,11 @@
     "pleaseEnterThemeName": "الرجاء إدخال اسم المظهر",
     "failedToSaveTheme": "فشل حفظ المظهر",
     "failedToApplyTheme": "فشل تطبيق المظهر",
+    "failedToDeleteTheme": "فشل حذف المظهر",
+    "deleteThemeTitle": "حذف المظهر",
+    "deleteThemeMessage": "هل أنت متأكد من حذف هذا المظهر المحفوظ؟ لا يمكن التراجع عن هذا الإجراء.",
+    "themeDeleted": "تم حذف المظهر بنجاح! ✓",
+    "deleting": "جاري الحذف...",
     "ratingOutOf": "{{rating}} / 5"
   },
   "common": {
