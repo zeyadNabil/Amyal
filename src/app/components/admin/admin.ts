@@ -54,6 +54,8 @@ export class Admin implements OnInit {
   reviewMessage = signal('');
   deleteConfirmVisible = signal(false);
   reviewToDelete = signal<string | null>(null);
+  denyConfirmVisible = signal(false);
+  reviewToDeny = signal<string | null>(null);
   expandedReviewId = signal<string | null>(null);
 
   // Add review modal (admin adds a review like users)
@@ -61,9 +63,14 @@ export class Admin implements OnInit {
   addReviewName = '';
   addReviewRating = 5;
   addReviewMessage = '';
+  addReviewImageDataUrl = '';
+  addReviewImageError = signal('');
   addReviewSubmitting = signal(false);
   addReviewSubmitMessage = signal('');
   addReviewSuccess = signal(false);
+
+  private static readonly MAX_IMAGE_SIZE = 500 * 1024;
+  private static readonly ALLOWED_IMAGE_TYPES = ['image/jpeg', 'image/png', 'image/webp'];
 
   constructor(
     public themeService: ThemeService,
@@ -264,8 +271,45 @@ export class Admin implements OnInit {
   }
 
   async loadReviewsForManagement(): Promise<void> {
-    await this.reviewService.loadReviews();
-    this.reviewsToManage.set(this.reviewService.reviews());
+    const all = await this.reviewService.loadReviewsForAdmin(this.password);
+    this.reviewsToManage.set(all);
+  }
+
+  async approveReview(reviewId: string): Promise<void> {
+    const result = await this.reviewService.approveReview(reviewId, this.password);
+    if (result.success) {
+      this.reviewMessage.set(this.langService.t('admin.reviewApproved'));
+      this.loadReviewsForManagement();
+    } else {
+      this.reviewMessage.set(result.error || this.langService.t('admin.failedToApprove'));
+    }
+    setTimeout(() => this.reviewMessage.set(''), 3000);
+  }
+
+  openDenyConfirm(reviewId: string): void {
+    this.reviewToDeny.set(reviewId);
+    this.denyConfirmVisible.set(true);
+  }
+
+  closeDenyConfirm(): void {
+    setTimeout(() => {
+      this.denyConfirmVisible.set(false);
+      this.reviewToDeny.set(null);
+    }, 0);
+  }
+
+  async confirmDeny(): Promise<void> {
+    const reviewId = this.reviewToDeny();
+    if (!reviewId) return;
+    this.closeDenyConfirm();
+    const result = await this.reviewService.denyReview(reviewId, this.password);
+    if (result.success) {
+      this.reviewMessage.set(this.langService.t('admin.reviewDenied'));
+      this.loadReviewsForManagement();
+    } else {
+      this.reviewMessage.set(result.error || this.langService.t('admin.failedToDeny'));
+    }
+    setTimeout(() => this.reviewMessage.set(''), 3000);
   }
 
   openDeleteConfirm(reviewId: string): void {
@@ -314,6 +358,8 @@ export class Admin implements OnInit {
     this.addReviewName = '';
     this.addReviewRating = 5;
     this.addReviewMessage = '';
+    this.addReviewImageDataUrl = '';
+    this.addReviewImageError.set('');
     this.addReviewSubmitMessage.set('');
     this.addReviewSuccess.set(false);
     this.addReviewModalVisible.set(true);
@@ -324,7 +370,41 @@ export class Admin implements OnInit {
     this.addReviewName = '';
     this.addReviewRating = 5;
     this.addReviewMessage = '';
+    this.addReviewImageDataUrl = '';
+    this.addReviewImageError.set('');
     this.addReviewSubmitMessage.set('');
+  }
+
+  onAddReviewImageChange(event: Event): void {
+    this.addReviewImageError.set('');
+    const input = event.target as HTMLInputElement;
+    const file = input.files?.[0];
+    if (!file) {
+      this.addReviewImageDataUrl = '';
+      return;
+    }
+    if (!Admin.ALLOWED_IMAGE_TYPES.includes(file.type)) {
+      this.addReviewImageError.set(this.langService.t('reviewForm.imageTypeError') || 'Please use JPEG, PNG or WebP');
+      input.value = '';
+      return;
+    }
+    if (file.size > Admin.MAX_IMAGE_SIZE) {
+      this.addReviewImageError.set(this.langService.t('reviewForm.imageSizeError') || 'Image must be under 500KB');
+      input.value = '';
+      return;
+    }
+    const reader = new FileReader();
+    reader.onload = () => {
+      this.addReviewImageDataUrl = (reader.result as string) || '';
+    };
+    reader.readAsDataURL(file);
+  }
+
+  clearAddReviewImage(): void {
+    this.addReviewImageDataUrl = '';
+    this.addReviewImageError.set('');
+    const input = document.getElementById('admin-review-image-input') as HTMLInputElement;
+    if (input) input.value = '';
   }
 
   setAddReviewRating(r: number): void {
@@ -354,7 +434,9 @@ export class Admin implements OnInit {
     const result = await this.reviewService.submitReview(
       displayName,
       this.addReviewRating,
-      this.addReviewMessage.trim()
+      this.addReviewMessage.trim(),
+      this.addReviewImageDataUrl || undefined,
+      this.password
     );
 
     if (result.success) {
@@ -364,6 +446,7 @@ export class Admin implements OnInit {
       this.addReviewName = '';
       this.addReviewRating = 5;
       this.addReviewMessage = '';
+      this.clearAddReviewImage();
       setTimeout(() => {
         this.closeAddReviewModal();
       }, 1500);

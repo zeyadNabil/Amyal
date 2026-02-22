@@ -389,23 +389,40 @@
             
             <div class="reviews-list">
               @for (review of reviewsToManage(); track review.id) {
-                <div class="review-card" [class.review-card-expanded]="expandedReviewId() === review.id">
+                <div class="review-card" [class.review-card-pending]="!review.approved" [class.review-card-expanded]="expandedReviewId() === review.id">
                   <div class="review-header">
                     <div>
                       <h3>{{ review.name }}</h3>
                       <div class="review-rating">{{ getStars(review.rating) }}</div>
+                      @if (!review.approved) {
+                        <span class="review-pending-badge">{{ langService.t('admin.pending') }}</span>
+                      }
                     </div>
                     <div class="review-actions">
                       <span class="review-date">{{ formatDate(review.createdAt) }}</span>
                       <button type="button" (click)="toggleExpandReview(review.id)" class="btn-view-review">
                         {{ expandedReviewId() === review.id ? langService.t('admin.showLess') : langService.t('admin.viewFullReview') }}
                       </button>
-                      <button (click)="openDeleteConfirm(review.id)" class="btn-delete">
-                        {{ langService.t('admin.delete') }}
-                      </button>
+                      @if (review.approved) {
+                        <button (click)="openDeleteConfirm(review.id)" class="btn-delete">
+                          {{ langService.t('admin.delete') }}
+                        </button>
+                      } @else {
+                        <button (click)="approveReview(review.id)" class="btn-approve">
+                          {{ langService.t('admin.accept') }}
+                        </button>
+                        <button (click)="openDenyConfirm(review.id)" class="btn-deny">
+                          {{ langService.t('admin.deny') }}
+                        </button>
+                      }
                     </div>
                   </div>
                   <p class="review-message" [class.review-message-expanded]="expandedReviewId() === review.id">{{ review.message }}</p>
+                  @if (expandedReviewId() === review.id && review.image) {
+                    <div class="review-image-wrapper">
+                      <img [src]="review.image" alt="" class="review-detail-image">
+                    </div>
+                  }
                 </div>
               }
             </div>
@@ -422,6 +439,15 @@
     [cancelText]="langService.t('admin.cancel')"
     (confirm)="confirmDelete()"
     (cancel)="closeDeleteConfirm()">
+  </app-confirm-modal>
+  <app-confirm-modal
+    [visible]="denyConfirmVisible()"
+    [title]="langService.t('admin.denyReviewTitle')"
+    [message]="langService.t('admin.denyReviewMessage')"
+    [confirmText]="langService.t('admin.deny')"
+    [cancelText]="langService.t('admin.cancel')"
+    (confirm)="confirmDeny()"
+    (cancel)="closeDenyConfirm()">
   </app-confirm-modal>
   <app-confirm-modal
     [visible]="themeDeleteConfirmVisible()"
@@ -471,6 +497,29 @@
                 }
               </div>
               <p class="rating-text">{{ addReviewRating }} / 5 {{ langService.t('reviewForm.stars') }}</p>
+            </div>
+            <div class="form-group">
+              <label>
+                {{ langService.t('reviewForm.addImage') }}
+                <span class="optional">({{ langService.t('reviewForm.optional') }})</span>
+              </label>
+              <input
+                type="file"
+                id="admin-review-image-input"
+                accept="image/jpeg,image/png,image/webp"
+                (change)="onAddReviewImageChange($event)"
+                class="form-control file-input">
+              @if (addReviewImageDataUrl) {
+                <div class="image-preview-wrapper">
+                  <img [src]="addReviewImageDataUrl" alt="" class="image-preview">
+                  <button type="button" class="btn-remove-image" (click)="clearAddReviewImage()" [attr.aria-label]="langService.t('reviewForm.removeImage')">
+                    <i class="fas fa-times"></i>
+                  </button>
+                </div>
+              }
+              @if (addReviewImageError()) {
+                <small class="image-error">{{ addReviewImageError() }}</small>
+              }
             </div>
             <div class="form-group">
               <label>

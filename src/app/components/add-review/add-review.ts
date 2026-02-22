@@ -5,6 +5,9 @@ import { Router, RouterModule } from '@angular/router';
 import { ReviewService } from '../../services/review.service';
 import { LanguageService } from '../../services/language.service';
 
+const MAX_IMAGE_SIZE = 500 * 1024; // 500KB
+const ALLOWED_TYPES = ['image/jpeg', 'image/png', 'image/webp'];
+
 @Component({
   selector: 'app-add-review',
   standalone: true,
@@ -16,6 +19,8 @@ export class AddReview {
   name = '';
   rating = 5;
   message = '';
+  imageDataUrl = '';
+  imageError = signal('');
   isSubmitting = signal(false);
   submitMessage = signal('');
   submitSuccess = signal(false);
@@ -28,6 +33,38 @@ export class AddReview {
 
   setRating(rating: number): void {
     this.rating = rating;
+  }
+
+  onImageChange(event: Event): void {
+    this.imageError.set('');
+    const input = event.target as HTMLInputElement;
+    const file = input.files?.[0];
+    if (!file) {
+      this.imageDataUrl = '';
+      return;
+    }
+    if (!ALLOWED_TYPES.includes(file.type)) {
+      this.imageError.set(this.langService.t('reviewForm.imageTypeError') || 'Please use JPEG, PNG or WebP');
+      input.value = '';
+      return;
+    }
+    if (file.size > MAX_IMAGE_SIZE) {
+      this.imageError.set(this.langService.t('reviewForm.imageSizeError') || 'Image must be under 500KB');
+      input.value = '';
+      return;
+    }
+    const reader = new FileReader();
+    reader.onload = () => {
+      this.imageDataUrl = (reader.result as string) || '';
+    };
+    reader.readAsDataURL(file);
+  }
+
+  clearImage(): void {
+    this.imageDataUrl = '';
+    this.imageError.set('');
+    const input = document.getElementById('review-image-input') as HTMLInputElement;
+    if (input) input.value = '';
   }
 
   async submitReview(): Promise<void> {
@@ -48,24 +85,30 @@ export class AddReview {
     const result = await this.reviewService.submitReview(
       displayName,
       this.rating,
-      this.message.trim()
+      this.message.trim(),
+      this.imageDataUrl || undefined
     );
 
     if (result.success) {
       this.submitSuccess.set(true);
-      this.submitMessage.set(this.langService.t('reviewForm.success') || 'Thank you for your review! ✓');
+      this.submitMessage.set(this.langService.t('reviewForm.pendingSuccess') || 'Your review has been submitted and is pending approval. Thank you! ✓');
       
       // Reset form
       this.name = '';
       this.rating = 5;
       this.message = '';
+      this.clearImage();
       
       // Redirect to home after 2 seconds
       setTimeout(() => {
         this.router.navigate(['/']);
       }, 2000);
     } else {
-      this.submitMessage.set(result.error || 'Failed to submit review');
+      let msg = result.error || 'Failed to submit review';
+      if (msg.toLowerCase().includes('review per day') || msg.toLowerCase().includes('per day')) {
+        msg = this.langService.t('reviewForm.oneReviewPerDay') || msg;
+      }
+      this.submitMessage.set(msg);
       this.submitSuccess.set(false);
     }
 

@@ -23,6 +23,11 @@
           <div class="detail-rating">{{ getStars(r.rating) }}</div>
         </header>
         <div class="detail-message">{{ r.message }}</div>
+        @if (r.image) {
+          <div class="detail-image-wrapper">
+            <img [src]="r.image" alt="" class="detail-image">
+          </div>
+        }
       </article>
     }
   </div>

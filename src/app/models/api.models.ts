@@ -33,6 +33,8 @@ export interface Review {
   message: string;
   createdAt: string;
   approved: boolean;
+  /** Optional image as base64 data URL; shown only on detail page and admin View full */
+  image?: string;
 }
 
 export interface ApiResponse<T> {

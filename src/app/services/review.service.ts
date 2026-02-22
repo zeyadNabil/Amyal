@@ -46,42 +46,87 @@ export class ReviewService implements OnDestroy {
       );
       this.reviews.set(reviews);
     } catch {
-      // API may be unavailable (e.g. dev without backend)
       this.reviews.set([]);
     } finally {
       this.isLoading.set(false);
     }
   }
 
-  async submitReview(name: string, rating: number, message: string): Promise<{ success: boolean; error?: string }> {
+  async loadReviewsForAdmin(password: string): Promise<Review[]> {
+    try {
+      const reviews = await firstValueFrom(
+        this.http.post<Review[]>(`${this.apiUrl}/reviews`, { action: 'listAll', password })
+      );
+      return Array.isArray(reviews) ? reviews : [];
+    } catch {
+      return [];
+    }
+  }
+
+  async approveReview(reviewId: string, password: string): Promise<{ success: boolean; error?: string }> {
     try {
       const response = await firstValueFrom(
-        this.http.post<{ success: boolean; review: Review }>(`${this.apiUrl}/reviews`, {
-          name,
-          rating,
-          message
-        })
+        this.http.post<{ success: boolean }>(`${this.apiUrl}/reviews`, { action: 'approve', reviewId, password })
       );
-      
       if (response.success) {
         await this.loadReviews();
         this.notifyOtherTabs();
         return { success: true };
       }
+      return { success: false, error: 'Failed to approve review' };
+    } catch (error: unknown) {
+      const err = error as { status?: number; error?: { error?: string } };
+      return { success: false, error: err?.error?.error || 'Failed to approve review' };
+    }
+  }
+
+  async denyReview(reviewId: string, password: string): Promise<{ success: boolean; error?: string }> {
+    try {
+      const response = await firstValueFrom(
+        this.http.post<{ success: boolean }>(`${this.apiUrl}/reviews`, { action: 'deny', reviewId, password })
+      );
+      if (response.success) {
+        await this.loadReviews();
+        this.notifyOtherTabs();
+        return { success: true };
+      }
+      return { success: false, error: 'Failed to deny review' };
+    } catch (error: unknown) {
+      const err = error as { status?: number; error?: { error?: string } };
+      return { success: false, error: err?.error?.error || 'Failed to deny review' };
+    }
+  }
+
+  async submitReview(name: string, rating: number, message: string, image?: string, adminPassword?: string): Promise<{ success: boolean; error?: string }> {
+    try {
+      const payload: Record<string, unknown> = { name, rating, message };
+      if (image) payload['image'] = image;
+      if (adminPassword) payload['password'] = adminPassword;
+      const response = await firstValueFrom(
+        this.http.post<{ success: boolean; review: Review }>(`${this.apiUrl}/reviews`, payload)
+      );
+      
+      if (response.success) {
+        if (!adminPassword) {
+          await this.loadReviews();
+          this.notifyOtherTabs();
+        }
+        return { success: true };
+      }
       
       return { success: false, error: 'Failed to submit review' };
-    } catch (error: any) {
+    } catch (error: unknown) {
       console.error('Error submitting review:', error);
       
       // Better error extraction
+      const err = error as { error?: { error?: string }; message?: string };
       let errorMessage = 'Failed to submit review';
-      
-      if (error.error && typeof error.error === 'object') {
-        errorMessage = error.error.error || error.error.message || error.message || errorMessage;
-      } else if (error.error && typeof error.error === 'string') {
-        errorMessage = error.error;
-      } else if (error.message) {
-        errorMessage = error.message;
+      if (err?.error && typeof err.error === 'object' && err.error.error) {
+        errorMessage = err.error.error;
+      } else if (err?.error && typeof err.error === 'string') {
+        errorMessage = err.error;
+      } else if (err?.message) {
+        errorMessage = err.message;
       }
       
       return { 

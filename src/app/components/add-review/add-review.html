@@ -46,6 +46,31 @@
           <p class="rating-text">{{ rating }} / 5 {{ langService.t('reviewForm.stars') || 'stars' }}</p>
         </div>
 
+        <!-- Image Input (optional) -->
+        <div class="form-group">
+          <label>
+            {{ langService.t('reviewForm.addImage') || 'Add Image' }}
+            <span class="optional">({{ langService.t('reviewForm.optional') || 'optional' }})</span>
+          </label>
+          <input
+            type="file"
+            id="review-image-input"
+            accept="image/jpeg,image/png,image/webp"
+            (change)="onImageChange($event)"
+            class="form-control file-input">
+          @if (imageDataUrl) {
+            <div class="image-preview-wrapper">
+              <img [src]="imageDataUrl" alt="" class="image-preview">
+              <button type="button" class="btn-remove-image" (click)="clearImage()" [attr.aria-label]="langService.t('reviewForm.removeImage') || 'Remove image'">
+                <i class="fas fa-times"></i>
+              </button>
+            </div>
+          }
+          @if (imageError()) {
+            <small class="image-error">{{ imageError() }}</small>
+          }
+        </div>
+
         <!-- Message Input -->
         <div class="form-group">
           <label for="message">
