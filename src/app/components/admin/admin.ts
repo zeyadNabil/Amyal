@@ -32,6 +32,7 @@ export class Admin implements OnInit {
     textColor: '#FFFFFF',
     gradientStart: '#0E37AD',
     gradientEnd: '#60CEFE',
+    gradientOnMedia: true,
     borderColor: '#1e293b',
     backgroundColorDarker: '#050810',
     backgroundColorNavy: '#141824',

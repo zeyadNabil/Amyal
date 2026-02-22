@@ -83,6 +83,18 @@
                 }</p>
               </div>
             </div>
+
+            <!-- Gradient on Media Toggle (images & videos only) -->
+            <div class="advanced-toggle">
+              <label class="toggle-switch">
+                <input type="checkbox" [checked]="themeForm.gradientOnMedia !== false" (change)="themeForm.gradientOnMedia = !themeForm.gradientOnMedia">
+                <span class="toggle-slider"></span>
+              </label>
+              <div class="toggle-label">
+                <strong>{{ langService.t('admin.gradientOnMedia') }}</strong>
+                <p>{{ langService.t('admin.gradientOnMediaDesc') }}</p>
+              </div>
+            </div>
             
             <!-- Color Guide Info Box -->
             <div class="info-box color-guide">

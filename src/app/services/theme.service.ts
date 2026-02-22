@@ -121,6 +121,7 @@ export class ThemeService {
 
   applyTheme(theme: Theme): void {
     const root = document.documentElement;
+    root.setAttribute('data-gradient-media', theme.gradientOnMedia !== false ? 'true' : 'false');
     root.style.setProperty('--primary-rgb', this.hexToRgb(theme.primaryColor));
     root.style.setProperty('--secondary-rgb', this.hexToRgb(theme.secondaryColor));
     root.style.setProperty('--accent-rgb', this.hexToRgb(theme.accentColor));
@@ -236,6 +237,7 @@ export class ThemeService {
       textColor: '#FFFFFF',
       gradientStart: '#0E37AD',
       gradientEnd: '#60CEFE',
+      gradientOnMedia: true,
       borderColor: '#1e293b',
       backgroundColorDarker: '#050810',
       backgroundColorNavy: '#141824',

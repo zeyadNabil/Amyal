@@ -127,6 +127,19 @@
     --nav-height: 80px;
 }
 
+/* When gradient on media is OFF: use solid default theme overlay on images/videos only */
+html[data-gradient-media="false"] .galaxy-overlay,
+html[data-gradient-media="false"] .image-overlay,
+html[data-gradient-media="false"] .video-overlay,
+html[data-gradient-media="false"] .hero-video-overlay {
+  background: rgba(10, 14, 26, 0.12) !important;
+  mix-blend-mode: overlay;
+}
+html[data-gradient-media="false"] .galaxy-overlay::before,
+html[data-gradient-media="false"] .image-overlay::before {
+  background: transparent !important;
+}
+
 /* ========================================
    GRADIENT TEXT HEADERS (blue to silver)
    ======================================== */

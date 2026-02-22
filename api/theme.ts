@@ -131,6 +131,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
         if (body.mutedTextColor != null) theme.mutedTextColor = body.mutedTextColor;
         if (body.linkColor != null) theme.linkColor = body.linkColor;
         if (body.cardBorderColor != null) theme.cardBorderColor = body.cardBorderColor;
+        if (body.gradientOnMedia != null) theme.gradientOnMedia = Boolean(body.gradientOnMedia);
         await redis.set('current-theme', JSON.stringify(theme));
         return send(200, { success: true, theme });
       }

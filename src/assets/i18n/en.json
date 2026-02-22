@@ -374,6 +374,8 @@
     "themeSubtitle": "Customize your website colors and see changes applied instantly across all pages",
     "advancedMode": "Advanced Mode",
     "advancedModeDesc": "13+ color pickers: gradients, borders, backgrounds, muted text, links, cards. Full control over every visual element.",
+    "gradientOnMedia": "Gradient on images & videos",
+    "gradientOnMediaDesc": "Apply theme gradient overlay on images and videos. When off, a solid default theme color is used.",
     "advancedModeDefault": "Default: 5 essential colors (Primary Dark/Mid/Light, Background, Text). Gradients auto-derive for a cohesive look.",
     "colorGuideTitle": "What Each Color Changes:",
     "primaryDark": "Primary Color Dark: Main buttons, nav active links, tab borders",

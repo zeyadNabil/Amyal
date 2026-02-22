@@ -16,6 +16,8 @@ export interface Theme {
   mutedTextColor?: string;
   linkColor?: string;
   cardBorderColor?: string;
+  /** When true, gradient overlay on images/videos; when false, solid default theme color */
+  gradientOnMedia?: boolean;
 }
 
 /** Saved theme preset with name for admin selection */
