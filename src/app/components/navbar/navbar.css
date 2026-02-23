@@ -1628,7 +1628,7 @@
 }
 
 /* ========================================
-   SMALL SCREENS ONLY - Active state: gradient color, no underline
+   SMALL SCREENS ONLY - Active state: use theme gradient, no underline
    ======================================== */
 
 @media (max-width: 991px) {
@@ -1639,7 +1639,7 @@
 
     .nav-link.active {
         color: transparent !important;
-        background: linear-gradient(90deg, #0E37AD 0%, #027DF8 40%, #60CEFE 75%, #F7F7F8 100%);
+        background: var(--gradient-text-blue-silver);
         -webkit-background-clip: text;
         background-clip: text;
         -webkit-text-fill-color: transparent;
@@ -1648,19 +1648,19 @@
     /* Dropdown toggle when active (Products & Services) */
     .nav-link.dropdown-toggle.active {
         color: transparent !important;
-        background: linear-gradient(90deg, #0E37AD 0%, #027DF8 40%, #60CEFE 75%, #F7F7F8 100%);
+        background: var(--gradient-text-blue-silver);
         -webkit-background-clip: text;
         background-clip: text;
         -webkit-text-fill-color: transparent;
     }
 
-    /* Keep dropdown arrow visible when active (parent has transparent color) */
+    /* Keep dropdown arrow visible when active (parent has transparent color) - use theme colors */
     .nav-link.dropdown-toggle.active .dropdown-arrow {
-        stroke: #60CEFE !important;
+        stroke: var(--blue-bright) !important;
     }
 
     [dir="rtl"] .nav-link.dropdown-toggle.active .dropdown-arrow {
-        stroke: #0E37AD !important;
+        stroke: var(--blue) !important;
     }
 }
 
