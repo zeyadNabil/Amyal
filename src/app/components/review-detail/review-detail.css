@@ -149,10 +149,10 @@
   word-break: break-word;
 }
 
-/* Tablet and below */
+/* Tablet and below – ensure enough clearance when navbar/logo is taller (e.g. font zoom) */
 @media (max-width: 992px) {
   .review-detail-page {
-    padding-top: calc(var(--nav-height, 80px) + 4rem);
+    padding-top: max(calc(var(--nav-height, 80px) + 4rem), 150px);
     padding-bottom: 3rem;
   }
 
@@ -173,7 +173,7 @@
 /* Mobile landscape / small tablet */
 @media (max-width: 768px) {
   .review-detail-page {
-    padding-top: calc(var(--nav-height, 80px) + 3.5rem);
+    padding-top: max(calc(var(--nav-height, 80px) + 3.5rem), 170px);
     padding-left: 0.75rem;
     padding-right: 0.75rem;
     padding-bottom: 2.5rem;
@@ -236,7 +236,7 @@
 /* Small phones */
 @media (max-width: 576px) {
   .review-detail-page {
-    padding-top: calc(var(--nav-height, 80px) + 2.5rem);
+    padding-top: max(calc(var(--nav-height, 80px) + 2.5rem), 190px);
     padding-left: 0.5rem;
     padding-right: 0.5rem;
     padding-bottom: 2rem;
@@ -297,10 +297,10 @@
   }
 }
 
-/* Extra small phones */
+/* Extra small phones – navbar logo can be 140px+ with font zoom */
 @media (max-width: 380px) {
   .review-detail-page {
-    padding-top: calc(var(--nav-height, 80px) + 2rem);
+    padding-top: max(calc(var(--nav-height, 80px) + 2rem), 210px);
     padding-left: 0.5rem;
     padding-right: 0.5rem;
   }
