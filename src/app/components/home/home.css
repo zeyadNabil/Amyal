@@ -1320,6 +1320,13 @@
     margin-bottom: 0.5rem;
   }
 
+  .stat-number {
+    font-size: 2.5rem;
+  }
+  .stat-suffix {
+    font-size: 1.45rem;
+  }
+
   /* Timeline line: left (LTR) / right (RTL) through step numbers (56px → center 28px) */
   .process-timeline::before {
     left: 28px;
@@ -1460,10 +1467,10 @@
   }
 
   .stat-number {
-    font-size: 2.5rem;
+    font-size: 2.15rem;
   }
   .stat-suffix {
-    font-size: 1.5rem;
+    font-size: 1.3rem;
   }
 
   /* Small-source icons scaled up even more on small mobile */
