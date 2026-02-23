@@ -1279,8 +1279,8 @@
 
   /* Smaller icons on tablet/small screens – same size for all home icons (services, stats, features) */
   :host {
-    --home-icon-box: 140px;
-    --home-icon-img: 118px;
+    --home-icon-box: 120px;
+    --home-icon-img: 100px;
   }
 
   /* Small-source icons (Exhibition Stand, Sign Board) scaled up more on tablet/mobile */
@@ -1455,8 +1455,15 @@
 
   /* Smaller icons on mobile – all home icons consistent */
   :host {
-    --home-icon-box: 160px;
-    --home-icon-img: 135px;
+    --home-icon-box: 125px;
+    --home-icon-img: 105px;
+  }
+
+  .stat-number {
+    font-size: 2.5rem;
+  }
+  .stat-suffix {
+    font-size: 1.5rem;
   }
 
   /* Small-source icons scaled up even more on small mobile */
